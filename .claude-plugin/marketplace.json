@@ -1,0 +1,38 @@
+{
+  "name": "base44-marketing",
+  "owner": {
+    "name": "Base44 Team",
+    "email": "marketing@base44.com",
+    "url": "https://github.com/blutrich"
+  },
+  "metadata": {
+    "description": "Base44 Marketing Content Creation System - Orchestrated brand content with specialized agents",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "base44-marketing",
+      "description": "Marketing content orchestrator with brand-aware sub-agents. Features smart routing via marketing-router, channel-specific content (LinkedIn, Email, SEO), brand voice enforcement, and learning feedback system.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Base44 Team",
+        "url": "https://github.com/blutrich"
+      },
+      "homepage": "https://github.com/blutrich/Marketing-Playbook",
+      "repository": "https://github.com/blutrich/Marketing-Playbook",
+      "license": "MIT",
+      "keywords": [
+        "marketing",
+        "content-creation",
+        "brand-voice",
+        "linkedin",
+        "copywriting",
+        "seo",
+        "base44",
+        "claude-code"
+      ],
+      "category": "marketing-tools",
+      "source": "./plugins/base44-marketing"
+    }
+  ]
+}
