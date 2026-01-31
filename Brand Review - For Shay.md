@@ -127,10 +127,20 @@ We celebrate **real results** (revenue, apps shipped, time saved) rather than ab
 
 | Channel | Tone | Emoji |
 |---------|------|-------|
-| LinkedIn | Professional, results-focused | Minimal |
-| X | Community-focused, celebratory | Yes 🎉🚀🙏🏼🤯 |
-| Discord | Casual, humor, community | Yes 💪😅👇 |
-| Email | Personal, helpful | No |
+| LinkedIn | Results-focused, community, builder spotlights | Yes 🎉🔒🧪✨💪🚀 (1-3 per post) |
+| X | Community-focused, celebratory, fast | Yes 🎉🚀🙏🏼🤯 |
+| Discord | Casual, humor, community | Yes 💪😅👇 (more frequent) |
+| Email | Personal, helpful | Minimal |
+
+### LinkedIn-Specific Patterns (from real posts)
+- **Feature announcements:** "Another feature just dropped: [Feature Name]"
+- **Builder spotlights:** "[Name] built [app] → scaled to $X ARR"
+- **Contests:** "$50,000 in prizes", clear deadlines, "comment with most likes wins"
+- **Shipping recaps:** "Here's everything we shipped in the past 7 days:" (numbered)
+- **Specific numbers:** "$350k contract", "$50k ARR", "12 developers", "10× faster"
+- **Engagement CTAs:** "What's the first [X] you are going to [Y]?", "Drop it below"
+- **Friendly sign-offs:** "Happy testing! 🧪", "Happy building!"
+- **Behind-the-scenes:** Office tours, user meetups, team content
 
 ### X-Specific Patterns (from real posts)
 - **Community gratitude:** "it's all thanks to our community" 🙏🏼
@@ -242,12 +252,32 @@ Example:
 
 ---
 
+## Maor's Voice (Founder)
+
+Maor has a distinct personal voice on LinkedIn that represents the brand:
+
+| Element | Example |
+|---------|---------|
+| Specific numbers | "$350k contract", "12 developers", "$50k ARR in 30 days" |
+| "Wild" for impressive | "Wild. 🔥" |
+| Self-deprecating | "The team is shipping faster than I can post about it 😅" |
+| Personal stories | "I met Guy Manzur today..." |
+| Behind-the-scenes | "nice chart below, because people like charts" |
+| Community gratitude | "Thanks to everyone who showed up 🙏🏼" |
+| Weekly stories | "I've been getting those stories on a ~weekly basis now" |
+
+**Maor's signature style:** Founder authenticity + specific results + community appreciation
+
+---
+
 ## Sources
 
 - Team interviews (Laura, Tiffany, transcriptions)
 - Existing brand files (brand.json, tone-of-voice.md)
 - Maor's style ("90% of my code was written by Claude")
 - Tiffany's Debug Mode marketing plan
+- **Real LinkedIn posts** (Base44 account, Maor, team reposts)
+- **Real X posts** (Base44 account, Maor, Tomer)
 
 ---
 

@@ -30,6 +30,13 @@ After Shay reviews content:
 | "no explanation needed" | Removes friction, empowers builder | 2026-01-31 (Tiffany) |
 | "spend less time X, more time Y" | Contrast format shows value | 2026-01-31 (Tiffany) |
 | "Check out our super quick demo 👇" | Direct CTA with emoji pointer | 2026-01-31 (Tiffany) |
+| "Another feature just dropped:" | Clean feature announcement format | 2026-01-31 (LinkedIn) |
+| "We can't wait to see what you build 🎉" | Community excitement, empowerment | 2026-01-31 (LinkedIn) |
+| "Happy [action]! 🧪" | Friendly sign-off (Happy testing!) | 2026-01-31 (LinkedIn) |
+| "I've been getting those stories on a ~weekly basis" | Social proof without bragging | 2026-01-31 (Maor) |
+| "Built something cool? Drop it below" | Engagement CTA | 2026-01-31 (LinkedIn) |
+| "The comment with the most likes wins credits" | Gamified engagement | 2026-01-31 (LinkedIn) |
+| "$350k contract" / "$50k ARR" / "$1M ARR" | Specific numbers = credibility | 2026-01-31 (Maor) |
 
 ### Tone Patterns
 | Pattern | Example | Discovered |
@@ -63,6 +70,82 @@ After Shay reviews content:
 **Pattern Learned:**
 - [what to repeat or avoid next time]
 ```
+
+---
+
+### 2026-01-31 - LinkedIn - Real Posts Analysis (Base44 + Maor + team)
+
+**Source:** Base44 LinkedIn, Maor's LinkedIn, team reposts
+
+**Base44 Official - Feature Announcement:**
+> Another feature just dropped: Safe Testing
+>
+> You can now test your forms and automations without breaking anything in production.
+>
+> Happy testing! 🧪
+
+**Base44 Official - Contest:**
+> 🏈 Base44 is going to the Big Game!
+>
+> To celebrate, we're launching our BIGGEST contest yet - with $50,000 in prizes for the best game-day apps.
+>
+> We can't wait to see what you build 🎉
+
+**Maor - Success Story:**
+> Just heard of a customer that terminated a $350k contract with Salesforce for a custom solution they built on top of base44
+>
+> I've been getting those stories on a ~weekly basis now.
+
+**Maor - Shipping Update:**
+> Last week was one of the craziest release weeks we've had at Base44.
+> Here's everything we shipped in the past 7 days:
+> 1. SEO improvements
+> 2. Scheduled tasks
+> 3. GitHub 2-way sync...
+
+**Maor - Builder Spotlight:**
+> I met Guy Manzur today, the founder of lunair.ai
+>
+> He built it solo on top of Base44 and fully bootstrapped.
+> He scaled to $50k ARR just 30 days after hitting the publish button.
+
+**Patterns Extracted:**
+
+*Phrases that work:*
+- "Another feature just dropped:" (feature announcement format)
+- "We can't wait to see what you build 🎉"
+- "Happy [action]!" (Happy testing! 🧪)
+- "What's the first [X] you are going to [Y]?"
+- "Built something cool? Drop it below"
+- "The comment with the most likes wins credits"
+- "More improvements coming soon!"
+- "I've been getting those stories on a ~weekly basis now"
+
+*Emoji on LinkedIn:*
+- YES uses emoji: 🎉🔒🧪✨💳👋👀🔥💪🏈😅🚀🙏🏼
+- Typically 1-3 per post (not overdone)
+- Often at start of announcements or end of sections
+
+*Content types:*
+1. Feature announcements ("just dropped")
+2. Builder spotlights with specific numbers ($350k, $50k ARR, $1M ARR)
+3. Contests with clear prizes and deadlines
+4. Shipping recaps (numbered lists)
+5. Behind-the-scenes (office, team, user meetups)
+6. User testimonials (reposts)
+7. "What would you build?" engagement questions
+
+*Maor's voice:*
+- Specific numbers always: "$350k contract", "12 developers", "10× faster"
+- "Wild" for impressive things
+- Self-deprecating: "The team is shipping faster than I can post about it 😅"
+- Personal stories: "I met Guy today"
+- Behind the scenes: "nice chart below, because people like charts"
+
+*Structure:*
+- Hook → Details → CTA ("What would you build?")
+- Story → Numbers → Lesson
+- Announcement → How it works → "Happy [X]!"
 
 ---
 
