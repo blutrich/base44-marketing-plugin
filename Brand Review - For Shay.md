@@ -127,10 +127,18 @@ We celebrate **real results** (revenue, apps shipped, time saved) rather than ab
 
 | Channel | Tone | Emoji |
 |---------|------|-------|
-| LinkedIn | Professional, results-focused | No |
-| X | Punchy, direct, fast | Minimal |
+| LinkedIn | Professional, results-focused | Minimal |
+| X | Community-focused, celebratory | Yes 🎉🚀🙏🏼🤯 |
 | Discord | Casual, humor, community | Yes 💪😅👇 |
 | Email | Personal, helpful | No |
+
+### X-Specific Patterns (from real posts)
+- **Community gratitude:** "it's all thanks to our community" 🙏🏼
+- **Intrigue hooks:** "The results were honestly shocking. 🤯"
+- **Numbered threads:** For longer content (1. 2. 3.)
+- **Repost builders:** Amplify authentic user content
+- **Event promotion:** Cross-platform CTAs (Discord + YouTube + LinkedIn)
+- **Specific numbers:** "20 users", "about 1% are genius"
 
 ---
 

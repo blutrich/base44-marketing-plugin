@@ -35,8 +35,13 @@ After Shay reviews content:
 | Pattern | Example | Discovered |
 |---------|---------|------------|
 | Problem → Solution → Result | "When X happens... Now you can... So you..." | 2026-01-31 (Tiffany) |
-| Channel-specific emoji | Discord = emoji (😅💪), LinkedIn = no emoji | 2026-01-31 (Tiffany) |
+| Channel-specific emoji | Discord = lots, X = some (🎉🚀🙏🏼🤯), LinkedIn = minimal | 2026-01-31 (Tiffany), updated from X posts |
 | Casual Discord voice | "Tried saying X to my personal life too" - humor | 2026-01-31 (Tiffany) |
+| Community gratitude | "it's all thanks to our community" / "Thanks to everyone who showed up 🙏🏼" | 2026-01-31 (X posts) |
+| Intrigue hooks | "The results were honestly shocking. 🤯" | 2026-01-31 (Tomer/X) |
+| Repost builder content | Amplify authentic user posts showing product | 2026-01-31 (X posts) |
+| Thread format | Numbered points (1. 2. 3.) for longer content | 2026-01-31 (Maor/X) |
+| Event promotion | Cross-platform CTAs (Discord + YouTube + LinkedIn) | 2026-01-31 (X posts) |
 
 ---
 
@@ -58,6 +63,48 @@ After Shay reviews content:
 **Pattern Learned:**
 - [what to repeat or avoid next time]
 ```
+
+---
+
+### 2026-01-31 - X - Real Posts Analysis (Base44 account + reposts)
+
+**Source:** Base44 X account, Maor, Tomer, reposted builders
+
+**Maor's style:**
+> 2. This week's in-person roundtables
+>
+> We invited 20 users to our offices for a full day of feedback sessions.
+>
+> Just like that first group chat, it's been the best way to learn what's working and what we can improve.
+>
+> Thanks to everyone who showed up this week 🙏🏼
+
+**Tomer (employee) - reposted:**
+> I work at @base44, so I see many prompts every day.
+> Most of them are okay. Some are good. But about 1% are genius.
+>
+> I spent the last week analyzing that top 1%.
+> The results were honestly shocking. 🤯
+
+**Base44 official - event announcement:**
+> 🎉 Special announcement: We're hosting a Live AMA with our founder @MS_BASE44
+>
+> 2025 was an incredible founding year, and it's all thanks to our community.
+>
+> So we're wrapping up the year together - ask us anything about 2025 and what's coming in 2026
+
+**Builder repost (Tristan):**
+> Swapping between desktop and mobile views in my app created by @base44 is incredibly satisfying, for some reason.
+
+**Patterns Extracted:**
+- X DOES use emoji (🎉🚀🙏🏼🤯) - more than I assumed
+- Community gratitude is core: "thanks to our community", "Thanks to everyone"
+- Numbered thread format for longer content
+- "The results were honestly shocking" - intrigue hooks work
+- Repost authentic builder content (social proof)
+- Cross-platform event promotion
+- Personal touch: "We invited 20 users to our offices"
+- Specific numbers: "about 1% are genius", "20 users"
 
 ---
 
