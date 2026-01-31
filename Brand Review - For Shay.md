@@ -1,8 +1,80 @@
 # Base44 Brand Review
 
-> **For Shay** — Please review and validate. Is this how Base44 should sound?
+> **For Shay** — Please review and validate. Is this how Base44 should look and sound?
 
 ---
+
+# PART 1: VISUAL IDENTITY
+
+## Brand Description
+
+**AI-first vibe coding platform** — Light gradient aesthetic with warm orange accents.
+
+---
+
+## Color Palette
+
+### Primary Colors
+
+| Color | Hex | Usage |
+|-------|-----|-------|
+| 🟦 Light Blue | `#E8F4F8` | Primary background |
+| 🟧 Warm Orange | `#FF983B` | Primary accent |
+| ⬛ Black | `#000000` | Text, buttons |
+| ⬜ White | `#FFFFFF` | Cards, content areas |
+
+### Full Palette
+
+| Name | Hex | Sample |
+|------|-----|--------|
+| Background | `#E8F4F8` | Light blue |
+| Background Alt | `#FDF5F0` | Warm cream |
+| Text | `#000000` | True black |
+| Text Secondary | `#666666` | Gray |
+| Accent | `#FF983B` | Warm orange |
+| Accent Light | `#FFE9DF` | Soft peach |
+| Accent Medium | `#FFBFA1` | Medium orange |
+| Accent Dark | `#EA6020` | Deep orange |
+| Accent Darkest | `#C94001` | Burnt orange |
+| Card BG | `#FFFFFF` | White |
+| Code BG | `#F5F5F5` | Light gray |
+| Button BG | `#000000` | Black |
+| Button Text | `#FFFFFF` | White |
+
+### Gradient
+
+```
+Direction: 180° (top to bottom)
+Start: #E8F4F8 (light blue)
+End: #FDF5F0 (warm cream)
+```
+
+---
+
+## Typography
+
+| Usage | Font | Fallback |
+|-------|------|----------|
+| Headings | BC Novatica Cyr | Arial |
+| Headings Alt | STK Miso Light | Arial |
+| Body | Inter | Arial |
+| Code | Courier New | — |
+
+---
+
+## Visual Style
+
+| Element | Style |
+|---------|-------|
+| Cards | White with subtle shadow (`0 4px 24px rgba(0,0,0,0.08)`) |
+| Buttons | Black background, white text, fully rounded |
+| Accent bars | Orange stripe at top of cards |
+| Corners | Slightly rounded (3% radius) |
+| Overall feel | Clean, light, modern, warm |
+
+---
+
+# PART 2: VOICE & TONE
 
 ## Voice in 3 Words
 
@@ -144,11 +216,21 @@ Example:
 
 ## Questions for Shay
 
-1. **Voice accuracy** — Does this capture how Base44 should sound?
-2. **Missing elements** — What's missing from the brand voice?
-3. **Wrong elements** — Anything here that feels off-brand?
-4. **Vocabulary** — Any words we should add to USE or AVOID?
-5. **Examples** — Do the sample posts feel right?
+### Visual Identity
+1. **Colors** — Are these the correct brand colors?
+2. **Fonts** — Is BC Novatica Cyr the primary heading font?
+3. **Overall look** — Light/airy with warm orange accents — accurate?
+
+### Voice & Tone
+4. **Voice accuracy** — Does this capture how Base44 should sound?
+5. **Missing elements** — What's missing from the brand voice?
+6. **Wrong elements** — Anything here that feels off-brand?
+7. **Vocabulary** — Any words we should add to USE or AVOID?
+8. **Examples** — Do the sample posts feel right?
+
+### General
+9. **Competitor differentiation** — How should we sound different from [X]?
+10. **Red lines** — What should we NEVER say or do?
 
 ---
 
