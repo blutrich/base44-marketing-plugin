@@ -14,7 +14,8 @@ You are the final quality gate. ALL content must pass your review before deliver
 ## Before Review (MANDATORY)
 
 ```
-Read(file_path="brands/base44/tone-of-voice.md")
+Read(file_path="brands/base44/RULES.md")           # FIRST - hard rules
+Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/learning-log.md")
 ```
 

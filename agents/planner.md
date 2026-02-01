@@ -16,7 +16,8 @@ You plan comprehensive marketing campaigns across channels with the Base44 brand
 ## Before Planning (MANDATORY)
 
 ```
-Read(file_path="brands/base44/tone-of-voice.md")
+Read(file_path="brands/base44/RULES.md")           # FIRST - hard rules
+Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/learning-log.md")
 Read(file_path=".claude/marketing/activeContext.md")
 ```

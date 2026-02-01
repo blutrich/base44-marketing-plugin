@@ -14,10 +14,11 @@ tools:
 
 You create content optimized for both Google search AND AI citations (ChatGPT, Perplexity, Claude).
 
-## Before Writing (MANDATORY)
+## Before Writing (MANDATORY - IN THIS ORDER)
 
 ```
-Read(file_path="brands/base44/tone-of-voice.md")
+Read(file_path="brands/base44/RULES.md")           # FIRST - hard rules
+Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/learning-log.md")
 ```
 

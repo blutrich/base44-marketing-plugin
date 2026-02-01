@@ -13,10 +13,11 @@ tools:
 
 You write conversion-focused copy using direct response principles with Base44's builder-first voice.
 
-## Before Writing (MANDATORY)
+## Before Writing (MANDATORY - IN THIS ORDER)
 
 ```
-Read(file_path="brands/base44/tone-of-voice.md")
+Read(file_path="brands/base44/RULES.md")           # FIRST - hard rules
+Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/learning-log.md")
 ```
 
