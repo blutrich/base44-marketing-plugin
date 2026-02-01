@@ -1,0 +1,30 @@
+{
+  "name": "base44-marketing",
+  "version": "1.1.0",
+  "description": "Marketing content orchestrator with 77+ tactics, 71 psychology principles, brand-aware agents, and evolving memory. Features smart routing, channel-specific content (LinkedIn, X, Email, SEO), and anti-AI patterns.",
+  "author": {
+    "name": "Base44 Team",
+    "url": "https://github.com/blutrich"
+  },
+  "homepage": "https://github.com/blutrich/base44-marketing",
+  "repository": "https://github.com/blutrich/base44-marketing",
+  "license": "MIT",
+  "keywords": [
+    "marketing",
+    "content-creation",
+    "brand-voice",
+    "linkedin",
+    "twitter",
+    "x",
+    "copywriting",
+    "seo",
+    "psychology",
+    "tactics",
+    "base44"
+  ],
+  "contributors": [
+    "Lora (Content Manager)",
+    "Tiffany (Product Marketing)",
+    "Maor (Founder)"
+  ]
+}
