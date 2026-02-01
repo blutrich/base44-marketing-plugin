@@ -32,7 +32,10 @@
         "claude-code"
       ],
       "category": "marketing-tools",
-      "source": "./plugins/base44-marketing"
+      "source": {
+        "source": "github",
+        "repo": "blutrich/base44-marketing-plugin"
+      }
     }
   ]
 }
