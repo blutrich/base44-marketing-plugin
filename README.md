@@ -77,6 +77,7 @@
 | `geo-content` | AI citation (GEO) |
 | `landing-page-architecture` | 8-Section Framework |
 | `brand-memory` | Persistent learning |
+| `remotion` | Video creation in React |
 
 ## Agents
 
@@ -198,7 +199,8 @@ base44-marketing/
 │   ├── seo-content/
 │   ├── geo-content/
 │   ├── landing-page-architecture/
-│   └── brand-memory/
+│   ├── brand-memory/
+│   └── remotion/
 ├── agents/
 │   ├── linkedin-specialist.md
 │   ├── x-specialist.md
@@ -224,4 +226,4 @@ base44-marketing/
 
 ---
 
-*Version 1.1.1 | Following cc10x patterns: Router → Agent Chains → Quality Gate*
+*Version 1.2.0 | Following cc10x patterns: Router → Agent Chains → Quality Gate*
