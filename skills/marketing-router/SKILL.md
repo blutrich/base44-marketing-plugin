@@ -5,7 +5,7 @@ description: |
 
   Use this skill when: creating content, writing posts, generating copy, planning campaigns, or ANY marketing request.
 
-  Triggers: linkedin, post, content, write, create, copy, email, landing, page, seo, blog, campaign, announce, launch, marketing, brand, Base44, brainstorm, ideas, tactics.
+  Triggers: linkedin, post, content, write, create, copy, email, landing, page, seo, blog, campaign, announce, launch, marketing, brand, Base44, brainstorm, ideas, tactics, video, remotion, animation, thumbnail, clip, reel.
 
   CRITICAL: Execute workflow immediately. Never just describe capabilities.
 ---
@@ -67,7 +67,8 @@ description: |
 | 4 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
 | 5 | LANDING | landing page, sales page, signup | **LANDING** |
 | 6 | SEO | blog, seo, article, pillar | **SEO** |
-| 7 | DEFAULT | content, write, create | **CONTENT** |
+| 7 | VIDEO | video, remotion, animation, thumbnail, clip, reel | **VIDEO** |
+| 8 | DEFAULT | content, write, create | **CONTENT** |
 
 **Conflict Resolution:**
 - BRAINSTORM = ideation only (generates ideas, routes to execution)
@@ -84,6 +85,7 @@ description: |
 | EMAIL | copywriter → brand-guardian | Execution |
 | LANDING | copywriter → brand-guardian | Execution |
 | SEO | seo-specialist → brand-guardian | Execution |
+| VIDEO | video-specialist → brand-guardian | Execution |
 | CONTENT | content-writer → brand-guardian | Execution |
 
 **∥ = PARALLEL** - run simultaneously for multi-channel campaigns

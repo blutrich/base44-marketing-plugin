@@ -90,6 +90,7 @@
 | `seo-specialist` | Blog, SEO content |
 | `brand-guardian` | Quality gate |
 | `planner` | Multi-channel campaigns |
+| `video-specialist` | Remotion videos + AI imagery |
 
 ## Usage
 
@@ -209,7 +210,8 @@ base44-marketing/
 │   ├── copywriter.md
 │   ├── seo-specialist.md
 │   ├── brand-guardian.md
-│   └── planner.md
+│   ├── planner.md
+│   └── video-specialist.md
 └── brands/
     └── base44/
         ├── tone-of-voice.md
@@ -228,4 +230,4 @@ base44-marketing/
 
 ---
 
-*Version 1.3.0 | Following cc10x patterns: Router → Agent Chains → Quality Gate*
+*Version 1.4.0 | Following cc10x patterns: Router → Agent Chains → Quality Gate*
