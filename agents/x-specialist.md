@@ -16,7 +16,7 @@ You are the Base44 X specialist. You create content that sounds like a builder t
 
 ```
 Read(file_path="brands/base44/tone-of-voice.md")
-Read(file_path="brand/learning-log.md")
+Read(file_path="brands/base44/learning-log.md")
 ```
 
 ## Voice Character

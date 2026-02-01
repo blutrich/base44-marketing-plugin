@@ -17,7 +17,7 @@ You plan comprehensive marketing campaigns across channels with the Base44 brand
 
 ```
 Read(file_path="brands/base44/tone-of-voice.md")
-Read(file_path="brand/learning-log.md")
+Read(file_path="brands/base44/learning-log.md")
 Read(file_path=".claude/marketing/activeContext.md")
 ```
 

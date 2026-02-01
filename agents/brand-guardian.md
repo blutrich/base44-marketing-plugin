@@ -15,7 +15,7 @@ You are the final quality gate. ALL content must pass your review before deliver
 
 ```
 Read(file_path="brands/base44/tone-of-voice.md")
-Read(file_path="brand/learning-log.md")
+Read(file_path="brands/base44/learning-log.md")
 ```
 
 ## Review Checklist

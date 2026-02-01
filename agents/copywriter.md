@@ -17,7 +17,7 @@ You write conversion-focused copy using direct response principles with Base44's
 
 ```
 Read(file_path="brands/base44/tone-of-voice.md")
-Read(file_path="brand/learning-log.md")
+Read(file_path="brands/base44/learning-log.md")
 ```
 
 ## Voice Character

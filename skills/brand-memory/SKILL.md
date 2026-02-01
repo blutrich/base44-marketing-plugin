@@ -164,7 +164,7 @@ Read(file_path=".claude/marketing/activeContext.md")  # Verify
 ### Log Learning (After Feedback)
 ```
 Edit(file_path=".claude/marketing/patterns.md", ...)
-Edit(file_path="brand/learning-log.md", ...)  # Permanent record
+Edit(file_path="brands/base44/learning-log.md", ...)  # Permanent record
 ```
 
 ## Self-Learning Protocol
@@ -178,7 +178,7 @@ IF feedback == "approved":
 
 IF feedback == "rejected" OR "needs revision":
     → Log to patterns.md "Content That Got Rejected"
-    → Log to brand/learning-log.md (permanent)
+    → Log to brands/base44/learning-log.md (permanent)
     → Identify pattern
     → IF pattern repeats 3+ times:
         → Suggest AGENTS.md update

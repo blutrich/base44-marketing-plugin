@@ -102,7 +102,7 @@ description: |
 ```
 Read(file_path="brands/base44/tone-of-voice.md")
 Read(file_path="brands/base44/AGENTS.md")
-Read(file_path="brand/learning-log.md")
+Read(file_path="brands/base44/learning-log.md")
 ```
 
 ## Brand Memory (PERMISSION-FREE)
@@ -287,7 +287,7 @@ After each agent completes:
 After successful content delivery:
 
 ```
-Edit(file_path="brand/learning-log.md", ...)
+Edit(file_path="brands/base44/learning-log.md", ...)
 # Add entry:
 # - What was created
 # - What worked well
@@ -297,7 +297,7 @@ Edit(file_path="brand/learning-log.md", ...)
 After rejection/revision:
 
 ```
-Edit(file_path="brand/learning-log.md", ...)
+Edit(file_path="brands/base44/learning-log.md", ...)
 # Add entry:
 # - Original content
 # - Feedback received

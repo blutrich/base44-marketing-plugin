@@ -18,7 +18,7 @@ You create content optimized for both Google search AND AI citations (ChatGPT, P
 
 ```
 Read(file_path="brands/base44/tone-of-voice.md")
-Read(file_path="brand/learning-log.md")
+Read(file_path="brands/base44/learning-log.md")
 ```
 
 ## Voice Character
