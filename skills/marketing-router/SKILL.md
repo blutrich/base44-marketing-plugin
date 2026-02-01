@@ -267,42 +267,125 @@ When complete: TaskUpdate({ taskId: '{task_id}', status: 'completed' })
 ")
 ```
 
-## Post-Agent Validation
+## Post-Agent Validation (CC10X PATTERN)
 
-After each agent completes:
+After each agent completes, **VALIDATE before proceeding**:
 
-1. Check output has required sections
-2. **Brand Guardian is MANDATORY** - all content must pass review
-3. If Guardian rejects: Create remediation task, block delivery
+### Validation Gates
+
+| Agent | Required Output | Threshold |
+|-------|-----------------|-----------|
+| linkedin-specialist | Post + Metadata | Confidence ≥70 |
+| x-specialist | Tweet/Thread + Metadata | Confidence ≥70 |
+| copywriter | Copy + Framework used | Confidence ≥70 |
+| seo-specialist | Content + SEO Metadata | Confidence ≥70 |
+| brand-guardian | Score + Verdict | Score ≥7/10 |
+
+### Validation Check (Run after EVERY agent)
 
 ```
 ### Agent Validation: {agent_name}
-- Brand Voice Check: [Pass/Fail]
-- Required Elements: [Present/Missing]
+- Required Sections: [Present/Missing]
+- Confidence Score: [X/100 or X/10]
+- Threshold Met: [Yes/No]
 - Proceeding: [Yes/No + reason]
 ```
 
-## Learning Log Update
+### Failure Handling
 
-After successful content delivery:
+**If confidence < threshold OR required sections missing:**
+1. Create remediation task
+2. Block downstream tasks
+3. Do NOT proceed to brand-guardian with incomplete content
 
 ```
+TaskCreate({
+  subject: "REMEDIATE: {agent_name} output incomplete",
+  description: "Missing: {what's missing}\nRequired: {what's needed}",
+  activeForm: "Fixing content"
+})
+TaskUpdate({ taskId: guardian_id, addBlockedBy: [remediation_id] })
+```
+
+### Brand Guardian Verdicts
+
+| Score | Verdict | Action |
+|-------|---------|--------|
+| 9-10 | APPROVED | Deliver to user |
+| 7-8 | APPROVED WITH NOTES | Deliver + show suggestions |
+| 5-6 | NEEDS REVISION | Return to specialist |
+| 1-4 | REJECTED | Rewrite from scratch |
+
+**CRITICAL:** Score < 7 = content does NOT leave the system
+
+## Memory Management (CC10X PATTERN)
+
+### Memory Files Structure
+
+| File | Purpose | Update Frequency |
+|------|---------|------------------|
+| `activeContext.md` | Current focus, recent work | Every session |
+| `patterns.md` | What works, reusable insights | When patterns emerge |
+| `feedback.md` | Pending team feedback | After reviews |
+
+### Read-Edit-Verify Cycle (MANDATORY)
+
+**Every memory edit follows this pattern:**
+```
+1. Read(file_path=".claude/marketing/{file}.md")  # Load current
+2. Edit(file_path=".claude/marketing/{file}.md", old_string="...", new_string="...")  # Update
+3. Read(file_path=".claude/marketing/{file}.md")  # VERIFY edit applied
+```
+
+**NEVER skip step 3.** Edits can fail silently.
+
+### Stable Anchors (Edit using THESE headers only)
+
+**activeContext.md:**
+- `## Current Focus`
+- `## Recent Content`
+- `## Next Steps`
+- `## Active Campaigns`
+- `## Last Updated`
+
+**patterns.md:**
+- `## Voice Patterns`
+- `## Platform Patterns`
+- `## Engagement Patterns`
+- `## Anti-Patterns`
+
+**feedback.md:**
+- `## Pending Review`
+- `## Applied Feedback`
+- `## Rejected Ideas`
+
+### Learning Log Update
+
+After successful content delivery:
+```
 Edit(file_path="brands/base44/learning-log.md", ...)
-# Add entry:
-# - What was created
+# Add entry under ## Recent Entries:
+# - Date, Channel, Type
 # - What worked well
-# - Patterns to repeat
+# - Pattern to repeat
 ```
 
 After rejection/revision:
-
 ```
 Edit(file_path="brands/base44/learning-log.md", ...)
-# Add entry:
-# - Original content
-# - Feedback received
-# - Corrected version
-# - Pattern learned
+# Add entry under ## Corrections:
+# - Original issue
+# - Fix applied
+# - Rule learned
+```
+
+### Escalation to RULES.md
+
+**If same feedback appears 3+ times in learning-log.md:**
+```
+Edit(file_path="brands/base44/RULES.md", ...)
+# Add to ## NEVER DO section
+# This makes it a HARD RULE all agents read FIRST
 ```
 
 ---

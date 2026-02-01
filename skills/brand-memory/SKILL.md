@@ -145,7 +145,7 @@ brands/base44/
 [timestamp]
 ```
 
-## Memory Operations
+## Memory Operations (CC10X PATTERN)
 
 ### Load Memory (Start of Session)
 ```
@@ -153,18 +153,51 @@ Bash(command="mkdir -p .claude/marketing")
 Read(file_path=".claude/marketing/activeContext.md")
 Read(file_path=".claude/marketing/patterns.md")
 Read(file_path=".claude/marketing/feedback.md")
+# If any file errors → Create with template above
 ```
+
+### Read-Edit-Verify Cycle (MANDATORY)
+
+**Every edit must follow this pattern:**
+```
+1. Read(file_path=".claude/marketing/{file}.md")      # Load current state
+2. Edit(file_path=".claude/marketing/{file}.md", ...) # Make change
+3. Read(file_path=".claude/marketing/{file}.md")      # VERIFY applied
+```
+
+**NEVER skip step 3.** Edits can fail silently.
+
+### Stable Anchors (Use THESE headers for Edit)
+
+| File | Valid Anchors |
+|------|---------------|
+| activeContext.md | `## Current Focus`, `## Recent Content`, `## Key Messages`, `## Last Updated` |
+| patterns.md | `## Phrases That Work`, `## Phrases to AVOID`, `## Content That Got Approved` |
+| feedback.md | `## Awaiting Review`, `## Recent Feedback`, `## Last Updated` |
 
 ### Update Memory (After Content Creation)
 ```
-Edit(file_path=".claude/marketing/activeContext.md", ...)
-Read(file_path=".claude/marketing/activeContext.md")  # Verify
+# Step 1: Read current state
+Read(file_path=".claude/marketing/activeContext.md")
+
+# Step 2: Edit using stable anchor
+Edit(file_path=".claude/marketing/activeContext.md",
+     old_string="## Recent Content\n- [DATE]",
+     new_string="## Recent Content\n- [TODAY]: [type] - [status]\n- [DATE]")
+
+# Step 3: Verify edit applied
+Read(file_path=".claude/marketing/activeContext.md")
 ```
 
 ### Log Learning (After Feedback)
 ```
+# Local patterns
 Edit(file_path=".claude/marketing/patterns.md", ...)
-Edit(file_path="brands/base44/learning-log.md", ...)  # Permanent record
+Read(file_path=".claude/marketing/patterns.md")  # Verify
+
+# Permanent team record
+Edit(file_path="brands/base44/learning-log.md", ...)
+Read(file_path="brands/base44/learning-log.md")  # Verify
 ```
 
 ## Self-Learning Protocol
