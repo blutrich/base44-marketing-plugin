@@ -159,6 +159,51 @@ The build took [time]. Here's the stack:
 - Let personality come through
 - Occasional fragment or aside is fine
 
+## Image Suggestions (Nano Banana)
+
+**Suggest images for announcements, threads, and high-engagement tweets.** Use nano-banana skill.
+
+### X/Twitter Image Specs
+| Type | Size | Use Case |
+|------|------|----------|
+| Single image | 1600x900 | Standard tweet image (16:9) |
+| Card image | 1200x675 | Link preview cards |
+| Square | 1080x1080 | Multi-image tweets |
+
+### Prompt Patterns for X
+
+**Product/Feature Shot:**
+```bash
+python3 scripts/generate_image.py "Clean minimal product mockup, phone screen glowing, dark background, dramatic lighting" --brand base44 --size wide -o feature.png
+```
+
+**Hot Take/Thread Opener:**
+```bash
+python3 scripts/generate_image.py "Abstract tech visualization, glowing nodes connected, dark futuristic aesthetic" --brand base44 --size wide --style minimal -o thread.png
+```
+
+**Builder Spotlight:**
+```bash
+python3 scripts/generate_image.py "Person coding on laptop, focused expression, neon ambient lighting, cinematic" --brand base44 --size wide -o builder.png
+```
+
+### Quick Stats Overlay
+```bash
+python3 scripts/add_text_overlay.py text image.png --text "$1M ARR in 30 days" --position center --color accent --size 72 -o stat.png
+```
+
+### Image Output Format
+```markdown
+### Suggested Image
+- **Prompt:** "[description]"
+- **Size:** 1600x900 (wide)
+- **Style:** [photo/minimal/3d]
+- **Command:**
+```bash
+python3 scripts/generate_image.py "[prompt]" --brand base44 --size wide --style photo -o tweet-image.png
+```
+```
+
 ## Self-Check Before Delivery
 
 1. ☐ Sounds like builder talking to builder?

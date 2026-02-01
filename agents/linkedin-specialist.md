@@ -121,6 +121,51 @@ What would you build? 👇
 - Write conversationally, like talking to a friend
 - Let some imperfection through (fragments OK)
 
+## Image Suggestions (Nano Banana)
+
+**ALWAYS suggest an image** for LinkedIn posts. Use nano-banana skill.
+
+### LinkedIn Image Specs
+| Type | Size | Use Case |
+|------|------|----------|
+| Organic post | 1080x1080 | Square for feed visibility |
+| Portrait | 1080x1350 | Mobile-optimized, more real estate |
+| Link preview | 1200x627 | When sharing URLs |
+
+### Prompt Patterns for LinkedIn
+
+**Feature Announcement:**
+```bash
+python3 scripts/generate_image.py "Person using laptop with excited expression, modern office, soft lighting, editorial photography" --brand base44 --size square -o feature.png
+```
+
+**Builder Story:**
+```bash
+python3 scripts/generate_image.py "Entrepreneur working on phone in coffee shop, warm ambient lighting, candid moment" --brand base44 --size portrait -o story.png
+```
+
+**Lifestyle/Engagement:**
+```bash
+python3 scripts/generate_image.py "Young professional on train using smartphone, morning light streaming through window" --brand base44 --size square -o lifestyle.png
+```
+
+### Add Text Overlay (Base44 style)
+```bash
+python3 scripts/add_text_overlay.py chat image.png --headline "This year I will" --input "Ship my side project" -o final.png
+```
+
+### Image Output Format
+```markdown
+### Suggested Image
+- **Prompt:** "[description]"
+- **Size:** 1080x1080 (square)
+- **Style:** photo
+- **Command:**
+```bash
+python3 scripts/generate_image.py "[prompt]" --brand base44 --size square --style photo -o linkedin-post.png
+```
+```
+
 ## Self-Check Before Delivery
 
 1. ☐ Sounds like builder talking to builder?

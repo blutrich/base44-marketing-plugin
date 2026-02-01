@@ -111,6 +111,66 @@ According to [source/data], [statistic or proof point].
 | Ship / Go live | Deploy, Launch |
 | Vibe coding | No-code (alone) |
 
+## Image Suggestions (Nano Banana)
+
+**Suggest images for blog posts and pillar pages.** Use nano-banana skill.
+
+### Blog Image Specs
+| Type | Size | Use Case |
+|------|------|----------|
+| Hero/Featured | 1200x630 | Top of article, OG share |
+| Inline | 800x450 | Section breaks |
+| Infographic | 800x1200 | Data visualization |
+| OG Image | 1200x630 | Social sharing |
+
+### Prompt Patterns for SEO Content
+
+**Blog Hero (How-To):**
+```bash
+python3 scripts/generate_image.py "Clean workspace with laptop showing code, minimal aesthetic, soft natural lighting, editorial style" --brand base44 --size wide --style photo -o blog-hero.png
+```
+
+**Blog Hero (Comparison):**
+```bash
+python3 scripts/generate_image.py "Split screen concept, two paths diverging, abstract tech visualization, modern minimal" --brand base44 --size wide --style illustration -o comparison.png
+```
+
+**Blog Hero (Tutorial):**
+```bash
+python3 scripts/generate_image.py "Hands typing on keyboard, close-up, code reflected in glasses, focused developer" --brand base44 --size wide --style photo -o tutorial.png
+```
+
+**Inline (Feature Highlight):**
+```bash
+python3 scripts/generate_image.py "Abstract UI elements floating, glass morphism style, soft gradients, dark background" --brand base44 --size landscape --style 3d -o feature.png
+```
+
+**Case Study:**
+```bash
+python3 scripts/generate_image.py "Entrepreneur celebrating success, laptop open, modern office, triumphant moment" --brand base44 --size wide --style photo -o case-study.png
+```
+
+### OG Image with Title
+```bash
+python3 scripts/add_text_overlay.py text hero.png --text "How to Build Apps 10x Faster" --position center --color white --size 64 -o og-image.png
+```
+
+### Image Output Format
+```markdown
+### Suggested Images
+
+**Featured Image (OG):**
+- Prompt: "[description]"
+- Size: 1200x630
+- Alt text: "[SEO-friendly description]"
+- Command: `python3 scripts/generate_image.py "[prompt]" --brand base44 --size wide -o featured.png`
+
+**Inline Images:**
+1. Section: [section name]
+   - Prompt: "[description]"
+   - Alt text: "[description]"
+```
+
 ## Output Format
 
 ```markdown

@@ -121,6 +121,67 @@ Your turn?
 - Passive voice
 - "Revolutionary" / "Game-changing"
 
+## Image Suggestions (Nano Banana)
+
+**Suggest images for emails and landing pages.** Use nano-banana skill.
+
+### Email Image Specs
+| Type | Size | Use Case |
+|------|------|----------|
+| Header | 600x200 | Email header/banner |
+| Hero | 600x400 | Main email image |
+| Inline | 600x300 | Content break |
+
+### Landing Page Image Specs
+| Type | Size | Use Case |
+|------|------|----------|
+| Hero | 1920x1080 | Above the fold |
+| Feature | 800x600 | Feature sections |
+| Testimonial | 400x400 | Avatar/headshot style |
+| OG Image | 1200x630 | Social sharing |
+
+### Prompt Patterns
+
+**Email Header:**
+```bash
+python3 scripts/generate_image.py "Abstract gradient background with subtle tech patterns, Base44 orange accent, minimal" --brand base44 --size landscape -o email-header.png
+```
+
+**Landing Page Hero:**
+```bash
+python3 scripts/generate_image.py "Person building app on laptop, modern workspace, natural light, aspirational lifestyle" --brand base44 --size wide --style photo -o hero.png
+```
+
+**Social Proof/Testimonial:**
+```bash
+python3 scripts/generate_image.py "Professional headshot style, friendly entrepreneur, neutral background, warm lighting" --brand base44 --size square --style photo -o testimonial.png
+```
+
+**Product Demo:**
+```bash
+python3 scripts/generate_image.py "Clean phone mockup showing app interface, floating UI elements, dark gradient background" --brand base44 --size landscape --style 3d -o demo.png
+```
+
+### CTA Banner with Text
+```bash
+python3 scripts/add_text_overlay.py text hero.png --text "Start Building Today" --position bottom --color white --size 48 -o cta-hero.png
+```
+
+### Image Output Format
+```markdown
+### Suggested Images
+
+**Hero Image:**
+- Prompt: "[description]"
+- Size: 1920x1080
+- Command: `python3 scripts/generate_image.py "[prompt]" --brand base44 --size wide -o hero.png`
+
+**Email Header:**
+- Prompt: "[description]"
+- Size: 600x200
+- Command: `python3 scripts/generate_image.py "[prompt]" --brand base44 --size landscape -o header.png`
+```
+
 ## Output Format
 
 ```markdown

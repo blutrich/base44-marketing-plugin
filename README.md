@@ -230,4 +230,4 @@ base44-marketing/
 
 ---
 
-*Version 1.4.0 | Following cc10x patterns: Router → Agent Chains → Quality Gate*
+*Version 1.5.0 | Following cc10x patterns: Router → Agent Chains → Quality Gate*
