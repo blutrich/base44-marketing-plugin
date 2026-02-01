@@ -5,8 +5,8 @@
 ## One-Line Install
 
 ```bash
-# From GitHub (when published)
-/plugin install github:blutrich/base44-marketing
+# From GitHub
+/plugin install github:blutrich/base44-marketing-plugin
 
 # Or local development
 /plugin install /path/to/base44-marketing
@@ -76,6 +76,20 @@ I need marketing ideas to amplify our product launch
 Plan a multi-channel campaign for our native app launch
 ```
 
+## Brand Voice (3 Words)
+
+**BUILDER-FIRST | FAST-PACED | RESULTS-FOCUSED**
+
+## Quick Rules
+
+| USE | AVOID |
+|-----|-------|
+| "Builders" | "Users" / "Customers" |
+| "Ship" / "Go live" | "Deploy" / "Launch" |
+| "Vibe coding" | "No-code" alone |
+| "Just shipped" / "Dropped" | "We're excited to announce" |
+| Action verbs, present tense | Passive voice |
+
 ## Evolving Memory
 
 The plugin maintains learning in two places:
@@ -121,33 +135,21 @@ Team members can add feedback:
 | Learning log (team) | **Overwritten** | `brands/base44/learning-log.md` |
 | User session data | **Preserved** | `~/.claude/marketing/` |
 
-### Contributing Learnings Back
+## Anti-AI Patterns
 
-1. **For yourself only:** Say "add to memory: [feedback]" → saves to `~/.claude/marketing/`
-2. **For the team:** Edit `learning-log.md` in repo → push → everyone gets it on next update
+Based on team feedback (Lora, 2026-02-01):
 
-```bash
-# Clone, edit, push
-git clone https://github.com/blutrich/base44-marketing
-# Edit brands/base44/learning-log.md
-git add . && git commit -m "Add: avoid arrows per Lora"
-git push
-```
+**DON'T:**
+- Arrows (→) in lists - outdated
+- Too many bullet points
+- Overly choppy sentences
+- Repeated phrases every post
 
-## Development
-
-```bash
-# Clone for development
-git clone https://github.com/blutrich/base44-marketing
-cd base44-marketing
-
-# Link for local testing
-/plugin install ./base44-marketing
-
-# Make changes, test, commit
-git add . && git commit -m "Add new tactic"
-git push
-```
+**DO:**
+- Natural sentence flow
+- Varied structure
+- Conversational tone
+- Occasional imperfection OK
 
 ## File Structure
 
@@ -183,22 +185,14 @@ base44-marketing/
         └── templates/
 ```
 
-## Anti-AI Patterns
+## Team
 
-Based on team feedback (Lora, 2026-02-01):
-
-**DON'T:**
-- Arrows (→) in lists - outdated
-- Too many bullet points
-- Overly choppy sentences
-- Repeated phrases every post
-
-**DO:**
-- Natural sentence flow
-- Varied structure
-- Conversational tone
-- Occasional imperfection OK
+| Role | Person |
+|------|--------|
+| Brand Lead | Shay |
+| Content | Tiffany, Lora |
+| Social | Lora |
 
 ---
 
-*Version 1.1.0 | Contributors: Lora, Tiffany, Maor*
+*Version 1.1.0 | Following cc10x patterns: Router → Agent Chains → Quality Gate*

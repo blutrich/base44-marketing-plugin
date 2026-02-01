@@ -1,0 +1,9 @@
+# OS
+.DS_Store
+
+# Symlinks (machine-specific)
+brand-source
+
+# IDE
+.idea/
+.vscode/
