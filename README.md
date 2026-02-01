@@ -2,14 +2,43 @@
 
 > Orchestrated content creation with brand-aware sub-agents and evolving memory.
 
-## One-Line Install
+## Installation
+
+### For Team Members (Recommended)
 
 ```bash
-# From GitHub
-/plugin install github:blutrich/base44-marketing-plugin
+# Step 1: Add the marketplace (one-time)
+/plugin marketplace add blutrich/base44-marketing-plugin
 
-# Or local development
-/plugin install /path/to/base44-marketing
+# Step 2: Install the plugin
+/plugin install base44-marketing@blutrich-base44-marketing-plugin
+
+# Step 3: Verify installation
+/plugin list
+```
+
+### Alternative: Direct GitHub Install
+
+```bash
+/plugin install github:blutrich/base44-marketing-plugin
+```
+
+### Update to Latest Version
+
+```bash
+# Update the marketplace first
+/plugin marketplace update blutrich-base44-marketing-plugin
+
+# Then update the plugin
+/plugin update base44-marketing@blutrich-base44-marketing-plugin
+```
+
+### Interactive UI
+
+```bash
+/plugin  # Opens tabbed interface
+# Navigate to Marketplaces tab (Tab key)
+# Add: blutrich/base44-marketing-plugin
 ```
 
 ## Architecture
