@@ -1,107 +1,0 @@
-Plan mode
-(Marketing plan)
-Tier 1 release
-🚀 Launching: Jan 27
-
-Contents (use this page to navigate)
-About the feature: Plan mode
-Screenshots of the feature
-Assets for this announcement
-Links to other team assets: 
-Figma
-Demo environment 
-
-Plan mode
-What it is:  Plan Mode is Base44’s planning layer that helps users define their app clearly before building, transforming an initial idea into a structured plan the platform can execute.
-The problem:  Many users begin with a broad or incomplete concept. When they move directly into building, the result can be misaligned with their intent, missing key requirements, or require significant iteration often because the “right” inputs were never captured up front. 
-The solution: Plan Mode helps users get clarity first. It helps the user specify goals, identify the core user journey, and surface essential decisions (such as roles and constraints) so the first version of the app is more accurate and requires less rework.  
-A lot of vibe-coders start with a fuzzy idea, jump straight into building, and then hit the same pain points:
-“Wait… what exactly am I building?”
-Missing key details (roles, flows, what success looks like)
-Getting an app that technically works, but doesn’t match the intent
-
-How it works
-When Plan Mode is enabled, the user can start with a simple prompt (e.g., “I want to build an app”). Base44 then:
-The AI asks a small number of targeted clarifying questions, one at a time, only when an answer materially affects the app’s structure or flows 
-The AI will stop asking questions once additional answers no longer change the core structure (“momentum rule”) 
-Then it generates a PRD that’s detailed enough to guide the build (schema, permissions, flows)
-Once the user confirms the PRD, the AI will proceed to build the app
-
-Note: The Q&A process does not cost any credits, but the building process will consumer credits (variable depending on the scope of the task)
-
-
-Key Benefits
-Higher-quality first builds: better alignment between the user’s intent and what gets generated 
-Less back-and-forth and rework: upfront clarity reduces iteration caused by missing context 
-Guided thinking without complexity: users don’t always know what details to provide so the AI can help extract what matters
-More complete requirements: helps surface overlooked considerations (core flows, roles/permissions, constraints)
-Faster path from idea to execution: the flow is designed to preserve momentum and move quickly to synthesis
-
-Screenshots
-
-Screenshots
-
-Screenshots
-
-Assets needed
-Asset
-POC
-Demo video 
-Tiffany / Lora (TBD)
-LinkedIn (Maor + Brand)
-Lora
-X
-Lora
-Image for blog, email, what’s new (DONE)
-Vered’s team
-What’s new text 
-Tiffany
-Email newsletter blurb 
-Tiffany
-
-Main positioning 
-For this audience, “PRD” and “requirements” are often less compelling than outcomes. Messaging that tends to land focuses on confidence, clarity, and reducing uncertainty:
-“Get clarity before you build.”
-“Turn a rough idea into a build-ready plan in minutes.”
-“Fewer surprises, fewer do-overs.”
-“A structured starting point without needing to know what to ask for.”
-“Like having a product partner that asks the right questions, then moves forward.”
-
-
-Video demo draft 
-→ Download link
-
-Image 
-
-All great things start with a plan.
-Apps are no different.
-Today we’re introducing Plan Mode in Base44. It’s a planning layer that helps turn a rough idea into a clear, structured plan before building begins. By asking a few focused questions up front, Plan Mode helps Base44 understand your intent, surface key decisions, and deliver a stronger first version of your app.Less guesswork. Better outcomes. Available now in Base44.
-
-LinkedIn w/ video
-LinkedIn
-
-X
-X w/ video
-Some things are better when you don’t wing them.
-Plan Mode helps you slow down just enough to get clarity then speeds everything else up. Start with an idea, answer a few focused questions, and Base44 turns that context into a plan it can confidently build from.
-Less guesswork. Better outcomes. Available now in Base44.
-
-
-All great things start with a plan.
-Apps are no different.
-Today we’re introducing Plan Mode in Base44. It’s a planning layer that helps turn a rough idea into a clear, structured plan before building begins. By asking a few focused questions up front, Plan Mode helps Base44 understand your intent, surface key decisions, and deliver a stronger first version of your app.Less guesswork. Better outcomes. Available now in Base44.
-
-
-Discord
-
-What’s new
-Plan first, build faster
-Switch on Plan Mode from the homepage to turn a rough idea into a clear plan before you build. Answer a few focused questions and Base44 will generate a structured plan designed to deliver better results from the start.
-
-Plan first, build faster
-Plan Mode helps turn a rough idea into a clear, structured plan before building begins. By asking a few focused questions up front, it clarifies intent and shapes the right approach early, reducing guesswork and rework and helping deliver better results from the start.
-👉 Turn on Plan Mode from the homepage.
-
-Email
-
-The end

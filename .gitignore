@@ -7,3 +7,15 @@ brand-source
 # IDE
 .idea/
 .vscode/
+
+# Local session memory (user-specific)
+.claude/cc10x/
+.claude/marketing/
+
+# Transcriptions and source files
+transcriptions/
+
+# Internal planning docs
+Brand Review - For Shay.md
+Interview Guide - Shay Brand Discovery.md
+Marketing Playbook Structure.md
