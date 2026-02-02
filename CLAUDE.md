@@ -6,7 +6,7 @@
 
 ```bash
 # Install the plugin
-/plugin marketplace add blutrich/Marketing-Playbook
+/plugin marketplace add blutrich/base44-marketing-plugin
 
 # Create content
 /marketing-router Write a LinkedIn post about our new AI feature
