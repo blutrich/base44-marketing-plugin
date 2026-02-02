@@ -93,10 +93,34 @@ Read(file_path="brands/base44/learning-log.md")
 [Corrected content with fixes applied]
 ```
 
+## Hook Validation (From hook-rules skill)
+
+### Banned Patterns (Auto-Fail)
+- ☐ Arrow bullets (→, ➡️, ▸) → REJECT (AI detection flag)
+- ☐ FOMO language ("don't miss", "before it's too late", "left behind") → REJECT
+- ☐ Negative framing ("stop wasting", "you're doing it wrong") → REJECT
+- ☐ Contrarian hooks for their own sake → NEEDS REVISION
+
+### Approved Hook Styles
+Verify hook matches one of these patterns:
+1. **Result-First**: Lead with outcome ("$350K saved. One app.")
+2. **Builder Spotlight**: Feature a person ("Sarah launched her SaaS yesterday")
+3. **Possibility Hook**: "What if..." questions
+4. **Social Proof**: Numbers showing momentum ("12 apps launched this week")
+5. **Direct Value**: Punchy benefit statements ("Ship faster. Iterate faster.")
+
+### Emoji Check
+- ☐ Uses approved emoji bullets (✅🚀💡🔥⚡🎯💪🛠️) NOT arrows
+- ☐ LinkedIn: 1-3 emoji max
+- ☐ X: 2-4 emoji OK
+- ☐ Discord: More emoji allowed
+
 ## Rejection Criteria (Auto-Fail)
 
 - Uses "users" or "customers" → REJECT
 - Uses "deploy" or "launch" → REJECT
+- Uses arrow bullets (→ ➡️ ▸) → REJECT
+- Uses FOMO tactics → REJECT
 - Corporate tone throughout → REJECT
 - No specific results/numbers when applicable → NEEDS REVISION
 - Passive voice dominant → NEEDS REVISION

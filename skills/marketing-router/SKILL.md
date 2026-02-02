@@ -35,8 +35,11 @@ description: |
 │ ideas         │    │ x-viral           │    │ psychology       │
 │ (brainstorm,  │    │ seo-content       │    │ (71 principles)  │
 │ 77 tactics)   │    │ direct-response   │    │                  │
-│               │    │ landing-page      │    │ brand-voice      │
-└───────────────┘    └───────────────────┘    └──────────────────┘
+│               │    │ landing-page      │    │ hook-rules       │
+└───────────────┘    │                   │    │ (anti-AI hooks)  │
+                     │ cross-platform-   │    │                  │
+                     │ repurpose         │    │ brand-voice      │
+                     └───────────────────┘    └──────────────────┘
                                  │
                                  ▼
                      ┌───────────────────┐
@@ -61,17 +64,19 @@ description: |
 | Priority | Signal | Keywords | Workflow |
 |----------|--------|----------|----------|
 | 0 | BRAINSTORM | ideas, brainstorm, tactics, amplify, promote, growth hacks | **BRAINSTORM** |
-| 1 | CAMPAIGN | campaign, launch, multi-channel, announcement | **CAMPAIGN** |
-| 2 | X | x, twitter, tweet, thread | **X** |
-| 3 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
-| 4 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
-| 5 | LANDING | landing page, sales page, signup | **LANDING** |
-| 6 | SEO | blog, seo, article, pillar | **SEO** |
-| 7 | VIDEO | video, remotion, animation, thumbnail, clip, reel | **VIDEO** |
-| 8 | DEFAULT | content, write, create | **CONTENT** |
+| 1 | REPURPOSE | repurpose, transform, convert, adapt, rewrite for | **REPURPOSE** |
+| 2 | CAMPAIGN | campaign, launch, multi-channel, announcement | **CAMPAIGN** |
+| 3 | X | x, twitter, tweet, thread | **X** |
+| 4 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
+| 5 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
+| 6 | LANDING | landing page, sales page, signup | **LANDING** |
+| 7 | SEO | blog, seo, article, pillar | **SEO** |
+| 8 | VIDEO | video, remotion, animation, thumbnail, clip, reel | **VIDEO** |
+| 9 | DEFAULT | content, write, create | **CONTENT** |
 
 **Conflict Resolution:**
 - BRAINSTORM = ideation only (generates ideas, routes to execution)
+- REPURPOSE = takes existing content and transforms for new platform
 - CAMPAIGN always wins if multi-channel detected for execution
 
 ## Agent Chains
@@ -79,6 +84,7 @@ description: |
 | Workflow | Agents | Layer |
 |----------|--------|-------|
 | BRAINSTORM | marketing-ideas → (routes to execution) | Ideation |
+| REPURPOSE | cross-platform-repurpose → brand-guardian | Utility |
 | CAMPAIGN | planner → **[linkedin ∥ x ∥ copywriter ∥ seo]** → brand-guardian | Execution |
 | X | x-specialist → brand-guardian | Execution |
 | LINKEDIN | linkedin-specialist → brand-guardian | Execution |
@@ -97,7 +103,9 @@ description: |
 | marketing-ideas | Ideation | 77 tactics, playbooks (LinkedIn, Guerrilla, PH, IDEA) |
 | marketing-psychology | Foundation | 71 principles for persuasion/conversion |
 | brand-voice | Foundation | Base44 tone and vocabulary |
-| brand-memory | Context | Persistent patterns and learnings |
+| brand-memory | Context | Persistent patterns, learnings, feedback loop |
+| hook-rules | Foundation | Approved hook styles, banned patterns (no arrows, no FOMO) |
+| cross-platform-repurpose | Utility | Transform content between platforms (LinkedIn→X, etc.) |
 
 ## Brand Context (LOAD FIRST - MANDATORY)
 
@@ -243,6 +251,36 @@ TaskUpdate({ taskId: guardian_id, addBlockedBy: [linkedin_id, email_id, seo_id] 
 ```
 4. Execute parallel → then review
 5. Update memory
+
+### REPURPOSE
+Transform existing content for a different platform.
+
+1. Load brand context + memory
+2. Load cross-platform-repurpose skill:
+```
+Read(file_path="skills/cross-platform-repurpose/SKILL.md")
+```
+3. **IDENTIFY source and target:**
+   - What platform is the original content from?
+   - What platform(s) to transform to?
+4. **Apply transformation rules** from the skill:
+   - LinkedIn → X: Compress to 280 chars, punchier
+   - LinkedIn → Thread: Break into 5-7 numbered tweets
+   - LinkedIn → Email: Make personal, add subject line
+   - X → LinkedIn: Expand with context and story
+5. **Validate with brand-guardian**
+6. **Output format:**
+```markdown
+## Original ([Source Platform])
+[Original content]
+
+## Repurposed for [Target Platform]
+[Transformed content]
+
+### Transformation Notes
+- Key changes made
+- Brand voice maintained: Yes
+```
 
 ## Agent Invocation
 

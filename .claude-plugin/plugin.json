@@ -1,7 +1,7 @@
 {
   "name": "base44-marketing",
-  "version": "1.5.0",
-  "description": "Marketing content orchestrator with 77+ tactics, 71 psychology principles, brand-aware agents, and evolving memory. Features smart routing, channel-specific content (LinkedIn, X, Email, SEO), and anti-AI patterns.",
+  "version": "1.6.0",
+  "description": "Marketing content orchestrator with 77+ tactics, 71 psychology principles, brand-aware agents, and evolving memory. Features smart routing, channel-specific content (LinkedIn, X, Email, SEO), anti-AI patterns, hook creation rules, and cross-platform repurposing.",
   "author": {
     "name": "Base44 Team",
     "url": "https://github.com/blutrich"
@@ -21,5 +21,30 @@
     "psychology",
     "tactics",
     "base44"
+  ],
+  "skills": [
+    "skills/marketing-router/SKILL.md",
+    "skills/brand-memory/SKILL.md",
+    "skills/hook-rules/SKILL.md",
+    "skills/cross-platform-repurpose/SKILL.md",
+    "skills/linkedin-viral/SKILL.md",
+    "skills/x-viral/SKILL.md",
+    "skills/direct-response-copy/SKILL.md",
+    "skills/seo-content/SKILL.md",
+    "skills/geo-content/SKILL.md",
+    "skills/landing-page-architecture/SKILL.md",
+    "skills/marketing-ideas/SKILL.md",
+    "skills/marketing-psychology/SKILL.md",
+    "skills/nano-banana/SKILL.md",
+    "skills/remotion/SKILL.md"
+  ],
+  "agents": [
+    "agents/linkedin-specialist.md",
+    "agents/x-specialist.md",
+    "agents/copywriter.md",
+    "agents/seo-specialist.md",
+    "agents/planner.md",
+    "agents/brand-guardian.md",
+    "agents/video-specialist.md"
   ]
 }

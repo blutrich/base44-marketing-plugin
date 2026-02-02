@@ -217,6 +217,233 @@ IF feedback == "rejected" OR "needs revision":
         → Suggest AGENTS.md update
 ```
 
+---
+
+## The Learning Loop
+
+```
+     ┌──────────────┐
+     │   GENERATE   │ ←───────────────────────────────────────────┐
+     │   Content    │                                             │
+     └──────┬───────┘                                             │
+            │                                                     │
+            ▼                                                     │
+     ┌──────────────┐                                             │
+     │   REVIEW     │                                             │
+     │   + Score    │                                             │
+     └──────┬───────┘                                             │
+            │                                                     │
+            ▼                                                     │
+     ┌──────────────┐     ┌──────────────┐                        │
+     │   FEEDBACK   │────▶│   CAPTURE    │                        │
+     │   (Team)     │     │   What + Why │                        │
+     └──────────────┘     └──────┬───────┘                        │
+                                 │                                │
+                                 ▼                                │
+                          ┌──────────────┐                        │
+                          │   PATTERN    │                        │
+                          │   DETECT     │                        │
+                          └──────┬───────┘                        │
+                                 │                                │
+                                 ▼                                │
+                          ┌──────────────┐     ┌──────────────┐   │
+                          │   RULES      │────▶│   UPDATE     │───┘
+                          │   UPDATE     │     │   AI PROMPTS │
+                          └──────────────┘     └──────────────┘
+```
+
+---
+
+## Feedback Types
+
+### 1. Approval Feedback
+When content is approved, rejected, or edited.
+
+| Action | What It Teaches |
+|--------|-----------------|
+| ✅ Approved as-is | This pattern works. Reinforce it. |
+| 📝 Approved + edit | Close, but needed adjustment. Learn the diff. |
+| 🔄 Regenerate | Missed the mark. Note what was wrong. |
+| ❌ Rejected | Significant issue. Capture reason as anti-pattern. |
+
+### 2. Edit-Based Feedback
+When someone edits generated content, we learn from the diff.
+
+```
+ORIGINAL (AI Generated):
+"We're excited to announce our new OAuth feature..."
+
+EDITED (Human):
+"Just shipped: OAuth 2.0 🔐 Connect to any service in 5 minutes..."
+
+LEARNED:
+- "We're excited to announce" → "Just shipped:"
+- Add specific time ("5 minutes")
+- Add relevant emoji
+- Lead with benefit, not announcement
+```
+
+### 3. Comment Feedback Categories
+
+| Category | Examples |
+|----------|----------|
+| Voice | "Too corporate", "Not builder-y enough" |
+| Structure | "Hook too weak", "Needs better CTA" |
+| Hook | "Boring opening", "Doesn't stop scroll" |
+| CTA | "Too pushy", "Not clear enough" |
+| Emoji | "Too many", "Wrong placement" |
+| Length | "Too long", "Needs more detail" |
+| Accuracy | "Wrong number", "Outdated info" |
+| Vocabulary | "Don't say X, say Y" |
+
+### 4. Performance Feedback
+Learn from what actually works with the audience.
+
+```
+POST PUBLISHED → 7 DAYS LATER → PERFORMANCE ANALYSIS
+
+High Performers (top 20% engagement):
+- What hooks were used?
+- What structure?
+- What time posted?
+- What topics?
+
+Low Performers (bottom 20%):
+- What patterns to avoid?
+- What didn't resonate?
+```
+
+---
+
+## Pattern Detection
+
+### Confidence Levels & Promotion
+
+```
+OCCURRENCE    CONFIDENCE    EFFECT ON AI
+───────────────────────────────────────────────────────────────
+
+1x            LOW           Logged, but not used yet
+              ░░░░░░░░░░
+
+2x            LOW           Still observing
+              ██░░░░░░░░
+
+3x            MEDIUM        Soft suggestion in prompts
+              █████░░░░░    "Consider avoiding X"
+
+5x            HIGH          Strong guidance in prompts
+              ████████░░    "Don't use X, use Y instead"
+
+5x + Manual   RULE          Added to AGENTS.md
+Approval      ██████████    Hard requirement, checked by Brand Guardian
+```
+
+### Pattern Types
+
+| Type | Meaning | Action |
+|------|---------|--------|
+| `do` | Positive pattern to repeat | Include in generation |
+| `dont` | Anti-pattern to avoid | Check & flag |
+| `prefer` | Better alternative exists | Suggest replacement |
+| `avoid` | Weak pattern, not banned | Lower priority |
+
+### Pattern Categories
+
+- `voice` - Tone, personality
+- `structure` - Post organization
+- `hook` - Opening lines
+- `cta` - Calls to action
+- `emoji` - Emoji usage
+- `length` - Content length
+- `vocabulary` - Word choices
+- `timing` - When to post
+- `channel` - Platform-specific
+
+---
+
+## Pattern Tracking Format
+
+Add to `patterns.md`:
+
+```markdown
+## Detected Patterns
+
+### HIGH CONFIDENCE (5+ occurrences) - Promote to Rules
+| Pattern | Type | Category | Occurrences | Action |
+|---------|------|----------|-------------|--------|
+| Say "builders" not "users" | prefer | vocabulary | 7 | RULE |
+| Start with "Just shipped:" | do | hook | 5 | Suggest |
+
+### MEDIUM CONFIDENCE (3-4 occurrences) - Monitor
+| Pattern | Type | Category | Occurrences | Source |
+|---------|------|----------|-------------|--------|
+| Avoid "leverage" | avoid | vocabulary | 3 | Edits |
+| Keep LinkedIn under 1000 chars | prefer | length | 4 | Performance |
+
+### LOW CONFIDENCE (1-2 occurrences) - Watch
+| Pattern | Type | Category | Occurrences | Source |
+|---------|------|----------|-------------|--------|
+| Use question hooks for engagement | do | hook | 2 | Comment |
+```
+
+---
+
+## Promotion to Rules
+
+When a pattern reaches HIGH confidence (5+ occurrences):
+
+1. **Flag for review:**
+   ```
+   Edit(file_path=".claude/marketing/patterns.md", ...)
+   # Add [READY FOR PROMOTION] tag
+   ```
+
+2. **After manual approval, add to AGENTS.md:**
+   ```
+   Edit(file_path="brands/base44/AGENTS.md", ...)
+   # Add under ## NEVER DO or ## ALWAYS DO
+   ```
+
+3. **Log the promotion:**
+   ```
+   Edit(file_path="brands/base44/learning-log.md", ...)
+   # Record: Pattern promoted to rule on [DATE]
+   ```
+
+---
+
+## Improvement Tracking
+
+Track system improvement over time:
+
+```markdown
+## Improvement Metrics
+
+### First-Pass Approval Rate
+| Week | Rate | Trend |
+|------|------|-------|
+| Week 1 | 45% | - |
+| Week 2 | 58% | ↑ |
+| Week 3 | 71% | ↑ |
+| Week 4 | 82% | ↑ |
+
+### Brand Guardian Average Score
+| Week | Score | Trend |
+|------|-------|-------|
+| Week 1 | 6.2 | - |
+| Week 2 | 7.1 | ↑ |
+| Week 3 | 7.8 | ↑ |
+| Week 4 | 8.1 | ↑ |
+
+### Patterns Learned This Month
+- Total feedback received: 47
+- Patterns detected: 12
+- Rules created: 3
+```
+
+---
+
 ## Auto-Heal Missing Sections
 
 If required sections missing:
