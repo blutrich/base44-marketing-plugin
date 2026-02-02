@@ -28,6 +28,7 @@ After Shay reviews content:
 | Perfect parallel structure | Too predictable, feels AI-coded | 2026-02-01 (Lora) |
 | Question CTAs | "What would you build?" - don't end with questions | 2026-02-02 |
 | "vibe-coder" in posts | Category name only, address as "builders" | 2026-02-02 |
+| Default hashtags | No #vibecoding #buildinpublic by default - only if tagging specific activity | 2026-02-02 |
 
 ### Words/Phrases that WORK
 | Phrase | Why | Discovered |

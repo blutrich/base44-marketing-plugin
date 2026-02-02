@@ -42,6 +42,6 @@
 ```
 
 ## Hashtag Strategy
-- Max 3-5 hashtags
-- Place at end, not inline
-- Use: #vibecoding #nocode #buildinpublic #Base44
+- **Only use hashtags if tagging a specific activity** (e.g., contest, event, campaign)
+- No default hashtags on regular posts
+- If needed: max 2-3, place at end

@@ -87,6 +87,7 @@ Try it now: base44.com
 - "We're excited to announce"
 - Corporate hedging ("might", "perhaps")
 - Passive voice
+- Default hashtags (only use if tagging specific activity)
 
 ## Output Format
 

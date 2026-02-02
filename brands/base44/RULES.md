@@ -22,6 +22,7 @@
 8. **No perfect parallel structure** - Too predictable, AI-tell (Lora, 2026-02-01)
 9. **No emoji as bullets** - Spammy (Brand core)
 10. **No external links in LinkedIn/X main post** - Kills reach (Platform rules)
+11. **No default hashtags** - Only use hashtags if tagging a specific activity (2026-02-02)
 
 ## ALWAYS DO
 
@@ -44,4 +45,4 @@
 ---
 
 *Last updated: 2026-02-02*
-*Rules: 12 NEVER + 5 ALWAYS*
+*Rules: 13 NEVER + 5 ALWAYS*
