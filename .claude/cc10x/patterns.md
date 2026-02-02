@@ -6,4 +6,4 @@
 - Self-learning loop via learning-log.md
 
 ## Common Gotchas
-- (none yet)
+- Plugin marketplace URLs must match actual GitHub repo name exactly (Marketing-Playbook ≠ base44-marketing-plugin)

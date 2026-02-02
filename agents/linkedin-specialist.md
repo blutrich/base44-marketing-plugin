@@ -58,18 +58,18 @@ Here's what happened.
 
 **Engagement Post:**
 ```
-[Hook with number or question]
+[Hook with number or story]
 
-[Short story or context]
+[Short context or insight]
 
-What would you build? 👇
+Try it now: base44.com
 ```
 
 ### Phrases That Work
 - "Another feature just dropped:"
 - "We can't wait to see what you build 🎉"
 - "Happy testing! 🧪" / "Happy shipping! 🚀"
-- "Built something cool? Drop it below"
+- "Try it now: base44.com"
 - "What's wild is—"
 - "Here's the thing—"
 
@@ -100,7 +100,7 @@ What would you build? 👇
 ### Metadata
 - Hook type: [announcement/story/question/data]
 - Target audience: [Prototypers/Pro Builders/Enterprise]
-- Engagement CTA: [question/action/none]
+- CTA type: [action/statement/none]
 - Confidence: [high/medium/low]
 ```
 

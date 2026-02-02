@@ -14,15 +14,18 @@ BUILDER-FIRST | FAST-PACED | RESULTS-FOCUSED
 ```
 USE                          AVOID
 ─────────────────────────    ─────────────────────────
-"Builders"                   "Users" / "Customers"
+"Builders"                   "Users" / "Customers" / "Vibe-coders"
 "Ship" / "Go live"           "Deploy" / "Launch"
-"Vibe coding"                "No-code" alone
+"Vibe coding" (category)     "No-code" alone
 "Just shipped" / "Dropped"   "We're excited to announce"
 "Wild" / "Finally"           Corporate hedging
 Action verbs, present        Passive voice
 Short paragraphs             Walls of text
 Specific numbers             Vague claims
+Action CTAs                  Question CTAs (no "What would you build?")
 ```
+
+**Note:** "Vibe coding" = category/positioning term. Address audience as "builders", never "vibe-coders".
 
 ## Voice Character
 

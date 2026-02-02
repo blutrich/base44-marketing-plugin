@@ -112,7 +112,7 @@ The build took [time]. Here's the stack:
 ---
 
 ### Metadata
-- Type: [hot-take/announcement/question/insight]
+- Type: [hot-take/announcement/insight/story]
 - Characters: [count]/280
 - Target: [Prototypers/Pro Builders/Enterprise]
 - Confidence: [high/medium/low]
@@ -139,7 +139,7 @@ The build took [time]. Here's the stack:
 - Total tweets: [count]
 - Type: [story/framework/breakdown/spotlight]
 - Target: [Prototypers/Pro Builders/Enterprise]
-- Hook style: [bold-claim/curiosity/story/question]
+- Hook style: [bold-claim/curiosity/story/insight]
 - Confidence: [high/medium/low]
 ```
 

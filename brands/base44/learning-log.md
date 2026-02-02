@@ -26,6 +26,8 @@ After Shay reviews content:
 | Overly choppy sentences | "This. Is. Not. Natural." - too robotic | 2026-02-01 (Lora) |
 | Repeated phrases every post | "no big teams" / "for real" - vary it | 2026-02-01 (Lora) |
 | Perfect parallel structure | Too predictable, feels AI-coded | 2026-02-01 (Lora) |
+| Question CTAs | "What would you build?" - don't end with questions | 2026-02-02 |
+| "vibe-coder" in posts | Category name only, address as "builders" | 2026-02-02 |
 
 ### Words/Phrases that WORK
 | Phrase | Why | Discovered |
@@ -38,8 +40,8 @@ After Shay reviews content:
 | "We can't wait to see what you build 🎉" | Community excitement, empowerment | 2026-01-31 (LinkedIn) |
 | "Happy [action]! 🧪" | Friendly sign-off (Happy testing!) | 2026-01-31 (LinkedIn) |
 | "I've been getting those stories on a ~weekly basis" | Social proof without bragging | 2026-01-31 (Maor) |
-| "Built something cool? Drop it below" | Engagement CTA | 2026-01-31 (LinkedIn) |
-| "The comment with the most likes wins credits" | Gamified engagement | 2026-01-31 (LinkedIn) |
+| ~~"Built something cool? Drop it below"~~ | ~~Engagement CTA~~ DEPRECATED - no question CTAs | 2026-01-31 → 2026-02-02 |
+| "The comment with the most likes wins credits" | Gamified engagement (contests only) | 2026-01-31 (LinkedIn) |
 | "$350k contract" / "$50k ARR" / "$1M ARR" | Specific numbers = credibility | 2026-01-31 (Maor) |
 
 ### Tone Patterns
@@ -233,6 +235,22 @@ After Shay reviews content:
 - Video demo: Show problem → minimal prompt → instant fix
 - "no explanation needed" removes friction
 - Self-deprecating humor works on Discord ("Tried saying X to my personal life")
+
+---
+
+### 2026-02-02 - LinkedIn - Plan Mode Post (User Feedback)
+
+**Original Issues:**
+> - Used "vibe-coder" in post copy
+> - Used reflective question CTA: "What's the last app you built that ended up totally different from what you imagined? 👇"
+
+**Corrections:**
+> - "Vibe coding" is category name, but "vibe-coder" not used in posts - use "builders" instead
+> - Avoid long reflective question CTAs - keep CTAs action-oriented or simpler
+
+**Pattern Learned:**
+- "Vibe coding" = category term for docs/positioning, NOT for addressing audience
+- CTAs should be action-focused ("Try it", "Start building") not reflection prompts
 
 ---
 

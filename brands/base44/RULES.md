@@ -12,6 +12,8 @@
 3. **No "deploy" or "launch"** - Say "ship" or "go live" (Brand core)
 4. **No "We're excited to announce"** - Corporate, not builder (Brand core)
 5. **No walls of text** - Short paragraphs only (Brand core)
+6. **No question CTAs** - Don't end posts with "What would you build?" or similar (2026-02-02)
+7. **No "vibe-coder" in posts** - "Vibe coding" is category name only, address audience as "builders" (2026-02-02)
 
 ## NEVER DO (Quality Issues)
 
@@ -41,5 +43,5 @@
 
 ---
 
-*Last updated: 2026-02-01*
-*Rules: 10 NEVER + 5 ALWAYS*
+*Last updated: 2026-02-02*
+*Rules: 12 NEVER + 5 ALWAYS*
