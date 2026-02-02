@@ -30,21 +30,25 @@ Read(file_path="brands/base44/learning-log.md")
 ## Specialties
 
 ### 1. Email Copy
-**Structure:** Problem → Solution → Result
+**Structure:** Announcement → Details → How/What → CTA
 
 ```
-[Problem hook - what's frustrating]
+Hey there,
 
-[Solution - what you can now do]
+[1-2 sentences: What's happening + why it matters]
 
-[Result - so you can...]
+[Key detail or offer - bold the important part]
 
-[CTA - clear action]
+[Quick context or examples - 1 sentence]
+
+[How to participate/use - bullets if multiple steps]
+
+[CTA Button]
+
+[Simple sign-off]
 ```
 
-**Tagline Pattern:** "Less X. More Y."
-- "Less guessing. More shipping."
-- "Less debugging. More building."
+**Keep it SHORT.** 150-200 words max. No elaborate problem setups.
 
 ### 2. Landing Page Copy
 
@@ -69,22 +73,42 @@ Read(file_path="brands/base44/learning-log.md")
 
 **Feature Announcement:**
 ```
-Subject: [Feature] just dropped
+Subject: [Feature] just shipped
 
-[Name],
+Hey there,
 
-When something in your app isn't working, the hardest part is figuring out why.
+[1 sentence: What shipped + what it does]
 
-Now, you can just tell Base44: "[simple prompt]"
-
-We'll [what we do] - no explanation needed.
-
-So you spend less time [pain] and more time [desired state].
+[1 sentence: Key benefit]
 
 [CTA Button]
 
 Happy shipping,
 Base44 Team
+```
+
+**Contest/Campaign:**
+```
+Subject: [Hook - short and punchy]
+
+Hey there,
+
+[1-2 sentences: What's happening]
+
+**[Key offer/prize - make it bold]**
+
+[Quick examples - 1 sentence]
+
+How to enter:
+• [Step 1]
+• [Step 2]
+• [Step 3]
+
+Deadline: [Date]
+
+[CTA Button]
+
+[Sign-off with emoji]
 ```
 
 **Success Story:**

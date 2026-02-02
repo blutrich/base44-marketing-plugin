@@ -29,6 +29,8 @@ After Shay reviews content:
 | Question CTAs | "What would you build?" - don't end with questions | 2026-02-02 |
 | "vibe-coder" in posts | Category name only, address as "builders" | 2026-02-02 |
 | Default hashtags | No #vibecoding #buildinpublic by default - only if tagging specific activity | 2026-02-02 |
+| Long email intros | No "You know that moment..." - start with "Hey there," + direct announcement | 2026-02-02 |
+| Elaborate frameworks | Keep emails SHORT (150-200 words) - Announcement → Details → CTA | 2026-02-02 |
 
 ### Words/Phrases that WORK
 | Phrase | Why | Discovered |
