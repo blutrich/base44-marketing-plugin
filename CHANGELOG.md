@@ -2,6 +2,21 @@
 
 All notable changes to the base44-marketing plugin.
 
+## [1.7.0] - 2026-02-03
+
+### Added
+- **Claude Code Hooks** (`.claude-plugin/hooks.json`)
+  - `PostToolUse` - Notification after agent tasks complete
+  - `Stop` - Session logging to `~/.claude/marketing/session-log.txt`
+- **Plugin Settings** (`.claude-plugin/settings.json`)
+  - Pre-configured permissions for brand/skill/agent file access
+  - Memory directory auto-creation allowed
+  - Destructive git commands blocked by default
+  - Environment variables for version and default brand
+
+### Changed
+- Bumped version to 1.7.0
+
 ## [1.6.0] - 2026-02-02
 
 ### Added

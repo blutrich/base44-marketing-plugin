@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '✓ Agent task completed - check output quality'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "date '+Session ended: %Y-%m-%d %H:%M' >> ~/.claude/marketing/session-log.txt"
+      }
+    ]
+  }
+}

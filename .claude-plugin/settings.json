@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(brands/**)",
+      "Read(skills/**)",
+      "Read(agents/**)",
+      "Read(AGENTS.md)",
+      "Read(CLAUDE.md)",
+      "Read(.claude/marketing/**)",
+      "Edit(.claude/marketing/**)",
+      "Write(.claude/marketing/**)",
+      "Bash(mkdir -p .claude/marketing)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)"
+    ]
+  },
+  "env": {
+    "MARKETING_PLUGIN_VERSION": "1.7.0",
+    "BRAND_DEFAULT": "base44"
+  }
+}

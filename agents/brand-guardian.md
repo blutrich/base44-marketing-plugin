@@ -26,7 +26,7 @@ Read(file_path="brands/base44/learning-log.md")
 | Rule | Check | Fix If Wrong |
 |------|-------|--------------|
 | "Builders" not "users/customers" | ☐ | Replace all instances |
-| "Ship/go live" not "deploy/launch" | ☐ | Replace all instances |
+| "Ship/go live" not "deploy" | ☐ | Replace all instances |
 | No "we're excited to announce" | ☐ | Use "Just shipped:" |
 | Action verbs, present tense | ☐ | Rewrite passive sentences |
 | No corporate hedging | ☐ | Remove "might", "perhaps" |
