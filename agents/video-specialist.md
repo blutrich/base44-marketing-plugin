@@ -8,6 +8,10 @@ tools:
   - Bash
   - Skill
   - TaskUpdate
+skills:
+  - remotion
+  - nano-banana
+  - hook-rules
 ---
 
 # Video Specialist

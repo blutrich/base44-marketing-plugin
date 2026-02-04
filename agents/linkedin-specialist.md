@@ -6,6 +6,10 @@ tools:
   - Read
   - Skill
   - TaskUpdate
+skills:
+  - linkedin-viral
+  - marketing-psychology
+  - hook-rules
 ---
 
 # LinkedIn Specialist

@@ -1,10 +1,9 @@
 ---
 name: cross-platform-repurpose
 description: |
-  Transform content from one platform to another. LinkedIn to X, X to Email, etc.
+  Transforms content between platforms. LinkedIn to X, X to Email, Blog to Thread, etc.
 
-  Use when: user has existing content and wants it adapted for a different channel.
-  Triggers: repurpose, transform, convert, adapt, rewrite for [platform]
+  Triggers on: repurpose, transform, convert, adapt, rewrite for, turn this into, make this a [platform].
 ---
 
 # Cross-Platform Repurpose

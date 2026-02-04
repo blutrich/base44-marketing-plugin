@@ -1,9 +1,9 @@
 ---
 name: brand-memory
 description: |
-  Manages brand context and learning across sessions. Load this skill to persist patterns, feedback, and improvements.
+  Manages brand context and learning across sessions. Persists patterns, feedback, and improvements.
 
-  Team members can add feedback by editing the learning files directly or through conversation.
+  Triggers on: memory, learning, patterns, feedback, what worked, what didn't, brand context.
 ---
 
 # Brand Memory System

@@ -1,9 +1,9 @@
 ---
 name: hook-rules
 description: |
-  Hook creation rules for viral content. Defines banned patterns (FOMO, arrows, contrarian) and approved hook styles.
+  Hook creation rules for viral content. Defines banned patterns (FOMO, arrows, contrarian) and 5 approved hook styles.
 
-  Load this skill when creating opening hooks for any content. Use as reference for linkedin-specialist, x-specialist, and copywriter agents.
+  Triggers on: hook, opening line, first line, attention, scroll-stopper, banned patterns.
 ---
 
 # Hook Creation Rules

@@ -7,6 +7,11 @@ tools:
   - Write
   - Skill
   - TaskUpdate
+skills:
+  - direct-response-copy
+  - landing-page-architecture
+  - marketing-psychology
+  - hook-rules
 ---
 
 # Copywriter

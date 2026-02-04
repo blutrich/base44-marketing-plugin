@@ -86,6 +86,7 @@
 |-------|---------|
 | `linkedin-specialist` | Viral LinkedIn content |
 | `x-specialist` | X/Twitter content |
+| `ad-specialist` | Paid ads (Meta, LinkedIn, Reddit) |
 | `copywriter` | Emails, landing pages |
 | `seo-specialist` | Blog, SEO content |
 | `brand-guardian` | Quality gate |

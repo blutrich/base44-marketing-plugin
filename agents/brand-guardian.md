@@ -5,6 +5,8 @@ model: haiku
 tools:
   - Read
   - TaskUpdate
+skills:
+  - hook-rules
 ---
 
 # Brand Guardian

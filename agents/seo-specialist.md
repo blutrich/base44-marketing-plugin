@@ -8,6 +8,10 @@ tools:
   - WebSearch
   - Skill
   - TaskUpdate
+skills:
+  - seo-content
+  - geo-content
+  - marketing-psychology
 ---
 
 # SEO Specialist

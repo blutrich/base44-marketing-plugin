@@ -1,13 +1,11 @@
 ---
 name: marketing-ideas
 description: |
-  Interactive marketing brainstorm partner with 77+ proven tactics.
+  Interactive marketing brainstorm partner with 77+ proven tactics. Generates ideas that feed into execution skills.
 
-  Use this skill when: user shares content to repurpose, wants marketing ideas, needs help amplifying announcements, or asks for brainstorming.
+  Triggers on: marketing ideas, brainstorm, amplify, promote, tactics, growth, ideas, viral, buzz, campaign ideas.
 
-  Triggers: marketing ideas, brainstorm, amplify, promote, tactics, growth, ideas, viral, buzz, campaign ideas.
-
-  LAYER: INPUT STAGE - This skill helps generate ideas that feed into execution skills (linkedin-viral, x-viral, seo-content, etc.)
+  LAYER: Ideation → feeds into linkedin-viral, x-viral, seo-content, direct-response-copy.
 ---
 
 # Marketing Ideas Brainstorm Partner

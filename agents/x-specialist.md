@@ -6,6 +6,10 @@ tools:
   - Read
   - Skill
   - TaskUpdate
+skills:
+  - x-viral
+  - marketing-psychology
+  - hook-rules
 ---
 
 # X (Twitter) Specialist

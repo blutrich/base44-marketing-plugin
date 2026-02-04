@@ -7,6 +7,9 @@ tools:
   - Write
   - Glob
   - TaskUpdate
+skills:
+  - marketing-ideas
+  - marketing-psychology
 ---
 
 # Campaign Planner

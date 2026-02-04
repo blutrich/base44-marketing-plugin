@@ -1,6 +1,9 @@
 ---
 name: marketing-psychology
-description: 71 psychological principles for marketing and persuasion. Reference this skill when crafting copy, reviewing messaging, or optimizing conversions. Use specific principles to justify copy decisions.
+description: |
+  71 psychological principles for marketing and persuasion. Covers cognitive biases, social proof, scarcity, framing, and emotional triggers.
+
+  Triggers on: psychology, persuasion, cognitive bias, why this works, justify copy, conversion optimization.
 ---
 
 # Marketing Psychology Skill

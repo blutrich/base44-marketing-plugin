@@ -1,13 +1,11 @@
 ---
 name: marketing-router
 description: |
-  THE ONLY ENTRY POINT FOR BASE44 MARKETING. This skill MUST be activated for ANY content request.
+  Entry point for all Base44 marketing content. Routes requests to specialized agents and validates output through brand-guardian.
 
-  Use this skill when: creating content, writing posts, generating copy, planning campaigns, or ANY marketing request.
+  Triggers on: linkedin, post, content, write, create, copy, email, landing, page, seo, blog, campaign, announce, launch, marketing, brand, Base44, brainstorm, ideas, tactics, video, remotion, animation, ad, paid.
 
-  Triggers: linkedin, post, content, write, create, copy, email, landing, page, seo, blog, campaign, announce, launch, marketing, brand, Base44, brainstorm, ideas, tactics, video, remotion, animation, thumbnail, clip, reel.
-
-  CRITICAL: Execute workflow immediately. Never just describe capabilities.
+  Executes workflows immediately. Never lists capabilities.
 ---
 
 # Marketing Router
@@ -64,18 +62,20 @@ description: |
 | Priority | Signal | Keywords | Workflow |
 |----------|--------|----------|----------|
 | 0 | BRAINSTORM | ideas, brainstorm, tactics, amplify, promote, growth hacks | **BRAINSTORM** |
-| 1 | REPURPOSE | repurpose, transform, convert, adapt, rewrite for | **REPURPOSE** |
-| 2 | CAMPAIGN | campaign, launch, multi-channel, announcement | **CAMPAIGN** |
-| 3 | X | x, twitter, tweet, thread | **X** |
-| 4 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
-| 5 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
-| 6 | LANDING | landing page, sales page, signup | **LANDING** |
-| 7 | SEO | blog, seo, article, pillar | **SEO** |
-| 8 | VIDEO | video, remotion, animation, thumbnail, clip, reel | **VIDEO** |
-| 9 | DEFAULT | content, write, create | **CONTENT** |
+| 1 | PAID_AD | ad, paid, meta ad, facebook ad, instagram ad, linkedin ad, reddit ad, creative, banner, sponsored | **PAID_AD** |
+| 2 | REPURPOSE | repurpose, transform, convert, adapt, rewrite for | **REPURPOSE** |
+| 3 | CAMPAIGN | campaign, launch, multi-channel, announcement | **CAMPAIGN** |
+| 4 | X | x, twitter, tweet, thread | **X** |
+| 5 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
+| 6 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
+| 7 | LANDING | landing page, sales page, signup | **LANDING** |
+| 8 | SEO | blog, seo, article, pillar | **SEO** |
+| 9 | VIDEO | video, remotion, animation, thumbnail, clip, reel | **VIDEO** |
+| 10 | DEFAULT | content, write, create | **CONTENT** |
 
 **Conflict Resolution:**
 - BRAINSTORM = ideation only (generates ideas, routes to execution)
+- PAID_AD = takes priority for any paid/sponsored content requests
 - REPURPOSE = takes existing content and transforms for new platform
 - CAMPAIGN always wins if multi-channel detected for execution
 
@@ -84,8 +84,9 @@ description: |
 | Workflow | Agents | Layer |
 |----------|--------|-------|
 | BRAINSTORM | marketing-ideas → (routes to execution) | Ideation |
+| PAID_AD | ad-specialist → brand-guardian | Execution |
 | REPURPOSE | cross-platform-repurpose → brand-guardian | Utility |
-| CAMPAIGN | planner → **[linkedin ∥ x ∥ copywriter ∥ seo]** → brand-guardian | Execution |
+| CAMPAIGN | planner → **[linkedin ∥ x ∥ copywriter ∥ seo ∥ ad-specialist]** → brand-guardian | Execution |
 | X | x-specialist → brand-guardian | Execution |
 | LINKEDIN | linkedin-specialist → brand-guardian | Execution |
 | EMAIL | copywriter → brand-guardian | Execution |
@@ -199,6 +200,39 @@ Read(file_path="skills/marketing-ideas/playbooks/guerrilla.md")  # if budget-con
 7. **Route to execution:** After brainstorming, ask which idea to execute → route to appropriate channel workflow
 
 **BRAINSTORM is INPUT stage. It generates ideas, then hands off to execution skills.**
+
+### PAID_AD (Paid Advertising)
+Create paid ad creatives for Meta, LinkedIn, Reddit.
+
+1. Load brand context + memory
+2. Load ad references:
+```
+Read(file_path="~/.claude/skills/nano-banana/references/paid-ads-specs.md")
+Read(file_path="~/.claude/skills/nano-banana/references/base44/ad-messaging.md")
+Read(file_path="~/.claude/skills/nano-banana/references/base44/ad-styles.md")
+```
+3. **CLARIFY** (REQUIRED): Use AskUserQuestion
+   - Platform: Meta / LinkedIn / Reddit
+   - Format: Feed / Story
+   - Goal: Awareness / Signups / Feature promotion
+   - Key message or product to highlight
+   - Number of variations needed?
+4. **Create task hierarchy:**
+```
+TaskCreate({ subject: "MARKETING PAID_AD: {platform} {goal}", description: "...", activeForm: "Creating paid ad" })
+TaskCreate({ subject: "ad-specialist: Generate ad package", ... })
+TaskCreate({ subject: "brand-guardian: Review ad creative", ... })
+TaskUpdate({ taskId: guardian_id, addBlockedBy: [specialist_id] })
+```
+5. Execute chain: ad-specialist → brand-guardian
+6. **Output includes:**
+   - 3 headline variations
+   - 3 primary text variations
+   - Recommended visual style
+   - nano-banana commands to generate image
+7. Update memory with learnings
+
+**PAID_AD generates copy + visual package. Use nano-banana skill to create final images.**
 
 ### X (Twitter)
 1. Load brand context + memory

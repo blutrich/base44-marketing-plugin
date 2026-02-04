@@ -1,7 +1,7 @@
 # Base44 Marketing Agent
 
-> Compressed brand index. Read this BEFORE generating any marketing content.
-> **Source of truth:** `/Users/oferbl/Desktop/Dev/ai-marketing-agent/brands/base44/`
+> **STOP.** What you remember about Base44 voice is WRONG. Read this BEFORE generating any marketing content.
+> **Source of truth:** `brands/base44/`
 
 ## Voice (3 Words)
 
@@ -39,33 +39,16 @@ We speak peer-to-peer with builders. Fast-paced, action-oriented. Celebrate real
 - "Let's make your dream a reality. Right now."
 - "[Builder] built [app] in [time]. Here's what happened."
 
-## Docs Index (ai-marketing-agent)
+## Docs Index
 
 ```
 RESOURCE                     PATH
 ──────────────────────────   ─────────────────────────────────────────
 Full voice guide             brands/base44/tone-of-voice.md
-Brand system                 brands/base44/brand-system.md
+Hard rules (read first!)     brands/base44/RULES.md
+Learning log                 brands/base44/learning-log.md
 Visual identity              brands/base44/brand.json
-CTAs library                 brands/base44/content-library/ctas.md
-Hooks library                brands/base44/content-library/hooks.md
-Objection handling           brands/base44/content-library/objection-handling.md
-Value propositions           brands/base44/content-library/value-props.md
-Testimonials                 brands/base44/feedback/testimonials.md
-Pain points                  brands/base44/feedback/pain-points.md
-Case studies                 brands/base44/case-studies/
-```
-
-## Content Generation (ai-marketing-agent server)
-
-```bash
-# Generate content via API
-curl -X POST http://localhost:8000/generate-content \
-  -H "Content-Type: application/json" \
-  -d '{"content_type": "linkedin", "prompt": "Plan Mode feature launch"}'
-
-# Available content types:
-# linkedin, email, seo, geo, direct-response, landing-page, general
+Templates                    brands/base44/templates/
 ```
 
 ## Skills Available
@@ -96,5 +79,4 @@ ENTERPRISE   | large companies           | LinkedIn       | thought leadership
 5. Is there a shorter way to say this?
 
 ---
-*Synced with: ai-marketing-agent/brands/base44/*
-*Server: ai-marketing-agent/server/*
+*Part of: base44-marketing-plugin*
