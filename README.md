@@ -41,6 +41,53 @@ marketing-router (ENTRY POINT)
         └── CAMPAIGN → planner → [specialists] → brand-guardian
 ```
 
+## Workflow Flowchart
+
+```mermaid
+flowchart TD
+    Start([User Request]) --> Router[marketing-router<br/>ENTRY POINT]
+    
+    Router -->|PAID_AD| AdAgent[ad-specialist<br/>Sonnet]
+    Router -->|LINKEDIN| LinkedInAgent[linkedin-specialist<br/>Sonnet]
+    Router -->|X| XAgent[x-specialist<br/>Sonnet]
+    Router -->|EMAIL| CopyAgent1[copywriter<br/>Sonnet]
+    Router -->|LANDING| CopyAgent2[copywriter<br/>Sonnet]
+    Router -->|SEO| SEOAgent[seo-specialist<br/>Sonnet]
+    Router -->|VIDEO| VideoAgent[video-specialist<br/>Sonnet]
+    Router -->|CAMPAIGN| PlannerAgent[planner<br/>Sonnet]
+    
+    AdAgent --> AdSkills[Skills:<br/>marketing-ideas<br/>marketing-psychology<br/>hook-rules]
+    LinkedInAgent --> LinkedInSkills[Skills:<br/>linkedin-viral<br/>hook-rules<br/>brand-memory]
+    XAgent --> XSkills[Skills:<br/>x-viral<br/>hook-rules<br/>brand-memory]
+    CopyAgent1 --> CopySkills1[Skills:<br/>direct-response-copy<br/>THE SLIDE framework]
+    CopyAgent2 --> CopySkills2[Skills:<br/>landing-page-architecture<br/>8-Section Framework]
+    SEOAgent --> SEOSkills[Skills:<br/>seo-content<br/>geo-content]
+    VideoAgent --> VideoSkills[Skills:<br/>remotion<br/>nano-banana<br/>AI imagery]
+    PlannerAgent --> PlannerSkills[Skills:<br/>marketing-ideas<br/>cross-platform-repurpose]
+    
+    PlannerAgent -->|Orchestrates| MultiAgent[Multiple Specialists<br/>as needed]
+    
+    AdSkills --> Guardian[brand-guardian<br/>Haiku<br/>QUALITY GATE]
+    LinkedInSkills --> Guardian
+    XSkills --> Guardian
+    CopySkills1 --> Guardian
+    CopySkills2 --> Guardian
+    SEOSkills --> Guardian
+    VideoSkills --> Guardian
+    PlannerSkills --> Guardian
+    MultiAgent --> Guardian
+    
+    Guardian -->|Brand Voice Check| BrandCheck{Brand<br/>Compliant?}
+    BrandCheck -->|No| Feedback[Apply Feedback<br/>Refine Content]
+    Feedback --> Guardian
+    BrandCheck -->|Yes| Output([Final Content<br/>Ready to Ship])
+    
+    style Router fill:#e1f5ff
+    style Guardian fill:#fff4e1
+    style Output fill:#e8f5e9
+    style BrandCheck fill:#fff4e1
+```
+
 ## Skills (14)
 
 | Skill | Purpose |

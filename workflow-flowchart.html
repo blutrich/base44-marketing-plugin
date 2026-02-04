@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base44 Marketing Plugin - Workflow Flowchart</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 1400px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #1a1a1a;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .flowchart-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .legend h3 {
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 2px solid #ddd;
+        }
+        
+        .legend-color.router {
+            background: #e1f5ff;
+        }
+        
+        .legend-color.guardian {
+            background: #fff4e1;
+        }
+        
+        .legend-color.output {
+            background: #e8f5e9;
+        }
+        
+        .info-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .info-box h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            margin-left: 20px;
+            color: #424242;
+        }
+        
+        .info-box li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Base44 Marketing Plugin</h1>
+        <p class="subtitle">Workflow Flowchart Visualization</p>
+        
+        <div class="flowchart-container">
+            <div class="mermaid">
+flowchart TD
+    Start([User Request]) --> Router[marketing-router<br/>ENTRY POINT]
+    
+    Router -->|PAID_AD| AdAgent[ad-specialist<br/>Sonnet]
+    Router -->|LINKEDIN| LinkedInAgent[linkedin-specialist<br/>Sonnet]
+    Router -->|X| XAgent[x-specialist<br/>Sonnet]
+    Router -->|EMAIL| CopyAgent1[copywriter<br/>Sonnet]
+    Router -->|LANDING| CopyAgent2[copywriter<br/>Sonnet]
+    Router -->|SEO| SEOAgent[seo-specialist<br/>Sonnet]
+    Router -->|VIDEO| VideoAgent[video-specialist<br/>Sonnet]
+    Router -->|CAMPAIGN| PlannerAgent[planner<br/>Sonnet]
+    
+    AdAgent --> AdSkills[Skills:<br/>marketing-ideas<br/>marketing-psychology<br/>hook-rules]
+    LinkedInAgent --> LinkedInSkills[Skills:<br/>linkedin-viral<br/>hook-rules<br/>brand-memory]
+    XAgent --> XSkills[Skills:<br/>x-viral<br/>hook-rules<br/>brand-memory]
+    CopyAgent1 --> CopySkills1[Skills:<br/>direct-response-copy<br/>THE SLIDE framework]
+    CopyAgent2 --> CopySkills2[Skills:<br/>landing-page-architecture<br/>8-Section Framework]
+    SEOAgent --> SEOSkills[Skills:<br/>seo-content<br/>geo-content]
+    VideoAgent --> VideoSkills[Skills:<br/>remotion<br/>nano-banana<br/>AI imagery]
+    PlannerAgent --> PlannerSkills[Skills:<br/>marketing-ideas<br/>cross-platform-repurpose]
+    
+    PlannerAgent -->|Orchestrates| MultiAgent[Multiple Specialists<br/>as needed]
+    
+    AdSkills --> Guardian[brand-guardian<br/>Haiku<br/>QUALITY GATE]
+    LinkedInSkills --> Guardian
+    XSkills --> Guardian
+    CopySkills1 --> Guardian
+    CopySkills2 --> Guardian
+    SEOSkills --> Guardian
+    VideoSkills --> Guardian
+    PlannerSkills --> Guardian
+    MultiAgent --> Guardian
+    
+    Guardian -->|Brand Voice Check| BrandCheck{Brand<br/>Compliant?}
+    BrandCheck -->|No| Feedback[Apply Feedback<br/>Refine Content]
+    Feedback --> Guardian
+    BrandCheck -->|Yes| Output([Final Content<br/>Ready to Ship])
+    
+    style Router fill:#e1f5ff
+    style Guardian fill:#fff4e1
+    style Output fill:#e8f5e9
+    style BrandCheck fill:#fff4e1
+            </div>
+        </div>
+        
+        <div class="legend">
+            <h3>Color Legend</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color router"></div>
+                    <span><strong>Router</strong> - Entry point</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color guardian"></div>
+                    <span><strong>Brand Guardian</strong> - Quality gate</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color output"></div>
+                    <span><strong>Output</strong> - Final content</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3>Workflow Overview</h3>
+            <ul>
+                <li><strong>8 Content Types:</strong> PAID_AD, LINKEDIN, X, EMAIL, LANDING, SEO, VIDEO, CAMPAIGN</li>
+                <li><strong>8 Specialist Agents:</strong> Each uses Sonnet model for content creation</li>
+                <li><strong>14 Skills:</strong> Specialized capabilities (viral hooks, SEO, video, etc.)</li>
+                <li><strong>Quality Gate:</strong> Brand Guardian (Haiku) ensures brand compliance</li>
+                <li><strong>Feedback Loop:</strong> Non-compliant content is refined until approved</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

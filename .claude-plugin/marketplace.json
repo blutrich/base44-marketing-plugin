@@ -7,13 +7,13 @@
   },
   "metadata": {
     "description": "Base44 Marketing Content Creation System - Orchestrated brand content with specialized agents",
-    "version": "1.0.0"
+    "version": "1.7.0"
   },
   "plugins": [
     {
       "name": "base44-marketing",
       "description": "Marketing content orchestrator with brand-aware sub-agents. Features smart routing via marketing-router, channel-specific content (LinkedIn, Email, SEO), brand voice enforcement, and learning feedback system.",
-      "version": "1.0.0",
+      "version": "1.7.0",
       "author": {
         "name": "Base44 Team",
         "url": "https://github.com/blutrich"
@@ -32,10 +32,7 @@
         "claude-code"
       ],
       "category": "marketing-tools",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/blutrich/base44-marketing-plugin.git"
-      }
+      "source": "./plugins/base44-marketing"
     }
   ]
 }
