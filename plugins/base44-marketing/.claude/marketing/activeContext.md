@@ -1,9 +1,11 @@
 # Active Context
 
 ## Current Focus
-Marketing router tested successfully.
+Debug Mode feature promotion.
 
 ## Recent Content
+- 2026-02-04: X post for Debug Mode (Score: 9/10 - APPROVED)
+- 2026-02-04: LinkedIn post for Debug Mode (Score: 9/10 - APPROVED)
 - 2026-02-02: LinkedIn post for Plan Mode launch (Score: 8.5/10 - APPROVED)
 
 ## Next Steps
