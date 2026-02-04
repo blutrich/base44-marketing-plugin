@@ -1,6 +1,6 @@
 # Base44 Marketing Plugin
 
-> Orchestrated content creation with brand-aware sub-agents and evolving memory.
+> Orchestrated content creation with 8 brand-aware agents, 14 specialized skills, and evolving memory.
 
 ## Installation
 
@@ -41,7 +41,7 @@ marketing-router (ENTRY POINT)
         └── CAMPAIGN → planner → [specialists] → brand-guardian
 ```
 
-## Skills
+## Skills (14)
 
 | Skill | Purpose |
 |-------|---------|
@@ -60,7 +60,7 @@ marketing-router (ENTRY POINT)
 | `remotion` | Video creation in React |
 | `nano-banana` | AI image generation (Imagen 3) |
 
-## Agents
+## Agents (8)
 
 | Agent | Model | Purpose |
 |-------|-------|---------|
