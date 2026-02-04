@@ -1,7 +1,7 @@
 ---
 name: planner
 description: Plans multi-channel marketing campaigns
-model: sonnet
+model: opus
 tools:
   - Read
   - Write

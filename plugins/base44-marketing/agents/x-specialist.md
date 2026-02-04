@@ -1,7 +1,7 @@
 ---
 name: x-specialist
 description: Creates viral X (Twitter) content with Base44 brand voice
-model: sonnet
+model: opus
 tools:
   - Read
   - Skill

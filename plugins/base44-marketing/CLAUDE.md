@@ -32,12 +32,12 @@ marketing-router (ENTRY POINT)
 | Agent | Model | Purpose |
 |-------|-------|---------|
 | `ad-specialist` | Sonnet | Paid ads (Meta, LinkedIn, Reddit) |
-| `linkedin-specialist` | Sonnet | Viral LinkedIn content |
-| `x-specialist` | Sonnet | X/Twitter content |
+| `linkedin-specialist` | Opus | Viral LinkedIn content |
+| `x-specialist` | Opus | X/Twitter content |
 | `copywriter` | Sonnet | Emails, landing pages |
 | `seo-specialist` | Sonnet | Blog posts, SEO/GEO content |
 | `video-specialist` | Sonnet | Remotion videos |
-| `planner` | Sonnet | Multi-channel campaigns |
+| `planner` | Opus | Multi-channel campaigns |
 | `brand-guardian` | Haiku | Quality gate (fast reviews) |
 
 ## Skills
@@ -119,12 +119,12 @@ Located in `brands/base44/`:
 | Agent | Model | Skills | Invocation Triggers |
 |-------|-------|--------|---------------------|
 | **ad-specialist** | Sonnet | nano-banana, marketing-psychology, hook-rules | "ad", "paid", "meta ad", "linkedin ad", "reddit ad", "creative", "banner" |
-| **linkedin-specialist** | Sonnet | linkedin-viral, marketing-psychology, hook-rules | "linkedin", "post", "social", "viral" |
-| **x-specialist** | Sonnet | x-viral, marketing-psychology, hook-rules | "x", "twitter", "tweet", "thread" |
+| **linkedin-specialist** | Opus | linkedin-viral, marketing-psychology, hook-rules | "linkedin", "post", "social", "viral" |
+| **x-specialist** | Opus | x-viral, marketing-psychology, hook-rules | "x", "twitter", "tweet", "thread" |
 | **copywriter** | Sonnet | direct-response-copy, landing-page-architecture, marketing-psychology, hook-rules | "email", "landing page", "sales page", "nurture", "sequence" |
 | **seo-specialist** | Sonnet | seo-content, geo-content, marketing-psychology | "blog", "seo", "article", "pillar", "search" |
 | **video-specialist** | Sonnet | remotion, nano-banana, hook-rules | "video", "remotion", "animation", "thumbnail", "clip", "reel" |
-| **planner** | Sonnet | marketing-ideas, marketing-psychology | "campaign", "multi-channel", "announcement", "launch plan" |
+| **planner** | Opus | marketing-ideas, marketing-psychology | "campaign", "multi-channel", "announcement", "launch plan" |
 | **brand-guardian** | Haiku | hook-rules | Final review gate (always last in chain) |
 
 ### Skill Index by Layer

@@ -1,7 +1,7 @@
 ---
 name: linkedin-specialist
 description: Creates viral LinkedIn content with Base44 brand voice
-model: sonnet
+model: opus
 tools:
   - Read
   - Skill
