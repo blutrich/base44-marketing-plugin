@@ -4,63 +4,41 @@
 
 ## Installation
 
-### For Team Members (Recommended)
-
-```bash
-# Step 1: Add the marketplace (one-time)
-/plugin marketplace add blutrich/base44-marketing-plugin
-
-# Step 2: Install the plugin
-/plugin install base44-marketing@blutrich-base44-marketing-plugin
-
-# Step 3: Verify installation
-/plugin list
-```
-
-### Alternative: Direct GitHub Install
+### Quick Install (Recommended)
 
 ```bash
 /plugin install github:blutrich/base44-marketing-plugin
 ```
 
-### Update to Latest Version
+### Via Marketplace
 
 ```bash
-# Update the marketplace first
-/plugin marketplace update blutrich-base44-marketing-plugin
+# Add the marketplace (one-time)
+/plugin marketplace add blutrich/base44-marketing-plugin
 
-# Then update the plugin
-/plugin update base44-marketing@blutrich-base44-marketing-plugin
+# Install the plugin
+/plugin install base44-marketing@blutrich-base44-marketing-plugin
 ```
 
-### Interactive UI
+### Update to Latest
 
 ```bash
-/plugin  # Opens tabbed interface
-# Navigate to Marketplaces tab (Tab key)
-# Add: blutrich/base44-marketing-plugin
+/plugin update base44-marketing
 ```
 
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    MARKETING-ROUTER (Entry Point)               │
-└─────────────────────────────────────────────────────────────────┘
-                                 │
-        ┌────────────────────────┼────────────────────────┐
-        ▼                        ▼                        ▼
-┌───────────────┐    ┌───────────────────┐    ┌──────────────────┐
-│ IDEATION      │    │  EXECUTION        │    │ FOUNDATION       │
-│ marketing-    │───▶│ linkedin-viral    │◀───│ marketing-       │
-│ ideas (77+)   │    │ x-viral           │    │ psychology (71)  │
-│               │    │ seo-content       │    │ brand-voice      │
-└───────────────┘    └───────────────────┘    └──────────────────┘
-                                 │
-                                 ▼
-                     ┌───────────────────┐
-                     │  brand-guardian   │
-                     └───────────────────┘
+marketing-router (ENTRY POINT)
+        │
+        ├── PAID_AD → ad-specialist → brand-guardian
+        ├── LINKEDIN → linkedin-specialist → brand-guardian
+        ├── X → x-specialist → brand-guardian
+        ├── EMAIL → copywriter → brand-guardian
+        ├── LANDING → copywriter → brand-guardian
+        ├── SEO → seo-specialist → brand-guardian
+        ├── VIDEO → video-specialist → brand-guardian
+        └── CAMPAIGN → planner → [specialists] → brand-guardian
 ```
 
 ## Skills
@@ -76,22 +54,24 @@
 | `seo-content` | Search optimization |
 | `geo-content` | AI citation (GEO) |
 | `landing-page-architecture` | 8-Section Framework |
+| `hook-rules` | Anti-AI hook creation rules |
+| `cross-platform-repurpose` | Content transformation |
 | `brand-memory` | Persistent learning |
 | `remotion` | Video creation in React |
 | `nano-banana` | AI image generation (Imagen 3) |
 
 ## Agents
 
-| Agent | Purpose |
-|-------|---------|
-| `linkedin-specialist` | Viral LinkedIn content |
-| `x-specialist` | X/Twitter content |
-| `ad-specialist` | Paid ads (Meta, LinkedIn, Reddit) |
-| `copywriter` | Emails, landing pages |
-| `seo-specialist` | Blog, SEO content |
-| `brand-guardian` | Quality gate |
-| `planner` | Multi-channel campaigns |
-| `video-specialist` | Remotion videos + AI imagery |
+| Agent | Model | Purpose |
+|-------|-------|---------|
+| `ad-specialist` | Sonnet | Paid ads (Meta, LinkedIn, Reddit) |
+| `linkedin-specialist` | Sonnet | Viral LinkedIn content |
+| `x-specialist` | Sonnet | X/Twitter content |
+| `copywriter` | Sonnet | Emails, landing pages |
+| `seo-specialist` | Sonnet | Blog, SEO content |
+| `video-specialist` | Sonnet | Remotion videos + AI imagery |
+| `planner` | Sonnet | Multi-channel campaigns |
+| `brand-guardian` | Haiku | Quality gate (fast reviews) |
 
 ## Usage
 
@@ -102,6 +82,9 @@ Create a LinkedIn post about our new AI feature
 # X/Twitter thread
 Write a thread about the $1M ARR milestone
 
+# Paid ad
+Create a Meta feed ad for our AI feature
+
 # Brainstorm ideas
 I need marketing ideas to amplify our product launch
 
@@ -109,71 +92,88 @@ I need marketing ideas to amplify our product launch
 Plan a multi-channel campaign for our native app launch
 ```
 
-## Brand Voice (3 Words)
+## Brand Voice
 
 **BUILDER-FIRST | FAST-PACED | RESULTS-FOCUSED**
-
-## Quick Rules
 
 | USE | AVOID |
 |-----|-------|
 | "Builders" | "Users" / "Customers" |
 | "Ship" / "Go live" | "Deploy" / "Launch" |
 | "Vibe coding" | "No-code" alone |
-| "Just shipped" / "Dropped" | "We're excited to announce" |
+| "Just shipped" | "We're excited to announce" |
 | Action verbs, present tense | Passive voice |
 
-## Evolving Memory
+## Hook Styles (5 Approved)
 
-The plugin maintains learning in two places:
+1. **Result-First**: Lead with outcome ("$350K saved. One app.")
+2. **Builder Spotlight**: Feature a person ("Sarah launched her SaaS yesterday")
+3. **Possibility Hook**: "What if..." questions
+4. **Social Proof**: Numbers showing momentum ("12 apps launched this week")
+5. **Direct Value**: Punchy benefit statements ("Ship faster. Iterate faster.")
 
-### Plugin Core (versioned, updated via git)
+## Memory System
+
+### Plugin Core (versioned)
 ```
 skills/         # Skill definitions
 agents/         # Agent configs
 brands/base44/  # Brand guidelines
 ```
 
-### User Memory (persisted, not overwritten)
+### User Memory (preserved on updates)
 ```
 ~/.claude/marketing/
 ├── activeContext.md    # Current focus
 ├── patterns.md         # What works
 ├── feedback.md         # Pending reviews
-└── learning-log.md     # Team feedback (synced from brand)
+└── learning-log.md     # Team feedback
 ```
 
-## Team Contributions
+## File Structure
 
-Team members can add feedback:
-
-1. **In conversation:** Say "add to memory: [feedback]"
-2. **Direct edit:** Update `learning-log.md` or `patterns.md`
-3. **PR to repo:** For permanent skill/agent updates
-
-## Updating
-
-```bash
-# Update to latest version
-/plugin update base44-marketing
 ```
-
-### What Gets Updated vs Preserved
-
-| Component | On Update | Location |
-|-----------|-----------|----------|
-| Skills | **Overwritten** | `skills/` |
-| Agents | **Overwritten** | `agents/` |
-| Brand guidelines | **Overwritten** | `brands/base44/` |
-| Learning log (team) | **Overwritten** | `brands/base44/learning-log.md` |
-| User session data | **Preserved** | `~/.claude/marketing/` |
+base44-marketing-plugin/
+├── .claude-plugin/
+│   └── plugin.json         # Plugin metadata
+├── CLAUDE.md               # Plugin instructions
+├── README.md               # This file
+├── skills/
+│   ├── marketing-router/
+│   ├── marketing-ideas/
+│   ├── marketing-psychology/
+│   ├── linkedin-viral/
+│   ├── x-viral/
+│   ├── direct-response-copy/
+│   ├── seo-content/
+│   ├── geo-content/
+│   ├── landing-page-architecture/
+│   ├── hook-rules/
+│   ├── cross-platform-repurpose/
+│   ├── brand-memory/
+│   ├── remotion/
+│   └── nano-banana/
+├── agents/
+│   ├── ad-specialist.md
+│   ├── linkedin-specialist.md
+│   ├── x-specialist.md
+│   ├── copywriter.md
+│   ├── seo-specialist.md
+│   ├── video-specialist.md
+│   ├── planner.md
+│   └── brand-guardian.md
+└── brands/
+    └── base44/
+        ├── tone-of-voice.md
+        ├── learning-log.md
+        ├── AGENTS.md
+        └── templates/
+```
 
 ## Anti-AI Patterns
 
-Based on team feedback (Lora, 2026-02-01):
-
 **DON'T:**
-- Arrows (→) in lists - outdated
+- Arrows (→) in lists
 - Too many bullet points
 - Overly choppy sentences
 - Repeated phrases every post
@@ -183,43 +183,6 @@ Based on team feedback (Lora, 2026-02-01):
 - Varied structure
 - Conversational tone
 - Occasional imperfection OK
-
-## File Structure
-
-```
-base44-marketing/
-├── .claude-plugin/
-│   └── plugin.json         # Plugin metadata
-├── CLAUDE.md               # Plugin instructions
-├── README.md               # This file
-├── skills/
-│   ├── marketing-router/   # Entry point
-│   ├── marketing-ideas/    # Ideation + playbooks
-│   ├── marketing-psychology/
-│   ├── linkedin-viral/
-│   ├── x-viral/
-│   ├── direct-response-copy/
-│   ├── seo-content/
-│   ├── geo-content/
-│   ├── landing-page-architecture/
-│   ├── brand-memory/
-│   ├── remotion/
-│   └── nano-banana/
-├── agents/
-│   ├── linkedin-specialist.md
-│   ├── x-specialist.md
-│   ├── copywriter.md
-│   ├── seo-specialist.md
-│   ├── brand-guardian.md
-│   ├── planner.md
-│   └── video-specialist.md
-└── brands/
-    └── base44/
-        ├── tone-of-voice.md
-        ├── learning-log.md
-        ├── AGENTS.md
-        └── templates/
-```
 
 ## Team
 
@@ -231,4 +194,4 @@ base44-marketing/
 
 ---
 
-*Version 1.5.0 | Following cc10x patterns: Router → Agent Chains → Quality Gate*
+*Version 1.7.0 | Router → Agent Chains → Quality Gate*
