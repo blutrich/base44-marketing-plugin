@@ -184,14 +184,6 @@ base44-marketing-plugin/
 - Conversational tone
 - Occasional imperfection OK
 
-## Team
-
-| Role | Person |
-|------|--------|
-| Brand Lead | Shay |
-| Content | Tiffany, Lora |
-| Social | Lora |
-
 ---
 
 *Version 1.7.0 | Router → Agent Chains → Quality Gate*
