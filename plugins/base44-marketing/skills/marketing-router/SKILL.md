@@ -10,9 +10,104 @@ description: |
 
 # Marketing Router
 
-**EXECUTION ENGINE.** When loaded: Read brand → Detect intent → Load memory → Execute workflow → Update learning log.
+**EXECUTION ENGINE.** When loaded: Initialize memory → Read brand → Detect intent → Create tasks → Execute workflow → Update learning log.
 
 **NEVER** list capabilities. **ALWAYS** execute.
+
+---
+
+## Task Hierarchy Pattern (CC10X)
+
+Every workflow creates a task hierarchy for tracking:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  PARENT TASK: MARKETING [WORKFLOW]: [topic]                      │
+│  Status: in_progress                                             │
+└─────────────────────────────────────────────────────────────────┘
+         │
+         ├─── CHILD: [specialist]-agent: Create content
+         │         Status: pending → in_progress → completed
+         │
+         ├─── CHILD: brand-guardian: Review content
+         │         Status: pending (blocked by specialist)
+         │         → in_progress → completed
+         │
+         └─── CHILD: memory-update: Log learnings
+                   Status: pending (blocked by guardian)
+                   → in_progress → completed
+```
+
+### Task Creation Protocol
+
+```
+# Step 1: Create parent task
+TaskCreate({
+  subject: "MARKETING [WORKFLOW]: [topic]",
+  description: "Full workflow for [description]",
+  activeForm: "Creating [content type]"
+})
+# → Returns parent_id
+
+# Step 2: Create specialist task
+TaskCreate({
+  subject: "[agent-name]: [action]",
+  description: "Create [content type] following brand guidelines",
+  activeForm: "Writing [content type]"
+})
+# → Returns specialist_id
+
+# Step 3: Create guardian task
+TaskCreate({
+  subject: "brand-guardian: Review [content type]",
+  description: "Validate brand consistency, score content",
+  activeForm: "Reviewing content"
+})
+# → Returns guardian_id
+
+# Step 4: Create memory task
+TaskCreate({
+  subject: "memory-update: Log learnings",
+  description: "Update patterns.md, feedback.md, learning-log.md",
+  activeForm: "Updating memory"
+})
+# → Returns memory_id
+
+# Step 5: Set dependencies
+TaskUpdate({ taskId: guardian_id, addBlockedBy: [specialist_id] })
+TaskUpdate({ taskId: memory_id, addBlockedBy: [guardian_id] })
+```
+
+### Task Completion Protocol
+
+After each step:
+```
+TaskUpdate({
+  taskId: "[task_id]",
+  status: "completed",
+  metadata: {
+    output_summary: "[brief description]",
+    score: [X/10 if applicable],
+    evidence_captured: [true/false]
+  }
+})
+```
+
+### Workflow Tracking Table
+
+At start of workflow, output:
+```markdown
+## Workflow: MARKETING [TYPE]
+
+| Task | Agent | Status | Blocked By |
+|------|-------|--------|------------|
+| Parent | router | in_progress | - |
+| Content | [specialist] | pending | - |
+| Review | brand-guardian | pending | Content |
+| Memory | memory-update | pending | Review |
+```
+
+Update as tasks complete.
 
 ---
 
@@ -108,25 +203,167 @@ description: |
 | hook-rules | Foundation | Approved hook styles, banned patterns (no arrows, no FOMO) |
 | cross-platform-repurpose | Utility | Transform content between platforms (LinkedIn→X, etc.) |
 
-## Brand Context (LOAD FIRST - MANDATORY)
+## Memory Initialization (5-STEP SEQUENCE - MANDATORY)
 
-```
-Read(file_path="brands/base44/tone-of-voice.md")
-Read(file_path="brands/base44/AGENTS.md")
-Read(file_path="brands/base44/learning-log.md")
-```
+**IRON LAW:** Memory MUST be initialized before ANY content work.
 
-## Brand Memory (PERMISSION-FREE)
-
-**LOAD BEFORE ROUTING:**
+### Step 1: Create Directory
 ```
-Bash(command="mkdir -p .claude/marketing")
-Read(file_path=".claude/marketing/activeContext.md")
-Read(file_path=".claude/marketing/patterns.md")
-Read(file_path=".claude/marketing/feedback.md")
+Bash(command="mkdir -p ~/.claude/marketing")
 ```
 
-If any memory file is missing, create it with templates from `base44-marketing:brand-memory`.
+### Step 2: Check Existing Files
+```
+Bash(command="ls -la ~/.claude/marketing/ 2>/dev/null || echo 'EMPTY'")
+```
+
+### Step 3: Create Missing Files
+
+If `activeContext.md` missing:
+```
+Write(file_path="~/.claude/marketing/activeContext.md", content="
+# Marketing Active Context
+
+## Current Focus
+- Campaign: [none]
+- Channel: [none]
+- Deadline: [none]
+- Priority: [normal]
+
+## Recent Content
+| Date | Type | Channel | Status | Score |
+|------|------|---------|--------|-------|
+
+## Key Messages
+- [Add current messaging priorities here]
+
+## Numbers to Use
+| Metric | Value | Last Updated |
+|--------|-------|--------------|
+| ARR | $X | [date] |
+| Users/Builders | X | [date] |
+| Apps shipped | X | [date] |
+
+## References
+- Plan: N/A
+- Brief: N/A
+- Learning Log: brands/base44/learning-log.md
+
+## Last Updated
+[timestamp]
+")
+```
+
+If `patterns.md` missing:
+```
+Write(file_path="~/.claude/marketing/patterns.md", content="
+# Learned Patterns
+
+## Phrases That Work
+| Phrase | Why | Source | Count |
+|--------|-----|--------|-------|
+| \"Less guessing. More shipping.\" | Punchy, parallel structure | Tiffany/Debug Mode | 5 |
+| \"Another feature just dropped:\" | Clean announcement format | LinkedIn analysis | 4 |
+| \"Happy [action]! [emoji]\" | Friendly sign-off | LinkedIn | 3 |
+
+## Phrases to AVOID
+| Phrase | Why | Source | Count |
+|--------|-----|--------|-------|
+| \"We're excited to announce\" | Corporate, not builder-voice | Brand rules | - |
+| \"users\" / \"customers\" | Not builder-centric | RULES.md | - |
+| Arrow bullets (→) | AI detection flag | Lora feedback | - |
+
+## Channel Patterns
+### LinkedIn
+- 1-3 emoji max
+- Hook → Details → CTA
+- Numbers always specific
+
+### Discord
+- More emoji OK
+- Humor OK
+- Self-deprecating works
+
+### Email
+- Problem → Solution → Result
+- Single CTA
+- Short paragraphs (150-200 words)
+
+### X (Twitter)
+- 2-4 emoji OK
+- Thread format for long content
+- Intrigue hooks work
+
+## Content That Got Approved
+| Date | Type | Channel | Key Elements | Score |
+|------|------|---------|--------------|-------|
+
+## Content That Got Rejected
+| Date | Type | Channel | Issue | Fix | DEBUG |
+|------|------|---------|-------|-----|-------|
+
+## Pattern Tracking
+| Pattern | Type | Category | Count | Status |
+|---------|------|----------|-------|--------|
+
+## Last Updated
+[timestamp]
+")
+```
+
+If `feedback.md` missing:
+```
+Write(file_path="~/.claude/marketing/feedback.md", content="
+# Pending Feedback
+
+## Awaiting Review
+| Date | Content | Channel | Status | Assigned |
+|------|---------|---------|--------|----------|
+
+## Recent Feedback
+
+## Debug Attempts
+| Date | Content | Issue | Attempts | Resolution |
+|------|---------|-------|----------|------------|
+
+## Last Updated
+[timestamp]
+")
+```
+
+### Step 4: Load Brand Context
+```
+Read(file_path="brands/base44/RULES.md")           # FIRST - hard rules
+Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
+Read(file_path="brands/base44/AGENTS.md")          # Agent index
+Read(file_path="brands/base44/learning-log.md")    # Recent learnings
+```
+
+### Step 5: Verify All Files & Anchors
+```
+Read(file_path="~/.claude/marketing/activeContext.md")
+Read(file_path="~/.claude/marketing/patterns.md")
+Read(file_path="~/.claude/marketing/feedback.md")
+
+# Check guaranteed anchors exist:
+# activeContext.md: ## Current Focus, ## Recent Content, ## Last Updated
+# patterns.md: ## Phrases That Work, ## Phrases to AVOID, ## Pattern Tracking
+# feedback.md: ## Awaiting Review, ## Recent Feedback, ## Debug Attempts
+
+# If ANY anchor missing → Auto-heal (recreate from template)
+```
+
+### Initialization Checklist
+
+Before proceeding to routing:
+- [ ] Directory exists (~/.claude/marketing/)
+- [ ] activeContext.md exists and has anchors
+- [ ] patterns.md exists and has anchors
+- [ ] feedback.md exists and has anchors
+- [ ] Brand files loaded (RULES.md, tone-of-voice.md, learning-log.md)
+- [ ] No pending promotions (patterns at COUNT: 2)
+
+**Only when ALL boxes checked: Proceed to routing.**
 
 ## Voice Rules (FROM AGENTS.md)
 

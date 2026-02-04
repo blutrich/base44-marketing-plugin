@@ -10,6 +10,120 @@ description: |
 
 Persistent memory for marketing content creation. Tracks what works, what doesn't, and patterns learned.
 
+---
+
+## Auto-Initialization (MANDATORY AT SESSION START)
+
+**IRON LAW:** Memory files MUST exist before any content work. If they don't exist, CREATE them.
+
+### Initialization Sequence
+
+```bash
+# Step 1: Ensure directory exists
+Bash(command="mkdir -p ~/.claude/marketing")
+
+# Step 2: Check which files exist
+Bash(command="ls -la ~/.claude/marketing/ 2>/dev/null || echo 'Directory empty or missing'")
+```
+
+### Step 3: Create Missing Files
+
+For EACH file that doesn't exist, create it with the template below:
+
+```
+# If activeContext.md missing:
+Write(file_path="~/.claude/marketing/activeContext.md", content="[ACTIVE_CONTEXT_TEMPLATE]")
+
+# If patterns.md missing:
+Write(file_path="~/.claude/marketing/patterns.md", content="[PATTERNS_TEMPLATE]")
+
+# If feedback.md missing:
+Write(file_path="~/.claude/marketing/feedback.md", content="[FEEDBACK_TEMPLATE]")
+```
+
+### Step 4: Verify Creation
+
+```
+Read(file_path="~/.claude/marketing/activeContext.md")
+Read(file_path="~/.claude/marketing/patterns.md")
+Read(file_path="~/.claude/marketing/feedback.md")
+```
+
+**If any read fails after creation: STOP and report error.**
+
+---
+
+## Guaranteed Anchors
+
+These headers MUST exist in each file. If missing, the file is corrupted.
+
+### activeContext.md Anchors
+| Anchor | Required | Purpose |
+|--------|----------|---------|
+| `## Current Focus` | YES | Current campaign/priority |
+| `## Recent Content` | YES | Last 5 content pieces |
+| `## Key Messages` | YES | Current messaging priorities |
+| `## Numbers to Use` | YES | Current stats (ARR, users, etc.) |
+| `## References` | YES | Links to plans, briefs |
+| `## Last Updated` | YES | Timestamp for staleness check |
+
+### patterns.md Anchors
+| Anchor | Required | Purpose |
+|--------|----------|---------|
+| `## Phrases That Work` | YES | Proven successful phrases |
+| `## Phrases to AVOID` | YES | Anti-patterns learned |
+| `## Channel Patterns` | YES | Platform-specific rules |
+| `## Content That Got Approved` | YES | Success log |
+| `## Content That Got Rejected` | YES | Failure log |
+| `## Pattern Tracking` | YES | Count-based pattern detection |
+| `## Last Updated` | YES | Timestamp |
+
+### feedback.md Anchors
+| Anchor | Required | Purpose |
+|--------|----------|---------|
+| `## Awaiting Review` | YES | Pending content |
+| `## Recent Feedback` | YES | Logged feedback |
+| `## Debug Attempts` | YES | Failed verification tracking |
+| `## Last Updated` | YES | Timestamp |
+
+---
+
+## Auto-Heal Protocol
+
+If a guaranteed anchor is missing, recreate the file from template:
+
+```
+# Check for anchors
+Read(file_path="~/.claude/marketing/activeContext.md")
+
+# If "## Current Focus" NOT found:
+#   → File is corrupted
+#   → Backup existing content
+#   → Recreate from template
+#   → Append any recoverable content
+
+Write(file_path="~/.claude/marketing/activeContext.md", content="[ACTIVE_CONTEXT_TEMPLATE]")
+```
+
+### Heal Decision Tree
+
+```
+Read file → Check anchors → All present?
+                              │
+                    ┌─────────┴─────────┐
+                    │                   │
+                   YES                  NO
+                    │                   │
+                    ▼                   ▼
+              Continue            Auto-Heal:
+                                  1. Log missing anchors
+                                  2. Recreate from template
+                                  3. Log recovery to feedback.md
+                                  4. Verify anchors present
+```
+
+---
+
 ## Team Contributors
 
 | Name | Role | Focus Areas |
@@ -50,54 +164,65 @@ brands/base44/
 
 **To contribute learnings back to team:** Edit `learning-log.md` in git repo and push
 
-## File Templates
+## File Templates (With Guaranteed Anchors)
 
-### activeContext.md
+### ACTIVE_CONTEXT_TEMPLATE (activeContext.md)
 ```markdown
 # Marketing Active Context
 
 ## Current Focus
-- Campaign: [name or none]
-- Channel: [LinkedIn/Email/etc.]
-- Deadline: [if any]
+- Campaign: [none]
+- Channel: [none]
+- Deadline: [none]
+- Priority: [normal]
 
 ## Recent Content
-- [DATE]: [content type] - [status]
+| Date | Type | Channel | Status | Score |
+|------|------|---------|--------|-------|
+| [DATE] | [type] | [channel] | [status] | [X/10] |
 
 ## Key Messages
-- [current messaging priorities]
+- [Add current messaging priorities here]
 
 ## Numbers to Use
-- [current stats: ARR, users, etc.]
+| Metric | Value | Last Updated |
+|--------|-------|--------------|
+| ARR | $X | [date] |
+| Users/Builders | X | [date] |
+| Apps shipped | X | [date] |
 
 ## References
 - Plan: [path or N/A]
 - Brief: [path or N/A]
+- Learning Log: brands/base44/learning-log.md
 
 ## Last Updated
 [timestamp]
 ```
 
-### patterns.md
+### PATTERNS_TEMPLATE (patterns.md)
 ```markdown
 # Learned Patterns
 
 ## Phrases That Work
-| Phrase | Why | Source |
-|--------|-----|--------|
-| "Less guessing. More shipping." | Punchy, parallel structure | Tiffany/Debug Mode |
-| "Another feature just dropped:" | Clean announcement format | LinkedIn analysis |
+| Phrase | Why | Source | Count |
+|--------|-----|--------|-------|
+| "Less guessing. More shipping." | Punchy, parallel structure | Tiffany/Debug Mode | 5 |
+| "Another feature just dropped:" | Clean announcement format | LinkedIn analysis | 4 |
+| "Happy [action]! [emoji]" | Friendly sign-off | LinkedIn | 3 |
 
 ## Phrases to AVOID
-| Phrase | Why | Source |
-|--------|-----|--------|
-| "We're excited to announce" | Corporate, not builder-voice | Brand rules |
+| Phrase | Why | Source | Count |
+|--------|-----|--------|-------|
+| "We're excited to announce" | Corporate, not builder-voice | Brand rules | - |
+| "users" / "customers" | Not builder-centric | RULES.md | - |
+| Arrow bullets (→) | AI detection flag | Lora feedback | - |
 
 ## Channel Patterns
 ### LinkedIn
-- 1-3 emoji
+- 1-3 emoji max
 - Hook → Details → CTA
-- Numbers always
+- Numbers always specific
 
 ### Discord
 - More emoji OK
@@ -107,27 +232,37 @@ brands/base44/
 ### Email
 - Problem → Solution → Result
 - Single CTA
-- Short paragraphs
+- Short paragraphs (150-200 words)
+
+### X (Twitter)
+- 2-4 emoji OK
+- Thread format for long content
+- Intrigue hooks work
 
 ## Content That Got Approved
-| Date | Type | Key Elements |
-|------|------|--------------|
+| Date | Type | Channel | Key Elements | Score |
+|------|------|---------|--------------|-------|
 
 ## Content That Got Rejected
-| Date | Type | Issue | Fix |
-|------|------|-------|-----|
+| Date | Type | Channel | Issue | Fix | DEBUG |
+|------|------|---------|-------|-----|-------|
+
+## Pattern Tracking
+| Pattern | Type | Category | Count | Status |
+|---------|------|----------|-------|--------|
+| Example pattern | do/dont | voice | [COUNT: 0] | watching |
 
 ## Last Updated
 [timestamp]
 ```
 
-### feedback.md
+### FEEDBACK_TEMPLATE (feedback.md)
 ```markdown
 # Pending Feedback
 
 ## Awaiting Review
-| Date | Content | Channel | Status |
-|------|---------|---------|--------|
+| Date | Content | Channel | Status | Assigned |
+|------|---------|---------|--------|----------|
 
 ## Recent Feedback
 ### [DATE] - [CHANNEL]
@@ -139,7 +274,14 @@ brands/base44/
 
 **Action:**
 - [ ] Update patterns.md
-- [ ] Update AGENTS.md if pattern repeats 3+ times
+- [ ] Update RULES.md if pattern repeats 3+ times
+
+**Pattern Count:** [COUNT: 1]
+
+## Debug Attempts
+| Date | Content | Issue | Attempts | Resolution |
+|------|---------|-------|----------|------------|
+| [DATE] | [desc] | [issue] | [DEBUG-N] | [fixed/escalated] |
 
 ## Last Updated
 [timestamp]
@@ -452,3 +594,128 @@ Edit(file_path=".claude/marketing/activeContext.md",
      old_string="## Last Updated",
      new_string="## References\n- Plan: N/A\n\n## Last Updated")
 ```
+
+---
+
+## Automated Pattern Promotion
+
+### The Count System
+
+Every time feedback is logged, increment the pattern count:
+
+```markdown
+## Pattern Tracking (in patterns.md)
+| Pattern | Type | Category | Count | Status |
+|---------|------|----------|-------|--------|
+| "Don't use arrows" | dont | format | [COUNT: 3] | PROMOTE |
+```
+
+### Promotion Thresholds
+
+| Count | Status | Action |
+|-------|--------|--------|
+| 1 | Logged | Added to patterns.md, watching |
+| 2 | **PROMOTE** | Auto-add to RULES.md under NEVER/ALWAYS |
+| 3 | Rule | Now enforced by brand-guardian |
+| 5+ | TOV Review | Flag for tone-of-voice.md update |
+
+### Promotion Protocol
+
+When pattern count reaches 2:
+
+```
+# Step 1: Read current RULES.md
+Read(file_path="brands/base44/RULES.md")
+
+# Step 2: Add new rule
+Edit(file_path="brands/base44/RULES.md",
+     old_string="## NEVER DO",
+     new_string="## NEVER DO\n- [New pattern from patterns.md]")
+
+# Step 3: Verify
+Read(file_path="brands/base44/RULES.md")
+
+# Step 4: Update patterns.md status
+Edit(file_path=".claude/marketing/patterns.md",
+     old_string="| [Pattern] | dont | [cat] | [COUNT: 2] | PROMOTE |",
+     new_string="| [Pattern] | dont | [cat] | [COUNT: 2] | RULE |")
+
+# Step 5: Log promotion
+Edit(file_path="brands/base44/learning-log.md",
+     old_string="## Patterns Discovered",
+     new_string="## Patterns Discovered\n\n### [DATE] - PATTERN PROMOTED TO RULE\n- Pattern: [description]\n- Count: 2\n- Added to: RULES.md\n")
+```
+
+### Increment Pattern Count
+
+When same feedback appears again:
+
+```
+# Find existing pattern
+Read(file_path=".claude/marketing/patterns.md")
+
+# Increment count
+Edit(file_path=".claude/marketing/patterns.md",
+     old_string="| [Pattern] | [type] | [cat] | [COUNT: 1] |",
+     new_string="| [Pattern] | [type] | [cat] | [COUNT: 2] |")
+
+# Check if promotion threshold reached
+# If COUNT: 2 → trigger promotion protocol
+```
+
+---
+
+## Debug Attempt Tracking
+
+### Format
+
+```
+[DEBUG-N]: [Issue] → [Attempted Fix] → [Result]
+```
+
+### Track in feedback.md
+
+```markdown
+## Debug Attempts
+| Date | Content | Issue | Attempts | Resolution |
+|------|---------|-------|----------|------------|
+| 2026-02-04 | LinkedIn post | Arrow bullets | [DEBUG-1] | Fixed |
+| 2026-02-04 | Email | Too corporate | [DEBUG-3] | Escalated |
+```
+
+### Escalation Rules
+
+| DEBUG Level | Action |
+|-------------|--------|
+| DEBUG-1 | Normal fix, continue |
+| DEBUG-2 | Log pattern, continue |
+| DEBUG-3+ | Log to learning-log.md as pattern |
+| DEBUG-5+ | Flag for human review |
+
+### Learning from Debug
+
+After DEBUG-3+:
+```
+Edit(file_path="brands/base44/learning-log.md",
+     old_string="## Feedback Log",
+     new_string="## Feedback Log\n\n### [DATE] - DEBUG ESCALATION\n**Issue:** [what kept failing]\n**Attempts:** [DEBUG-N]\n**Root Cause:** [identified pattern]\n**Resolution:** [how it was finally fixed]\n**New Rule:** [if any]\n")
+```
+
+---
+
+## Session Initialization Checklist
+
+At START of every marketing session:
+
+```
+- [ ] mkdir ~/.claude/marketing/
+- [ ] Check activeContext.md exists → create if missing
+- [ ] Check patterns.md exists → create if missing
+- [ ] Check feedback.md exists → create if missing
+- [ ] Verify all guaranteed anchors present
+- [ ] Auto-heal any corrupted files
+- [ ] Load brand context (tone-of-voice.md, RULES.md, learning-log.md)
+- [ ] Check for pending promotions (patterns at COUNT: 2)
+```
+
+**Only after ALL checks pass: Begin content work.**

@@ -13,6 +13,52 @@ After Shay reviews content:
 3. Record feedback (what was wrong)
 4. Record corrected version
 5. Extract the pattern/rule learned
+6. **Check Pattern Tracking table - increment count if pattern exists**
+
+---
+
+## Pattern Tracking (CC10X)
+
+**Promotion Thresholds:**
+| Count | Status | Action |
+|-------|--------|--------|
+| 1 | Logged | Added to this table, watching |
+| 2 | **PROMOTE** | Auto-add to RULES.md |
+| 3+ | Rule | Enforced by brand-guardian |
+| 5+ | TOV Review | Flag for tone-of-voice.md update |
+
+### Active Pattern Counts
+
+| Pattern | Type | Category | Count | Status | Last Updated |
+|---------|------|----------|-------|--------|--------------|
+| Arrow bullets (→) | DONT | format | [COUNT: 3] | RULE | 2026-02-01 |
+| Question CTAs | DONT | cta | [COUNT: 2] | RULE | 2026-02-02 |
+| "vibe-coder" in posts | DONT | vocabulary | [COUNT: 1] | watching | 2026-02-02 |
+| Too many bullets | DONT | structure | [COUNT: 2] | RULE | 2026-02-01 |
+| Choppy sentences | DONT | voice | [COUNT: 2] | RULE | 2026-02-01 |
+| Long email intros | DONT | structure | [COUNT: 1] | watching | 2026-02-02 |
+| "Less guessing. More shipping." | DO | tagline | [COUNT: 5] | TOV | 2026-01-31 |
+| "Happy [action]!" | DO | sign-off | [COUNT: 4] | RULE | 2026-01-31 |
+| Specific numbers | DO | credibility | [COUNT: 7] | TOV | 2026-01-31 |
+
+### How to Update Counts
+
+When feedback matches an existing pattern:
+```
+1. Find pattern in table above
+2. Increment [COUNT: N] → [COUNT: N+1]
+3. Update "Last Updated" date
+4. Check if threshold reached:
+   - COUNT: 2 → Change Status to "PROMOTE", add to RULES.md
+   - COUNT: 5 → Change Status to "TOV", flag for review
+```
+
+When new pattern discovered:
+```
+1. Add new row with [COUNT: 1]
+2. Set Status to "watching"
+3. Set Last Updated to today
+```
 
 ---
 
