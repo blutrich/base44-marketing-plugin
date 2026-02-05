@@ -10,10 +10,26 @@ description: |
 
 Apply when writing Remotion code for video compositions, animations, or rendering.
 
+## Base44 Brand Integration
+
+**ALWAYS** load brand assets before creating videos for Base44:
+
+1. **Read brand file first:** [rules/base44-brand.md](rules/base44-brand.md)
+2. **Apply brand colors** from the Base44 palette (warm orange accents on light gradient)
+3. **Use brand fonts** (STKMiso for headings, Inter for body)
+4. **Follow voice guidelines** for any text in videos (builders not users, ship not deploy, etc.)
+5. **Avoid anti-patterns** (no arrows →, natural flow, short punchy text)
+
+This ensures all video content is on-brand and consistent with Base44's visual identity and tone of voice.
+
 ## How to use
 
 Read individual rule files for detailed explanations and code examples:
 
+### Brand Integration
+- [rules/base44-brand.md](rules/base44-brand.md) - Base44 brand colors, fonts, voice guidelines, and anti-patterns (READ FIRST)
+
+### Technical Rules
 - [rules/3d.md](rules/3d.md) - 3D content in Remotion using Three.js and React Three Fiber
 - [rules/animations.md](rules/animations.md) - Fundamental animation skills for Remotion
 - [rules/assets.md](rules/assets.md) - Importing images, videos, audio, and fonts into Remotion

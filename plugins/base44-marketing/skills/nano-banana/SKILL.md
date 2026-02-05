@@ -104,7 +104,7 @@ python3 scripts/add_text_overlay.py chat cooking.png \
 
 ## Brand Integration
 
-Uses STK Miso Light font and Base44 colors (#FF983B accent) automatically.
+Uses STKMiso font and Base44 colors (#FF983B accent) automatically.
 
 ## API Reference
 

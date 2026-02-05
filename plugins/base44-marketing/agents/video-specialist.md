@@ -42,7 +42,7 @@ Skill(skill="base44-marketing:remotion")           # Load Remotion knowledge
 - Text: White on dark, high contrast
 
 ### Typography
-- Font: STK Miso Light (or similar clean sans-serif)
+- Font: STKMiso (headings), Inter (body)
 - Headlines: Bold, short
 - Body: Readable at small sizes
 
@@ -130,7 +130,7 @@ export const brand = {
     text: '#FFFFFF',
   },
   fonts: {
-    heading: 'STK Miso Light, sans-serif',
+    heading: 'STKMiso, Inter, sans-serif',
     body: 'Inter, sans-serif',
   },
 };
