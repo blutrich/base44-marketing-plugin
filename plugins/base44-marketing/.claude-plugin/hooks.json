@@ -14,7 +14,7 @@
     "Stop": [
       {
         "type": "command",
-        "command": "date '+Session ended: %Y-%m-%d %H:%M' >> ~/.claude/marketing/session-log.txt"
+        "command": "date '+Session ended: %Y-%m-%d %H:%M' >> .claude/marketing/session-log.txt"
       }
     ]
   }

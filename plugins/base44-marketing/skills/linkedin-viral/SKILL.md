@@ -211,7 +211,7 @@ The difference? [Single insight]
 ### Visual Hierarchy
 ```
 Use:
-→ Arrows for lists
+• Bullets for lists
 • Bullets for options
 — Dashes for asides
 CAPS for emphasis (sparingly)

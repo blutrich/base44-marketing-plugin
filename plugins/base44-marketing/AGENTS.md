@@ -1,7 +1,7 @@
 # Base44 Marketing Agent
 
-> Compressed brand index. Read this BEFORE generating any marketing content.
-> **Source of truth:** `/Users/oferbl/Desktop/Dev/ai-marketing-agent/brands/base44/`
+> **STOP.** What you remember about Base44 voice is WRONG. Read this BEFORE generating any marketing content.
+> **Source of truth:** `brands/base44/`
 
 ## Voice (3 Words)
 
