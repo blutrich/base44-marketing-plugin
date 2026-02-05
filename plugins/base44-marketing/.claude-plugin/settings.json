@@ -9,7 +9,14 @@
       "Read(.claude/marketing/**)",
       "Edit(.claude/marketing/**)",
       "Write(.claude/marketing/**)",
-      "Bash(mkdir -p .claude/marketing)"
+      "Bash(mkdir -p .claude/marketing)",
+      "Bash(mkdir -p docs/plans)",
+      "Bash(mkdir -p docs/research)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git blame:*)",
+      "Bash(git ls-files:*)"
     ],
     "deny": [
       "Bash(rm -rf *)",
