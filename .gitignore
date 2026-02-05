@@ -12,6 +12,12 @@ brand-source
 .claude/cc10x/
 .claude/marketing/
 
+# Root-level plugin config (actual plugin is in plugins/base44-marketing/)
+/.claude-plugin/
+
+# Fonts at root (should be in video projects)
+/*.ttf
+
 # Transcriptions and source files
 transcriptions/
 
