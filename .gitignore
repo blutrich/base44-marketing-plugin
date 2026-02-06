@@ -12,8 +12,11 @@ brand-source
 .claude/cc10x/
 .claude/marketing/
 
-# Root-level plugin config (actual plugin is in plugins/base44-marketing/)
-/.claude-plugin/
+# Root-level plugin config duplicates (actual plugin is in plugins/base44-marketing/)
+# Keep marketplace.json tracked, ignore the rest
+/.claude-plugin/hooks.json
+/.claude-plugin/plugin.json
+/.claude-plugin/settings.json
 
 # Fonts at root (should be in video projects)
 /*.ttf
