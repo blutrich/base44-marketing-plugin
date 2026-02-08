@@ -83,6 +83,11 @@ When new pattern discovered:
 | Default hashtags | No #vibecoding #buildinpublic by default - only if tagging specific activity | 2026-02-02 |
 | Long email intros | No "You know that moment..." - start with "Hey there," + direct announcement | 2026-02-02 |
 | Elaborate frameworks | Keep emails SHORT (150-200 words) - Announcement → Details → CTA | 2026-02-02 |
+| Generic hooks ("Just dropped") | Hooks must be creative AND relevant to the specific feature, not interchangeable | 2026-02-08 (Ofer) |
+| Choppy "X. Y. Z." sentence structure | "Paste any URL. Base44 will..." sounds too polished/AI - write in natural flowing sentences | 2026-02-08 (Ofer) |
+| "Happy shipping" / "Enjoy building" sign-offs | Doesn't resonate with target audience - find more engaging closers | 2026-02-08 (Ofer) |
+| "See for yourself" CTAs | Sounds too salesy/fake, like a corporate invitation. Base44 wouldn't say this | 2026-02-08 (Ofer) |
+| Relatable scenarios that aren't actually relatable | "You know when you spend 2 weeks recreating a site" — no one does that. Scenarios must be genuinely common experiences for our audience | 2026-02-08 (Ofer) |
 
 ### Words/Phrases that WORK
 | Phrase | Why | Discovered |
@@ -96,6 +101,10 @@ When new pattern discovered:
 | ~~"Happy [action]! 🧪"~~ | ~~Friendly sign-off~~ DEPRECATED - doesn't resonate (Asaf) | 2026-01-31 → 2026-02-06 |
 | "I've been getting those stories on a ~weekly basis" | Social proof without bragging | 2026-01-31 (Maor) |
 | ~~"Built something cool? Drop it below"~~ | ~~Engagement CTA~~ DEPRECATED - no question CTAs | 2026-01-31 → 2026-02-02 |
+| "Moving your site to Base44 just got suspiciously easy" | Hook that matches the feature perfectly - creative, fun, relevant to what Capture Mode does | 2026-02-08 (Ofer) |
+| Feature-specific hooks | Hook should only make sense for THIS feature - not interchangeable with other announcements | 2026-02-08 (Ofer) |
+| "We're not saying you should X. We're just saying you can. 😏" | Playful, teasing closer — great example of an engaging post ending that matches brand voice | 2026-02-08 (Ofer) |
+| Relatable openers that are ACTUALLY relatable | "When you see a site you like and want to get to a similar design" > "spend two weeks recreating from scratch." Ground scenarios in real builder experiences | 2026-02-08 (Ofer) |
 | "The comment with the most likes wins credits" | Gamified engagement (contests only) | 2026-01-31 (LinkedIn) |
 | "$350k contract" / "$50k ARR" / "$1M ARR" | Specific numbers = credibility | 2026-01-31 (Maor) |
 

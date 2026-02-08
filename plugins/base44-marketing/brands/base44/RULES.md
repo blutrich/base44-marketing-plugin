@@ -23,10 +23,11 @@
 9. **No emoji as bullets** - Spammy (Brand core)
 10. **No external links in LinkedIn/X main post** - Kills reach (Platform rules)
 11. **No default hashtags** - Only use hashtags if tagging a specific activity (2026-02-02)
-12. **No generic hooks** - "Just dropped" is interchangeable. Must be creative and feature-specific (Asaf, 2026-02-06)
-13. **No short-sentence-period cadence** - "Paste any url. Base44 will..." sounds too polished/AI (Asaf, 2026-02-06)
-14. **No "Happy shipping/building/testing" sign-offs** - Doesn't resonate with target audience (Asaf, 2026-02-06)
-15. **No "see for yourself" CTAs** - Too salesy/corporate (Asaf, 2026-02-06)
+12. **No generic hooks** - "Just dropped" is interchangeable. Hooks must be creative, fun, and specific to the feature being announced (Asaf 2026-02-06, Ofer 2026-02-08)
+13. **No "X. Y. Z." choppy structure** - "Paste any URL. Base44 will..." sounds too polished/AI. Write flowing sentences (Asaf 2026-02-06, Ofer 2026-02-08)
+14. **No "Happy shipping" / "Enjoy building" sign-offs** - Doesn't resonate. Find closers that are engaging and feature-relevant (Asaf 2026-02-06, Ofer 2026-02-08)
+15. **No "see for yourself" CTAs** - Sounds too salesy/corporate. Base44 doesn't talk like an infomercial (Asaf 2026-02-06, Ofer 2026-02-08)
+16. **No fake-relatable scenarios** - If the "you know when..." scenario isn't a genuinely common experience for builders, don't use it. Ground openers in real experiences (Ofer 2026-02-08)
 
 ## ALWAYS DO
 
@@ -35,8 +36,8 @@
 3. **Show results, not promises** - What happened, not what might
 4. **Natural sentence flow** - Mix short and medium sentences
 5. **Vary structure** - Not every post needs lists
-6. **Hooks must match the feature** - Only make sense for THIS specific feature (Asaf, 2026-02-06)
-7. **End posts with engagement, not filler** - Feature-relevant closers (Asaf, 2026-02-06)
+6. **Hooks must match the feature** - The hook should only make sense for THIS specific feature, not be interchangeable (Asaf 2026-02-06, Ofer 2026-02-08)
+7. **End posts with engagement, not filler** - Feature-relevant closers, or occasionally "how will you use this?" when it fits naturally (Asaf 2026-02-06, Ofer 2026-02-08)
 
 ---
 
@@ -50,5 +51,5 @@
 
 ---
 
-*Last updated: 2026-02-06*
-*Rules: 17 NEVER + 7 ALWAYS*
+*Last updated: 2026-02-08*
+*Rules: 18 NEVER + 7 ALWAYS*
