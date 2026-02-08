@@ -35,11 +35,17 @@ After Shay reviews content:
 | Question CTAs | DONT | cta | [COUNT: 2] | RULE | 2026-02-02 |
 | "vibe-coder" in posts | DONT | vocabulary | [COUNT: 1] | watching | 2026-02-02 |
 | Too many bullets | DONT | structure | [COUNT: 2] | RULE | 2026-02-01 |
-| Choppy sentences | DONT | voice | [COUNT: 2] | RULE | 2026-02-01 |
+| Choppy sentences | DONT | voice | [COUNT: 3] | RULE | 2026-02-06 |
 | Long email intros | DONT | structure | [COUNT: 1] | watching | 2026-02-02 |
+| Generic hooks ("Just dropped") | DONT | hooks | [COUNT: 1] | watching | 2026-02-06 |
+| "Happy shipping/building/testing" | DONT | sign-off | [COUNT: 1] | watching | 2026-02-06 |
+| Short-sentence-period cadence | DONT | voice | [COUNT: 1] | watching | 2026-02-06 |
+| "See for yourself" CTAs | DONT | cta | [COUNT: 1] | watching | 2026-02-06 |
 | "Less guessing. More shipping." | DO | tagline | [COUNT: 5] | TOV | 2026-01-31 |
-| "Happy [action]!" | DO | sign-off | [COUNT: 4] | RULE | 2026-01-31 |
+| ~~"Happy [action]!"~~ | ~~DO~~ | ~~sign-off~~ | ~~[COUNT: 4]~~ | **DEPRECATED** | 2026-02-06 |
 | Specific numbers | DO | credibility | [COUNT: 7] | TOV | 2026-01-31 |
+| Feature-specific creative hooks | DO | hooks | [COUNT: 1] | watching | 2026-02-06 |
+| Copy matches feature personality | DO | hooks | [COUNT: 1] | watching | 2026-02-06 |
 
 ### How to Update Counts
 
@@ -87,7 +93,7 @@ When new pattern discovered:
 | "Check out our super quick demo 👇" | Direct CTA with emoji pointer | 2026-01-31 (Tiffany) |
 | "Another feature just dropped:" | Clean feature announcement format | 2026-01-31 (LinkedIn) |
 | "We can't wait to see what you build 🎉" | Community excitement, empowerment | 2026-01-31 (LinkedIn) |
-| "Happy [action]! 🧪" | Friendly sign-off (Happy testing!) | 2026-01-31 (LinkedIn) |
+| ~~"Happy [action]! 🧪"~~ | ~~Friendly sign-off~~ DEPRECATED - doesn't resonate (Asaf) | 2026-01-31 → 2026-02-06 |
 | "I've been getting those stories on a ~weekly basis" | Social proof without bragging | 2026-01-31 (Maor) |
 | ~~"Built something cool? Drop it below"~~ | ~~Engagement CTA~~ DEPRECATED - no question CTAs | 2026-01-31 → 2026-02-02 |
 | "The comment with the most likes wins credits" | Gamified engagement (contests only) | 2026-01-31 (LinkedIn) |
@@ -125,6 +131,36 @@ When new pattern discovered:
 **Pattern Learned:**
 - [what to repeat or avoid next time]
 ```
+
+---
+
+### 2026-02-06 - All Channels - Voice Feedback (Asaf, Full-Stack Marketeer)
+
+**Source:** Asaf reviewing agent-generated content
+
+**Key Feedback:**
+
+1. **Hooks must be creative and feature-specific.** "Just dropped" is interchangeable — it works for any feature, which means it works for none. Good example: "Moving your site to Base44 just got suspiciously easy" — creative, fun, and only makes sense for THAT feature (site migration).
+
+2. **No short-sentence-period cadence.** "Paste any url. Base44 will..." with periods after every few words sounds too polished, AI-generated. Write in natural flowing sentences instead.
+
+3. **No "Happy shipping/building/testing" sign-offs.** Doesn't sound good and won't relate with target audience.
+
+4. **No "see for yourself" CTAs.** Too salesy/corporate.
+
+5. **Feature-relevant closers.** Sometimes asking "how are you planning to use this feature?" works — but only when it's genuinely relevant to that specific feature. Don't use it every time.
+
+**Good Example (Asaf-approved):**
+> "Moving your site to Base44 just got suspiciously easy"
+- Creative, slightly funny
+- Directly tied to the feature (site migration)
+- Wouldn't work for any other feature = good sign
+
+**Patterns Learned:**
+- Hook = the most important line. Invest time making it creative AND feature-specific
+- If the hook could be swapped to another feature, it's too generic
+- Natural sentence flow > polished short-sentence rhythm
+- Closers should engage, not fill space
 
 ---
 

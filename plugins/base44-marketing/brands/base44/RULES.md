@@ -23,6 +23,10 @@
 9. **No emoji as bullets** - Spammy (Brand core)
 10. **No external links in LinkedIn/X main post** - Kills reach (Platform rules)
 11. **No default hashtags** - Only use hashtags if tagging a specific activity (2026-02-02)
+12. **No generic hooks** - "Just dropped" is interchangeable. Must be creative and feature-specific (Asaf, 2026-02-06)
+13. **No short-sentence-period cadence** - "Paste any url. Base44 will..." sounds too polished/AI (Asaf, 2026-02-06)
+14. **No "Happy shipping/building/testing" sign-offs** - Doesn't resonate with target audience (Asaf, 2026-02-06)
+15. **No "see for yourself" CTAs** - Too salesy/corporate (Asaf, 2026-02-06)
 
 ## ALWAYS DO
 
@@ -31,6 +35,8 @@
 3. **Show results, not promises** - What happened, not what might
 4. **Natural sentence flow** - Mix short and medium sentences
 5. **Vary structure** - Not every post needs lists
+6. **Hooks must match the feature** - Only make sense for THIS specific feature (Asaf, 2026-02-06)
+7. **End posts with engagement, not filler** - Feature-relevant closers (Asaf, 2026-02-06)
 
 ---
 
@@ -44,5 +50,5 @@
 
 ---
 
-*Last updated: 2026-02-02*
-*Rules: 13 NEVER + 5 ALWAYS*
+*Last updated: 2026-02-06*
+*Rules: 17 NEVER + 7 ALWAYS*
