@@ -19,6 +19,8 @@ Rules for creating engaging, on-brand hooks that avoid AI-detection patterns.
 | Negative framing | We lead with possibility, not problems | "You're doing it wrong" |
 | Arrow bullets (→, ➡️, ▸) | Creates a cold, listicle feel - AI detection flag | "→ Feature one" |
 | "We're excited to announce" | Corporate speak | Any variation |
+| TV-ad tagline cadence | Sounds like a commercial, not a builder | "One workspace. Unlimited builders. No friction." |
+| Advertising melody | Billboard/radio spot rhythm | "Build faster. Ship smarter. Scale infinitely." |
 
 ## What We DO Use
 
@@ -63,10 +65,10 @@ Here's what they built:
 ```
 
 #### 5. Direct Value
-Punchy, benefit-focused statements.
+Benefit-focused statements grounded in real outcomes. NOT TV-ad cadence.
 
 ```
-Ship faster. Iterate faster. Win faster.
+We just cut build time from 2 weeks to 3 hours. Here's how.
 ```
 
 ## Approved Emoji Bullets
@@ -113,9 +115,11 @@ Before using any hook, verify:
 2. [ ] No FOMO language ("don't miss", "before it's too late", "left behind")
 3. [ ] No negative framing ("stop wasting", "you're doing it wrong")
 4. [ ] No contrarian angle for its own sake
-5. [ ] Leads with outcome, not problem
-6. [ ] Uses approved emoji set for bullets
-7. [ ] Sounds like a builder talking to a builder
+5. [ ] No TV-ad cadence (stacked declarative fragments)
+6. [ ] No advertising melody (billboard/radio spot rhythm)
+7. [ ] Leads with outcome, not problem
+8. [ ] Uses approved emoji set for bullets
+9. [ ] Sounds like a builder talking to a builder (Maor Test)
 
 ## Integration with Agents
 
@@ -139,6 +143,8 @@ NEVER:
 ❌ Negative framing
 ❌ Arrow bullets (→ ➡️ ▸)
 ❌ "We're excited to announce"
+❌ TV-ad cadence (stacked declaratives)
+❌ Advertising melody/rhythm
 
 ALWAYS:
 ✅ Positive, possibility-focused
@@ -146,6 +152,7 @@ ALWAYS:
 ✅ Builder-first messaging
 ✅ Lead with outcomes
 ✅ Specific numbers when possible
+✅ Passes the Maor Test (would Maor post this?)
 ```
 
 ## Channel-Specific Hook Rules

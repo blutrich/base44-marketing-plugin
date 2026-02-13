@@ -6,16 +6,26 @@
     "background": "E8F4F8",
     "background_alt": "FDF5F0",
     "background_secondary": "F0F0F0",
+    "background_warm": "faf9f7",
+    "surface": "FFFFFF",
+    "text_primary": "0f0f0f",
     "text": "000000",
-    "text_secondary": "666666",
+    "text_body": "232529",
+    "text_secondary": "696f7b",
+    "text_muted": "666666",
     "accent": "FF983B",
     "accent_light": "FFE9DF",
     "accent_medium": "FFBFA1",
     "accent_dark": "EA6020",
     "accent_darkest": "C94001",
+    "green_bg": "ebffb1",
+    "green_border": "ade900",
     "code_bg": "f5f5f5",
+    "terminal_bg": "1a1a1a",
     "card_bg": "FFFFFF",
     "card_bg_alt": "f9f9f9",
+    "card_border": "e6e6e6",
+    "divider": "d1d1d1",
     "button_bg": "000000",
     "button_text": "FFFFFF"
   },
@@ -25,27 +35,104 @@
       "type": "linear",
       "direction": "180deg",
       "stops": ["E8F4F8", "FDF5F0"]
+    },
+    "hero_blue": {
+      "css": "radial-gradient(ellipse 70% 40% at 50% 50%, rgba(250,249,247,0.7) 0%, rgba(250,249,247,0) 100%), radial-gradient(ellipse 150% 91% at 50% -17%, rgba(93,179,207,1) 22%, rgba(145,201,220,0.56) 58%, rgba(250,249,247,0) 86%), radial-gradient(ellipse 139% 75% at 50% 0%, rgba(143,198,217,1) 0%, rgba(151,216,238,0) 100%), linear-gradient(180deg, rgb(34,201,255) 26%, rgb(250,249,247) 24%)"
+    },
+    "hero_dot_grid": {
+      "css": "radial-gradient(circle, #ddd 1px, transparent 1px)",
+      "size": "24px 24px"
+    },
+    "cta_sunset": {
+      "css": "linear-gradient(180deg, rgba(242,237,225,0) 5%, rgba(255,240,222,0.2) 33%, rgba(255,174,83,0.5) 79%, rgb(255,116,56) 99%), linear-gradient(180deg, rgb(250,249,247) 4%, rgb(255,240,222) 70%, rgba(239,129,82,0.6) 94%)"
+    },
+    "ticker_green": {
+      "css": "linear-gradient(to left, #ebfad5 18%, #e6fc88 118%)"
     }
   },
 
   "fonts": {
-    "heading": "BC Novatica Cyr",
-    "heading_alt": "STK Miso Light",
-    "heading_fallback": "Arial",
-    "body": "Inter",
-    "body_fallback": "Arial",
-    "code": "Courier New"
+    "heading": "STK Miso",
+    "body": "STK Miso",
+    "code": "STK Miso",
+    "fallback": "Arial",
+    "font_faces": [
+      {
+        "family": "STK Miso",
+        "file": "STKMiso-Light.ttf",
+        "weight": 300,
+        "format": "truetype"
+      },
+      {
+        "family": "STK Miso",
+        "file": "STKMiso-Regular.ttf",
+        "weight": 400,
+        "format": "truetype"
+      }
+    ]
+  },
+
+  "typography": {
+    "hero_title": { "family": "STK Miso", "weight": 400, "size": "74px", "line_height": "74px" },
+    "hero_title_technical": { "family": "STK Miso", "weight": 400, "size": "80px", "line_height": "90px" },
+    "section_title": { "family": "STK Miso", "weight": 400, "size": "54px", "line_height": "60px" },
+    "section_eyebrow": { "family": "STK Miso", "weight": 300, "size": "32px", "line_height": "34px" },
+    "card_title": { "family": "STK Miso", "weight": 400, "size": "24px", "line_height": "34px" },
+    "faq_question": { "family": "STK Miso", "weight": 400, "size": "28px", "line_height": "30px" },
+    "body_large": { "family": "STK Miso", "weight": 300, "size": "20px", "line_height": "28px" },
+    "body": { "family": "STK Miso", "weight": 300, "size": "16px", "line_height": "24px" },
+    "body_small": { "family": "STK Miso", "weight": 300, "size": "14px", "line_height": "22px" },
+    "button": { "family": "STK Miso", "weight": 400, "size": "18px" },
+    "button_small": { "family": "STK Miso", "weight": 400, "size": "16px" },
+    "code": { "family": "STK Miso", "weight": 300, "size": "14px", "line_height": "20px" },
+    "ticker": { "family": "STK Miso", "weight": 300, "size": "16px", "line_height": "28px" }
+  },
+
+  "spacing": {
+    "section_padding": "120px 40px",
+    "section_padding_large": "160px 20px",
+    "card_padding": "36px",
+    "card_padding_small": "24px",
+    "max_width": "1460px",
+    "max_width_wide": "1920px",
+    "content_max_width": "869px",
+    "grid_gap": "10px"
+  },
+
+  "borders": {
+    "card": "1px solid #e6e6e6",
+    "divider": "1px solid #d1d1d1",
+    "radius_card": "10px",
+    "radius_button_pill": "300px",
+    "radius_button_rect": "8px",
+    "radius_ticker": "60px",
+    "radius_terminal": "12px",
+    "radius_cta_banner": "16px"
+  },
+
+  "shadows": {
+    "card": "0 4px 24px rgba(0,0,0,0.08)",
+    "elevated": "0 8px 32px rgba(0,0,0,0.12)",
+    "terminal": "0 20px 60px rgba(0,0,0,0.3)"
+  },
+
+  "code_syntax": {
+    "comment": "#696f7b",
+    "keyword": "#c792ea",
+    "type": "#82aaff",
+    "string": "#c3e88d",
+    "accent": "#FF983B",
+    "text": "#e0e0e0",
+    "terminal_question": "#8bb4cc",
+    "terminal_answer": "#a0a0a0",
+    "terminal_diamond": "#5db3cf"
   },
 
   "assets": {
     "logo": "assets/logo.png",
     "logo_dark": null,
-    "icon": null
-  },
-
-  "shadows": {
-    "card": "0 4px 24px rgba(0,0,0,0.08)",
-    "elevated": "0 8px 32px rgba(0,0,0,0.12)"
+    "icon": null,
+    "fonts_dir": "assets/fonts/"
   },
 
   "carousel": {

@@ -4,7 +4,7 @@
       "Read(brands/**)",
       "Read(skills/**)",
       "Read(agents/**)",
-      "Read(AGENTS.md)",
+      "Read(agents/shared-instructions.md)",
       "Read(CLAUDE.md)",
       "Read(.claude/marketing/**)",
       "Edit(.claude/marketing/**)",
@@ -25,7 +25,8 @@
     ]
   },
   "env": {
-    "MARKETING_PLUGIN_VERSION": "1.7.0",
-    "BRAND_DEFAULT": "base44"
+    "MARKETING_PLUGIN_VERSION": "1.9.0",
+    "BRAND_DEFAULT": "base44",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   }
 }

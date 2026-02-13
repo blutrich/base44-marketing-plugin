@@ -10,7 +10,7 @@
 - `brand.json` - Colors, fonts, gradients, shadows
 - `tone-of-voice.md` - Voice guidelines, vocabulary, anti-patterns
 - `brand-system.md` - Mission, positioning, personality
-- `AGENTS.md` - Compressed brand reference for quick context
+- `RULES.md` - Hard content rules (NEVER/ALWAYS lists)
 
 **ALWAYS read these files before creating Base44 video content.**
 
@@ -81,55 +81,59 @@ background: linear-gradient(180deg, #E8F4F8 0%, #FDF5F0 100%);
 ```typescript
 // Remotion font loading - CORRECT PATTERN
 import { loadFont } from "@remotion/fonts";
-import { loadFont as loadGoogleFont } from "@remotion/google-fonts/Inter";
 import { staticFile, delayRender, continueRender } from "remotion";
 
-// Load Google Font (Inter for body text)
-const { fontFamily: interFont } = loadGoogleFont();
-
-// Load local STKMiso font (RECOMMENDED for headings)
+// Load STK Miso (ONLY font - used for everything)
 const waitForFont = delayRender();
-loadFont({
-  family: "STKMiso",
-  url: staticFile("STKMiso-Regular.ttf"),
-  weight: "400",
-}).then(() => {
+Promise.all([
+  loadFont({
+    family: "STK Miso",
+    url: staticFile("STKMiso-Light.ttf"),
+    weight: "300",
+  }),
+  loadFont({
+    family: "STK Miso",
+    url: staticFile("STKMiso-Regular.ttf"),
+    weight: "400",
+  }),
+]).then(() => {
   continueRender(waitForFont);
 });
 
-// Font stacks
-const headingFont = "STKMiso, Inter, sans-serif";  // Use for headings
-const bodyFont = "Inter, Arial, sans-serif";       // Use for body text
-const codeFont = "Courier New, monospace";         // Use for code
+// Font stack (single font everywhere)
+const primaryFont = "'STK Miso', Arial, sans-serif";
 ```
 
 ### Font Usage Guidelines
 
 | Element | Font Stack | Weight | Notes |
 |---------|------------|--------|-------|
-| **Headings** | `STKMiso, Inter, sans-serif` | 400 | STKMiso works best at normal weight |
-| **Body text** | `Inter, Arial, sans-serif` | 400-700 | Google Font, auto-loaded |
-| **Code/mono** | `Courier New, monospace` | 400 | System font, no loading needed |
+| **Headings** | `'STK Miso', Arial, sans-serif` | 400 | Regular weight for headings/buttons |
+| **Body text** | `'STK Miso', Arial, sans-serif` | 300 | Light weight for body/captions |
+| **Code/mono** | `'STK Miso', Arial, sans-serif` | 300 | Light weight, same as body |
 
 ### Font Loading Example
 
 ```typescript
 // Complete font loading setup for Remotion
 import { loadFont } from "@remotion/fonts";
-import { loadFont as loadGoogleFont } from "@remotion/google-fonts/Inter";
+import { staticFile, delayRender, continueRender } from "remotion";
 
 // Call at composition start (e.g., in Root.tsx)
 export const loadFonts = async () => {
-  // Load Inter (body text)
-  loadInter();
-
-  // Load STKMiso (headings) - font files in public folder
   const waitForFont = delayRender();
-  await loadFont({
-    family: "STKMiso",
-    url: staticFile("STKMiso-Regular.ttf"),
-    weight: "400",
-  });
+  await Promise.all([
+    loadFont({
+      family: "STK Miso",
+      url: staticFile("STKMiso-Light.ttf"),
+      weight: "300",
+    }),
+    loadFont({
+      family: "STK Miso",
+      url: staticFile("STKMiso-Regular.ttf"),
+      weight: "400",
+    }),
+  ]);
   continueRender(waitForFont);
 };
 ```
@@ -138,48 +142,48 @@ export const loadFonts = async () => {
 
 | Element | Font | Size Range | Weight | When to Use |
 |---------|------|------------|--------|-------------|
-| **Hero headlines** | STKMiso | 48-72px | 400 | Opening titles, key messages |
-| **Section headers** | STKMiso | 32-48px | 400 | Section dividers |
-| **Body text** | Inter | 18-24px | 400-600 | Main content, descriptions |
-| **Captions** | Inter | 14-18px | 400 | Subtitles, small text |
-| **Code snippets** | Courier New | 16-20px | 400 | Code examples, technical content |
+| **Hero headlines** | STK Miso | 48-72px | 400 | Opening titles, key messages |
+| **Section headers** | STK Miso | 32-48px | 400 | Section dividers |
+| **Body text** | STK Miso | 18-24px | 300 | Main content, descriptions |
+| **Captions** | STK Miso | 14-18px | 300 | Subtitles, small text |
+| **Code snippets** | STK Miso | 16-20px | 300 | Code examples, technical content |
 
 ### Text Hierarchy Example
 
 ```typescript
 const textStyles = {
   hero: {
-    fontFamily: 'STKMiso, Inter, sans-serif',
+    fontFamily: "'STK Miso', Arial, sans-serif",
     fontSize: 64,
     fontWeight: 400,
     color: '#000000',
     lineHeight: 1.2,
   },
   heading: {
-    fontFamily: 'STKMiso, Inter, sans-serif',
+    fontFamily: "'STK Miso', Arial, sans-serif",
     fontSize: 40,
     fontWeight: 400,
     color: '#000000',
     lineHeight: 1.3,
   },
   body: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: "'STK Miso', Arial, sans-serif",
     fontSize: 20,
-    fontWeight: 400,
+    fontWeight: 300,
     color: '#000000',
     lineHeight: 1.5,
   },
   caption: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: "'STK Miso', Arial, sans-serif",
     fontSize: 16,
-    fontWeight: 400,
+    fontWeight: 300,
     color: '#666666',
     lineHeight: 1.4,
   },
   code: {
-    fontFamily: 'Courier New, monospace',
+    fontFamily: "'STK Miso', Arial, sans-serif",
     fontSize: 18,
-    fontWeight: 400,
+    fontWeight: 300,
     color: '#000000',
     lineHeight: 1.4,
   },
@@ -207,7 +211,7 @@ const textStyles = {
 - "Just shipped" (for announcements)
 - "Vibe coding" (our category)
 - Action verbs in present tense
-- Specific numbers (e.g., "$1M ARR", "140K users", "3 weeks")
+- Specific numbers (e.g., "$1M ARR", "400K+ builders", "3 weeks")
 
 #### NEVER Use
 - "Users" or "customers" (say "builders")
@@ -355,7 +359,7 @@ Perhaps you'd like to consider building with us (hedging)
 
 2. Setup/Problem (3-4s)
    - Establish context
-   - Use body text (Inter)
+   - Use body text (STK Miso Light)
    - Gray text for supporting info
 
 3. Solution/Feature (4-6s)
@@ -433,7 +437,7 @@ All text must meet WCAG AA standards:
 
 ### Subtitles/Captions
 
-- Use Inter 16-18px minimum
+- Use STK Miso Light 16-18px minimum
 - Black text on semi-transparent white background
 - Position: bottom center, 10% from edge
 - Duration: minimum 2s per line
@@ -448,7 +452,7 @@ plugins/base44-marketing/brands/base44/
 ├── brand.json               (colors, fonts, specs)
 ├── tone-of-voice.md         (full voice guide)
 ├── brand-system.md          (mission, positioning)
-└── AGENTS.md                (compressed reference)
+└── learning-log.md          (feedback patterns)
 ```
 
 **Note:** Logo assets are defined in `brand.json` under the `assets` key but may not be present in all deployments. Check for logo availability before referencing.
@@ -468,8 +472,8 @@ Before rendering any Base44 video, verify:
 ### Visual Brand
 - [ ] Uses Base44 gradient background or white cards
 - [ ] Orange accent color for highlights/CTAs
-- [ ] STKMiso for headings (with Inter fallback)
-- [ ] Inter for body text
+- [ ] STK Miso Regular (400) for headings
+- [ ] STK Miso Light (300) for body text
 - [ ] No arrows in text
 - [ ] Logo included (if available and appropriate)
 
@@ -493,7 +497,7 @@ Before rendering any Base44 video, verify:
 
 ```
 COLORS:         #E8F4F8 to #FDF5F0 (gradient), #FF983B (orange), #000000 (black)
-FONTS:          STKMiso (headings), Inter (body), Courier New (code)
+FONTS:          STK Miso Regular (headings), STK Miso Light (body/code)
 VOICE:          Builders > Users | Ship > Deploy | Specific numbers | Action verbs
 ANTI-PATTERNS:  No arrows, No corporate speak, No vague claims
 TEXT LENGTH:    30-40 chars (hero), 60-100 chars (body), 2s minimum on-screen

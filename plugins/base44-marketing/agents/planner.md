@@ -100,6 +100,21 @@ Read(file_path=".claude/marketing/activeContext.md")
 *Save to: docs/plans/[date]-[campaign-name].md*
 ```
 
+## Campaign Brief for Agent Teams
+
+When spawning an agent team, first create a campaign brief with:
+
+1. **Objective**: What are we announcing/promoting?
+2. **Audience**: Who are we targeting?
+3. **Key Messages**: 3-5 core messages (all teammates use these)
+4. **Channel Plan**: Which channels, what format each
+5. **Tone Guidance**: Any campaign-specific voice adjustments
+6. **Timeline**: When content should be ready
+7. **Success Metrics**: What does good look like?
+
+Save to `output/campaign-brief.md` before spawning teammates.
+All teammates read this brief as their starting context.
+
 ## Save Plan
 
 Always save plans:

@@ -2,6 +2,44 @@
 
 All notable changes to the base44-marketing plugin.
 
+## [1.8.0] - 2026-02-09
+
+### Added
+- **GTM Strategist agent** (`gtm-strategist`) - Deep strategic exploration before planning
+  - 4-phase workflow: Discovery, Synthesis, Holistic Plan, Execution Handoff
+  - Opus model for complex reasoning
+  - No bulleted idea dumps -- connected narratives only
+- **GTM_STRATEGY workflow** in marketing-router - Routes strategic requests
+- **DATA_INSIGHT workflow** in marketing-router - Routes to builder analytics (Phase 2)
+- **Anti-TV-Ad Cadence rules** across all agents and skills
+  - Injected into: linkedin-specialist, x-specialist, copywriter, ad-specialist, seo-specialist
+  - Added to brand-guardian checklist
+  - Added to hook-rules banned patterns
+- **Anti-Advertising Patterns** section in tone-of-voice.md
+  - The TV-Ad Test
+  - The Maor Test
+  - DON'T/DO examples for founder voice
+- **Shay's feedback** logged in learning-log.md (6 key areas, full strategic direction)
+- **5 new rules** in RULES.md:
+  - No TV-ad tagline cadence (NEVER)
+  - No bulleted idea lists as final output (NEVER)
+  - No advertising melody (NEVER)
+  - Sound like Maor (ALWAYS)
+  - Holistic plans over idea dumps (ALWAYS)
+
+### Changed
+- **Marketing router redesigned** - Open-ended first interaction, no menu
+  - Phase 1: Natural conversation (no forced categories)
+  - Phase 2: Intent classification with keyword fallback
+- **Brainstorm workflow updated** - Connected narrative output, not bullet lists
+- **Hook-rules updated** - Direct Value hook example fixed (was using TV-ad cadence)
+- **CLAUDE.md updated** - New agent, workflows, voice quick reference
+- Bumped version to 1.8.0 (20 NEVER + 9 ALWAYS rules)
+
+### Contributors
+- Shay (Head of Marketing) - Strategic direction, tone feedback, data pipeline vision
+- Ofer - Plugin architecture
+
 ## [1.7.0] - 2026-02-03
 
 ### Added

@@ -126,7 +126,6 @@ Write(file_path=".claude/marketing/feedback.md", content="
 ```
 Read(file_path="brands/base44/RULES.md")           # FIRST - hard rules
 Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
-Read(file_path="brands/base44/AGENTS.md")          # Agent index
 Read(file_path="brands/base44/learning-log.md")    # Recent learnings
 ```
 

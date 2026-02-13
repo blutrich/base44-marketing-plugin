@@ -24,23 +24,51 @@ description: |
 
 ---
 
-## Decision Tree (FOLLOW IN ORDER)
+## Intent Detection (FOLLOW IN ORDER)
+
+### Phase 1: Open Conversation (DEFAULT)
+
+When a user starts a conversation, DO NOT present a menu of options. Instead:
+
+1. **If the request is specific and clear** (e.g., "Write a LinkedIn post about our new AI feature"):
+   - Skip to Phase 2 -- classify intent and route directly
+   - This is the fast path for users who know what they want
+
+2. **If the request is broad or strategic** (e.g., "Help me think about our content strategy" or "What should we be posting about?"):
+   - Route to **GTM_STRATEGY** workflow
+   - Begin with deep exploration, not suggestions
+
+3. **If the request is ambiguous** (e.g., "I need help with marketing"):
+   - Ask ONE open question: "Tell me more about what you're working on. What's the context?"
+   - Do NOT present a bulleted list of options
+   - Do NOT ask "Would you like to: A) B) C) D)"
+   - Let the user describe their need in their own words
+
+### Phase 2: Intent Classification (After Context Is Clear)
 
 | Priority | Signal | Keywords | Workflow |
 |----------|--------|----------|----------|
-| 0 | BRAINSTORM | ideas, brainstorm, tactics, amplify, promote | **BRAINSTORM** |
-| 1 | PAID_AD | ad, paid, meta ad, linkedin ad, reddit ad, creative | **PAID_AD** |
-| 2 | REPURPOSE | repurpose, transform, convert, adapt, rewrite for | **REPURPOSE** |
-| 3 | CAMPAIGN | campaign, launch, multi-channel, announcement | **CAMPAIGN** |
-| 4 | X | x, twitter, tweet, thread | **X** |
-| 5 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
-| 6 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
-| 7 | LANDING | landing page, sales page, signup | **LANDING** |
-| 8 | SEO | blog, seo, article, pillar | **SEO** |
-| 9 | VIDEO | video, remotion, animation | **VIDEO** |
-| 10 | DEFAULT | content, write, create | **CONTENT** |
+| 0 | STRATEGY | strategy, plan, think through, what should we, holistic, go-to-market | **GTM_STRATEGY** |
+| 1 | BRAINSTORM | ideas, brainstorm, tactics, amplify, promote | **BRAINSTORM** |
+| 2 | PAID_AD | ad, paid, meta ad, linkedin ad, reddit ad, creative | **PAID_AD** |
+| 3 | REPURPOSE | repurpose, transform, convert, adapt, rewrite for | **REPURPOSE** |
+| 4 | CAMPAIGN | campaign, launch, multi-channel, announcement | **CAMPAIGN** |
+| 5 | X | x, twitter, tweet, thread | **X** |
+| 6 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
+| 7 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
+| 8 | LANDING | landing page, sales page, copy for page | **LANDING** |
+| 8.3 | LANDING_DEPLOY | deploy landing page, base44 landing, host landing, ship landing page, live landing page, build landing page on base44 | **LANDING_DEPLOY** |
+| 8.5 | LANDING_GENERATE | generate landing page, create landing page, push landing page, landing page pipeline, landing page for [feature] | **LANDING_GENERATE** |
+| 9 | SEO | blog, seo, article, pillar | **SEO** |
+| 10 | VIDEO | video, remotion, animation | **VIDEO** |
+| 11 | DATA_INSIGHT | data, analytics, builders building, categories, trends | **DATA_INSIGHT** |
+| 12 | DEFAULT | content, write, create | **CONTENT** |
 
-**Conflict Resolution:** BRAINSTORM = ideation only. CAMPAIGN wins if multi-channel.
+**Conflict Resolution:**
+- GTM_STRATEGY wins when the request is strategic/planning-oriented
+- BRAINSTORM = ideation only (tactical ideas, not holistic plans)
+- CAMPAIGN wins if multi-channel execution is specified
+- DATA_INSIGHT routes to gtm-strategist for builder analytics (Phase 2)
 
 ---
 
@@ -48,7 +76,9 @@ description: |
 
 | Workflow | Agents |
 |----------|--------|
-| BRAINSTORM | marketing-ideas → (routes to execution) |
+| GTM_STRATEGY | gtm-strategist (deep exploration, then plan) |
+| BRAINSTORM | marketing-ideas (then routes to execution) |
+| DATA_INSIGHT | gtm-strategist (data-driven content analysis — Phase 2) |
 | PAID_AD | ad-specialist → brand-guardian |
 | REPURPOSE | cross-platform-repurpose → brand-guardian |
 | CAMPAIGN | planner → [specialists in parallel] → brand-guardian |
@@ -56,10 +86,84 @@ description: |
 | LINKEDIN | linkedin-specialist → brand-guardian |
 | EMAIL | copywriter → brand-guardian |
 | LANDING | copywriter → brand-guardian |
+| LANDING_DEPLOY | base44-landing-page skill → brand-guardian → Base44 CLI deploy |
+| LANDING_GENERATE | landing-page-generator skill → brand-guardian → Wix CMS push |
 | SEO | seo-specialist → brand-guardian |
 | VIDEO | video-specialist → brand-guardian |
 
 For detailed workflows, see [reference/workflows.md](reference/workflows.md).
+
+---
+
+## Team Escalation Rules
+
+After determining the workflow, check if Agent Teams should be used:
+
+### Escalation Triggers
+| Condition | Action |
+|-----------|--------|
+| CAMPAIGN workflow with 3+ channels mentioned | Spawn campaign-launch team |
+| Request mentions "sprint", "batch", "week of content" | Spawn content-sprint team |
+| Request mentions "audit", "review all", "brand check" | Spawn brand-audit team |
+| Request mentions "A/B", "variants", "test versions" | Spawn ab-testing team |
+| Any other workflow | Use existing single-agent chain |
+
+### How to Spawn a Team
+1. Read the relevant template from `teams/{template}.md`
+2. Create the output directory structure defined in the template
+3. Tell Claude to create an agent team following the template
+4. Use delegate mode (Shift+Tab) so the lead coordinates, not implements
+5. Each teammate spawn prompt MUST include:
+   - Full campaign brief or content brief
+   - Brand context: Read RULES.md, tone-of-voice.md
+   - Channel-specific skill: Load the relevant SKILL.md
+   - Output directory assignment
+   - Instruction to create tasks in the shared task list
+
+### Spawn Prompt Template
+```
+You are the {ROLE} for a {TEMPLATE} team.
+
+## Brand Context
+{Contents of RULES.md}
+{Contents of tone-of-voice.md}
+
+## Your Skill
+{Contents of relevant SKILL.md}
+
+## Your Assignment
+{Specific content brief}
+
+## File Ownership
+Write ALL your output to: output/{channel}/
+Do NOT modify files outside your directory.
+
+## Task Protocol
+1. Create a task for each content piece
+2. Mark tasks in_progress when you start
+3. When done, mark complete — brand-guardian will review
+4. If guardian requests revision, create a new task
+```
+
+---
+
+## Token Cost Awareness
+
+Agent Teams use 3-6x more tokens than single-agent chains. Use teams only when the parallelism benefit justifies the cost.
+
+### Cost Tiers
+| Workflow | Estimated Tokens | Cost Level |
+|----------|-----------------|------------|
+| Single post (1 agent + guardian) | ~5K-10K | LOW |
+| Campaign team (5 teammates) | ~30K-60K | HIGH |
+| Content sprint (3 teammates) | ~20K-40K | MEDIUM |
+| Brand audit (4 teammates) | ~25K-50K | MEDIUM-HIGH |
+
+### Cost Guard
+Before spawning a team, confirm with the user:
+"This will spawn a team of {N} agents working in parallel. This uses ~{estimate} tokens ({cost_level} cost). Proceed?"
+
+Skip confirmation if the user explicitly requested a team or campaign.
 
 ---
 
@@ -92,7 +196,7 @@ For full initialization sequence, see [reference/memory-init.md](reference/memor
 - "Ship" / "Go live" (never "deploy" or "launch")
 - "Just shipped" / "Just dropped"
 - Action verbs, present tense
-- Specific numbers ($1M ARR, 140K users)
+- Specific numbers ($1M ARR, 400K+ builders)
 
 ### NEVER USE
 - "Users" / "Customers"
@@ -135,8 +239,11 @@ For task hierarchy and validation details, see [reference/task-pattern.md](refer
 | marketing-ideas | 77 tactics, playbooks |
 | marketing-psychology | 71 persuasion principles |
 | hook-rules | Approved hooks, banned patterns |
+| landing-page-generator | CMS-driven landing page pipeline |
+| base44-landing-page | HTML generation + Base44 hosting deployment |
 | cross-platform-repurpose | Transform between platforms |
 | brand-memory | Persistent learning |
+| data-intelligence | Builder analytics, content pipeline (Phase 2 — not yet built) |
 
 ---
 

@@ -362,7 +362,7 @@ Before writing X content, load brand context:
 
 **Required reads:**
 - `Read: brands/base44/tone-of-voice.md` - Voice guidelines and vocabulary
-- `Read: brands/base44/facts/metrics.md` - Current stats ($80M acquisition, 140K builders)
+- `Read: brands/base44/facts/metrics.md` - Current stats ($80M acquisition, 400K+ builders)
 
 **For success stories:**
 - `Read: brands/base44/case-studies/index.md` - Quick reference of all cases

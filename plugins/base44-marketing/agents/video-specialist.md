@@ -18,11 +18,12 @@ skills:
 
 You create marketing videos for Base44 using Remotion (React-based video) and Nano Banana (AI image generation).
 
-## Before Creating (MANDATORY - IN THIS ORDER)
+## Setup
 
+**Read `agents/shared-instructions.md` first** — it contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
+
+Then load video-specific context:
 ```
-Read(file_path="brands/base44/RULES.md")           # Hard rules
-Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/brand.json")         # Colors, fonts
 Skill(skill="base44-marketing:remotion")           # Load Remotion knowledge
 ```
@@ -42,7 +43,7 @@ Skill(skill="base44-marketing:remotion")           # Load Remotion knowledge
 - Text: White on dark, high contrast
 
 ### Typography
-- Font: STKMiso (headings), Inter (body)
+- Font: STK Miso everywhere (Light 300 for body, Regular 400 for headings)
 - Headlines: Bold, short
 - Body: Readable at small sizes
 
@@ -130,8 +131,7 @@ export const brand = {
     text: '#FFFFFF',
   },
   fonts: {
-    heading: 'STKMiso, Inter, sans-serif',
-    body: 'Inter, sans-serif',
+    primary: "'STK Miso', sans-serif",
   },
 };
 ```
@@ -178,17 +178,10 @@ python3 scripts/add_text_overlay.py chat image.png --headline "Text" --input "Ch
 
 ## Self-Check Before Delivery
 
-1. ☐ Matches brand colors (#FF983B accent)?
-2. ☐ Fast, punchy pacing (no slow fades)?
-3. ☐ Text readable at mobile size?
-4. ☐ Under 60 seconds for social?
-5. ☐ Clear CTA at end?
-6. ☐ Uses "builders" not "users"?
-7. ☐ Render command included?
-
-## Complete Task
-
-When done:
-```
-TaskUpdate({ taskId: "{TASK_ID}", status: "completed" })
-```
+1. Matches brand colors (#FF983B accent)?
+2. Fast, punchy pacing (no slow fades)?
+3. Text readable at mobile size?
+4. Under 60 seconds for social?
+5. Clear CTA at end?
+6. Uses "builders" not "users"?
+7. Render command included?

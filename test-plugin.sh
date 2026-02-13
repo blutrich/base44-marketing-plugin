@@ -228,9 +228,11 @@ EXPECTED_AGENTS=(
   ad-specialist
   brand-guardian
   copywriter
+  gtm-strategist
   linkedin-specialist
   planner
   seo-specialist
+  shared-instructions
   video-specialist
   x-specialist
 )
@@ -255,7 +257,6 @@ EXPECTED_BRAND_FILES=(
   brand.json
   guidelines.md
   learning-log.md
-  AGENTS.md
   RULES.md
 )
 
@@ -306,23 +307,23 @@ echo ""
 
 # ── TEST 8: Internal file references ────────────────────────────────────────
 
-echo "── Test 8: Internal file references in AGENTS.md ──"
+echo "── Test 8: Internal file references in CLAUDE.md ──"
 
-AGENTS_MD="$PLUGIN_DIR/AGENTS.md"
-if [ -f "$AGENTS_MD" ]; then
-  # Extract relative paths from the docs index table
-  REFS=$(grep -oE 'brands/base44/[a-zA-Z0-9/_-]+\.[a-z]+' "$AGENTS_MD" 2>/dev/null || true)
-  REFS="$REFS $(grep -oE 'brands/base44/[a-zA-Z0-9/_-]+/' "$AGENTS_MD" 2>/dev/null || true)"
+CLAUDE_FILE="$PLUGIN_DIR/CLAUDE.md"
+if [ -f "$CLAUDE_FILE" ]; then
+  # Extract relative paths from CLAUDE.md
+  REFS=$(grep -oE 'brands/base44/[a-zA-Z0-9/_-]+\.[a-z]+' "$CLAUDE_FILE" 2>/dev/null || true)
   for ref in $REFS; do
     target="$PLUGIN_DIR/$ref"
     if [ -e "$target" ]; then
-      pass "AGENTS.md ref '$ref' exists"
+      pass "CLAUDE.md ref '$ref' exists"
     else
-      fail "AGENTS.md ref '$ref' NOT found"
+      fail "CLAUDE.md ref '$ref' NOT found"
     fi
   done
+  pass "CLAUDE.md internal references checked"
 else
-  fail "AGENTS.md missing"
+  fail "CLAUDE.md missing"
 fi
 echo ""
 
@@ -431,7 +432,7 @@ echo "── Test 11: No empty critical files ──"
 
 CRITICAL_MDS=(
   "$PLUGIN_DIR/CLAUDE.md"
-  "$PLUGIN_DIR/AGENTS.md"
+  "$PLUGIN_DIR/agents/shared-instructions.md"
   "$PLUGIN_DIR/brands/base44/tone-of-voice.md"
   "$PLUGIN_DIR/brands/base44/brand-system.md"
   "$PLUGIN_DIR/brands/base44/RULES.md"

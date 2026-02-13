@@ -323,7 +323,7 @@ Before writing SEO content, load brand context:
 - `Read: brands/base44/brand-system.md` - Brand positioning and messaging
 
 **For E-E-A-T signals:**
-- `Read: brands/base44/facts/metrics.md` - Credibility stats ($80M acquisition, 140K builders)
+- `Read: brands/base44/facts/metrics.md` - Credibility stats ($80M acquisition, 400K+ builders)
 - `Read: brands/base44/case-studies/index.md` - Real-world examples for authority
 - `Read: brands/base44/feedback/testimonials.md` - Social proof quotes
 

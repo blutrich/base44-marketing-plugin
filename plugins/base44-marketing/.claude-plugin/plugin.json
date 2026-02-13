@@ -1,7 +1,7 @@
 {
   "name": "base44-marketing",
-  "version": "1.7.0",
-  "description": "Marketing content orchestrator with 77+ tactics, 71 psychology principles, brand-aware agents, and evolving memory. Features smart routing, channel-specific content (LinkedIn, X, Email, SEO), anti-AI patterns, hook creation rules, and cross-platform repurposing.",
+  "version": "1.9.0",
+  "description": "Marketing intelligence system with 9 agents, 77+ tactics, 71 psychology principles, brand governance, and evolving memory. Features open-ended routing, GTM strategist for holistic planning, anti-TV-ad tone enforcement, channel-specific content (LinkedIn, X, Email, SEO), anti-AI patterns, hook creation rules, cross-platform repurposing, and automated landing page generation with CMS pipeline.",
   "author": {
     "name": "Base44 Team",
     "url": "https://github.com/blutrich"

@@ -277,7 +277,7 @@ Before writing any copy, load brand context for consistent voice and accurate da
 - `Read: brands/base44/brand.json` - Visual identity (colors, fonts)
 
 **For credibility and proof:**
-- `Read: brands/base44/facts/metrics.md` - Current stats ($80M acquisition, 140K builders)
+- `Read: brands/base44/facts/metrics.md` - Current stats ($80M acquisition, 400K+ builders)
 - `Read: brands/base44/case-studies/index.md` - Success stories for social proof
 - `Read: brands/base44/feedback/testimonials.md` - Quotable builder quotes
 

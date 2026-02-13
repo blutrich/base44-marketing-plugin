@@ -4,6 +4,37 @@ Detailed instructions for each marketing workflow.
 
 ---
 
+## GTM_STRATEGY (Strategic Planning Layer)
+
+This workflow is for when the user needs strategic thinking, not just content creation.
+
+1. Load brand context + memory
+2. **EXPLORE deeply** -- Do NOT jump to suggestions. Ask probing questions one at a time:
+   - "What's the business context? What are we trying to achieve?"
+   - "Who's our audience for this? Which builder segment?"
+   - "What's the timeline? Is there urgency?"
+   - "What assets and channels do we already have?"
+   - "What's worked before? What hasn't?"
+   - "What does success look like? How will we measure it?"
+4. **SYNTHESIZE** -- After 3-5 rounds of conversation:
+   - Summarize what you've learned
+   - Identify the core strategic opportunity
+   - Frame 2-3 strategic approaches (NOT bulleted tactics)
+5. **PLAN holistically** -- For the chosen approach:
+   - Which channels and why
+   - What content assets are needed
+   - How the pieces connect (not isolated posts)
+   - Timeline with dependencies
+   - How to measure success
+6. **ROUTE to execution** -- Break the plan into specific tasks:
+   - Each task routes to the appropriate workflow (LINKEDIN, SEO, EMAIL, etc.)
+   - The plan IS the brief for each specialist
+
+**GTM_STRATEGY is the STRATEGIC layer. It produces marketing plans, not content.**
+**The planner agent handles TACTICAL content calendars for specific campaigns.**
+
+---
+
 ## BRAINSTORM (Ideation Layer)
 
 1. Load brand context
@@ -26,10 +57,14 @@ Read(file_path="skills/marketing-ideas/playbooks/main.md")
 Read(file_path="skills/marketing-ideas/playbooks/linkedin.md")  # if relevant
 Read(file_path="skills/marketing-ideas/playbooks/guerrilla.md")  # if budget-conscious
 ```
-6. **Output 3-5 specific tactics** with concrete examples
-7. **Route to execution:** After brainstorming, ask which idea to execute
+6. **Output a connected narrative, NOT a bulleted list:**
+   - Explain WHY each tactic matters for their specific situation
+   - Show how tactics connect to each other
+   - Include a recommended sequence (do this first, then this)
+   - Frame as "here's what I'd recommend as your marketing advisor" not "here are some ideas"
+7. **Route to execution:** After the user confirms direction, route to specific workflow
 
-**BRAINSTORM is INPUT stage. It generates ideas, then hands off to execution skills.**
+**BRAINSTORM is INPUT stage. It generates ideas as a connected strategy, then hands off to execution skills.**
 
 ---
 
@@ -91,6 +126,104 @@ Create paid ad creatives for Meta, LinkedIn, Reddit.
 3. Create task hierarchy with parallel specialists
 4. Execute parallel → then review
 5. Update memory
+
+---
+
+## LANDING_GENERATE (Automated Landing Page Pipeline)
+
+Generate a complete landing page and push it to Wix CMS.
+
+1. Load brand context + memory
+2. **Load design system** (MANDATORY for any HTML output):
+```
+Read(file_path="brands/base44/design-system.md")
+Read(file_path="brands/base44/brand.json")
+```
+   - Use `logo.png` image for headers — never render the logo as plain text
+   - Copy `output/logo.png` into the output directory when generating standalone HTML
+3. Load landing-page-generator skill:
+```
+Read(file_path="skills/landing-page-generator/SKILL.md")
+```
+4. **GATHER INPUT** (use AskUserQuestion for missing items):
+   - Page goal (feature launch, campaign, signup, etc.)
+   - Target persona
+   - Key message / product / feature
+   - URL slug
+5. **SELECT TEMPLATE** based on goal:
+   - Feature launch → `feature-launch`
+   - Campaign / event → `campaign`
+   - Sign-up / free trial → `signup`
+   - Case study → `case-study`
+   - Enterprise / security → `enterprise`
+6. **GENERATE COPY** using 8-Section Framework:
+   - Load `landing-page-architecture` skill
+   - Load brand files (testimonials, value-props, hooks, CTAs)
+   - Generate all 8 sections with brand voice applied
+7. **VALIDATE** with brand-guardian (score >= 7/10)
+8. **FORMAT** as CMS JSON matching the schema:
+```
+Read(file_path="skills/landing-page-generator/reference/cms-schema.md")
+```
+9. **PUSH TO WIX CMS** via REST API:
+```
+Read(file_path="skills/landing-page-generator/reference/wix-api.md")
+```
+   - Check if `WIX_API_KEY` is set
+   - If set: push via curl, return page URL
+   - If not set: output JSON + curl command for manual push
+10. **RETURN** page URL, copy preview, and next steps
+
+**LANDING_GENERATE produces a live (draft) page. LANDING produces copy only.**
+
+---
+
+## LANDING_DEPLOY (Base44-Hosted Landing Page)
+
+Generate a self-contained HTML landing page and deploy it to Base44 hosting via the Base44 CLI.
+
+1. Load brand context + memory
+2. **Load design system** (MANDATORY for any HTML output):
+```
+Read(file_path="brands/base44/design-system.md")
+Read(file_path="brands/base44/brand.json")
+```
+   - Use `logo.png` image for headers — never render the logo as plain text
+3. Load base44-landing-page skill:
+```
+Read(file_path="skills/base44-landing-page/SKILL.md")
+```
+4. **GATHER INPUT** (use AskUserQuestion for missing items):
+   - Page goal (feature launch, campaign, signup, etc.)
+   - Target persona
+   - Key message / product / feature
+   - URL slug (used as Base44 app name)
+   - CTA URL (default: `https://base44.com`)
+5. **SELECT TEMPLATE** based on goal:
+   - Feature launch → `feature-launch`
+   - Campaign / event → `campaign`
+   - Sign-up / free trial → `signup`
+   - Case study → `case-study`
+   - Enterprise / security → `enterprise`
+6. **GENERATE COPY** using 8-Section Framework:
+   - Load `landing-page-architecture` skill
+   - Load brand files (testimonials, value-props, hooks, CTAs)
+   - Generate all 8 sections with brand voice applied
+7. **VALIDATE** with brand-guardian (score >= 7/10)
+8. **GENERATE HTML** from design system:
+   - Load `reference/html-template.md` for skeleton
+   - Load `reference/asset-strategy.md` for logo embedding
+   - Apply `brand.json` tokens as CSS custom properties
+   - Single self-contained `index.html` (works in browser, no server)
+9. **DEPLOY VIA BASE44 CLI:**
+   - Auth check: `npx base44 whoami`
+   - Scaffold project if needed: `npx base44 create {slug}-landing -p .`
+   - Write HTML to `dist/index.html`
+   - Deploy: `npx base44 site deploy -y`
+   - If not authenticated: save HTML locally, provide manual deploy steps
+10. **RETURN** live URL (`https://{slug}-landing.base44.app`), copy preview, and next steps
+
+**LANDING_DEPLOY produces a live Base44-hosted page from HTML. LANDING_GENERATE pushes CMS data to Wix. LANDING produces copy only.**
 
 ---
 

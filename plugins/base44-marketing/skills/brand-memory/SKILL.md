@@ -110,6 +110,16 @@ For full learning system, see [reference/learning-loop.md](reference/learning-lo
 
 ---
 
+## Agent Teams Memory Integration
+
+When running Agent Teams, memory follows the [Team Memory Protocol](../../teams/memory-protocol.md):
+
+- **During team work:** All teammates read brand context from `brands/base44/` and `.claude/marketing/` (read-only). Only the lead writes to memory files.
+- **Post-team:** Lead updates `activeContext.md` with campaign results, `patterns.md` with what worked. Guardian findings append to `learning-log.md`.
+- **Isolation rule:** Teammates MUST NOT write to `.claude/marketing/`, `brands/base44/`, other teammates' output directories, or plugin source files.
+
+---
+
 ## Reference Files
 
 | File | Content |

@@ -88,6 +88,15 @@ Read(file_path="brands/base44/learning-log.md")
 | Specific numbers included | ☐ | Add metrics if available |
 | Short paragraphs | ☐ | Break up walls of text |
 
+### Anti-TV-Ad Check (INSTANT REJECTION)
+
+| Rule | Check | Fix If Wrong |
+|------|-------|--------------|
+| No TV-ad tagline cadence | ☐ | Rewrite stacked declarative fragments ("One X. Unlimited Y. No Z.") |
+| No advertising melody | ☐ | If it sounds like a billboard or 30-second spot, rewrite |
+| No bulleted idea dumps | ☐ | Connected narratives, not grocery lists |
+| Passes the Maor Test | ☐ | Would Maor post this exactly as written on LinkedIn? |
+
 ### Tone Check
 
 | Attribute | Target | Check |
@@ -96,6 +105,7 @@ Read(file_path="brands/base44/learning-log.md")
 | Fast-paced | Energetic, momentum-driven | ☐ |
 | Results-focused | Outcomes over features | ☐ |
 | Cool big brother | Supportive, teaches, teases | ☐ |
+| Founder voice | Sounds like Maor, not copywriting | ☐ |
 
 ### Channel-Specific Check
 

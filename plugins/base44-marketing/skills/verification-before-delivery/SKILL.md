@@ -232,7 +232,7 @@ When content fails verification, track attempts:
 ```
 [DEBUG-1]: Arrow bullets found → Replaced with emoji bullets → PASSED
 [DEBUG-2]: Score 5/10 "too corporate" → Rewrote opener with builder voice → Score 8/10
-[DEBUG-3]: Missing numbers → Added "140K builders" → PASSED
+[DEBUG-3]: Missing numbers → Added "400K+ builders" → PASSED
 ```
 
 ### Escalation

@@ -429,11 +429,12 @@ Before creating landing page content, load brand context:
 
 **Required reads:**
 - `Read: brands/base44/tone-of-voice.md` - Voice guidelines and vocabulary
-- `Read: brands/base44/brand.json` - Colors, fonts, visual identity
+- `Read: brands/base44/brand.json` - Colors, fonts, typography scale, spacing, gradients
+- `Read: brands/base44/design-system.md` - HTML/CSS/React component templates (headers, heroes, cards, CTAs, FAQ, footer)
 - `Read: brands/base44/brand-system.md` - Design philosophy and positioning
 
 **For social proof sections:**
-- `Read: brands/base44/facts/metrics.md` - Stats ($80M acquisition, 140K builders, 10M apps)
+- `Read: brands/base44/facts/metrics.md` - Stats ($80M acquisition, 400K+ builders, 10M apps)
 - `Read: brands/base44/case-studies/index.md` - Success stories for transformation section
 - `Read: brands/base44/feedback/testimonials.md` - Quotable builder quotes
 

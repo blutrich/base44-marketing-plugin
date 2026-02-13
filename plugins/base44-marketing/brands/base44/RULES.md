@@ -17,27 +17,33 @@
 
 ## NEVER DO (Quality Issues)
 
-6. **No repeated phrases every post** - Vary "for real", "no big teams" (Lora, 2026-02-01)
-7. **No overly choppy sentences** - "This. Is. Not. Natural." (Lora, 2026-02-01)
-8. **No perfect parallel structure** - Too predictable, AI-tell (Lora, 2026-02-01)
-9. **No emoji as bullets** - Spammy (Brand core)
-10. **No external links in LinkedIn/X main post** - Kills reach (Platform rules)
-11. **No default hashtags** - Only use hashtags if tagging a specific activity (2026-02-02)
-12. **No generic hooks** - "Just dropped" is interchangeable. Hooks must be creative, fun, and specific to the feature being announced (Asaf 2026-02-06, Ofer 2026-02-08)
-13. **No "X. Y. Z." choppy structure** - "Paste any URL. Base44 will..." sounds too polished/AI. Write flowing sentences (Asaf 2026-02-06, Ofer 2026-02-08)
-14. **No "Happy shipping" / "Enjoy building" sign-offs** - Doesn't resonate. Find closers that are engaging and feature-relevant (Asaf 2026-02-06, Ofer 2026-02-08)
-15. **No "see for yourself" CTAs** - Sounds too salesy/corporate. Base44 doesn't talk like an infomercial (Asaf 2026-02-06, Ofer 2026-02-08)
-16. **No fake-relatable scenarios** - If the "you know when..." scenario isn't a genuinely common experience for builders, don't use it. Ground openers in real experiences (Ofer 2026-02-08)
+8. **No repeated phrases every post** - Vary "for real", "no big teams" (Lora, 2026-02-01)
+9. **No overly choppy sentences** - "This. Is. Not. Natural." (Lora, 2026-02-01)
+10. **No perfect parallel structure** - Too predictable, AI-tell (Lora, 2026-02-01)
+11. **No emoji as bullets** - Spammy (Brand core)
+12. **No external links in LinkedIn/X main post** - Kills reach (Platform rules)
+13. **No default hashtags** - Only use hashtags if tagging a specific activity (2026-02-02)
+14. **No generic hooks** - "Just dropped" is interchangeable. Hooks must be creative, fun, and specific to the feature being announced (Asaf 2026-02-06, Ofer 2026-02-08)
+15. **No "X. Y. Z." choppy structure** - "Paste any URL. Base44 will..." sounds too polished/AI. Write flowing sentences (Asaf 2026-02-06, Ofer 2026-02-08)
+16. **No "Happy shipping" / "Enjoy building" sign-offs** - Doesn't resonate. Find closers that are engaging and feature-relevant (Asaf 2026-02-06, Ofer 2026-02-08)
+17. **No "see for yourself" CTAs** - Sounds too salesy/corporate. Base44 doesn't talk like an infomercial (Asaf 2026-02-06, Ofer 2026-02-08)
+18. **No fake-relatable scenarios** - If the "you know when..." scenario isn't a genuinely common experience for builders, don't use it. Ground openers in real experiences (Ofer 2026-02-08)
+19. **No TV-ad tagline cadence** - "One workspace. Unlimited builders. No friction." is TV commercial script, not builder talk. Avoid stacked short declarative fragments that read like ad copy (Shay, 2026-02-09)
+20. **No bulleted idea lists as final output** - Bulleted lists of ideas is an "AI thing." Deliver holistic plans with narrative structure, not grocery lists (Shay, 2026-02-09)
+21. **No advertising melody** - If the rhythm sounds like it belongs on a billboard or in a 30-second spot, rewrite it. Content should sound like how Maor actually talks, not copywriting (Shay, 2026-02-09)
 
 ## ALWAYS DO
 
 1. **Sound like builder to builder** - Peer conversation, not corporate
-2. **Use specific numbers** - "$1M ARR", "140K builders", "3 weeks"
+2. **Use specific numbers** - "$1M ARR", "400K+ builders", "3 weeks"
 3. **Show results, not promises** - What happened, not what might
 4. **Natural sentence flow** - Mix short and medium sentences
 5. **Vary structure** - Not every post needs lists
 6. **Hooks must match the feature** - The hook should only make sense for THIS specific feature, not be interchangeable (Asaf 2026-02-06, Ofer 2026-02-08)
 7. **End posts with engagement, not filler** - Feature-relevant closers, or occasionally "how will you use this?" when it fits naturally (Asaf 2026-02-06, Ofer 2026-02-08)
+8. **Sound like Maor** - Read Maor's actual LinkedIn posts in learning-log.md. Match his casual, specific, story-driven cadence. Not copywriting. Not advertising. Conversation. (Shay, 2026-02-09)
+9. **Holistic plans over idea dumps** - When brainstorming, deliver integrated marketing plans: channels, timeline, assets needed, how it all connects. Not a list of disconnected tactics. (Shay, 2026-02-09)
+10. **Use logo.png for the logo** - Never render the Base44 logo as plain text. Always use the `logo.png` image file. Load `brands/base44/design-system.md` when generating HTML pages. (2026-02-12)
 
 ---
 
@@ -51,5 +57,5 @@
 
 ---
 
-*Last updated: 2026-02-08*
-*Rules: 18 NEVER + 7 ALWAYS*
+*Last updated: 2026-02-12*
+*Rules: 21 NEVER + 10 ALWAYS*

@@ -66,7 +66,7 @@ Base44's voice draws from:
 ### Do
 - Use contractions naturally (we're, it's, don't)
 - Lead with outcomes and results
-- Include specific numbers ($1M ARR, 140K users, 3 weeks)
+- Include specific numbers ($1M ARR, 400K+ builders, 3 weeks)
 - Celebrate builder success stories
 - Be direct and confident
 - Show, don't just tell (demos, screenshots, videos)
@@ -160,6 +160,37 @@ Before posting, ask:
 
 ---
 
+## Anti-Advertising Patterns (SHAY DIRECTIVE)
+
+Content should NOT sound like advertising copy. Shay's specific feedback: "The melody of the text is wrong -- not native to platform."
+
+### The TV-Ad Test
+Read your content aloud. If it sounds like:
+- A Super Bowl commercial voiceover
+- A billboard headline
+- A radio spot
+- A tagline on a bus stop ad
+
+**Rewrite it.** It should sound like a Slack message from Maor to the team, or a LinkedIn post from a founder who's genuinely excited.
+
+### DON'T Write (TV-Ad Cadence)
+- "One workspace. Unlimited builders. No friction." (stacked declarative fragments)
+- "Build faster. Ship smarter. Scale infinitely." (triple parallel structure)
+- "The platform. The community. The future." (article + noun stacking)
+- Any text that could be read over a swooshing logo animation
+
+### DO Write (Founder Voice)
+- "We just shipped something that took us 3 weeks and honestly I'm still surprised it works this well"
+- "400K+ builders are using Base44 now. Wild that this started as a side project."
+- "Just heard from a builder who replaced their $350K Salesforce contract. With one Base44 app. Built in a weekend."
+
+### The Maor Test
+Before publishing, ask: "Would Maor post this on his LinkedIn exactly as written?"
+- If yes: ship it
+- If you'd need to "make it more polished": you've already failed -- Maor's voice IS the polish
+
+---
+
 ## Voice Test
 
 Before publishing, ask:
@@ -188,4 +219,4 @@ Before publishing, ask:
 
 ---
 
-*Last updated: 2026-01-23*
+*Last updated: 2026-02-09*

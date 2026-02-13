@@ -103,8 +103,8 @@ You describe what you want. Base44 handles the technical complexity. You ship so
 | Primary color | Warm orange #FF983B |
 | Background | Light gradient (blue to cream) |
 | Text | Black #000000 |
-| Headings | BC Novatica Cyr |
-| Body | Inter |
+| Headings | STK Miso Regular (400) |
+| Body | STK Miso Light (300) |
 | Style | Clean, light, modern, warm |
 
 *Full visual specs in brand.json*
