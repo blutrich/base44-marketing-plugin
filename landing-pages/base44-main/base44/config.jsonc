@@ -1,0 +1,11 @@
+// Base44 Project Configuration
+// JSONC enables inline documentation and discoverability directly in config files.
+// Commented-out properties show available options you can enable.
+
+{
+  "name": "base44-main",
+
+  "site": {
+    "outputDirectory": "./dist"
+  }
+}

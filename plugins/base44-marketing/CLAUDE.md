@@ -20,15 +20,15 @@ marketing-router (ENTRY POINT — open-ended, no menu)
         ├── GTM_STRATEGY → gtm-strategist (deep exploration, then plan)
         ├── BRAINSTORM → marketing-ideas (connected narrative, not bullet dumps)
         ├── DATA_INSIGHT → gtm-strategist (builder analytics — Phase 2)
+        ├── APP_DATA → base44-feature (pull product features for content)
         ├── PAID_AD → ad-specialist → brand-guardian
         ├── LINKEDIN → linkedin-specialist → brand-guardian
         ├── X → x-specialist → brand-guardian
         ├── EMAIL → copywriter → brand-guardian
-        ├── LANDING → copywriter → brand-guardian
-        ├── LANDING_GENERATE → landing-page-generator → brand-guardian → Wix CMS
-        ├── LANDING_DEPLOY → base44-landing-page → brand-guardian → Base44 CLI
+        ├── LANDING → base44-landing-page (8-Section → HTML → Base44 CLI deploy) → brand-guardian
         ├── SEO → seo-specialist → brand-guardian
         ├── VIDEO → video-specialist → brand-guardian
+        ├── PUSH_RIPPLE → push-to-ripple (extract content → push to Ripple CMS)
         └── CAMPAIGN → planner → [specialists ∥] → brand-guardian
 ```
 
@@ -56,9 +56,10 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `direct-response-copy` | THE SLIDE framework |
 | `seo-content` | Search optimization |
 | `geo-content` | AI citation optimization |
-| `landing-page-architecture` | 8-Section Framework |
-| `landing-page-generator` | CMS-driven landing page pipeline |
+| `landing-page-architecture` | 8-Section Framework (copy structure) |
 | `base44-landing-page` | HTML generation + Base44 hosting deployment |
+| `base44-feature` | Pull product features for content creation |
+| `push-to-ripple` | Push generated content into Ripple CMS |
 
 ## Brand Voice (TL;DR)
 
@@ -93,6 +94,16 @@ Short paragraphs             Walls of text
 ### Full Campaign
 ```
 /marketing-router Plan a multi-channel campaign for Debug Mode launch
+```
+
+### Fetch App Data
+```
+/marketing-router Show me released features ready for marketing
+```
+
+### Push to Ripple
+```
+/marketing-router Push this to ripple
 ```
 
 ## Memory System

@@ -56,12 +56,12 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | 5 | X | x, twitter, tweet, thread | **X** |
 | 6 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
 | 7 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
-| 8 | LANDING | landing page, sales page, copy for page | **LANDING** |
-| 8.3 | LANDING_DEPLOY | deploy landing page, base44 landing, host landing, ship landing page, live landing page, build landing page on base44 | **LANDING_DEPLOY** |
-| 8.5 | LANDING_GENERATE | generate landing page, create landing page, push landing page, landing page pipeline, landing page for [feature] | **LANDING_GENERATE** |
+| 8 | LANDING | landing page, sales page, deploy landing page, base44 landing, host landing, ship landing page, create landing page, landing page for [feature] | **LANDING** |
 | 9 | SEO | blog, seo, article, pillar | **SEO** |
 | 10 | VIDEO | video, remotion, animation | **VIDEO** |
 | 11 | DATA_INSIGHT | data, analytics, builders building, categories, trends | **DATA_INSIGHT** |
+| 11.5 | APP_DATA | fetch features, show features, feature list, roadmap, pull data, product sync, what features, feature data | **APP_DATA** |
+| 11.7 | PUSH_RIPPLE | push to ripple, save to ripple, send to ripple | **PUSH_RIPPLE** |
 | 12 | DEFAULT | content, write, create | **CONTENT** |
 
 **Conflict Resolution:**
@@ -85,11 +85,11 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | X | x-specialist → brand-guardian |
 | LINKEDIN | linkedin-specialist → brand-guardian |
 | EMAIL | copywriter → brand-guardian |
-| LANDING | copywriter → brand-guardian |
-| LANDING_DEPLOY | base44-landing-page skill → brand-guardian → Base44 CLI deploy |
-| LANDING_GENERATE | landing-page-generator skill → brand-guardian → Wix CMS push |
+| LANDING | base44-landing-page skill (8-Section Framework → HTML → Base44 CLI deploy) → brand-guardian |
 | SEO | seo-specialist → brand-guardian |
 | VIDEO | video-specialist → brand-guardian |
+| APP_DATA | base44-feature skill (fetch & display) |
+| PUSH_RIPPLE | push-to-ripple skill (extract content → push to Ripple CMS) |
 
 For detailed workflows, see [reference/workflows.md](reference/workflows.md).
 
@@ -239,10 +239,11 @@ For task hierarchy and validation details, see [reference/task-pattern.md](refer
 | marketing-ideas | 77 tactics, playbooks |
 | marketing-psychology | 71 persuasion principles |
 | hook-rules | Approved hooks, banned patterns |
-| landing-page-generator | CMS-driven landing page pipeline |
 | base44-landing-page | HTML generation + Base44 hosting deployment |
 | cross-platform-repurpose | Transform between platforms |
 | brand-memory | Persistent learning |
+| base44-feature | Fetch live data from Base44 app entities (features, roadmap) |
+| push-to-ripple | Push generated content into Ripple CMS |
 | data-intelligence | Builder analytics, content pipeline (Phase 2 — not yet built) |
 
 ---
