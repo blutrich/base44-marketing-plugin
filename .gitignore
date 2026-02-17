@@ -18,8 +18,15 @@ brand-source
 /.claude-plugin/plugin.json
 /.claude-plugin/settings.json
 
-# Fonts at root (should be in video projects)
+# Fonts at root (canonical copies are in assets/fonts/)
 /*.ttf
+
+# Images (canonical copies are in assets/images/)
+*.png
+
+# BUT allow everything inside assets/ (shared brand assets for the team)
+!assets/
+!assets/**
 
 # Transcriptions and source files
 transcriptions/
@@ -29,4 +36,3 @@ Brand Review - For Shay.md
 Interview Guide - Shay Brand Discovery.md
 Marketing Playbook Structure.md
 .claude/
-*.png

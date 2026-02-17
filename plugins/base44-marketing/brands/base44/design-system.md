@@ -9,19 +9,23 @@
 ## Font Setup (Copy into every page `<head>`)
 
 ```html
+<!-- For standalone HTML: fonts are base64-embedded (see asset-strategy.md) -->
+<!-- For React/file-based: use these paths -->
 <style>
   @font-face {
     font-family: 'STK Miso';
-    src: url('../STKMiso-Light.ttf') format('truetype');
+    src: url('./fonts/STKMiso-Light.ttf') format('truetype');
     font-weight: 300; font-style: normal; font-display: swap;
   }
   @font-face {
     font-family: 'STK Miso';
-    src: url('../STKMiso-Regular.ttf') format('truetype');
+    src: url('./fonts/STKMiso-Regular.ttf') format('truetype');
     font-weight: 400; font-style: normal; font-display: swap;
   }
 </style>
 ```
+
+**Canonical font files (git-tracked):** `assets/fonts/STKMiso-Light.ttf`, `assets/fonts/STKMiso-Regular.ttf`
 
 **Font:** STK Miso Light (300) for body/code, STK Miso Regular (400) for headings/buttons. Single font family everywhere.
 
@@ -56,8 +60,8 @@ The Base44 logo is an **orange circle with white horizontal lines** (sunrise/sun
 ```
 
 **Logo file locations:**
-- Source: `output/logo.png` (repo root)
-- Videos: `videos/external-api-video/public/logo.png`
+- **Canonical (git-tracked):** `assets/images/logo.png`
+- Local copy: `output/logo.png` (repo root, not in git)
 
 **Rules:**
 - Never render the logo as plain text — always use the image file

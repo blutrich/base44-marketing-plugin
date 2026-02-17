@@ -4,13 +4,13 @@
 
 ## Logo (MANDATORY -- RULES.md ALWAYS #10)
 
-**Source:** `output/logo.png` (repo root)
+**Source:** `assets/images/logo.png` (git-tracked, canonical)
 
 **Strategy:** Read the file and convert to base64, then embed as a data URI.
 
 ```bash
 # Generate base64 string
-base64 -i output/logo.png
+base64 -i assets/images/logo.png
 ```
 
 **Usage in HTML:**
@@ -36,8 +36,8 @@ base64 -i output/logo.png
 
 ```bash
 # Generate base64 for each font file
-base64 -i STKMiso-Light.ttf | tr -d '\n'
-base64 -i STKMiso-Regular.ttf | tr -d '\n'
+base64 -i assets/fonts/STKMiso-Light.ttf | tr -d '\n'
+base64 -i assets/fonts/STKMiso-Regular.ttf | tr -d '\n'
 ```
 
 **Embed in CSS:**
@@ -68,9 +68,9 @@ If base64 makes the HTML too large (over 500KB total), use file references inste
 
 ```bash
 # Copy assets alongside index.html
-cp output/logo.png dist/logo.png
-cp STKMiso-Light.ttf dist/fonts/STKMiso-Light.ttf
-cp STKMiso-Regular.ttf dist/fonts/STKMiso-Regular.ttf
+cp assets/images/logo.png dist/logo.png
+cp assets/fonts/STKMiso-Light.ttf dist/fonts/STKMiso-Light.ttf
+cp assets/fonts/STKMiso-Regular.ttf dist/fonts/STKMiso-Regular.ttf
 ```
 
 **Use relative paths in HTML/CSS:**
@@ -137,11 +137,16 @@ Inline SVGs directly in the HTML. Key icons from design-system.md:
 ## Finding Font Files
 
 Check these locations in order:
-1. Repo root: `STKMiso-Light.ttf`, `STKMiso-Regular.ttf`
-2. Assets dir: `assets/fonts/STKMiso-Light.ttf`
-3. Output dir: `output/fonts/`
+1. **Assets dir (canonical, git-tracked):** `assets/fonts/STKMiso-Light.ttf`, `assets/fonts/STKMiso-Regular.ttf`
+2. Repo root: `STKMiso-Light.ttf`, `STKMiso-Regular.ttf`
 
 If font files are not found, fall back to system fonts:
 ```css
 font-family: 'STK Miso', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 ```
+
+## Finding Logo
+
+Check these locations in order:
+1. **Assets dir (canonical, git-tracked):** `assets/images/logo.png`
+2. `output/logo.png`
