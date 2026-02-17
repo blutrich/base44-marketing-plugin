@@ -60,7 +60,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `landing-page-architecture` | 8-Section Framework (copy structure) |
 | `base44-landing-page` | HTML generation + Base44 hosting deployment |
 | `base44-feature` | Pull product features for content creation |
-| `data-insight` | Trino analytics: growth, models, funnel, user voice, milestones |
+| `data-insight` | Trino analytics: growth, models, funnel, apps, features, remix, referrals, user voice (16 queries, 5 tables) |
 | `push-to-ripple` | Push generated content into Ripple CMS |
 | `session-log` | Session tracking: usage, time saved, business impact |
 

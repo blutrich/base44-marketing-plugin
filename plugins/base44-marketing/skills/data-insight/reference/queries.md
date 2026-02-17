@@ -217,6 +217,175 @@ LIMIT 15
 
 ---
 
+## APP_CREATION_TREND
+
+Weekly app creation and deployment trends.
+
+```sql
+SELECT
+  date_trunc('week', created_date) AS week,
+  count(*) AS apps_created,
+  count(CASE WHEN last_deployed_at IS NOT NULL THEN 1 END) AS apps_deployed,
+  round(100.0 * count(CASE WHEN last_deployed_at IS NOT NULL THEN 1 END) / count(*), 1) AS deploy_rate_pct,
+  count(CASE WHEN remixed_from_app_id IS NOT NULL THEN 1 END) AS remixed,
+  count(CASE WHEN agents_enabled = true THEN 1 END) AS with_agents
+FROM prod.marketing.base44_user_generated_apps_v2
+WHERE is_deleted = false
+  AND created_date >= current_date - interval '84' day
+GROUP BY 1
+ORDER BY 1 DESC
+```
+
+**Columns:** week, apps_created, apps_deployed, deploy_rate_pct, remixed, with_agents
+**Marketing use:** "Builders created X apps last week", app velocity trends, deployment momentum
+
+---
+
+## APP_MODEL_PREFERENCES
+
+Which AI models builders select in the editor.
+
+```sql
+SELECT
+  model,
+  count(*) AS app_count,
+  round(100.0 * count(*) / sum(count(*)) OVER (), 1) AS pct_of_apps,
+  count(CASE WHEN last_deployed_at IS NOT NULL THEN 1 END) AS deployed,
+  round(100.0 * count(CASE WHEN last_deployed_at IS NOT NULL THEN 1 END) / NULLIF(count(*), 0), 1) AS deploy_rate_pct
+FROM prod.marketing.base44_user_generated_apps_v2
+WHERE is_deleted = false
+  AND model IS NOT NULL
+  AND model != 'default'
+GROUP BY 1
+ORDER BY app_count DESC
+```
+
+**Columns:** model, app_count, pct_of_apps, deployed, deploy_rate_pct
+**Marketing use:** "Most popular builder model choices", model preference vs deployment success
+
+---
+
+## APP_FEATURE_ADOPTION
+
+Platform feature adoption rates across all active apps.
+
+```sql
+SELECT
+  count(*) AS total_apps,
+  count(CASE WHEN agents_enabled = true THEN 1 END) AS agents_enabled,
+  round(100.0 * count(CASE WHEN agents_enabled = true THEN 1 END) / count(*), 1) AS agents_pct,
+  count(CASE WHEN deep_coding_mode = true THEN 1 END) AS deep_coding,
+  round(100.0 * count(CASE WHEN deep_coding_mode = true THEN 1 END) / count(*), 1) AS deep_coding_pct,
+  count(CASE WHEN connected_to_github = true THEN 1 END) AS github_connected,
+  round(100.0 * count(CASE WHEN connected_to_github = true THEN 1 END) / count(*), 1) AS github_pct,
+  count(CASE WHEN is_remixable = true THEN 1 END) AS remixable,
+  round(100.0 * count(CASE WHEN is_remixable = true THEN 1 END) / count(*), 1) AS remixable_pct,
+  count(CASE WHEN enable_username_password = true THEN 1 END) AS has_auth,
+  round(100.0 * count(CASE WHEN enable_username_password = true THEN 1 END) / count(*), 1) AS auth_pct
+FROM prod.marketing.base44_user_generated_apps_v2
+WHERE is_deleted = false
+```
+
+**Columns:** total_apps, agents_enabled, agents_pct, deep_coding, deep_coding_pct, github_connected, github_pct, remixable, remixable_pct, has_auth, auth_pct
+**Marketing use:** "42% of apps use AI agents", feature adoption stories, platform capability proof points
+
+---
+
+## APP_REMIX_MARKETPLACE
+
+Remix and marketplace activity.
+
+```sql
+SELECT
+  count(*) AS total_apps,
+  count(CASE WHEN remixed_from_app_id IS NOT NULL THEN 1 END) AS remixed_apps,
+  round(100.0 * count(CASE WHEN remixed_from_app_id IS NOT NULL THEN 1 END) / count(*), 1) AS remix_rate_pct,
+  count(CASE WHEN is_marketplace_purchase = 'true' THEN 1 END) AS marketplace_purchases,
+  count(CASE WHEN purchase_from_id IS NOT NULL THEN 1 END) AS purchased_apps,
+  count(DISTINCT remixed_from_app_id) AS unique_source_apps
+FROM prod.marketing.base44_user_generated_apps_v2
+WHERE is_deleted = false
+```
+
+**Columns:** total_apps, remixed_apps, remix_rate_pct, marketplace_purchases, purchased_apps, unique_source_apps
+**Marketing use:** Remix/community narrative, "X apps remixed from the community", marketplace traction
+
+---
+
+## FUNNEL_DETAILED
+
+Full funnel with all touchpoints from signup to premium (uses base_full for deeper timestamps).
+
+```sql
+SELECT
+  count(DISTINCT user_id) AS total_builders,
+  count(DISTINCT CASE WHEN first_anonymous_ts IS NOT NULL THEN user_id END) AS visited_anonymous,
+  count(DISTINCT CASE WHEN first_message_added_ts IS NOT NULL THEN user_id END) AS sent_first_message,
+  count(DISTINCT CASE WHEN second_message_added_ts IS NOT NULL THEN user_id END) AS sent_second_message,
+  count(DISTINCT CASE WHEN first_app_published_ts IS NOT NULL THEN user_id END) AS published_app,
+  count(DISTINCT CASE WHEN first_out_of_credits_ts IS NOT NULL THEN user_id END) AS hit_credit_wall,
+  count(DISTINCT CASE WHEN first_package_picker_ts IS NOT NULL THEN user_id END) AS saw_pricing,
+  count(DISTINCT CASE WHEN first_purchase_page_ts IS NOT NULL THEN user_id END) AS reached_purchase,
+  count(DISTINCT CASE WHEN first_premium_ts IS NOT NULL THEN user_id END) AS converted_premium,
+  count(DISTINCT CASE WHEN first_premium_canceled_ts IS NOT NULL THEN user_id END) AS canceled
+FROM prod.wt_base44_users.base_full
+WHERE is_qa_user = false
+  AND created_date >= current_date - interval '30' day
+```
+
+**Columns:** total_builders, visited_anonymous, sent_first_message, sent_second_message, published_app, hit_credit_wall, saw_pricing, reached_purchase, converted_premium, canceled
+**Marketing use:** Full conversion funnel, drop-off analysis, "X% of builders who hit the credit wall convert to premium"
+
+---
+
+## FUNNEL_TIME_DETAILED
+
+Average hours between each funnel step (uses base_full).
+
+```sql
+SELECT
+  round(avg(date_diff('hour', cast(created_date AS timestamp), first_message_added_ts)), 1) AS hrs_to_first_message,
+  round(avg(date_diff('hour', first_message_added_ts, second_message_added_ts)), 1) AS hrs_to_second_message,
+  round(avg(date_diff('hour', cast(created_date AS timestamp), first_app_published_ts)), 1) AS hrs_to_publish,
+  round(avg(date_diff('hour', cast(created_date AS timestamp), first_out_of_credits_ts)), 1) AS hrs_to_credit_wall,
+  round(avg(date_diff('hour', first_out_of_credits_ts, first_premium_ts)), 1) AS hrs_credit_wall_to_premium,
+  round(avg(date_diff('hour', first_package_picker_ts, first_purchase_page_ts)), 1) AS hrs_pricing_to_purchase,
+  round(avg(date_diff('hour', cast(created_date AS timestamp), first_premium_ts)), 1) AS hrs_to_premium
+FROM prod.wt_base44_users.base_full
+WHERE is_qa_user = false
+  AND created_date >= current_date - interval '30' day
+  AND first_message_added_ts IS NOT NULL
+```
+
+**Columns:** hrs_to_first_message, hrs_to_second_message, hrs_to_publish, hrs_to_credit_wall, hrs_credit_wall_to_premium, hrs_pricing_to_purchase, hrs_to_premium
+**Marketing use:** "Builders go from signup to premium in X hours", time-to-value at each step, activation speed narratives
+
+---
+
+## REFERRAL_IMPACT
+
+Referral-driven signups and their conversion rates.
+
+```sql
+SELECT
+  count(DISTINCT user_id) AS total_builders,
+  count(DISTINCT CASE WHEN referrer_user_id IS NOT NULL THEN user_id END) AS referred_builders,
+  round(100.0 * count(DISTINCT CASE WHEN referrer_user_id IS NOT NULL THEN user_id END) / count(DISTINCT user_id), 1) AS referral_pct,
+  count(DISTINCT CASE WHEN referrer_user_id IS NOT NULL AND first_app_published_ts IS NOT NULL THEN user_id END) AS referred_published,
+  round(100.0 * count(DISTINCT CASE WHEN referrer_user_id IS NOT NULL AND first_app_published_ts IS NOT NULL THEN user_id END) / NULLIF(count(DISTINCT CASE WHEN referrer_user_id IS NOT NULL THEN user_id END), 0), 1) AS referred_publish_rate_pct,
+  count(DISTINCT CASE WHEN referrer_user_id IS NOT NULL AND first_premium_ts IS NOT NULL THEN user_id END) AS referred_premium,
+  round(100.0 * count(DISTINCT CASE WHEN referrer_user_id IS NOT NULL AND first_premium_ts IS NOT NULL THEN user_id END) / NULLIF(count(DISTINCT CASE WHEN referrer_user_id IS NOT NULL THEN user_id END), 0), 1) AS referred_premium_rate_pct,
+  count(DISTINCT referrer_user_id) AS unique_referrers
+FROM prod.wt_base44_users.base_full
+WHERE is_qa_user = false
+  AND created_date >= current_date - interval '30' day
+```
+
+**Columns:** total_builders, referred_builders, referral_pct, referred_published, referred_publish_rate_pct, referred_premium, referred_premium_rate_pct, unique_referrers
+**Marketing use:** "Referred builders convert X% better", referral program proof, community-driven growth narrative
+
+---
+
 ## CUSTOM
 
 For any query not covered above, build SQL directly from the user's request using the table schemas in SKILL.md.

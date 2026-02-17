@@ -1,9 +1,9 @@
 ---
 name: data-insight
 description: |
-  Queries the Trino analytics warehouse for real Base44 metrics. Pulls growth trends, LLM model usage, premium conversion funnels, builder activity data, and user voice insights. Feeds real numbers into content creation.
+  Queries the Trino analytics warehouse for real Base44 metrics. Pulls growth trends, LLM model usage, premium conversion funnels, app creation/deployment data, feature adoption, remix/marketplace activity, detailed funnel analysis, referral impact, and user voice insights. Feeds real numbers into content creation.
 
-  Triggers on: data insight, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, what builders complain about.
+  Triggers on: data insight, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, what builders complain about, app trends, feature adoption, remix, referrals, funnel, model preferences.
 
   REQUIRES: Trino MCP installed (see reference/setup.md)
 ---
@@ -31,6 +31,11 @@ Use this skill when:
 - You need real growth numbers for content (weekly signups, publish rates, milestones)
 - You want LLM model usage data (which models builders use, token costs)
 - You need premium conversion funnel metrics (tier breakdown, time-to-value, churn)
+- You want app creation trends (how many apps, deployment rates, weekly velocity)
+- You need feature adoption data (agents, deep coding, GitHub, auth usage)
+- You want remix/marketplace activity (community reuse, template purchases)
+- You need detailed funnel analysis (every step from anonymous visit to premium)
+- You want referral impact data (referred vs organic conversion rates)
 - You want to know what builders are struggling with (user voice / top issues)
 - The marketing router needs fresh data before creating content
 - A content skill needs social proof numbers ("400K+ builders", "244K signups last week")
@@ -50,7 +55,14 @@ Classify what the user wants:
 | "premium", "conversion", "funnel", "churn" | `PREMIUM_FUNNEL` or `TIME_TO_VALUE` |
 | "milestones", "total users", "all-time" | `MILESTONES` |
 | "app categories", "what are builders building" | `APP_CATEGORIES` |
+| "app trends", "how many apps", "apps created" | `APP_CREATION_TREND` |
+| "model preferences", "what model do builders pick" | `APP_MODEL_PREFERENCES` |
+| "feature adoption", "agents usage", "deep coding", "github" | `APP_FEATURE_ADOPTION` |
+| "remix", "marketplace", "templates" | `APP_REMIX_MARKETPLACE` |
 | "user voice", "top issues", "complaints", "what's broken" | `USER_VOICE` |
+| "full funnel", "conversion funnel", "drop-off" | `FUNNEL_DETAILED` |
+| "funnel timing", "how long to convert", "activation speed" | `FUNNEL_TIME_DETAILED` |
+| "referrals", "referral impact", "word of mouth" | `REFERRAL_IMPACT` |
 | "dashboard", "overview", "all metrics" | Run `GROWTH_WEEKLY` + `LLM_MODELS` + `PREMIUM_FUNNEL` |
 | Anything else specific | `CUSTOM` — build SQL from user description |
 
@@ -93,7 +105,7 @@ If the user wants content based on the data:
 
 ## Query Catalog
 
-9 pre-built query categories. See `reference/queries.md` for exact SQL.
+16 pre-built query categories. See `reference/queries.md` for exact SQL.
 
 | ID | Purpose | Key Metrics |
 |----|---------|-------------|
@@ -105,6 +117,13 @@ If the user wants content based on the data:
 | `TIME_TO_VALUE` | Avg hours: signup -> message -> publish -> premium | Funnel velocity, activation speed |
 | `MILESTONES` | All-time totals | Total builders, total apps, total premium |
 | `APP_CATEGORIES` | Top app verticals | What builders are building |
+| `APP_CREATION_TREND` | Weekly app creation & deployment | Apps/week, deploy rate, remix volume |
+| `APP_MODEL_PREFERENCES` | Builder model choices in editor | Model popularity, deploy success by model |
+| `APP_FEATURE_ADOPTION` | Platform feature usage rates | Agents, deep coding, GitHub, auth adoption |
+| `APP_REMIX_MARKETPLACE` | Remix and marketplace activity | Remix rate, marketplace purchases, community reuse |
+| `FUNNEL_DETAILED` | Full funnel with all touchpoints | Anonymous → message → publish → credit wall → pricing → premium |
+| `FUNNEL_TIME_DETAILED` | Hours between each funnel step | Step-by-step activation speed |
+| `REFERRAL_IMPACT` | Referral-driven signups & conversion | Referral %, referred publish/premium rates |
 | `USER_VOICE` | Top issues by highlight/ticket count | Pain points, trending complaints |
 
 ---
@@ -251,6 +270,51 @@ Output the query results as a markdown table with all columns.
 | `total_tokens` | bigint | Total tokens |
 | `estimated_total_cost` | double | Estimated cost in USD |
 | `timestamp` | timestamp | When the call happened |
+
+### `prod.marketing.base44_user_generated_apps_v2`
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `_id` | varchar | Unique app ID |
+| `created_date` | timestamp | App creation timestamp |
+| `owner_id` | varchar | Builder who owns the app |
+| `name` | varchar | App name |
+| `user_description` | varchar | Builder's description of the app |
+| `model` | varchar | AI model selected (e.g., "claude_sonnet_4_5", "gpt_5", "gemini_2_5_pro") |
+| `agents_enabled` | boolean | AI agents feature active |
+| `deep_coding_mode` | boolean | Deep coding mode active |
+| `connected_to_github` | boolean | GitHub repo connected |
+| `is_remixable` | boolean | App is available for remixing |
+| `remixed_from_app_id` | varchar | Source app if remixed (null if original) |
+| `is_marketplace_purchase` | varchar | Purchased from marketplace |
+| `last_deployed_at` | timestamp | Last deployment timestamp (null if never deployed) |
+| `app_stage` | varchar | "ready" or "pending" |
+| `app_type` | varchar | "standard" or "baas" |
+| `categories` | varchar | App categories |
+| `enable_username_password` | boolean | Auth enabled |
+| `is_deleted` | boolean | Soft-deleted (filter with `WHERE is_deleted = false`) |
+| `slug` | varchar | App URL slug |
+| `public_url` | varchar | Live app URL |
+
+### `prod.wt_base44_users.base_full`
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `user_id` | varchar | Unique builder ID |
+| `created_date` | date | Signup date |
+| `subscription_tier` | varchar | Current tier |
+| `is_active_premium_user` | boolean | Currently paying |
+| `first_anonymous_ts` | timestamp | First anonymous visit |
+| `first_message_added_ts` | timestamp | First interaction |
+| `second_message_added_ts` | timestamp | Second message (engagement depth) |
+| `first_app_published_ts` | timestamp | First app published |
+| `first_out_of_credits_ts` | timestamp | First time credits ran out |
+| `first_package_picker_ts` | timestamp | First time saw pricing page |
+| `first_purchase_page_ts` | timestamp | First time reached purchase page |
+| `first_premium_ts` | timestamp | First premium subscription |
+| `first_premium_canceled_ts` | timestamp | First cancellation |
+| `referrer_user_id` | varchar | Builder who referred this user (null if organic) |
+| `is_qa_user` | boolean | Internal test account (exclude from metrics) |
 
 ### `prod.cs_dwh.base44_user_voice_daily_pulse`
 
