@@ -386,6 +386,83 @@ WHERE is_qa_user = false
 
 ---
 
+## PAID_VS_FREE_APPS
+
+App counts and builder counts grouped by subscription tier. Joins apps (classified by AI) with user profiles on organization_id.
+
+```sql
+SELECT
+  CASE
+    WHEN u.subscription_tier = 'free' THEN 'free'
+    WHEN u.subscription_tier LIKE '%enterprise%' THEN 'enterprise'
+    WHEN u.subscription_tier LIKE '%elite%' THEN 'elite'
+    WHEN u.subscription_tier LIKE '%pro%' THEN 'pro'
+    WHEN u.subscription_tier LIKE '%builder%' THEN 'builder'
+    WHEN u.subscription_tier LIKE '%starter%' THEN 'starter'
+    ELSE COALESCE(u.subscription_tier, 'unknown')
+  END AS tier_group,
+  u.is_active_premium_user,
+  count(DISTINCT a.app_id) AS apps,
+  count(DISTINCT a.organization_id) AS builders
+FROM prod.marketing.base44_apps_classified_by_ai a
+JOIN prod.wt_base44_users.base_full u
+  ON a.organization_id = u.organization_id
+WHERE u.is_qa_user = false
+GROUP BY 1, 2
+ORDER BY apps DESC
+```
+
+**Columns:** tier_group, is_active_premium_user, apps, builders
+**Marketing use:** "X% of apps come from paid builders", tier breakdown for case studies, free-to-paid conversion narratives
+**Note:** Add WHERE filters on `a.category_by_ai`, `a.industry_by_ai`, or `a.audience_by_ai` to segment by vertical (e.g., `LOWER(a.category_by_ai) LIKE '%education%'`)
+
+---
+
+## APP_MONETIZATION_SIGNALS
+
+Stripe integration and AI-predicted payment likelihood across apps.
+
+```sql
+SELECT
+  a.has_stripe_integration,
+  a.payments_likelihood_by_ai,
+  count(*) AS apps,
+  count(DISTINCT a.organization_id) AS builders
+FROM prod.marketing.base44_apps_classified_by_ai a
+GROUP BY 1, 2
+ORDER BY apps DESC
+```
+
+**Columns:** has_stripe_integration, payments_likelihood_by_ai, apps, builders
+**Marketing use:** "X apps have high monetization potential", Stripe adoption rate, revenue-readiness story
+**Note:** Add WHERE filters on classification columns to segment by vertical
+
+---
+
+## APP_AI_CLASSIFICATION
+
+AI-classified app breakdown by category, industry, or audience.
+
+```sql
+SELECT
+  a.category_by_ai,
+  a.industry_by_ai,
+  count(*) AS apps,
+  count(DISTINCT a.organization_id) AS builders,
+  count(CASE WHEN a.last_deployed_at IS NOT NULL THEN 1 END) AS deployed,
+  round(100.0 * count(CASE WHEN a.last_deployed_at IS NOT NULL THEN 1 END) / count(*), 1) AS deploy_rate_pct
+FROM prod.marketing.base44_apps_classified_by_ai a
+GROUP BY 1, 2
+ORDER BY apps DESC
+LIMIT 30
+```
+
+**Columns:** category_by_ai, industry_by_ai, apps, builders, deployed, deploy_rate_pct
+**Marketing use:** "Top verticals builders are targeting", industry penetration, category-specific landing pages
+**Note:** Filter or group by `audience_by_ai` for audience segmentation instead
+
+---
+
 ## CUSTOM
 
 For any query not covered above, build SQL directly from the user's request using the table schemas in SKILL.md.

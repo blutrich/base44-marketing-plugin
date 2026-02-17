@@ -59,7 +59,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | 8 | LANDING | landing page, sales page, deploy landing page, base44 landing, host landing, ship landing page, create landing page, landing page for [feature] | **LANDING** |
 | 9 | SEO | blog, seo, article, pillar | **SEO** |
 | 10 | VIDEO | video, remotion, animation | **VIDEO** |
-| 11 | DATA_INSIGHT | data, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, builders building, categories, trends, app trends, apps created, feature adoption, agents usage, deep coding, remix, marketplace, funnel, drop-off, activation speed, referrals, model preferences | **DATA_INSIGHT** |
+| 11 | DATA_INSIGHT | data, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, builders building, categories, trends, app trends, apps created, feature adoption, agents usage, deep coding, remix, marketplace, funnel, drop-off, activation speed, referrals, model preferences, paid vs free, subscription, monetization, stripe, revenue, app classification, industry, audience | **DATA_INSIGHT** |
 | 11.5 | APP_DATA | fetch features, show features, feature list, roadmap, pull data, product sync, what features, feature data | **APP_DATA** |
 | 11.7 | PUSH_RIPPLE | push to ripple, save to ripple, send to ripple | **PUSH_RIPPLE** |
 | 11.8 | SESSION_LOG | log session, save session, track session, session report, wrap up, end session | **SESSION_LOG** |

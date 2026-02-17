@@ -3,7 +3,7 @@ name: data-insight
 description: |
   Queries the Trino analytics warehouse for real Base44 metrics. Pulls growth trends, LLM model usage, premium conversion funnels, app creation/deployment data, feature adoption, remix/marketplace activity, detailed funnel analysis, referral impact, and user voice insights. Feeds real numbers into content creation.
 
-  Triggers on: data insight, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, what builders complain about, app trends, feature adoption, remix, referrals, funnel, model preferences.
+  Triggers on: data insight, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, what builders complain about, app trends, feature adoption, remix, referrals, funnel, model preferences, paid vs free, subscription, monetization, stripe, revenue, app classification, industry, audience.
 
   REQUIRES: Trino MCP installed (see reference/setup.md)
 ---
@@ -36,6 +36,9 @@ Use this skill when:
 - You want remix/marketplace activity (community reuse, template purchases)
 - You need detailed funnel analysis (every step from anonymous visit to premium)
 - You want referral impact data (referred vs organic conversion rates)
+- You need paid vs free breakdown (subscription tiers joined with app data)
+- You want monetization signals (Stripe integration, AI-predicted payment likelihood)
+- You need AI-classified app segmentation (category, industry, audience by AI)
 - You want to know what builders are struggling with (user voice / top issues)
 - The marketing router needs fresh data before creating content
 - A content skill needs social proof numbers ("400K+ builders", "244K signups last week")
@@ -63,6 +66,9 @@ Classify what the user wants:
 | "full funnel", "conversion funnel", "drop-off" | `FUNNEL_DETAILED` |
 | "funnel timing", "how long to convert", "activation speed" | `FUNNEL_TIME_DETAILED` |
 | "referrals", "referral impact", "word of mouth" | `REFERRAL_IMPACT` |
+| "paid vs free", "subscription breakdown", "who's paying" | `PAID_VS_FREE_APPS` |
+| "monetization", "stripe", "payment likelihood", "revenue" | `APP_MONETIZATION_SIGNALS` |
+| "app classification", "what category", "industry", "audience" | `APP_AI_CLASSIFICATION` |
 | "dashboard", "overview", "all metrics" | Run `GROWTH_WEEKLY` + `LLM_MODELS` + `PREMIUM_FUNNEL` |
 | Anything else specific | `CUSTOM` — build SQL from user description |
 
@@ -105,7 +111,7 @@ If the user wants content based on the data:
 
 ## Query Catalog
 
-16 pre-built query categories. See `reference/queries.md` for exact SQL.
+19 pre-built query categories. See `reference/queries.md` for exact SQL.
 
 | ID | Purpose | Key Metrics |
 |----|---------|-------------|
@@ -125,6 +131,9 @@ If the user wants content based on the data:
 | `FUNNEL_TIME_DETAILED` | Hours between each funnel step | Step-by-step activation speed |
 | `REFERRAL_IMPACT` | Referral-driven signups & conversion | Referral %, referred publish/premium rates |
 | `USER_VOICE` | Top issues by highlight/ticket count | Pain points, trending complaints |
+| `PAID_VS_FREE_APPS` | Apps & builders by subscription tier (apps ⟕ users) | Paid vs free breakdown, tier concentration |
+| `APP_MONETIZATION_SIGNALS` | Stripe integration & payment likelihood | Revenue readiness, monetization potential |
+| `APP_AI_CLASSIFICATION` | AI-classified category/industry/audience | Vertical breakdown, audience segmentation |
 
 ---
 
@@ -316,6 +325,43 @@ Output the query results as a markdown table with all columns.
 | `referrer_user_id` | varchar | Builder who referred this user (null if organic) |
 | `is_qa_user` | boolean | Internal test account (exclude from metrics) |
 
+### `prod.marketing.base44_apps_classified_by_ai`
+
+AI-classified app data. Join with `base_full` on `organization_id` to get subscription/payment info.
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `app_id` | varchar | Unique app ID |
+| `created_date` | timestamp | App creation timestamp |
+| `owner_email` | varchar | Builder email |
+| `organization_id` | varchar | Organization ID (**join key** to `base_full`) |
+| `name` | varchar | App name |
+| `description` | varchar | App description |
+| `status_state` | varchar | App status |
+| `has_stripe_integration` | boolean | Stripe payments connected |
+| `slug` | varchar | App URL slug |
+| `app_url` | varchar | Live app URL |
+| `last_deployed_at` | timestamp | Last deployment (null if never) |
+| `category_by_ai` | varchar | AI-classified category (Educational, Financial, CRM, etc.) |
+| `sub_category_by_ai` | varchar | AI-classified sub-category |
+| `audience_by_ai` | varchar | AI-classified target audience (students, teachers, etc.) |
+| `audience_size_by_ai` | varchar | AI-estimated audience size |
+| `industry_by_ai` | varchar | AI-classified industry |
+| `platform_by_ai` | varchar | AI-classified platform type |
+| `intent_scope_by_ai` | varchar | AI-classified intent scope |
+| `payments_likelihood_by_ai` | varchar | AI-predicted payment likelihood (low, medium, high) |
+| `language_by_ai` | varchar | AI-detected language |
+| `is_remixable` | varchar | Remix availability |
+| `remixed_from_app_id` | varchar | Source app if remixed |
+| `platform_version` | varchar | Platform version used |
+
+**Key join pattern:**
+```sql
+FROM prod.marketing.base44_apps_classified_by_ai a
+JOIN prod.wt_base44_users.base_full u
+  ON a.organization_id = u.organization_id
+```
+
 ### `prod.cs_dwh.base44_user_voice_daily_pulse`
 
 | Column | Type | Description |
@@ -339,7 +385,7 @@ Output the query results as a markdown table with all columns.
 
 **Install:** See `reference/setup.md` for one-command installation.
 
-All 4 data dimensions (growth, models, funnel, user voice) live in Trino. No other MCP needed.
+All 5 data dimensions (growth, models, funnel, monetization, user voice) live in Trino. No other MCP needed.
 
 ---
 
