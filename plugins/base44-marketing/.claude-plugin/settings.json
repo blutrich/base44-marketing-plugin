@@ -27,6 +27,7 @@
   "env": {
     "MARKETING_PLUGIN_VERSION": "1.9.0",
     "BRAND_DEFAULT": "base44",
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "RIPPLE_PROJECT_DIR": "/Users/oferbl/Desktop/Dev/Base Content Engine/ripple"
   }
 }

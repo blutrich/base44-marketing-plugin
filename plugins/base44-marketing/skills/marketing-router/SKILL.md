@@ -59,16 +59,17 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | 8 | LANDING | landing page, sales page, deploy landing page, base44 landing, host landing, ship landing page, create landing page, landing page for [feature] | **LANDING** |
 | 9 | SEO | blog, seo, article, pillar | **SEO** |
 | 10 | VIDEO | video, remotion, animation | **VIDEO** |
-| 11 | DATA_INSIGHT | data, analytics, builders building, categories, trends | **DATA_INSIGHT** |
+| 11 | DATA_INSIGHT | data, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, builders building, categories, trends | **DATA_INSIGHT** |
 | 11.5 | APP_DATA | fetch features, show features, feature list, roadmap, pull data, product sync, what features, feature data | **APP_DATA** |
 | 11.7 | PUSH_RIPPLE | push to ripple, save to ripple, send to ripple | **PUSH_RIPPLE** |
+| 11.8 | SESSION_LOG | log session, save session, track session, session report, wrap up, end session | **SESSION_LOG** |
 | 12 | DEFAULT | content, write, create | **CONTENT** |
 
 **Conflict Resolution:**
 - GTM_STRATEGY wins when the request is strategic/planning-oriented
 - BRAINSTORM = ideation only (tactical ideas, not holistic plans)
 - CAMPAIGN wins if multi-channel execution is specified
-- DATA_INSIGHT routes to gtm-strategist for builder analytics (Phase 2)
+- DATA_INSIGHT queries Trino analytics first, then routes to gtm-strategist if strategy is needed
 
 ---
 
@@ -78,7 +79,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 |----------|--------|
 | GTM_STRATEGY | gtm-strategist (deep exploration, then plan) |
 | BRAINSTORM | marketing-ideas (then routes to execution) |
-| DATA_INSIGHT | gtm-strategist (data-driven content analysis — Phase 2) |
+| DATA_INSIGHT | data-insight skill (Trino analytics queries) -> gtm-strategist (if strategy requested) |
 | PAID_AD | ad-specialist → brand-guardian |
 | REPURPOSE | cross-platform-repurpose → brand-guardian |
 | CAMPAIGN | planner → [specialists in parallel] → brand-guardian |
@@ -90,6 +91,8 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | VIDEO | video-specialist → brand-guardian |
 | APP_DATA | base44-feature skill (fetch & display) |
 | PUSH_RIPPLE | push-to-ripple skill (extract content → push to Ripple CMS) |
+| SESSION_LOG | session-log skill (capture session → push to Ripple) |
+| CONTENT | copywriter → brand-guardian (default for generic content requests) |
 
 For detailed workflows, see [reference/workflows.md](reference/workflows.md).
 
@@ -191,20 +194,9 @@ For full initialization sequence, see [reference/memory-init.md](reference/memor
 
 ## Voice Rules
 
-### ALWAYS USE
-- "Builders" (never "users" or "customers")
-- "Ship" / "Go live" (never "deploy" or "launch")
-- "Just shipped" / "Just dropped"
-- Action verbs, present tense
-- Specific numbers ($1M ARR, 400K+ builders)
+**Full voice rules:** See `agents/shared-instructions.md` (single source of truth).
 
-### NEVER USE
-- "Users" / "Customers"
-- "Deploy" / "Launch"
-- "We're excited to announce"
-- Corporate hedging
-- Passive voice
-- Arrow bullets (→)
+**Quick reminders:** "Builders" not "users" | "Ship" not "deploy" | No TV-ad cadence | Maor Test
 
 ---
 
@@ -244,7 +236,8 @@ For task hierarchy and validation details, see [reference/task-pattern.md](refer
 | brand-memory | Persistent learning |
 | base44-feature | Fetch live data from Base44 app entities (features, roadmap) |
 | push-to-ripple | Push generated content into Ripple CMS |
-| data-intelligence | Builder analytics, content pipeline (Phase 2 — not yet built) |
+| data-insight | Trino analytics: growth, models, funnel, user voice, milestones |
+| session-log | Session tracking: usage, time saved, business impact |
 
 ---
 
@@ -255,6 +248,16 @@ For task hierarchy and validation details, see [reference/task-pattern.md](refer
 | [reference/workflows.md](reference/workflows.md) | Detailed workflow instructions |
 | [reference/task-pattern.md](reference/task-pattern.md) | CC10X task hierarchy |
 | [reference/memory-init.md](reference/memory-init.md) | Full initialization sequence |
+
+---
+
+## Session Logging
+
+At the end of every session where content was created or data was queried, remind the user:
+
+"Want me to log this session? I'll track what we did and how much time it saved."
+
+If user agrees, invoke the `session-log` skill.
 
 ---
 

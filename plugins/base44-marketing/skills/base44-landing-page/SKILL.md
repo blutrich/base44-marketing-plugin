@@ -17,7 +17,6 @@ description: |
 
 - User wants a **live landing page hosted on Base44**
 - User mentions "deploy", "host", "base44 landing", "ship a page", "live page"
-- **NOT** for Wix CMS data (use `landing-page-generator`)
 - **NOT** for copy-only (use `landing-page-architecture` via copywriter)
 
 ## Architecture
@@ -105,12 +104,7 @@ Generate all 8 sections with brand voice applied:
 7. SECONDARY CTA: Question headline + Yes button + Objection handler
 8. FOOTER: Logo + Navigation + Legal
 
-**Rules during generation:**
-- "Builders" not "users/customers"
-- "Ship" not "deploy/launch"
-- No TV-ad cadence, no bulleted idea dumps
-- Specific numbers in every section
-- Maor Test: would he post this exactly as written?
+**Rules during generation:** See `agents/shared-instructions.md` for full voice rules.
 
 ### Step 5: Brand Validation
 

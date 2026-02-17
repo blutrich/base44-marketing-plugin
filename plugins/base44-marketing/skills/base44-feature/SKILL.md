@@ -215,7 +215,7 @@ This skill is designed to feed live data into other marketing skills:
 
 ```
 1. Fetch a specific feature via base44-feature
-2. Pass to landing-page-generator:
+2. Pass to base44-landing-page:
    - title → page title
    - whats_new → hero copy
    - who_is_this_for → persona
@@ -258,6 +258,6 @@ If more than 50 records, show a summary count and ask the user if they want full
 
 ## Integration
 
-**Called by:** marketing-router (DATA_INSIGHT workflow), agents needing live feature data
+**Called by:** marketing-router (APP_DATA workflow), agents needing live feature data
 **Depends on:** Base44 App API credentials
-**Feeds into:** linkedin-specialist, x-specialist, landing-page-generator, copywriter, planner
+**Feeds into:** linkedin-specialist, x-specialist, base44-landing-page, copywriter, planner

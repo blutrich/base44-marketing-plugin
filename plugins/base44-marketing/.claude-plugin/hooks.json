@@ -17,12 +17,6 @@
         "command": "date '+Session ended: %Y-%m-%d %H:%M' >> .claude/marketing/session-log.txt"
       }
     ],
-    "TaskCompleted": [
-      {
-        "type": "command",
-        "command": "bash hooks/task-completed.sh \"$TASK_SUBJECT\" \"$TASK_OWNER\""
-      }
-    ],
     "TeammateIdle": [
       {
         "type": "command",

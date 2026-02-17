@@ -19,7 +19,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
         │
         ├── GTM_STRATEGY → gtm-strategist (deep exploration, then plan)
         ├── BRAINSTORM → marketing-ideas (connected narrative, not bullet dumps)
-        ├── DATA_INSIGHT → gtm-strategist (builder analytics — Phase 2)
+        ├── DATA_INSIGHT → data-insight (Trino analytics) → gtm-strategist (if strategy)
         ├── APP_DATA → base44-feature (pull product features for content)
         ├── PAID_AD → ad-specialist → brand-guardian
         ├── LINKEDIN → linkedin-specialist → brand-guardian
@@ -29,6 +29,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
         ├── SEO → seo-specialist → brand-guardian
         ├── VIDEO → video-specialist → brand-guardian
         ├── PUSH_RIPPLE → push-to-ripple (extract content → push to Ripple CMS)
+        ├── SESSION_LOG → session-log (capture session → push to Ripple)
         └── CAMPAIGN → planner → [specialists ∥] → brand-guardian
 ```
 
@@ -59,7 +60,9 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `landing-page-architecture` | 8-Section Framework (copy structure) |
 | `base44-landing-page` | HTML generation + Base44 hosting deployment |
 | `base44-feature` | Pull product features for content creation |
+| `data-insight` | Trino analytics: growth, models, funnel, user voice, milestones |
 | `push-to-ripple` | Push generated content into Ripple CMS |
+| `session-log` | Session tracking: usage, time saved, business impact |
 
 ## Brand Voice (TL;DR)
 

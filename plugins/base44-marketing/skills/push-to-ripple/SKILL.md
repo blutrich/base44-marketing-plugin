@@ -84,7 +84,7 @@ Use AskUserQuestion to get confirmation.
 Write the JSON payload to a temp file to avoid shell escaping issues, then pipe it to the bridge script:
 
 ```bash
-cat /tmp/ripple-push.json | node "/Users/oferbl/Desktop/Dev/Base Content Engine/ripple/scripts/push-to-ripple.js"
+cat /tmp/ripple-push.json | node "$RIPPLE_PROJECT_DIR/scripts/push-to-ripple.js"
 ```
 
 Steps:

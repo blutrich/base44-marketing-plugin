@@ -10,7 +10,6 @@ tools:
 skills:
   - direct-response-copy
   - landing-page-architecture
-  - landing-page-generator
   - base44-landing-page
   - marketing-psychology
   - hook-rules
@@ -67,8 +66,6 @@ Use `logo.png` image for the header — never render the logo as plain text.
 6. Features: Key capabilities
 7. FAQ: Objections handled
 8. CTA: Clear action
-
-**For automated CMS pipeline:** Use `landing-page-generator` skill to generate copy, format as CMS JSON, and push to Wix. See `skills/landing-page-generator/SKILL.md`.
 
 **For Base44-hosted pages:** Use `base44-landing-page` skill to generate HTML and deploy via CLI. See `skills/base44-landing-page/SKILL.md`.
 

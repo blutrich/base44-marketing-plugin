@@ -129,56 +129,7 @@ Create paid ad creatives for Meta, LinkedIn, Reddit.
 
 ---
 
-## LANDING_GENERATE (Automated Landing Page Pipeline)
-
-Generate a complete landing page and push it to Wix CMS.
-
-1. Load brand context + memory
-2. **Load design system** (MANDATORY for any HTML output):
-```
-Read(file_path="brands/base44/design-system.md")
-Read(file_path="brands/base44/brand.json")
-```
-   - Use `logo.png` image for headers — never render the logo as plain text
-   - Copy `output/logo.png` into the output directory when generating standalone HTML
-3. Load landing-page-generator skill:
-```
-Read(file_path="skills/landing-page-generator/SKILL.md")
-```
-4. **GATHER INPUT** (use AskUserQuestion for missing items):
-   - Page goal (feature launch, campaign, signup, etc.)
-   - Target persona
-   - Key message / product / feature
-   - URL slug
-5. **SELECT TEMPLATE** based on goal:
-   - Feature launch → `feature-launch`
-   - Campaign / event → `campaign`
-   - Sign-up / free trial → `signup`
-   - Case study → `case-study`
-   - Enterprise / security → `enterprise`
-6. **GENERATE COPY** using 8-Section Framework:
-   - Load `landing-page-architecture` skill
-   - Load brand files (testimonials, value-props, hooks, CTAs)
-   - Generate all 8 sections with brand voice applied
-7. **VALIDATE** with brand-guardian (score >= 7/10)
-8. **FORMAT** as CMS JSON matching the schema:
-```
-Read(file_path="skills/landing-page-generator/reference/cms-schema.md")
-```
-9. **PUSH TO WIX CMS** via REST API:
-```
-Read(file_path="skills/landing-page-generator/reference/wix-api.md")
-```
-   - Check if `WIX_API_KEY` is set
-   - If set: push via curl, return page URL
-   - If not set: output JSON + curl command for manual push
-10. **RETURN** page URL, copy preview, and next steps
-
-**LANDING_GENERATE produces a live (draft) page. LANDING produces copy only.**
-
----
-
-## LANDING_DEPLOY (Base44-Hosted Landing Page)
+## LANDING (Base44-Hosted Landing Page)
 
 Generate a self-contained HTML landing page and deploy it to Base44 hosting via the Base44 CLI.
 
@@ -223,7 +174,7 @@ Read(file_path="skills/base44-landing-page/SKILL.md")
    - If not authenticated: save HTML locally, provide manual deploy steps
 10. **RETURN** live URL (`https://{slug}-landing.base44.app`), copy preview, and next steps
 
-**LANDING_DEPLOY produces a live Base44-hosted page from HTML. LANDING_GENERATE pushes CMS data to Wix. LANDING produces copy only.**
+**LANDING produces a live Base44-hosted page from HTML.**
 
 ---
 
