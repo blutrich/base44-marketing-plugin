@@ -2,15 +2,34 @@
 
 > Orchestrated content creation with brand-aware sub-agents.
 
-## Quick Start
+## IMPORTANT: How to Execute Workflows
 
-```bash
-# Install the plugin
-/plugin marketplace add blutrich/base44-marketing-plugin
+**Do NOT use the Skill tool to invoke marketing skills.** Instead, read and follow skill files directly:
 
-# Create content
-/base44-marketing:marketing-router Write a LinkedIn post about our new AI feature
-```
+1. When a user requests ANY marketing content, read `skills/marketing-router/SKILL.md`
+2. Follow the router's instructions: initialize memory → read brand → detect intent → execute workflow
+3. Load additional skill/agent files as the router directs (e.g., `agents/linkedin-specialist.md`, `skills/linkedin-viral/SKILL.md`)
+4. Always finish by reading `agents/brand-guardian.md` and running the quality gate
+
+**Quick reference — the router reads these based on intent:**
+
+| Intent | Read these files |
+|--------|-----------------|
+| LinkedIn post | `skills/marketing-router/SKILL.md` → `agents/linkedin-specialist.md` → `skills/linkedin-viral/SKILL.md` → `agents/brand-guardian.md` |
+| X/Twitter | `skills/marketing-router/SKILL.md` → `agents/x-specialist.md` → `skills/x-viral/SKILL.md` → `agents/brand-guardian.md` |
+| Email | `skills/marketing-router/SKILL.md` → `agents/copywriter.md` → `skills/direct-response-copy/SKILL.md` → `agents/brand-guardian.md` |
+| Paid ad | `skills/marketing-router/SKILL.md` → `agents/ad-specialist.md` → `agents/brand-guardian.md` |
+| Landing page | `skills/marketing-router/SKILL.md` → `skills/base44-landing-page/SKILL.md` → `agents/brand-guardian.md` |
+| Blog / SEO | `skills/marketing-router/SKILL.md` → `agents/seo-specialist.md` → `skills/seo-content/SKILL.md` → `agents/brand-guardian.md` |
+| Video | `skills/marketing-router/SKILL.md` → `agents/video-specialist.md` → `agents/brand-guardian.md` |
+| Strategy / GTM | `skills/marketing-router/SKILL.md` → `agents/gtm-strategist.md` |
+| Campaign | `skills/marketing-router/SKILL.md` → `agents/planner.md` → [specialists in parallel] → `agents/brand-guardian.md` |
+| Data / Analytics | `skills/marketing-router/SKILL.md` → `skills/data-insight/SKILL.md` |
+| Brainstorm | `skills/marketing-router/SKILL.md` → `skills/marketing-ideas/SKILL.md` |
+| Push to Ripple | `skills/marketing-router/SKILL.md` → `skills/push-to-ripple/SKILL.md` |
+| Log session | `skills/marketing-router/SKILL.md` → `skills/session-log/SKILL.md` |
+
+**Every content workflow** must also read `agents/shared-instructions.md` and `brands/base44/RULES.md` before generating.
 
 ## Architecture
 
@@ -79,34 +98,25 @@ Short paragraphs             Walls of text
 
 ## Usage Examples
 
-### Paid Ad
-```
-/base44-marketing:marketing-router Create a Meta feed ad for our AI feature
-```
+Just ask in plain English. The plugin context is always loaded — no slash command needed.
 
-### LinkedIn Post
 ```
-/base44-marketing:marketing-router Write a LinkedIn post about our $1M ARR milestone
+Write a LinkedIn post about our $1M ARR milestone
 ```
-
-### Email Campaign
 ```
-/base44-marketing:marketing-router Create an email sequence for our new feature launch
+Create a Meta feed ad for our AI feature
 ```
-
-### Full Campaign
 ```
-/base44-marketing:marketing-router Plan a multi-channel campaign for Debug Mode launch
+Plan a multi-channel campaign for Debug Mode launch
 ```
-
-### Fetch App Data
 ```
-/base44-marketing:marketing-router Show me released features ready for marketing
+Show me growth numbers and turn them into a post
 ```
-
-### Push to Ripple
 ```
-/base44-marketing:marketing-router Push this to ripple
+Build a landing page for Debug Mode
+```
+```
+Push this to ripple
 ```
 
 ## Memory System
