@@ -139,7 +139,7 @@ Generate a self-contained HTML landing page and deploy it to Base44 hosting via 
 Read(file_path="brands/base44/design-system.md")
 Read(file_path="brands/base44/brand.json")
 ```
-   - Use `logo.png` image for headers — never render the logo as plain text
+   - Use inline SVG for the logo in headers — never render as plain text or base64 PNG
 3. Load base44-landing-page skill:
 ```
 Read(file_path="skills/base44-landing-page/SKILL.md")

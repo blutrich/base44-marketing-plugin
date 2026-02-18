@@ -129,7 +129,7 @@
   },
 
   "assets": {
-    "logo": "assets/logo.png",
+    "logo": "assets/images/logo.svg",
     "logo_dark": null,
     "icon": null,
     "fonts_dir": "assets/fonts/"

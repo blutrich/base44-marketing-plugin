@@ -55,7 +55,7 @@ Hey there,
 Read(file_path="brands/base44/design-system.md")
 Read(file_path="brands/base44/brand.json")
 ```
-Use `logo.png` image for the header — never render the logo as plain text.
+Use inline SVG for the header logo — never render as plain text or base64 PNG. See `design-system.md` for the SVG markup.
 
 **8-Section Framework:**
 1. Hero: Problem + Promise

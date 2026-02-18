@@ -43,7 +43,7 @@
 7. **End posts with engagement, not filler** - Feature-relevant closers, or occasionally "how will you use this?" when it fits naturally (Asaf 2026-02-06, Ofer 2026-02-08)
 8. **Sound like Maor** - Read Maor's actual LinkedIn posts in learning-log.md. Match his casual, specific, story-driven cadence. Not copywriting. Not advertising. Conversation. (Shay, 2026-02-09)
 9. **Holistic plans over idea dumps** - When brainstorming, deliver integrated marketing plans: channels, timeline, assets needed, how it all connects. Not a list of disconnected tactics. (Shay, 2026-02-09)
-10. **Use logo.png for the logo** - Never render the Base44 logo as plain text. Always use the `logo.png` image file. Load `brands/base44/design-system.md` when generating HTML pages. (2026-02-12)
+10. **Use inline SVG for the logo** - Never render the Base44 logo as plain text. Always use inline SVG from `design-system.md`. Never use base64 PNG (it corrupts). (2026-02-18)
 
 ---
 

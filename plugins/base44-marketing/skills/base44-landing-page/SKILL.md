@@ -202,7 +202,7 @@ Output to user:
 If Base44 CLI is not authenticated:
 
 1. Write HTML to `./landing-pages/{slug}/index.html`
-2. Copy logo to `./landing-pages/{slug}/logo.png`
+2. Logo is inline SVG (no file copy needed — see asset-strategy.md)
 3. Tell user:
 ```
 HTML saved locally at landing-pages/{slug}/index.html
