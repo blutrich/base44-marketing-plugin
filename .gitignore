@@ -24,9 +24,9 @@ brand-source
 # Images (canonical copies are in assets/images/)
 *.png
 
-# BUT allow everything inside assets/ (shared brand assets for the team)
-!assets/
-!assets/**
+# BUT allow brand assets inside the plugin (fonts + logo)
+!plugins/base44-marketing/assets/
+!plugins/base44-marketing/assets/**
 
 # Transcriptions and source files
 transcriptions/
