@@ -9,7 +9,7 @@
 /plugin marketplace add blutrich/base44-marketing-plugin
 
 # Create content
-/marketing-router Write a LinkedIn post about our new AI feature
+/base44-marketing:marketing-router Write a LinkedIn post about our new AI feature
 ```
 
 ## Architecture
@@ -81,32 +81,32 @@ Short paragraphs             Walls of text
 
 ### Paid Ad
 ```
-/marketing-router Create a Meta feed ad for our AI feature
+/base44-marketing:marketing-router Create a Meta feed ad for our AI feature
 ```
 
 ### LinkedIn Post
 ```
-/marketing-router Write a LinkedIn post about our $1M ARR milestone
+/base44-marketing:marketing-router Write a LinkedIn post about our $1M ARR milestone
 ```
 
 ### Email Campaign
 ```
-/marketing-router Create an email sequence for our new feature launch
+/base44-marketing:marketing-router Create an email sequence for our new feature launch
 ```
 
 ### Full Campaign
 ```
-/marketing-router Plan a multi-channel campaign for Debug Mode launch
+/base44-marketing:marketing-router Plan a multi-channel campaign for Debug Mode launch
 ```
 
 ### Fetch App Data
 ```
-/marketing-router Show me released features ready for marketing
+/base44-marketing:marketing-router Show me released features ready for marketing
 ```
 
 ### Push to Ripple
 ```
-/marketing-router Push this to ripple
+/base44-marketing:marketing-router Push this to ripple
 ```
 
 ## Memory System
