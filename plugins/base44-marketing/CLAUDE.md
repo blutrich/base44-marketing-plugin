@@ -2,32 +2,31 @@
 
 > Orchestrated content creation with brand-aware sub-agents.
 
-## IMPORTANT: How to Execute Workflows
+## How Workflows Execute
 
-**Do NOT use the Skill tool to invoke marketing skills.** Instead, read and follow skill files directly:
+The `marketing-router` skill is the entry point. When it loads, it:
 
-1. When a user requests ANY marketing content, read `skills/marketing-router/SKILL.md`
-2. Follow the router's instructions: initialize memory → read brand → detect intent → execute workflow
-3. Load additional skill/agent files as the router directs (e.g., `agents/linkedin-specialist.md`, `skills/linkedin-viral/SKILL.md`)
-4. Always finish by reading `agents/brand-guardian.md` and running the quality gate
+1. Initializes memory → reads brand → detects intent → executes the matching workflow
+2. Chains to the right agent + skill files based on intent
+3. Finishes every content workflow through `agents/brand-guardian.md` (quality gate)
 
-**Quick reference — the router reads these based on intent:**
+**Workflow chains by intent:**
 
-| Intent | Read these files |
-|--------|-----------------|
-| LinkedIn post | `skills/marketing-router/SKILL.md` → `agents/linkedin-specialist.md` → `skills/linkedin-viral/SKILL.md` → `agents/brand-guardian.md` |
-| X/Twitter | `skills/marketing-router/SKILL.md` → `agents/x-specialist.md` → `skills/x-viral/SKILL.md` → `agents/brand-guardian.md` |
-| Email | `skills/marketing-router/SKILL.md` → `agents/copywriter.md` → `skills/direct-response-copy/SKILL.md` → `agents/brand-guardian.md` |
-| Paid ad | `skills/marketing-router/SKILL.md` → `agents/ad-specialist.md` → `agents/brand-guardian.md` |
-| Landing page | `skills/marketing-router/SKILL.md` → `skills/base44-landing-page/SKILL.md` → `agents/brand-guardian.md` |
-| Blog / SEO | `skills/marketing-router/SKILL.md` → `agents/seo-specialist.md` → `skills/seo-content/SKILL.md` → `agents/brand-guardian.md` |
-| Video | `skills/marketing-router/SKILL.md` → `agents/video-specialist.md` → `agents/brand-guardian.md` |
-| Strategy / GTM | `skills/marketing-router/SKILL.md` → `agents/gtm-strategist.md` |
-| Campaign | `skills/marketing-router/SKILL.md` → `agents/planner.md` → [specialists in parallel] → `agents/brand-guardian.md` |
-| Data / Analytics | `skills/marketing-router/SKILL.md` → `skills/data-insight/SKILL.md` |
-| Brainstorm | `skills/marketing-router/SKILL.md` → `skills/marketing-ideas/SKILL.md` |
-| Push to Ripple | `skills/marketing-router/SKILL.md` → `skills/push-to-ripple/SKILL.md` |
-| Log session | `skills/marketing-router/SKILL.md` → `skills/session-log/SKILL.md` |
+| Intent | Chain |
+|--------|-------|
+| LinkedIn post | `marketing-router` → `linkedin-specialist` → `linkedin-viral` → `brand-guardian` |
+| X/Twitter | `marketing-router` → `x-specialist` → `x-viral` → `brand-guardian` |
+| Email | `marketing-router` → `copywriter` → `direct-response-copy` → `brand-guardian` |
+| Paid ad | `marketing-router` → `ad-specialist` → `brand-guardian` |
+| Landing page | `marketing-router` → `base44-landing-page` → `brand-guardian` |
+| Blog / SEO | `marketing-router` → `seo-specialist` → `seo-content` → `brand-guardian` |
+| Video | `marketing-router` → `video-specialist` → `brand-guardian` |
+| Strategy / GTM | `marketing-router` → `gtm-strategist` |
+| Campaign | `marketing-router` → `planner` → [specialists in parallel] → `brand-guardian` |
+| Data / Analytics | `marketing-router` → `data-insight` |
+| Brainstorm | `marketing-router` → `marketing-ideas` |
+| Push to Ripple | `marketing-router` → `push-to-ripple` |
+| Log session | `marketing-router` → `session-log` |
 
 **Every content workflow** must also read `agents/shared-instructions.md` and `brands/base44/RULES.md` before generating.
 

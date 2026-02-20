@@ -16,6 +16,24 @@ User says any of:
 - "push this to ripple"
 - Wants to persist generated content into Ripple
 
+## Step 0: Locate Ripple Project
+
+Before pushing, resolve the Ripple project directory:
+
+1. If `$RIPPLE_PROJECT_DIR` is set and non-empty, use it
+2. Otherwise, search common locations:
+   ```bash
+   # Check sibling directories of the current project
+   ls -d ../ripple ../*/ripple ../../ripple 2>/dev/null | head -1
+   ```
+3. Look for a `.ripple` or `ripple/scripts/push-to-ripple.js` marker file
+4. If still not found, ask the user:
+   > "Where is your Ripple project? Provide the path, or set `RIPPLE_PROJECT_DIR` in your environment."
+
+Store the resolved path as `RIPPLE_DIR` for the remaining steps.
+
+**If the user has no Ripple project:** Save the JSON payload to `output/ripple-push-{timestamp}.json` instead and tell the user the content is ready to import when Ripple is configured.
+
 ## Step 1: Extract Content from Conversation
 
 Scan the conversation for `<!-- CONTENT_START:channel -->` markers using this pattern:
@@ -84,12 +102,12 @@ Use AskUserQuestion to get confirmation.
 Write the JSON payload to a temp file to avoid shell escaping issues, then pipe it to the bridge script:
 
 ```bash
-cat /tmp/ripple-push.json | node "$RIPPLE_PROJECT_DIR/scripts/push-to-ripple.js"
+cat /tmp/ripple-push.json | node "$RIPPLE_DIR/scripts/push-to-ripple.js"
 ```
 
 Steps:
 1. Write JSON payload to `/tmp/ripple-push.json` using the Write tool
-2. Run the bash command above to pipe it to the bridge script
+2. Run the bash command above using the resolved `RIPPLE_DIR` from Step 0
 3. Capture stdout (the result JSON)
 
 ## Step 5: Report Results

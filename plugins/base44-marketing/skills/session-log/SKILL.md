@@ -18,6 +18,16 @@ description: |
 
 ## Workflow
 
+### Step 0: Locate Ripple Project
+
+Resolve the Ripple project directory (same as push-to-ripple):
+
+1. If `$RIPPLE_PROJECT_DIR` is set and non-empty, use it
+2. Otherwise, search sibling directories for a Ripple project (`../ripple`, `../*/ripple`)
+3. If not found, ask the user for the path
+
+Store as `RIPPLE_DIR`. If unavailable, save the session log to `output/session-log-{timestamp}.json` instead and tell the user it's ready to import later.
+
 ### Step 1: Identify User
 
 Check if user name is known from the conversation. If not, ask:
@@ -89,7 +99,7 @@ Let user adjust any values before pushing. If user wants to override time saved,
 Write JSON to temp file and pipe to bridge script:
 
 ```bash
-cat /tmp/session-log.json | node "$RIPPLE_PROJECT_DIR/scripts/push-session.js"
+cat /tmp/session-log.json | node "$RIPPLE_DIR/scripts/push-session.js"
 ```
 
 ### Step 7: Report Result
@@ -133,9 +143,10 @@ Sum the plugin time for each workflow used.
 
 ## Dependencies
 
-- **Bridge script:** `$RIPPLE_PROJECT_DIR/scripts/push-session.js`
+- **Bridge script:** `$RIPPLE_DIR/scripts/push-session.js` (resolved in Step 0)
 - **Auth:** `~/.base44/auth/auth.json` (run `npx base44 login` in Ripple project)
 - **Backend function:** `cli-push-session` in Ripple
+- **Fallback:** If Ripple is not configured, saves to `output/session-log-{timestamp}.json`
 
 ## Integration
 
