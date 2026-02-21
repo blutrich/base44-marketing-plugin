@@ -47,7 +47,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
         ├── SEO → seo-specialist → brand-guardian
         ├── VIDEO → video-specialist → brand-guardian
         ├── PUSH_RIPPLE → push-to-ripple (extract content → push to Ripple CMS)
-        ├── SESSION_LOG → session-log (capture session → push to Ripple)
+        ├── SESSION_LOG → session-log (team usage → Base44 PluginSession entity)
         └── CAMPAIGN → planner → [specialists ∥] → brand-guardian
 ```
 
@@ -80,7 +80,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `base44-feature` | Pull product features for content creation |
 | `data-insight` | Trino analytics: growth, models, funnel, apps, features, remix, referrals, monetization, AI classification, user voice (19 queries, 6 tables) |
 | `push-to-ripple` | Push generated content into Ripple CMS |
-| `session-log` | Session tracking: usage, time saved, business impact |
+| `session-log` | Team usage tracking via Base44 PluginSession entity |
 
 ## Brand Voice (TL;DR)
 

@@ -38,42 +38,50 @@ Use this skill when:
 Read(file_path="skills/base44-feature/reference/api.md")
 ```
 
-### Step 2: Check Credentials
+### Step 2: Load Credentials
 
-The API requires two values. Check if they are available:
-
-```bash
-# Check if environment variables are set
-echo "APP_ID: ${BASE44_APP_ID:-(not set)}"
-echo "API_KEY: ${BASE44_API_KEY:+(set)}"
-```
-
-**If not set**, ask the user to provide them or set environment variables:
+Credentials are stored in `.claude/marketing/api-config.json`. Check if the file exists:
 
 ```bash
-export BASE44_APP_ID="your-app-id"
-export BASE44_API_KEY="your-api-key"
+cat .claude/marketing/api-config.json 2>/dev/null || echo "NOT_FOUND"
 ```
 
-Alternatively, the user may provide them inline. **NEVER output the actual API key in responses or logs.** Reference it only as `$BASE44_API_KEY`.
+**If NOT_FOUND**, ask the user for their App ID and API Key, then use the Write tool to create:
+
+```json
+{
+  "app_id": "THE_APP_ID",
+  "api_key": "THE_API_KEY"
+}
+```
+
+Save to `.claude/marketing/api-config.json`. This file is gitignored and persists across sessions.
+
+**NEVER output the actual API key in responses or logs.**
 
 ### Step 3: Fetch Data
 
 Determine what entity and scope the user needs. Default entity is `Feature`.
 
+**IMPORTANT:** Every curl call must read credentials and execute in a single Bash command (env vars don't persist between calls in Claude Code).
+
 **List all records:**
 
 ```bash
-curl -s -X GET "https://app.base44.com/api/apps/$BASE44_APP_ID/entities/{Entity}" \
-  -H "api_key: $BASE44_API_KEY" \
+APP_ID=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['app_id'])") && \
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s -X GET "https://app.base44.com/api/apps/$APP_ID/entities/{Entity}" \
+  -H "api_key: $API_KEY" \
   -H "Content-Type: application/json"
 ```
 
 **Get a single record by ID:**
 
 ```bash
-curl -s -X GET "https://app.base44.com/api/apps/$BASE44_APP_ID/entities/{Entity}/{id}" \
-  -H "api_key: $BASE44_API_KEY" \
+APP_ID=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['app_id'])") && \
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s -X GET "https://app.base44.com/api/apps/$APP_ID/entities/{Entity}/{id}" \
+  -H "api_key: $API_KEY" \
   -H "Content-Type: application/json"
 ```
 

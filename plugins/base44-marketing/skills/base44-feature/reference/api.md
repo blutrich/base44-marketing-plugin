@@ -8,16 +8,23 @@ https://app.base44.com/api/apps/{APP_ID}/entities/{Entity}
 
 ## Authentication
 
-| Header | Value |
-|--------|-------|
-| `api_key` | `$BASE44_API_KEY` (environment variable) |
-| `Content-Type` | `application/json` |
+Credentials are stored in `.claude/marketing/api-config.json` (gitignored, per-user).
 
-**Environment variables required:**
+```json
+{
+  "app_id": "your-app-id",
+  "api_key": "your-api-key"
+}
+```
+
+**Reading credentials in curl (single Bash call — env vars don't persist between calls):**
 
 ```bash
-export BASE44_APP_ID="your-app-id"
-export BASE44_API_KEY="your-api-key"
+APP_ID=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['app_id'])") && \
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s -X GET "https://app.base44.com/api/apps/$APP_ID/entities/{Entity}" \
+  -H "api_key: $API_KEY" \
+  -H "Content-Type: application/json"
 ```
 
 ## CRUD Operations
@@ -30,11 +37,30 @@ export BASE44_API_KEY="your-api-key"
 | Update | `PUT` | `/entities/{Entity}/{id}` |
 | Delete | `DELETE` | `/entities/{Entity}/{id}` |
 
+## Entity Discovery
+
+If you're unsure which entities exist, try common names. The API returns 404 for unknown entities.
+
+```bash
+# Try fetching an entity — 200 means it exists, 404 means it doesn't
+APP_ID=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['app_id'])") && \
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+for entity in Feature FeatureBoard PluginSession; do \
+  STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://app.base44.com/api/apps/$APP_ID/entities/$entity" \
+    -H "api_key: $API_KEY"); \
+  echo "$entity: $STATUS"; \
+done
+```
+
 ## Known Entities
 
 | Entity | Description |
 |--------|-------------|
 | `Feature` | Product features and roadmap items |
+| `FeatureBoard` | Feature analytics dashboards (Mixpanel links, metrics) |
+| `PluginSession` | Plugin usage logs (who, what, time saved) — see `skills/session-log/SKILL.md` |
+
+---
 
 ## Feature Entity Schema
 
@@ -62,6 +88,7 @@ export BASE44_API_KEY="your-api-key"
 | `figma_link` | string | Figma design link |
 | `showcase_link` | string | Demo/showcase link |
 | `slack_channel_id` | string | Related Slack channel |
+| `released_at` | string/null | Release date |
 | `ux_ready` | boolean | UX readiness flag |
 | `need_data_analytics` | boolean | Analytics needed flag |
 | `comments` | string | Internal comments |
@@ -78,23 +105,21 @@ export BASE44_API_KEY="your-api-key"
 | `created_by` | string | Creator email |
 | `is_sample` | boolean | Sample data flag |
 
-## Example Requests
+## FeatureBoard Entity Schema
 
-### List all features
+| Field | Type | Description |
+|-------|------|-------------|
+| `feature_name` | string | Feature identifier (links to Feature entity) |
+| `display_name` | string | Human-readable name |
+| `mixpanel_board_link` | string | Mixpanel dashboard URL |
+| `metrics` | string/array | Key metrics tracked |
+| `event_names` | string/array | Mixpanel event names |
 
-```bash
-curl -s -X GET "https://app.base44.com/api/apps/$BASE44_APP_ID/entities/Feature" \
-  -H "api_key: $BASE44_API_KEY" \
-  -H "Content-Type: application/json"
-```
+## PluginSession Entity Schema
 
-### Get one feature
+See `skills/session-log/SKILL.md` for the full schema. Create this entity in your Base44 app to enable team usage tracking.
 
-```bash
-curl -s -X GET "https://app.base44.com/api/apps/$BASE44_APP_ID/entities/Feature/{id}" \
-  -H "api_key: $BASE44_API_KEY" \
-  -H "Content-Type: application/json"
-```
+---
 
 ## Error Handling
 
@@ -105,3 +130,16 @@ curl -s -X GET "https://app.base44.com/api/apps/$BASE44_APP_ID/entities/Feature/
 | 404 | Entity or record not found |
 | 429 | Rate limited |
 | 500 | Server error |
+
+## Credential Setup
+
+If `.claude/marketing/api-config.json` doesn't exist, create it with the Write tool:
+
+```json
+{
+  "app_id": "your-app-id",
+  "api_key": "your-api-key"
+}
+```
+
+Get your App ID and API Key from the Base44 app dashboard under Settings > API.

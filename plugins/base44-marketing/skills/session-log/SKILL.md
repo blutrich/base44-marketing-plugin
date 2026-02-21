@@ -1,42 +1,45 @@
 ---
 name: session-log
 description: |
-  Captures plugin session data (who, what, how long, time saved) and pushes it to Ripple for ROI tracking.
+  Tracks team plugin usage: who used it, what they created, how long, time saved. Pushes to a shared Base44 PluginSession entity so the whole team can see usage.
 
-  Triggers on: log session, save session, track session, session report, end session, wrap up.
+  Triggers on: log session, save session, track session, session report, end session, wrap up, team usage, who used the plugin.
 ---
 
 # Session Log
 
-**PURPOSE:** Track plugin usage, time saved, and business impact by logging each session to Ripple.
+**PURPOSE:** Track plugin usage, time saved, and business impact. Data is shared across the team via the Base44 `PluginSession` entity.
 
 ## When to Use
 
 - User says "log session", "save session", "track this session"
+- User says "show team usage", "who used the plugin", "usage report"
 - At the end of a session where content was created or data was queried
 - When the marketing-router reminds the user to log
 
-## Workflow
+---
 
-### Step 0: Locate Ripple Project
+## Workflow: Log a Session
 
-Resolve the Ripple project directory (same as push-to-ripple):
+### Step 1: Load Credentials
 
-1. If `$RIPPLE_PROJECT_DIR` is set and non-empty, use it
-2. Otherwise, search sibling directories for a Ripple project (`../ripple`, `../*/ripple`)
-3. If not found, ask the user for the path
+Read from `.claude/marketing/api-config.json` (same file as `base44-feature`):
 
-Store as `RIPPLE_DIR`. If unavailable, save the session log to `output/session-log-{timestamp}.json` instead and tell the user it's ready to import later.
+```bash
+cat .claude/marketing/api-config.json 2>/dev/null || echo "NOT_FOUND"
+```
 
-### Step 1: Identify User
+If NOT_FOUND, ask the user for App ID and API Key. Use the Write tool to save to `.claude/marketing/api-config.json`. See `skills/base44-feature/SKILL.md` Step 2 for format.
+
+### Step 2: Identify User
 
 Check if user name is known from the conversation. If not, ask:
 
 "Who's logging this session?"
 
-Read email from `~/.base44/auth/auth.json` if available.
+Also read email from `~/.base44/auth/auth.json` if available.
 
-### Step 2: Scan Conversation for Session Events
+### Step 3: Scan Conversation for Session Events
 
 Look through the conversation history for:
 
@@ -47,15 +50,15 @@ Look through the conversation history for:
 | Content channels | Channel mentioned in content generation (linkedin, x, email, etc.) | `content_channels` |
 | Guardian scores | "Guardian Score: X/10" or "Score: X/10" patterns | `guardian_scores` |
 | Data queries | Trino query executions or data-insight skill invocations | `data_queries_run` |
-| Push events | push-to-ripple results with content IDs | `pushed_to_ripple`, `content_ids` |
+| Push events | push-to-ripple results with content IDs | `pushed_to_cms` |
 
-### Step 3: Calculate Time Saved
+### Step 4: Calculate Time Saved
 
 Use the time savings model from [reference/time-model.md](reference/time-model.md).
 
 Sum the "Saved" column for each workflow used. If a workflow was used multiple times, multiply accordingly.
 
-### Step 4: Build Session Payload
+### Step 5: Build Session Payload
 
 ```json
 {
@@ -68,14 +71,14 @@ Sum the "Saved" column for each workflow used. If a workflow was used multiple t
   "content_channels": ["linkedin"],
   "guardian_scores": [8, 9],
   "avg_guardian_score": 8.5,
-  "pushed_to_ripple": 1,
+  "pushed_to_cms": 1,
   "data_queries_run": ["GROWTH_WEEKLY"],
   "estimated_time_saved_min": 67,
-  "session_summary": "Created 2 LinkedIn posts using weekly growth data, pushed 1 to Ripple"
+  "session_summary": "Created 2 LinkedIn posts using weekly growth data"
 }
 ```
 
-### Step 5: Confirm with User
+### Step 6: Confirm with User
 
 Show a summary before pushing:
 
@@ -89,32 +92,88 @@ Session Log:
   Time saved: ~67 min
   Summary: Created 2 LinkedIn posts using weekly growth data
 
-Push to Ripple?
+Save to Base44?
 ```
 
-Let user adjust any values before pushing. If user wants to override time saved, use their number.
+Let user adjust any values before pushing.
 
-### Step 6: Push to Ripple
-
-Write JSON to temp file and pipe to bridge script:
+### Step 7: Push to Base44
 
 ```bash
-cat /tmp/session-log.json | node "$RIPPLE_DIR/scripts/push-session.js"
+APP_ID=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['app_id'])") && \
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s -X POST "https://app.base44.com/api/apps/$APP_ID/entities/PluginSession" \
+  -H "api_key: $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d @/tmp/session-log.json
 ```
 
-### Step 7: Report Result
+Steps:
+1. Write JSON payload to `/tmp/session-log.json` using the Write tool
+2. Run the single bash command above (reads config + curls in one shell)
+3. Parse the response for the created record ID
+
+### Step 8: Report Result
 
 **Success:**
 ```
-Session logged. ID: {session_id}
+Session logged. ID: {id}
 Time saved this session: ~{N} minutes
 ```
 
 **Error:**
+- 401: "API key invalid. Set BASE44_API_KEY in your environment."
+- 404: "PluginSession entity not found. Create it in your Base44 app first."
+- Other: Show the error message from the API response.
+
+---
+
+## Workflow: View Team Usage
+
+When user asks "show team usage", "who used the plugin", or "usage report":
+
+### Step 1: Fetch All Sessions
+
+```bash
+APP_ID=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['app_id'])") && \
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s -X GET "https://app.base44.com/api/apps/$APP_ID/entities/PluginSession" \
+  -H "api_key: $API_KEY" \
+  -H "Content-Type: application/json"
 ```
-Failed to log session: {error}
-Check: Is Base44 auth valid? Run `npx base44 login` in the Ripple project.
+
+### Step 2: Display Summary
+
+**Team Dashboard (default):**
+
+```markdown
+## Plugin Usage — Last 7 Days
+
+| User | Sessions | Content Pieces | Avg Guardian | Time Saved |
+|------|----------|---------------|--------------|------------|
+| Alice | 5 | 12 | 8.2/10 | ~4.5 hrs |
+| Bob | 3 | 7 | 7.8/10 | ~2.1 hrs |
+| **Total** | **8** | **19** | **8.0/10** | **~6.6 hrs** |
+
+Top workflows: LINKEDIN (8x), DATA_INSIGHT (5x), SEO (3x)
 ```
+
+**Individual View** (when user asks about a specific person):
+
+```markdown
+## Alice — Last 7 Days
+
+| Date | Workflows | Content | Guardian | Time Saved |
+|------|-----------|---------|----------|------------|
+| Feb 21 | LINKEDIN, DATA_INSIGHT | 3 pieces | 8.5 | ~1.2 hrs |
+| Feb 20 | SEO | 2 pieces | 8.0 | ~40 min |
+```
+
+**Filters:**
+- "this week" / "last 7 days" — filter by `session_date`
+- "this month" — filter by month
+- "Alice's sessions" — filter by `user_name`
+- "LinkedIn usage" — filter where `workflows_used` contains LINKEDIN
 
 ---
 
@@ -141,15 +200,35 @@ Sum the plugin time for each workflow used.
 
 ---
 
+## PluginSession Entity Schema
+
+Create this entity in your Base44 app to enable team tracking:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `user_name` | string | Who logged the session |
+| `user_email` | string | Email address |
+| `session_date` | string | ISO timestamp |
+| `duration_minutes` | number | Estimated session length |
+| `workflows_used` | string[] | Which workflows ran |
+| `content_pieces` | number | How many pieces created |
+| `content_channels` | string[] | Which channels (linkedin, x, email, etc.) |
+| `guardian_scores` | number[] | Individual guardian scores |
+| `avg_guardian_score` | number | Average score |
+| `pushed_to_cms` | number | How many pieces pushed to CMS |
+| `data_queries_run` | string[] | Which data queries ran |
+| `estimated_time_saved_min` | number | Minutes saved vs manual |
+| `session_summary` | string | One-line summary |
+
+---
+
 ## Dependencies
 
-- **Bridge script:** `$RIPPLE_DIR/scripts/push-session.js` (resolved in Step 0)
-- **Auth:** `~/.base44/auth/auth.json` (run `npx base44 login` in Ripple project)
-- **Backend function:** `cli-push-session` in Ripple
-- **Fallback:** If Ripple is not configured, saves to `output/session-log-{timestamp}.json`
+- **Base44 App API:** Same `$BASE44_APP_ID` and `$BASE44_API_KEY` as `base44-feature`
+- **PluginSession entity:** Must exist in the Base44 app (create it once)
 
 ## Integration
 
 - **Called by:** marketing-router (session end reminder), user direct request
-- **Reads from:** Conversation history (session events)
-- **Writes to:** Ripple PluginSession entity via CLI bridge
+- **Reads from:** Conversation history (session events), Base44 API (team usage)
+- **Writes to:** Base44 `PluginSession` entity
