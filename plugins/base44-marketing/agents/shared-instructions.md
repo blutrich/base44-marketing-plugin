@@ -43,6 +43,15 @@ Read(file_path="brands/base44/learning-log.md")     # Recent learnings
 - Passive voice
 - "Revolutionary" / "Game-changing"
 
+## Feature Naming (MANDATORY)
+
+**NEVER** lead with or headline an internal feature name. Builders don't care what you called it internally — they care what it does for them.
+
+- **Bad:** "We're shipping Builder Skills next week."
+- **Good:** "You can now customize how your AI builder works — per workspace, per app."
+
+The feature name can appear once, buried in the body, never as the hook or headline.
+
 ## Anti-AI Patterns (MANDATORY)
 
 **DON'T:**

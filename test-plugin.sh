@@ -453,6 +453,224 @@ for md in "${CRITICAL_MDS[@]}"; do
 done
 echo ""
 
+# ── TEST 12: E2E — Brand rules internal consistency ────────────────────────
+
+echo "── Test 12: E2E — Brand rules internal consistency ──"
+
+# 12a: All content agents reference shared-instructions.md
+CONTENT_AGENTS=(linkedin-specialist x-specialist copywriter seo-specialist ad-specialist video-specialist planner gtm-strategist)
+for agent in "${CONTENT_AGENTS[@]}"; do
+  af="$AGENTS_DIR/$agent.md"
+  if [ -f "$af" ]; then
+    if grep -q "shared-instructions" "$af"; then
+      pass "agent '$agent' references shared-instructions.md"
+    else
+      fail "agent '$agent' does NOT reference shared-instructions.md"
+    fi
+  fi
+done
+
+# 12b: brand-guardian.md is not empty and has checklist
+GUARDIAN="$AGENTS_DIR/brand-guardian.md"
+if [ -f "$GUARDIAN" ]; then
+  size=$(wc -c < "$GUARDIAN" | tr -d ' ')
+  if [ "$size" -lt 100 ]; then
+    fail "brand-guardian.md is nearly empty ($size bytes) — quality gate has no instructions"
+  else
+    pass "brand-guardian.md has content ($size bytes)"
+  fi
+  # Must have scoring checklist
+  if grep -q "Scoring Checklist\|scoring checklist\|PASS.*FAIL\|Checklist" "$GUARDIAN"; then
+    pass "brand-guardian.md has scoring checklist"
+  else
+    fail "brand-guardian.md missing scoring checklist"
+  fi
+  # Must reference banned-words.md
+  if grep -q "banned-words" "$GUARDIAN"; then
+    pass "brand-guardian.md references banned-words.md"
+  else
+    fail "brand-guardian.md does NOT reference banned-words.md"
+  fi
+fi
+
+# 12c: banned-words.md exists and has minimum coverage
+BANNED="$BRAND_DIR/banned-words.md"
+if [ -f "$BANNED" ]; then
+  pass "banned-words.md exists"
+  # Check minimum banned word categories
+  for category in "Banned Verbs" "Banned Adjectives" "Banned Adverbs" "Banned Abstract Nouns" "Banned Transition" "Banned Phrases"; do
+    if grep -q "$category" "$BANNED"; then
+      pass "banned-words.md has '$category' section"
+    else
+      fail "banned-words.md missing '$category' section"
+    fi
+  done
+  # Check minimum file size (should have 100+ entries)
+  bsize=$(wc -c < "$BANNED" | tr -d ' ')
+  if [ "$bsize" -gt 2000 ]; then
+    pass "banned-words.md is substantial ($bsize bytes)"
+  else
+    fail "banned-words.md too small ($bsize bytes) — expected 100+ banned entries"
+  fi
+else
+  fail "banned-words.md MISSING — brand-guardian has nothing to check against"
+fi
+echo ""
+
+# ── TEST 13: E2E — Tone-of-voice doesn't contradict RULES.md ──────────────
+
+echo "── Test 13: E2E — Tone-of-voice doesn't contradict RULES.md ──"
+
+TOV="$BRAND_DIR/tone-of-voice.md"
+if [ -f "$TOV" ]; then
+  # 13a: No stacked declarative fragments in examples (rule #19)
+  # Pattern: "Short. Short. Short." TV-ad cadence (3+ fragments under 5 words each)
+  # Only match lines with 3+ sentence fragments where each fragment is very short (1-4 words)
+  TV_AD_HITS=$(grep -nE '"([A-Z][a-z]{0,15}\.){3,}"' "$TOV" | grep -viE '(DON.T|don.t|Never|Bad|Avoid|This\. Is\. Not)' || true)
+  if [ -z "$TV_AD_HITS" ]; then
+    pass "tone-of-voice.md: no TV-ad cadence in positive examples"
+  else
+    fail "tone-of-voice.md: TV-ad cadence found in examples that agents will copy:"
+    echo "$TV_AD_HITS" | head -3 | while read -r line; do echo "      $line"; done
+  fi
+
+  # 13b: No question CTAs in approved CTA list (rule #6)
+  CTA_SECTION=$(sed -n '/### CTAs/,/###/p' "$TOV" 2>/dev/null || true)
+  if echo "$CTA_SECTION" | grep -qE '^- ".*\?"'; then
+    fail "tone-of-voice.md: question CTA found in approved CTA list (rule #6)"
+  else
+    pass "tone-of-voice.md: no question CTAs in approved list"
+  fi
+
+  # 13c: No "see for yourself" style CTAs (rule #17)
+  if echo "$CTA_SECTION" | grep -qi "see what\|see for yourself\|see how"; then
+    fail "tone-of-voice.md: 'see for yourself' CTA found (rule #17)"
+  else
+    pass "tone-of-voice.md: no 'see for yourself' CTAs"
+  fi
+
+  # 13d: Em dashes have usage warning
+  if grep -q "sparingly\|AI tell\|em dash" "$TOV"; then
+    pass "tone-of-voice.md: em dash usage has a warning"
+  else
+    warn "tone-of-voice.md: em dashes recommended without AI-tell warning"
+  fi
+fi
+echo ""
+
+# ── TEST 14: E2E — Agent files don't contain banned patterns ──────────────
+
+echo "── Test 14: E2E — Agent files don't use banned patterns in examples ──"
+
+# 14a: No "Nobody's talking about this" in any agent (Orbach Pattern 7)
+NOBODY_HITS=$(grep -rlni "nobody.s talking about\|nobody tells you" "$AGENTS_DIR"/ 2>/dev/null || true)
+if [ -z "$NOBODY_HITS" ]; then
+  pass "No agent uses 'Nobody's talking about this' pattern"
+else
+  for hit in $NOBODY_HITS; do
+    label="${hit#$PLUGIN_DIR/}"
+    fail "$label uses 'Nobody' manipulation pattern (Orbach #7)"
+  done
+fi
+
+# 14b: No "it's not X, it's Y" contrast framing in positive examples
+# Exclude lines that are RULES (describing what NOT to do) — look for "No " prefix or checklist items
+CONTRAST_HITS=$(grep -rn "It.s not.*it.s\|It.s not.*It.s" "$AGENTS_DIR"/ 2>/dev/null | grep -vi "DON.T\|don.t\|Never\|Avoid\|Bad\|No contrast\|No \"It" || true)
+if [ -z "$CONTRAST_HITS" ]; then
+  pass "No agent uses contrast framing in positive examples"
+else
+  fail "Contrast framing found in agent positive examples:"
+  echo "$CONTRAST_HITS" | head -3 | while read -r line; do echo "      $line"; done
+fi
+
+# 14c: Check RULES.md has minimum rule count
+RULES_FILE="$BRAND_DIR/RULES.md"
+if [ -f "$RULES_FILE" ]; then
+  NEVER_COUNT=$(grep -c "^[0-9]\+\." "$RULES_FILE" 2>/dev/null || echo "0")
+  if [ "$NEVER_COUNT" -ge 22 ]; then
+    pass "RULES.md has $NEVER_COUNT numbered rules (minimum 22)"
+  else
+    warn "RULES.md has only $NEVER_COUNT numbered rules (expected 22+)"
+  fi
+fi
+echo ""
+
+# ── TEST 15: E2E — CLAUDE.md skills match disk ───────────────────────────
+
+echo "── Test 15: E2E — CLAUDE.md skills table matches disk ──"
+
+if [ -f "$CLAUDE_MD" ] && [ -d "$SKILLS_DIR" ]; then
+  # Count skills on disk
+  DISK_COUNT=$(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
+  # Count skills in CLAUDE.md table (lines with backtick skill names in the Skills section)
+  DOC_COUNT=$(sed -n '/## Skills/,/## /p' "$CLAUDE_MD" | grep -c '| `' || echo "0")
+
+  if [ "$DISK_COUNT" -eq "$DOC_COUNT" ]; then
+    pass "CLAUDE.md lists $DOC_COUNT skills, $DISK_COUNT on disk — match"
+  else
+    fail "CLAUDE.md lists $DOC_COUNT skills but $DISK_COUNT exist on disk — mismatch"
+  fi
+
+  # Check each disk skill is mentioned in CLAUDE.md
+  MISSING_FROM_DOCS=""
+  for sd in "$SKILLS_DIR"/*/; do
+    [ -d "$sd" ] || continue
+    sname=$(basename "$sd")
+    if ! grep -q "\`$sname\`" "$CLAUDE_MD"; then
+      MISSING_FROM_DOCS="$MISSING_FROM_DOCS $sname"
+    fi
+  done
+
+  if [ -z "$MISSING_FROM_DOCS" ]; then
+    pass "All disk skills documented in CLAUDE.md"
+  else
+    fail "Skills on disk but missing from CLAUDE.md:$MISSING_FROM_DOCS"
+  fi
+fi
+echo ""
+
+# ── TEST 16: E2E — Cross-file reference integrity ────────────────────────
+
+echo "── Test 16: E2E — Cross-file reference integrity ──"
+
+# 16a: Every agent that reads RULES.md should also read shared-instructions.md (or vice versa)
+for af in "$AGENTS_DIR"/*.md; do
+  [ -f "$af" ] || continue
+  aname=$(basename "$af" .md)
+  [ "$aname" = "shared-instructions" ] && continue  # skip self
+
+  reads_rules=$(grep -c "RULES.md" "$af" 2>/dev/null || true)
+  reads_rules=${reads_rules:-0}
+  reads_shared=$(grep -c "shared-instructions" "$af" 2>/dev/null || true)
+  reads_shared=${reads_shared:-0}
+
+  if [ "$reads_rules" -gt 0 ] && [ "$reads_shared" -eq 0 ]; then
+    fail "agent '$aname' reads RULES.md but not shared-instructions.md"
+  elif [ "$reads_rules" -gt 0 ] && [ "$reads_shared" -gt 0 ]; then
+    pass "agent '$aname' reads both RULES.md and shared-instructions.md"
+  fi
+done
+
+# 16b: shared-instructions.md references RULES.md
+SHARED="$AGENTS_DIR/shared-instructions.md"
+if [ -f "$SHARED" ]; then
+  if grep -q "RULES.md" "$SHARED"; then
+    pass "shared-instructions.md references RULES.md"
+  else
+    fail "shared-instructions.md does NOT reference RULES.md"
+  fi
+fi
+
+# 16c: brand-guardian references both RULES.md and banned-words.md
+if [ -f "$GUARDIAN" ]; then
+  if grep -q "RULES.md" "$GUARDIAN"; then
+    pass "brand-guardian.md references RULES.md"
+  else
+    fail "brand-guardian.md does NOT reference RULES.md"
+  fi
+fi
+echo ""
+
 # ── SUMMARY ─────────────────────────────────────────────────────────────────
 
 echo "============================================"

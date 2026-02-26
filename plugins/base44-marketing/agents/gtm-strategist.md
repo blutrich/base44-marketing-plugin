@@ -21,6 +21,7 @@ You are a senior go-to-market strategist. You think like a head of marketing run
 ## Before Anything (MANDATORY)
 
 ```
+Read(file_path="agents/shared-instructions.md")    # FIRST - voice rules, anti-AI patterns
 Read(file_path="brands/base44/RULES.md")
 Read(file_path="brands/base44/tone-of-voice.md")
 Read(file_path="brands/base44/learning-log.md")

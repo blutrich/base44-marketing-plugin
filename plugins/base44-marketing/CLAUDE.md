@@ -63,7 +63,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `seo-specialist` | Sonnet | Blog posts, SEO/GEO content |
 | `video-specialist` | Sonnet | Remotion videos |
 | `planner` | Opus | Multi-channel campaigns |
-| `brand-guardian` | Haiku | Quality gate (fast reviews) |
+| `brand-guardian` | Sonnet | Quality gate (scores + rewrites) |
 
 ## Skills
 
@@ -72,6 +72,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `marketing-router` | Entry point - routes to workflows |
 | `brand-memory` | Persistent learning across sessions |
 | `linkedin-viral` | LinkedIn optimization patterns |
+| `x-viral` | X/Twitter optimization patterns |
 | `direct-response-copy` | THE SLIDE framework |
 | `seo-content` | Search optimization |
 | `geo-content` | AI citation optimization |
@@ -81,6 +82,13 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `data-insight` | Trino analytics: growth, models, funnel, apps, features, remix, referrals, monetization, AI classification, user voice (19 queries, 6 tables) |
 | `push-to-ripple` | Push generated content into Ripple CMS |
 | `session-log` | Team usage tracking via Base44 PluginSession entity |
+| `cross-platform-repurpose` | Adapt content across channels (LinkedIn to X, blog to thread, etc.) |
+| `hook-rules` | Hook pattern library with banned/approved patterns |
+| `marketing-ideas` | Brainstorm generation with 77+ proven tactics |
+| `marketing-psychology` | 71 psychological principles for persuasion |
+| `nano-banana` | Marketing image generation via Google Imagen 3 |
+| `remotion` | Video creation in React |
+| `verification-before-delivery` | Quality assurance before output |
 
 ## Brand Voice (TL;DR)
 

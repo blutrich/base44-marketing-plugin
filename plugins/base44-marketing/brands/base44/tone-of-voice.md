@@ -53,9 +53,9 @@ Base44's voice draws from:
 - "Right now" (for immediacy)
 
 ### Connectors & Transitions
-- "And here's the thing—"
-- "What's wild is—"
-- "Speaking of—"
+- "And here's the thing," (use sparingly, 1-2 per post max. Too many em dashes = AI tell)
+- "What's wild is,"
+- "Speaking of,"
 - "Quick update:"
 - "Just shipped:"
 
@@ -100,29 +100,25 @@ Start with what it enables, then how it works. Always end with "try it now" ener
 
 ### Transitions
 Move fast between ideas. Use line breaks and short connectors:
-> "New this week: Gmail integration.
->
-> Send. Receive. Read. All from your app.
->
-> Here's the kicker—it took us 3 days to build."
+> "New this week: Gmail integration. Your app can now send and receive emails, and yes, read them too. Took us 3 days to build."
 
 ---
 
 ## Example Phrases
 
 ### Headlines
-- "Ship Your App Idea. Today."
-- "10 Million Apps. One Platform."
-- "What Will You Build?"
+- "400K+ builders shipped something this month"
+- "We just crossed $1M ARR. Here's how."
+- "From side project to SaaS in a weekend"
 - "From Idea to Revenue in Days"
-- "Base44: Where Builders Build"
+- "We built this in 3 weeks and honestly I'm still surprised it works"
 
 ### CTAs
 - "Start building"
 - "Try it now"
-- "See what's possible"
-- "Join the builders"
 - "Ship your first app"
+- "Join the builders"
+- "Takes 5 minutes"
 
 ### Descriptions
 - "Base44 turns your ideas into working apps. Describe what you want, and it appears. No code required."
@@ -219,4 +215,10 @@ Before publishing, ask:
 
 ---
 
-*Last updated: 2026-02-09*
+## Banned Words
+
+See `brands/base44/banned-words.md` for the full list of AI filler words, adjectives, verbs, and phrases to avoid. Key categories: 33 banned verbs, 39 banned adjectives, 50+ banned phrases.
+
+---
+
+*Last updated: 2026-02-26*

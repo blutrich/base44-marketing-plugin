@@ -1,6 +1,6 @@
 # Base44 Marketing Plugin
 
-> Orchestrated content creation with 8 brand-aware agents, 14 specialized skills, and evolving memory.
+> Orchestrated content creation with 9 brand-aware agents, 20 specialized skills, and evolving memory.
 
 ## Installation
 
@@ -29,15 +29,20 @@
 ## Architecture
 
 ```
-marketing-router (ENTRY POINT)
+marketing-router (ENTRY POINT — open-ended, no menu)
         │
+        ├── GTM_STRATEGY → gtm-strategist (deep exploration, then plan)
+        ├── BRAINSTORM → marketing-ideas (connected narrative, not bullet dumps)
+        ├── DATA_INSIGHT → data-insight (Trino analytics)
         ├── PAID_AD → ad-specialist → brand-guardian
         ├── LINKEDIN → linkedin-specialist → brand-guardian
         ├── X → x-specialist → brand-guardian
         ├── EMAIL → copywriter → brand-guardian
-        ├── LANDING → copywriter → brand-guardian
+        ├── LANDING → base44-landing-page → brand-guardian
         ├── SEO → seo-specialist → brand-guardian
         ├── VIDEO → video-specialist → brand-guardian
+        ├── PUSH_RIPPLE → push-to-ripple (content → Ripple CMS)
+        ├── SESSION_LOG → session-log (usage tracking)
         └── CAMPAIGN → planner → [specialists] → brand-guardian
 ```
 
@@ -46,49 +51,43 @@ marketing-router (ENTRY POINT)
 ```mermaid
 flowchart TD
     Start([User Request]) --> Router[marketing-router<br/>ENTRY POINT]
-    
+
+    Router -->|GTM_STRATEGY| GTMAgent[gtm-strategist<br/>Opus]
+    Router -->|BRAINSTORM| BrainstormSkill[marketing-ideas<br/>Skill]
+    Router -->|DATA_INSIGHT| DataSkill[data-insight<br/>Skill]
     Router -->|PAID_AD| AdAgent[ad-specialist<br/>Sonnet]
-    Router -->|LINKEDIN| LinkedInAgent[linkedin-specialist<br/>Sonnet]
-    Router -->|X| XAgent[x-specialist<br/>Sonnet]
+    Router -->|LINKEDIN| LinkedInAgent[linkedin-specialist<br/>Opus]
+    Router -->|X| XAgent[x-specialist<br/>Opus]
     Router -->|EMAIL| CopyAgent1[copywriter<br/>Sonnet]
-    Router -->|LANDING| CopyAgent2[copywriter<br/>Sonnet]
+    Router -->|LANDING| LandingSkill[base44-landing-page<br/>Skill]
     Router -->|SEO| SEOAgent[seo-specialist<br/>Sonnet]
     Router -->|VIDEO| VideoAgent[video-specialist<br/>Sonnet]
-    Router -->|CAMPAIGN| PlannerAgent[planner<br/>Sonnet]
-    
-    AdAgent --> AdSkills[Skills:<br/>marketing-ideas<br/>marketing-psychology<br/>hook-rules]
-    LinkedInAgent --> LinkedInSkills[Skills:<br/>linkedin-viral<br/>hook-rules<br/>brand-memory]
-    XAgent --> XSkills[Skills:<br/>x-viral<br/>hook-rules<br/>brand-memory]
-    CopyAgent1 --> CopySkills1[Skills:<br/>direct-response-copy<br/>THE SLIDE framework]
-    CopyAgent2 --> CopySkills2[Skills:<br/>landing-page-architecture<br/>8-Section Framework]
-    SEOAgent --> SEOSkills[Skills:<br/>seo-content<br/>geo-content]
-    VideoAgent --> VideoSkills[Skills:<br/>remotion<br/>nano-banana<br/>AI imagery]
-    PlannerAgent --> PlannerSkills[Skills:<br/>marketing-ideas<br/>cross-platform-repurpose]
-    
+    Router -->|CAMPAIGN| PlannerAgent[planner<br/>Opus]
+    Router -->|PUSH_RIPPLE| RippleSkill[push-to-ripple<br/>Skill]
+    Router -->|SESSION_LOG| SessionSkill[session-log<br/>Skill]
+
+    AdAgent --> Guardian[brand-guardian<br/>Sonnet<br/>QUALITY GATE]
+    LinkedInAgent --> Guardian
+    XAgent --> Guardian
+    CopyAgent1 --> Guardian
+    LandingSkill --> Guardian
+    SEOAgent --> Guardian
+    VideoAgent --> Guardian
     PlannerAgent -->|Orchestrates| MultiAgent[Multiple Specialists<br/>as needed]
-    
-    AdSkills --> Guardian[brand-guardian<br/>Haiku<br/>QUALITY GATE]
-    LinkedInSkills --> Guardian
-    XSkills --> Guardian
-    CopySkills1 --> Guardian
-    CopySkills2 --> Guardian
-    SEOSkills --> Guardian
-    VideoSkills --> Guardian
-    PlannerSkills --> Guardian
     MultiAgent --> Guardian
-    
-    Guardian -->|Brand Voice Check| BrandCheck{Brand<br/>Compliant?}
-    BrandCheck -->|No| Feedback[Apply Feedback<br/>Refine Content]
-    Feedback --> Guardian
+
+    Guardian -->|Score + Check| BrandCheck{Score<br/>7/10+?}
+    BrandCheck -->|No| Rewrite[Rewrite Content<br/>Fix Issues]
+    Rewrite --> Guardian
     BrandCheck -->|Yes| Output([Final Content<br/>Ready to Ship])
-    
+
     style Router fill:#e1f5ff
     style Guardian fill:#fff4e1
     style Output fill:#e8f5e9
     style BrandCheck fill:#fff4e1
 ```
 
-## Skills (14)
+## Skills (20)
 
 | Skill | Purpose |
 |-------|---------|
@@ -101,24 +100,31 @@ flowchart TD
 | `seo-content` | Search optimization |
 | `geo-content` | AI citation (GEO) |
 | `landing-page-architecture` | 8-Section Framework |
+| `base44-landing-page` | HTML generation + Base44 hosting deployment |
+| `base44-feature` | Pull product features for content |
 | `hook-rules` | Anti-AI hook creation rules |
 | `cross-platform-repurpose` | Content transformation |
 | `brand-memory` | Persistent learning |
+| `data-insight` | Trino analytics (growth, funnel, features) |
+| `push-to-ripple` | Push content into Ripple CMS |
+| `session-log` | Team usage tracking + ROI |
+| `verification-before-delivery` | Quality assurance before output |
 | `remotion` | Video creation in React |
 | `nano-banana` | AI image generation (Imagen 3) |
 
-## Agents (8)
+## Agents (9)
 
 | Agent | Model | Purpose |
 |-------|-------|---------|
+| `gtm-strategist` | Opus | Deep strategic planning |
 | `ad-specialist` | Sonnet | Paid ads (Meta, LinkedIn, Reddit) |
-| `linkedin-specialist` | Sonnet | Viral LinkedIn content |
-| `x-specialist` | Sonnet | X/Twitter content |
+| `linkedin-specialist` | Opus | Viral LinkedIn content |
+| `x-specialist` | Opus | X/Twitter content |
 | `copywriter` | Sonnet | Emails, landing pages |
 | `seo-specialist` | Sonnet | Blog, SEO content |
 | `video-specialist` | Sonnet | Remotion videos + AI imagery |
-| `planner` | Sonnet | Multi-channel campaigns |
-| `brand-guardian` | Haiku | Quality gate (fast reviews) |
+| `planner` | Opus | Multi-channel campaigns |
+| `brand-guardian` | Sonnet | Quality gate (scores + rewrites) |
 
 ## Usage
 
@@ -157,7 +163,7 @@ Plan a multi-channel campaign for our native app launch
 2. **Builder Spotlight**: Feature a person ("Sarah launched her SaaS yesterday")
 3. **Possibility Hook**: "What if..." questions
 4. **Social Proof**: Numbers showing momentum ("12 apps launched this week")
-5. **Direct Value**: Punchy benefit statements ("Ship faster. Iterate faster.")
+5. **Direct Value**: Clear benefit in one line ("Your app can now send emails — test mode included")
 
 ## Memory System
 
@@ -185,6 +191,7 @@ base44-marketing-plugin/
 │   └── plugin.json         # Plugin metadata
 ├── CLAUDE.md               # Plugin instructions
 ├── README.md               # This file
+├── test-plugin.sh          # E2E validation (147 tests)
 ├── skills/
 │   ├── marketing-router/
 │   ├── marketing-ideas/
@@ -195,12 +202,20 @@ base44-marketing-plugin/
 │   ├── seo-content/
 │   ├── geo-content/
 │   ├── landing-page-architecture/
+│   ├── base44-landing-page/
+│   ├── base44-feature/
 │   ├── hook-rules/
 │   ├── cross-platform-repurpose/
 │   ├── brand-memory/
+│   ├── data-insight/
+│   ├── push-to-ripple/
+│   ├── session-log/
+│   ├── verification-before-delivery/
 │   ├── remotion/
 │   └── nano-banana/
 ├── agents/
+│   ├── shared-instructions.md  # Common voice rules (all agents read this)
+│   ├── gtm-strategist.md
 │   ├── ad-specialist.md
 │   ├── linkedin-specialist.md
 │   ├── x-specialist.md
@@ -211,26 +226,40 @@ base44-marketing-plugin/
 │   └── brand-guardian.md
 └── brands/
     └── base44/
+        ├── RULES.md            # 21 NEVER + 9 ALWAYS rules
         ├── tone-of-voice.md
+        ├── banned-words.md     # 130+ banned AI words/phrases
         ├── learning-log.md
-        ├── AGENTS.md
         └── templates/
 ```
 
 ## Anti-AI Patterns
 
+Full banned word list in `brands/base44/banned-words.md` (130+ words/phrases).
+
 **DON'T:**
-- Arrows (→) in lists
-- Too many bullet points
-- Overly choppy sentences
-- Repeated phrases every post
+- Use banned AI words (delve, leverage, landscape, harness, etc.)
+- Stack declarative fragments ("Build faster. Ship smarter. Scale infinitely.")
+- Use rule-of-three patterns ("The platform. The community. The future.")
+- Overuse em dashes (1-2 per post max)
+- Start consecutive paragraphs the same way
+- Use emoji as bullet points
+- Write anything that sounds like a TV commercial voiceover
 
 **DO:**
-- Natural sentence flow
-- Varied structure
-- Conversational tone
-- Occasional imperfection OK
+- Natural sentence flow with varied structure
+- Conversational tone (Maor's Slack huddle voice)
+- Specific numbers and builder stories
+- Occasional imperfection is fine
+- Pass the Maor Test: Would Maor post this exactly as written?
+
+## Testing
+
+```bash
+bash test-plugin.sh
+# 147 tests: structure, agents, skills, brands, cross-file integrity, E2E validation
+```
 
 ---
 
-*Version 1.7.0 | Router → Agent Chains → Quality Gate*
+*Version 1.9.0 | Router → Agent Chains → Quality Gate*

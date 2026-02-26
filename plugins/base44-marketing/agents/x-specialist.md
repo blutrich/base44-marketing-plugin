@@ -69,7 +69,7 @@ Here's what we learned 🧵
 
 ### Phrases That Work
 - "Just shipped:"
-- "Nobody's talking about this but—"
+- "We've been using this for a week and here's what changed"
 - "The results were honestly shocking"
 - "Here's what happened:"
 - "🧵 Thread:"

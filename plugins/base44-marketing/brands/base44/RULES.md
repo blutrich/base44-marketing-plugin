@@ -31,6 +31,7 @@
 19. **No TV-ad tagline cadence** - "One workspace. Unlimited builders. No friction." is TV commercial script, not builder talk. Avoid stacked short declarative fragments that read like ad copy (Shay, 2026-02-09)
 20. **No bulleted idea lists as final output** - Bulleted lists of ideas is an "AI thing." Deliver holistic plans with narrative structure, not grocery lists (Shay, 2026-02-09)
 21. **No advertising melody** - If the rhythm sounds like it belongs on a billboard or in a 30-second spot, rewrite it. Content should sound like how Maor actually talks, not copywriting (Shay, 2026-02-09)
+22. **No feature names in posts** - Never lead with or name the internal feature. Lead with the value it gives builders and how it improves their life. "Builder Skills" → "You can now customize how your AI builder works." The feature name can appear once, buried, never as the hook (Ofer, 2026-02-22)
 
 ## ALWAYS DO
 
@@ -57,5 +58,5 @@
 
 ---
 
-*Last updated: 2026-02-12*
-*Rules: 21 NEVER + 10 ALWAYS*
+*Last updated: 2026-02-22*
+*Rules: 22 NEVER + 10 ALWAYS*
