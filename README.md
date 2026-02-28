@@ -262,4 +262,4 @@ bash test-plugin.sh
 
 ---
 
-*Version 1.9.0 | Router → Agent Chains → Quality Gate*
+*Version 1.10.0 | Router → Agent Chains → Quality Gate*
