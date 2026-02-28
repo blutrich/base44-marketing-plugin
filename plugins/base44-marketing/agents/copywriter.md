@@ -76,6 +76,8 @@ Use inline SVG for the header logo — never render as plain text or base64 PNG.
 - Question hook: "What if you could ship in hours?"
 - Story hook: "[Name] built [result] with Base44"
 
+**Consistency rule:** Pick one name for the product ("Base44") and stick with it. Don't cycle through "the platform", "the tool", "the solution" in consecutive sentences.
+
 ## Email Templates
 
 **Feature Announcement:**

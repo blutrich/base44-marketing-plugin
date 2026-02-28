@@ -37,10 +37,13 @@ Skill(skill="base44-marketing:remotion")           # Load Remotion knowledge
 
 ## Brand Visual Rules
 
-### Colors
-- Primary: `#FF983B` (Orange accent)
-- Background: Dark/minimal
-- Text: White on dark, high contrast
+### Colors (from brand.json — use these exact values)
+- Background gradient: `#E8F4F8` to `#FDF5F0`
+- Accent: `#FF983B` (Orange — CTAs, highlights)
+- Accent dark: `#EA6020` / `#C94001`
+- Text: `#000000` on light bg, `#FFFFFF` on dark/orange bg
+- Cards: `#FFFFFF` with `1px solid #e6e6e6`
+- Button: `#000000` bg, `#FFFFFF` text
 
 ### Typography
 - Font: STK Miso everywhere (Light 300 for body, Regular 400 for headings)
@@ -122,17 +125,34 @@ const textDelay = 5; // frames between words
 const transitionDuration = 10; // frames
 ```
 
+### Logo (MANDATORY in every video)
+- File: `assets/images/logo.svg` (git-tracked, always available)
+- Copy to `public/` dir at project setup for `staticFile()` access
+- Placement: bottom-right or top-left, 80-120px width, 20-30px padding
+- Must appear on CTA frame alongside the call-to-action
+- Use inline SVG — never base64 PNG
+
 ### Brand Constants
 ```tsx
 export const brand = {
   colors: {
+    gradient: ['#E8F4F8', '#FDF5F0'],  // primary bg gradient
     accent: '#FF983B',
-    background: '#0A0A0A',
-    text: '#FFFFFF',
+    accentDark: '#EA6020',
+    accentDarkest: '#C94001',
+    text: '#000000',
+    textSecondary: '#666666',
+    card: '#FFFFFF',
+    cardBorder: '#e6e6e6',
+    button: '#000000',
+    buttonText: '#FFFFFF',
   },
   fonts: {
-    primary: "'STK Miso', sans-serif",
+    primary: "'STK Miso', Arial, sans-serif",
+    // Load from assets/fonts/STKMiso-Light.ttf (300)
+    // Load from assets/fonts/STKMiso-Regular.ttf (400)
   },
+  logo: 'logo.svg', // staticFile('logo.svg')
 };
 ```
 
@@ -178,10 +198,12 @@ python3 scripts/add_text_overlay.py chat image.png --headline "Text" --input "Ch
 
 ## Self-Check Before Delivery
 
-1. Matches brand colors (#FF983B accent)?
-2. Fast, punchy pacing (no slow fades)?
-3. Text readable at mobile size?
-4. Under 60 seconds for social?
-5. Clear CTA at end?
-6. Uses "builders" not "users"?
-7. Render command included?
+1. Uses full brand palette from brand.json? (gradient bg, #FF983B accent, black text)
+2. STK Miso font loaded? (Regular 400 headings, Light 300 body)
+3. Logo included? (MANDATORY — logo.svg on CTA frame minimum)
+4. Fast, punchy pacing (no slow fades)?
+5. Text readable at mobile size?
+6. Under 60 seconds for social?
+7. Clear CTA at end?
+8. Uses "builders" not "users"?
+9. Render command included?

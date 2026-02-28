@@ -21,6 +21,12 @@ Rules for creating engaging, on-brand hooks that avoid AI-detection patterns.
 | "We're excited to announce" | Corporate speak | Any variation |
 | TV-ad tagline cadence | Sounds like a commercial, not a builder | "One workspace. Unlimited builders. No friction." |
 | Advertising melody | Billboard/radio spot rhythm | "Build faster. Ship smarter. Scale infinitely." |
+| "Nobody tells you" | Fake drama, AI pattern | "Nobody's talking about this but..." |
+| "Let's dive in" | YouTube intro energy | "Let's break this down", "Let's explore" |
+| "No X, no Y, just Z" | AI contrast framing | "No plugins, no exports, just..." |
+| Self-narration | Announcing your own points | "Here's why this matters", "The kicker?" |
+| Rhetorical transitions | Fake suspense | "The catch?", "The brutal truth?", "But here's the thing" |
+| Em dashes | Biggest AI tell in 2026 | Use commas, periods, or parentheses instead |
 
 ## What We DO Use
 
@@ -117,9 +123,14 @@ Before using any hook, verify:
 4. [ ] No contrarian angle for its own sake
 5. [ ] No TV-ad cadence (stacked declarative fragments)
 6. [ ] No advertising melody (billboard/radio spot rhythm)
-7. [ ] Leads with outcome, not problem
-8. [ ] Uses approved emoji set for bullets
-9. [ ] Sounds like a builder talking to a builder (Maor Test)
+7. [ ] No em dashes (use commas, periods, or parentheses)
+8. [ ] No "let's" openers ("let's dive in", "let's explore")
+9. [ ] No self-narration ("here's why this matters", "the kicker?")
+10. [ ] No "No X, no Y, just Z" contrast framing
+11. [ ] No rule-of-three (two items or four+, never three)
+12. [ ] Leads with outcome, not problem
+13. [ ] Uses approved emoji set for bullets (max 1-2)
+14. [ ] Sounds like a builder talking to a builder (Maor Test)
 
 ## Integration with Agents
 

@@ -131,6 +131,13 @@ Delete these entirely or rewrite the sentence.
 - "Stands out as"
 - "Only time will tell"
 
+**Contrast framing (just say what it does):**
+- "No plugins, no exports, no manual rebuilding, just..." → just say what it does
+- "It's not X, it's Y" → just say Y
+- "It's not about X. It's about Y." → just say Y
+- "It's not A. It's not even B. It's actually C." → just say C
+- "No [thing]. No [thing]. Just [thing]." → describe the benefit directly
+
 **Business cliches (rewrite):**
 - "Level up"
 - "Move the needle"
@@ -170,7 +177,29 @@ Rule: Max 1-2 emojis per post, never as bullet points, never as header decoratio
 | needless to say | (delete, then don't say it) |
 | in conclusion / in summary | (delete) |
 
+## Banned Openers
+
+- "Let's dive in" / "Let's break this down" / "Let's explore" (YouTube intro energy)
+- "Nobody tells you this" / "Nobody talks about this" (fake drama)
+- Any sentence starting with a banned transition word (see list above)
+
+## Promotional Tone (rewrite with concrete facts)
+
+- "nestled in" / "vibrant" / "rich cultural heritage" / "stunning" / "breathtaking"
+- "renowned" / "must-visit" / "boasts a" / "in the heart of" / "natural beauty"
+- "The future looks bright" / "Exciting times lie ahead" / "A major step in the right direction"
+
+## Language Patterns to Remove
+
+**Synonym cycling:** If the same subject gets called "the platform," then "the tool," then "the solution," then "the product" in consecutive sentences, pick one and stick with it.
+
+**False ranges:** Remove "from X to Y" constructions where X and Y aren't on a real spectrum. "From hobbyist experiments to enterprise rollouts" is filler.
+
+**Vague attribution:** Replace "experts say," "industry observers note" with named sources or cut the claim.
+
+**Hedging stacks:** One qualifier per claim. "It could potentially possibly be argued that the policy might have some effect" becomes "The policy may affect outcomes."
+
 ---
 
-*Source: Tom Orbach, "The Anti-AI Writing Cheat Sheet" (2026-02-26)*
-*Added to plugin: 2026-02-26*
+*Source: Tom Orbach "Anti-AI Writing Cheat Sheet" + Writing Editor prompt (2026-02-28)*
+*Added to plugin: 2026-02-26, updated: 2026-02-28*

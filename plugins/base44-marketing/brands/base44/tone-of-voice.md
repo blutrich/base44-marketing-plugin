@@ -53,7 +53,7 @@ Base44's voice draws from:
 - "Right now" (for immediacy)
 
 ### Connectors & Transitions
-- "And here's the thing," (use sparingly, 1-2 per post max. Too many em dashes = AI tell)
+- "And here's the thing," (NO em dashes anywhere. Use commas, periods, or parentheses. Em dashes are the biggest AI tell in 2026.)
 - "What's wild is,"
 - "Speaking of,"
 - "Quick update:"

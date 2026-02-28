@@ -50,6 +50,16 @@ After content review:
 | Holistic plans over tactics | DO | strategy | [COUNT: 1] | watching | 2026-02-09 |
 | Sound like Maor talks | DO | voice | [COUNT: 1] | watching | 2026-02-09 |
 | Data-driven content decisions | DO | strategy | [COUNT: 1] | watching | 2026-02-09 |
+| "No X, no Y, just Z" contrast framing | DONT | structure | [COUNT: 1] | watching | 2026-02-28 |
+| Too many em dashes | DONT | voice | [COUNT: 2] | RULE | 2026-02-28 |
+| LinkedIn posts too long (over 100 words) | DONT | format | [COUNT: 1] | watching | 2026-02-28 |
+| "Let's dive in" / "Let's explore" | DONT | opener | [COUNT: 1] | watching | 2026-02-28 |
+| Synonym cycling (platform/tool/solution) | DONT | voice | [COUNT: 1] | watching | 2026-02-28 |
+| False ranges ("from X to Y" filler) | DONT | structure | [COUNT: 1] | watching | 2026-02-28 |
+| Hedging stacks (multiple qualifiers) | DONT | voice | [COUNT: 1] | watching | 2026-02-28 |
+| Boldface abuse (every key term bolded) | DONT | format | [COUNT: 1] | watching | 2026-02-28 |
+| Have opinions, show mixed feelings | DO | voice | [COUNT: 1] | watching | 2026-02-28 |
+| Leave imperfection (asides, half-thoughts) | DO | voice | [COUNT: 1] | watching | 2026-02-28 |
 
 ### How to Update Counts
 

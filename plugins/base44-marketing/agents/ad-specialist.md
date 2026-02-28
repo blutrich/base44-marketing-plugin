@@ -30,8 +30,8 @@ skills:
    - Key message or product to highlight
 
 2. **Generate ad copy:**
-   - 3 headline variations (under 40 chars each)
-   - 3 primary text variations (under 130 chars each)
+   - 2-4 headline variations (under 40 chars each)
+   - 2-4 primary text variations (under 130 chars each)
    - Recommended CTA
 
 3. **Generate visuals:**
@@ -64,6 +64,9 @@ skills:
 - No overpromising ("the only platform you'll ever need")
 - No "digital", "software", "prototype", "MVP"
 
+### Banned in Ad Copy (High Risk — Short Text Amplifies AI Smell)
+Never use these adjectives in ads: innovative, groundbreaking, seamless, transformative, cutting-edge, revolutionary, game-changing, robust, unprecedented, dynamic. They're vague and AI-coded. Say what the feature actually does instead.
+
 ## Ad Styles
 
 | Style | When to Use | Visual |
@@ -83,12 +86,10 @@ skills:
 ### Headlines (pick one)
 1. "[Headline 1]" (X chars)
 2. "[Headline 2]" (X chars)
-3. "[Headline 3]" (X chars)
 
 ### Primary Text (pick one)
 1. "[Primary 1]" (X chars)
 2. "[Primary 2]" (X chars)
-3. "[Primary 3]" (X chars)
 
 ### CTA
 [Recommended CTA button text]

@@ -74,9 +74,11 @@ background: linear-gradient(180deg, #E8F4F8 0%, #FDF5F0 100%);
 
 ### Font Families
 
-**STKMiso is the primary heading font.** Font files are available in the project:
-- `STKMiso-Light.ttf` (weight: 300)
-- `STKMiso-Regular.ttf` (weight: 400) - **RECOMMENDED**
+**STKMiso is the ONLY font.** Font files are git-tracked for distribution:
+- `assets/fonts/STKMiso-Light.ttf` (weight: 300) — body, captions, code
+- `assets/fonts/STKMiso-Regular.ttf` (weight: 400) — headings, buttons
+
+Copy both to your Remotion project's `public/` directory at setup.
 
 ```typescript
 // Remotion font loading - CORRECT PATTERN
@@ -269,13 +271,10 @@ const textStyles = {
 
 **GOOD:**
 ```
-Ship Your App Idea. Today.
+400K+ builders shipped something this month
 ```
 ```
-$1M ARR. 3 Months. One Founder.
-```
-```
-What Will You Build?
+From side project to SaaS in a weekend
 ```
 
 **BAD:**
@@ -308,9 +307,7 @@ Meet Sarah, a successful user who leveraged our platform to deploy her applicati
 ```
 Just shipped: Gmail integration
 
-Send. Receive. Read.
-
-All from your app.
+Your app can now send and receive emails, and yes, read them too.
 ```
 
 **BAD:**
@@ -448,20 +445,42 @@ All text must meet WCAG AA standards:
 
 All brand files are located at:
 ```
-plugins/base44-marketing/brands/base44/
-├── brand.json               (colors, fonts, specs)
-├── tone-of-voice.md         (full voice guide)
-├── brand-system.md          (mission, positioning)
-└── learning-log.md          (feedback patterns)
+plugins/base44-marketing/
+├── assets/
+│   ├── fonts/
+│   │   ├── STKMiso-Light.ttf     (weight 300 — body/captions)
+│   │   └── STKMiso-Regular.ttf   (weight 400 — headings/buttons)
+│   └── images/
+│       ├── logo.svg              (MANDATORY in every video)
+│       └── logo.png              (fallback only)
+├── brands/base44/
+│   ├── brand.json                (colors, fonts, gradients, spacing)
+│   ├── design-system.md          (components, inline SVG logo)
+│   ├── tone-of-voice.md          (voice guide)
+│   ├── banned-words.md           (130+ banned AI words)
+│   ├── RULES.md                  (32 NEVER + 12 ALWAYS)
+│   └── learning-log.md           (feedback patterns)
 ```
 
-**Note:** Logo assets are defined in `brand.json` under the `assets` key but may not be present in all deployments. Check for logo availability before referencing.
+**Logo file:** `assets/images/logo.svg` (git-tracked, always available)
 
-**Logo usage (when available):**
+**Logo usage (MANDATORY in every video):**
 - Place in bottom-right or top-left corner
 - Size: 80-120px width
 - Padding: 20-30px from edges
-- Optional: fade in/out with frames
+- Fade in with first frame, fade out with last frame
+- Use inline SVG from `design-system.md` — never base64 PNG (corrupts)
+- CTA frame: logo MUST appear alongside the call-to-action
+
+```typescript
+// Logo loading for Remotion
+import { staticFile } from "remotion";
+
+// Reference the SVG file
+const logoSrc = staticFile("logo.svg");
+
+// Copy logo.svg from assets/images/ into public/ at project setup
+```
 
 ---
 
@@ -470,12 +489,12 @@ plugins/base44-marketing/brands/base44/
 Before rendering any Base44 video, verify:
 
 ### Visual Brand
-- [ ] Uses Base44 gradient background or white cards
-- [ ] Orange accent color for highlights/CTAs
-- [ ] STK Miso Regular (400) for headings
-- [ ] STK Miso Light (300) for body text
+- [ ] Uses Base44 gradient background (#E8F4F8 to #FDF5F0) or white cards
+- [ ] Orange accent (#FF983B) for highlights/CTAs
+- [ ] STK Miso Regular (400) for headings — font files from `assets/fonts/`
+- [ ] STK Miso Light (300) for body text — font files from `assets/fonts/`
 - [ ] No arrows in text
-- [ ] Logo included (if available and appropriate)
+- [ ] Logo included (MANDATORY — use `assets/images/logo.svg`)
 
 ### Voice & Content
 - [ ] Uses "builders" not "users"
