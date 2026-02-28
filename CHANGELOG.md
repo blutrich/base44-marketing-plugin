@@ -2,6 +2,68 @@
 
 All notable changes to the base44-marketing plugin.
 
+## [1.10.0] - 2026-02-28
+
+### Added
+- **banned-words.md** - Centralized banned word/phrase registry (contrast framing, promotional tone, synonym cycling, false ranges, hedging stacks)
+- **test-plugin.sh** - 147-test validation suite covering structure, agents, skills, brands, cross-file integrity, and E2E
+- **Plugin improvement plan** with phased roadmap (Phase A/B complete, Phase 2-3 planned)
+
+### Changed
+- **RULES.md expanded** - 22+10 rules grew to 38 NEVER + 14 ALWAYS (52 total)
+  - Orbach patterns: em dash zero-tolerance, "let's" openers, synonym cycling, false ranges, hedging stacks, boldface abuse
+  - Personality rules: no writing-editor persona leakage
+- **Brand guardian rewritten** - Stripped from 356 lines to focused quality gate with hard rule enforcement
+- **shared-instructions.md hardened** - Zero em dashes, LinkedIn 80-120 word limit, rule-of-three warning, checklist expanded 9 to 14 items
+- **tone-of-voice.md** - Em dash connector updated to zero tolerance
+- **hook-rules** - Added banned openers, expanded pattern library
+- **Agent tweaks across 6 agents:**
+  - ad-specialist: 2-4 variations mandatory, banned adjectives list
+  - seo-specialist: varied step structure, transition warning
+  - linkedin-specialist: word count enforcement, anti-pattern checks
+  - copywriter: shared-instructions reference added
+  - video-specialist: full palette constants, logo section, self-check expanded 7 to 9 items
+  - Remotion brand rules: logo MANDATORY, full color palette, font distribution paths, fixed violating examples
+- **README.md** rewritten with progressive disclosure (quick start, then depth)
+- **CLAUDE.md** updated with complete skill table (12 to 20 skills listed)
+
+### Fixed
+- **Marketplace P1 blockers** - Portable Ripple path, progressive disclosure in CLAUDE.md
+- **Credential persistence** - Settings.json env vars fixed, base44-feature API docs expanded
+- **session-log skill** - Full entity documentation, credential handling
+- **Anti-AI research** compiled into reference doc (docs/research/)
+
+### Contributors
+- Nina - Voice pattern feedback (em dashes, synonym cycling, hedging)
+- Orbach - Anti-AI writing patterns research
+- Ofer - Plugin architecture
+
+## [1.9.0] - 2026-02-12
+
+### Added
+- **Base44 Landing Page skill** (`base44-landing-page`) - 8-Section Framework to HTML generation with Base44 CLI deployment
+- **Push to Ripple skill** (`push-to-ripple`) - Push generated content into Ripple CMS
+- **Session Log skill** (`session-log`) - Team usage tracking via Base44 PluginSession entity
+- **Data Insight skill** (`data-insight`) - Trino analytics warehouse queries
+  - 19 queries across 6 tables (growth, models, funnel, apps, features, user voice)
+  - Paid/free segmentation, monetization, AI classification, remix and referral tracking
+- **Base44 Feature skill** (`base44-feature`) - Pull product features from Base44 App API
+- **shared-instructions.md** - Single source of truth for voice rules across all content agents
+- **Brand assets** - Fonts (STK Miso) and inline SVG logo bundled in plugin
+
+### Changed
+- **Renamed** `base44-api` to `base44-feature`
+- **Removed** Wix landing page skill (replaced by Base44 CLI deployment)
+- **5 agents deduplicated** - linkedin, x, copywriter, ad, seo now reference shared-instructions.md
+- **Plugin workflow fixed** - Direct file execution instead of Skill tool indirection
+- **Skill invocation paths** updated for marketplace namespacing (`/base44-marketing:*`)
+- **Brand assets moved** inside plugin directory for marketplace caching
+- **PNG logo replaced** with inline SVG across all files
+
+### Contributors
+- Shay - Data pipeline vision, session tracking requirements
+- Ofer - Plugin architecture
+
 ## [1.8.0] - 2026-02-09
 
 ### Added
