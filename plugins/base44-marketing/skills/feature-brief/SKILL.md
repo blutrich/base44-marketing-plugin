@@ -210,9 +210,9 @@ Which channel should I read? (or "all" for a summary of each)
 
 If the user already specified a channel name, skip discovery and go straight to Step 3.
 
-### Step 3: Read Channel Messages
+### Step 3: Read Channel Messages + Threads
 
-Use the Slack MCP `slack_read_channel` tool to pull messages:
+Use the Slack MCP `slack_read_channel` tool to pull top-level messages:
 
 ```
 Tool: slack_read_channel
@@ -220,6 +220,26 @@ Channel: #feat-[feature-name]
 ```
 
 Read the channel content. If the channel has a lot of history, focus on the most recent messages first (they contain current status). Older messages provide timeline and decisions context.
+
+**Then read all threads.** Most of the real discussion, decisions, and technical details live in threads, not top-level messages. For every message that has replies (indicated by "Thread: N replies" in the output):
+
+```
+Tool: slack_read_thread
+Channel: [channel_id]
+Message TS: [parent_message_ts]
+```
+
+Prioritize threads with:
+- 3+ replies (active discussions)
+- Threads from stakeholders (PM, eng leads, product)
+- Threads that mention decisions, launches, metrics, or blockers
+
+Skip threads that are purely:
+- Bot notification threads (Mixpanel subscriptions)
+- Single "thanks" or emoji-only replies
+- Join notification threads
+
+Combine top-level messages and thread content into a single filtered stream before moving to Step 4.
 
 ### Step 4: Filter Noise
 
