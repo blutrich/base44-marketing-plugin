@@ -2,6 +2,22 @@
 
 All notable changes to the base44-marketing plugin.
 
+## [1.11.0] - 2026-03-02
+
+### Added
+- **Feature-brief Mode C (Slack MCP fetch)** - Fetch feat-* channels directly from Slack, extract structured marketing briefs, and feed into content creation. No more manual paste.
+  - Uses `slack_search_channels` for discovery and `slack_read_channel` + `slack_read_thread` for deep content extraction
+  - Reads all threads with 3+ replies for full context (decisions, metrics, technical details)
+  - Filters noise (join messages, bot spam, reactions), translates Hebrew, generates marketing hooks
+  - Three modes now: A (paste), B (Ripple pull), C (live Slack fetch)
+- **Thread reading in Mode C** - Automatically reads all message threads for richer signal extraction (key decisions and insights live in threads, not top-level messages)
+- **FeatureBrief push to Ripple** - Briefs generated from Slack can be pushed to the FeatureBrief entity for cross-skill context
+
+### Changed
+- Feature-brief skill triggers expanded: "fetch feat", "read feat channel", "list feat channels", "what's in feat"
+- Mode B fallback message now suggests Mode C as alternative
+- Dependencies section added to feature-brief skill docs
+
 ## [1.10.0] - 2026-02-28
 
 ### Added
