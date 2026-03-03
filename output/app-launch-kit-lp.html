@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Store Launch Kit - Base44</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'STK Miso';
+      src: url('../STKMiso-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'STK Miso';
+      src: url('../STKMiso-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #232529;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      height: 56px;
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .header-logo {
+      height: 30px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-login {
+      padding: 10px 14px;
+      border-radius: 70px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: #000;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-get-started {
+      padding: 10px 24px;
+      border-radius: 70px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: #000;
+      background: #ebffb1;
+      border: 1px solid #ade900;
+      cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      width: 100%;
+      min-height: 940px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 176px 20px 80px;
+      background:
+        radial-gradient(ellipse 70% 40% at 50% 50%, rgba(250,249,247,0.7) 0%, rgba(250,249,247,0) 100%),
+        radial-gradient(ellipse 150% 91% at 50% -17%, rgba(93,179,207,1) 22%, rgba(145,201,220,0.56) 58%, rgba(250,249,247,0) 86%),
+        radial-gradient(ellipse 139% 75% at 50% 0%, rgba(143,198,217,1) 0%, rgba(151,216,238,0) 100%),
+        linear-gradient(180deg, rgb(34,201,255) 26%, rgb(250,249,247) 24%);
+    }
+
+    .hero-content {
+      max-width: 940px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 90px;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .hero-ticker-and-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .ticker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 24px;
+      border-radius: 60px;
+      background: linear-gradient(to left, #ebfad5 18%, #e6fc88 118%);
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 28px;
+      color: #0f0f0f;
+    }
+
+    .hero-title {
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 400;
+      font-size: 74px;
+      line-height: 74px;
+      color: #0f0f0f;
+      text-align: center;
+    }
+
+    .hero-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 28px;
+      color: #232529;
+      text-align: center;
+      max-width: 796px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      padding: 20px 30px;
+      border-radius: 300px;
+      background: #0f0f0f;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-secondary {
+      padding: 20px 30px;
+      border-radius: 300px;
+      background: transparent;
+      color: #0f0f0f;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      border: 1px solid rgba(15,15,15,0.4);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Store badges */
+    .store-badges {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: #fff;
+      border-radius: 38px;
+      padding: 20px;
+    }
+
+    .store-badge {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #f5f4f3;
+      border-radius: 18px;
+      padding: 4px 28px 4px 4px;
+    }
+
+    .store-badge-icon {
+      width: 68px;
+      height: 68px;
+      background: #fff;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .store-badge-icon img {
+      width: 36px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .store-badge-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .store-badge-name {
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: #232529;
+    }
+
+    .store-badge-status {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #000;
+      opacity: 0.5;
+    }
+
+    .store-separator {
+      width: 25px;
+      height: 25px;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .store-separator svg {
+      width: 25px;
+      height: 25px;
+      opacity: 0.3;
+    }
+
+    /* ── Features Section ── */
+    .features {
+      background: #faf9f7;
+      padding: 160px 20px;
+    }
+
+    .features-inner {
+      max-width: 1460px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 100px;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 869px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .section-eyebrow {
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 300;
+      font-size: 32px;
+      line-height: 34px;
+      color: #232529;
+    }
+
+    .section-title {
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 400;
+      font-size: 54px;
+      line-height: 60px;
+      color: #0f0f0f;
+    }
+
+    .section-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 28px;
+      color: #232529;
+      max-width: 796px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 24px;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-number {
+      width: 40px;
+      height: 30px;
+      border: 1px solid #696f7b;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 30px;
+      color: #696f7b;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card-title {
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 24px;
+      color: #0f0f0f;
+    }
+
+    .card-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: #232529;
+      max-width: 413px;
+    }
+
+    /* ── Confidence Section ── */
+    .confidence {
+      background: #fff;
+      padding: 160px 20px;
+    }
+
+    .confidence-inner {
+      max-width: 1152px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 111px;
+    }
+
+    .confidence-content {
+      display: flex;
+      gap: 74px;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .benefit-cards {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 658px;
+    }
+
+    .benefit-card {
+      background: #faf9f7;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      gap: 33px;
+      align-items: flex-start;
+    }
+
+    .benefit-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .benefit-icon-1 {
+      background: linear-gradient(180deg, #f2f1ed 44%, #f0c4e3 94%, #fbb439 104%);
+    }
+
+    .benefit-icon-2 {
+      background: linear-gradient(180deg, #f2f1ed 42%, #d5dfe0 94%, #e5ff94 104%);
+    }
+
+    .benefit-icon-3 {
+      background: linear-gradient(180deg, #edeae4 45%, #f9fbc9 85%, #fee969 100%);
+    }
+
+    .benefit-icon svg {
+      width: 30px;
+      height: 30px;
+      opacity: 0.6;
+    }
+
+    .benefit-text {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .benefit-title {
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 24px;
+      color: #0f0f0f;
+    }
+
+    .benefit-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: #232529;
+    }
+
+    .includes {
+      width: 420px;
+      flex-shrink: 0;
+    }
+
+    .includes-title {
+      font-family: 'STK Miso', sans-serif;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 26px;
+      color: #232529;
+      margin-bottom: 34px;
+    }
+
+    .includes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .includes-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .includes-check {
+      width: 36px;
+      height: 30px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .includes-check svg {
+      width: 11px;
+      height: 10px;
+    }
+
+    .includes-item-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #232529;
+    }
+
+    /* ── CTA Banner ── */
+    .cta-section {
+      padding: 80px 20px;
+    }
+
+    .cta-banner {
+      max-width: 1460px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 90px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 21px;
+      background:
+        linear-gradient(180deg, rgba(242,237,225,0) 5%, rgba(255,240,222,0.2) 33%, rgba(255,174,83,0.5) 79%, rgb(255,116,56) 99%, rgba(255,255,255,0) 128%),
+        linear-gradient(180deg, rgba(251,250,248,0) 0%, rgba(255,240,222,0.3) 53%, rgb(255,174,83) 75%, rgb(255,99,31) 99%, rgba(255,174,83,0) 121%),
+        linear-gradient(180deg, rgb(250,249,247) 4%, rgb(255,240,222) 70%, rgba(239,129,82,0.6) 94%, rgba(255,174,83,0) 120%);
+    }
+
+    .cta-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      max-width: 869px;
+      text-align: center;
+    }
+
+    .cta-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .cta-disclaimer {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #232529;
+      opacity: 0.7;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 23px;
+      color: #000;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1200px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .confidence-content {
+        flex-direction: column;
+        gap: 60px;
+      }
+      .includes {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 44px;
+        line-height: 48px;
+      }
+      .section-title {
+        font-size: 36px;
+        line-height: 42px;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+      .store-badges {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .store-separator {
+        display: none;
+      }
+      .header {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <img class="header-logo" src="logo.png" alt="Base44" />
+    <div class="header-actions">
+      <button class="btn-login">Log in</button>
+      <button class="btn-get-started">Get Started</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-ticker-and-text">
+          <span class="ticker">&#10024; Launch your app faster</span>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:42px;">
+            <h1 class="hero-title">Everything you need to<br>launch on the App Stores</h1>
+            <p class="hero-description">Generate stunning app icons, screenshots, and store listings with AI assistance. Export everything in the exact format required by Apple and Google.</p>
+          </div>
+        </div>
+        <div class="hero-buttons">
+          <a href="#" class="btn-primary">Get started free</a>
+          <a href="#" class="btn-secondary">See how it works</a>
+        </div>
+      </div>
+
+      <div class="store-badges">
+        <div class="store-badge">
+          <div class="store-badge-icon">
+            <svg width="31" height="38" viewBox="0 0 31 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25.5 12.5C23.2 10.8 20.5 10 18 10.5c-1.5.3-2.8 1-3.5 1.5-.7-.5-2-1.2-3.5-1.5-2.5-.5-5.2.3-7.5 2C1 14.5 0 17.5 0 20c0 4 2 9 6 13 2 2 4 3.5 6 4.5.5.3 1.2.5 2 .5s1.5-.2 2-.5c2-1 4-2.5 6-4.5 4-4 6-9 6-13 0-2.5-1-5.5-2.5-7.5z" fill="#000"/>
+            </svg>
+          </div>
+          <div class="store-badge-text">
+            <span class="store-badge-name">App Store</span>
+            <span class="store-badge-status">iOS Ready</span>
+          </div>
+        </div>
+        <div class="store-separator">
+          <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 4l4 4m0 0l4 4m-4-4l-4 4m4-4l4-4M8 21l4-4m0 0l4-4m-4 4l-4-4m4 4l4 4" stroke="#696f7b" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="store-badge">
+          <div class="store-badge-icon">
+            <svg width="36" height="40" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 3l16 17L2 37" stroke="#4285F4" stroke-width="3"/>
+              <path d="M2 3l22 12-6 5" fill="#EA4335"/>
+              <path d="M2 37l22-12-6-5" fill="#34A853"/>
+              <path d="M24 15l8 5-8 5" fill="#FBBC05"/>
+            </svg>
+          </div>
+          <div class="store-badge-text">
+            <span class="store-badge-name">Google Play</span>
+            <span class="store-badge-status">Android Ready</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="features-inner">
+      <div class="section-header">
+        <p class="section-eyebrow">Everything you need to launch</p>
+        <h2 class="section-title">From app icons to store listings, we've got every asset covered for a successful launch.</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-number">01</div>
+          <div class="card-content">
+            <h3 class="card-title">AI-Powered icon generation</h3>
+            <p class="card-description">Generate professional app icons in seconds with our AI. Get multiple variations and choose your favorite.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-number">02</div>
+          <div class="card-content">
+            <h3 class="card-title">Screenshot builder</h3>
+            <p class="card-description">Create stunning store screenshots with device frames, backgrounds, and headlines that convert.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-number">03</div>
+          <div class="card-content">
+            <h3 class="card-title">Store listing writer</h3>
+            <p class="card-description">AI-assisted descriptions, keywords, and metadata optimized for both App Store and Google Play.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-number">04</div>
+          <div class="card-content">
+            <h3 class="card-title">ASO specialist chat</h3>
+            <p class="card-description">Get personalized App Store Optimization advice from our AI specialist to boost your visibility.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-number">05</div>
+          <div class="card-content">
+            <h3 class="card-title">One-click export</h3>
+            <p class="card-description">Download everything in a ready-to-submit package, organized exactly how the app stores expect.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-number">06</div>
+          <div class="card-content">
+            <h3 class="card-title">Platform-specific assets</h3>
+            <p class="card-description">Automatically format assets for iOS and Android requirements. No manual resizing needed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Launch with Confidence -->
+  <section class="confidence">
+    <div class="confidence-inner">
+      <div class="section-header">
+        <h2 class="section-title">Launch with confidence</h2>
+        <p class="section-description">Stop worrying about app store requirements. We handle the technical details so you can focus on what matters — getting your app in front of users.</p>
+      </div>
+      <div class="confidence-content">
+        <div class="benefit-cards">
+          <div class="benefit-card">
+            <div class="benefit-icon benefit-icon-1">
+              <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="3" width="24" height="24" rx="4" stroke="#666" stroke-width="1.5"/>
+                <path d="M9 15h12M15 9v12" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <h3 class="benefit-title">Save hours of work</h3>
+              <p class="benefit-description">What used to take days now takes minutes. Focus on building your app, not the marketing assets.</p>
+            </div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon benefit-icon-2">
+              <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="10" height="10" rx="1.5" fill="#fff"/>
+                <rect x="18" y="2" width="10" height="10" rx="1.5" fill="#fff"/>
+                <rect x="2" y="18" width="10" height="10" rx="1.5" fill="#fff"/>
+                <rect x="18" y="18" width="10" height="10" rx="1.5" fill="#fff"/>
+                <rect x="10" y="10" width="10" height="10" rx="1.5" fill="#fff"/>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <h3 class="benefit-title">No design skills needed</h3>
+              <p class="benefit-description">Professional-quality assets without hiring a designer. Our AI handles the creative heavy lifting.</p>
+            </div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon benefit-icon-3">
+              <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 3l3.5 7 7.5 1.5-5.5 5 1.5 7.5L15 20.5 8.5 24l1.5-7.5L4.5 11.5 12 10z" stroke="#666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <h3 class="benefit-title">Optimized for conversions</h3>
+              <p class="benefit-description">Every template and suggestion is based on what actually works in the app stores.</p>
+            </div>
+          </div>
+        </div>
+        <div class="includes">
+          <h3 class="includes-title">Your export package includes:</h3>
+          <div class="includes-list">
+            <div class="includes-item">
+              <div class="includes-check">
+                <svg viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5.5L4 8.5L10 1.5" stroke="#FF983B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="includes-item-text">App icons in all required sizes</span>
+            </div>
+            <div class="includes-item">
+              <div class="includes-check">
+                <svg viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5.5L4 8.5L10 1.5" stroke="#FF983B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="includes-item-text">Screenshots for every device type</span>
+            </div>
+            <div class="includes-item">
+              <div class="includes-check">
+                <svg viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5.5L4 8.5L10 1.5" stroke="#FF983B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="includes-item-text">Compelling store descriptions</span>
+            </div>
+            <div class="includes-item">
+              <div class="includes-check">
+                <svg viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5.5L4 8.5L10 1.5" stroke="#FF983B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="includes-item-text">SEO-optimized keywords</span>
+            </div>
+            <div class="includes-item">
+              <div class="includes-check">
+                <svg viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5.5L4 8.5L10 1.5" stroke="#FF983B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="includes-item-text">Feature graphics for Google Play</span>
+            </div>
+            <div class="includes-item">
+              <div class="includes-check">
+                <svg viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5.5L4 8.5L10 1.5" stroke="#FF983B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="includes-item-text">Ready-to-upload file structure</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-banner">
+      <div class="cta-content">
+        <div class="cta-text">
+          <h2 class="section-title">Ready to launch your app?</h2>
+          <p class="section-description">Join thousands of developers who've simplified their app store submission process. Get started in minutes.</p>
+        </div>
+        <a href="#" class="btn-primary">Start your project</a>
+      </div>
+      <p class="cta-disclaimer">No credit card required &bull; Free to get started</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-text">&copy; 2026 App Stores Launch Kit. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

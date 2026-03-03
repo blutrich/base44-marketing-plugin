@@ -88,6 +88,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `marketing-psychology` | 71 psychological principles for persuasion |
 | `nano-banana` | Marketing image generation via Google Imagen 3 |
 | `remotion` | Video creation in React |
+| `feature-brief` | Extract structured marketing briefs from Slack feat-* channels (Mode A: paste, B: Ripple pull, C: live Slack MCP fetch) |
 | `verification-before-delivery` | Quality assurance before output |
 
 ## Brand Voice (TL;DR)

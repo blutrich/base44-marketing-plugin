@@ -5,7 +5,9 @@
   "scripts": {
     "start": "npx remotion studio",
     "build": "npx remotion render ExternalApiAnnouncement out/external-api.mp4",
-    "build:gif": "npx remotion render ExternalApiAnnouncement out/external-api.gif --image-format png"
+    "build:gif": "npx remotion render ExternalApiAnnouncement out/external-api.gif --image-format png",
+    "build:custom-login": "npx remotion render CustomLoginFeature out/custom-login.mp4",
+    "build:custom-login:gif": "npx remotion render CustomLoginFeature out/custom-login.gif --image-format png"
   },
   "keywords": [
     "remotion",

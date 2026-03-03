@@ -1,0 +1,7 @@
+{
+  "name": "team-setup",
+
+  "site": {
+    "outputDirectory": "./dist"
+  }
+}

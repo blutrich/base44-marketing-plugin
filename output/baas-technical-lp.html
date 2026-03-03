@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backend as a Service - Base44</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'STK Miso';
+      src: url('../STKMiso-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'STK Miso';
+      src: url('../STKMiso-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #232529;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 76px; background: #fff;
+      border-bottom: 1px solid #e6e6e6;
+      z-index: 100;
+    }
+    .nav-bar {
+      max-width: 1920px; margin: 0 auto;
+      height: 100%; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { height: 30px; text-decoration: none; }
+    .nav-logo img { height: 30px; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 16px; font-weight: 400; color: #232529;
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: #0f0f0f; }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-login {
+      font-size: 16px; color: #232529; text-decoration: none;
+      padding: 10px 14px;
+    }
+    .nav-cta {
+      padding: 10px 24px; border-radius: 8px;
+      background: #0f0f0f; color: #fff;
+      font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px;
+      border: none; cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 180px 40px 80px;
+      background:
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0,0,0,0.03) 0%, transparent 70%),
+        linear-gradient(180deg, #fff 0%, #faf9f7 100%);
+      background-image:
+        radial-gradient(circle, #ddd 1px, transparent 1px);
+      background-size: 24px 24px;
+      position: relative;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 400px;
+      background: linear-gradient(to top, #fff, transparent);
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 1127px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .hero h1 {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 80px; line-height: 90px;
+      color: #0f0f0f; text-align: center;
+      max-width: 1127px;
+    }
+    .hero-subtitle {
+      font-size: 22px; line-height: 28px;
+      color: #232529; text-align: center;
+      max-width: 747px; margin-top: 40px;
+    }
+    .hero-buttons {
+      display: flex; gap: 16px; align-items: center;
+      margin-top: 50px;
+    }
+    .cli-prompt {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #0f0f0f; border-radius: 300px;
+      padding: 17px 24px; min-width: 380px;
+      cursor: pointer;
+    }
+    .cli-prompt-text { display: flex; gap: 14px; }
+    .cli-prompt-dollar {
+      font-family: 'JetBrains Mono', monospace; font-weight: 300;
+      font-size: 18px; color: #696f7b;
+    }
+    .cli-prompt-cmd {
+      font-family: 'JetBrains Mono', monospace; font-weight: 300;
+      font-size: 18px; color: #fff;
+    }
+    .cli-copy-btn {
+      font-family: 'Inter', sans-serif; font-weight: 500;
+      font-size: 14px; color: #fff;
+      background: rgba(255,255,255,0.15); border: none;
+      border-radius: 8px; padding: 4px 14px;
+      cursor: pointer;
+    }
+    .secondary-cta {
+      padding: 20px 30px; border-radius: 300px;
+      border: 1px solid rgba(15,15,15,0.4);
+      font-family: 'Inter', sans-serif; font-weight: 500;
+      font-size: 18px; color: #0f0f0f;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    /* Terminal */
+    .terminal-wrapper {
+      max-width: 800px; margin: 60px auto 0;
+      position: relative; z-index: 2;
+    }
+    .terminal {
+      background: #1a1a1a; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .terminal-dots {
+      display: flex; gap: 8px; padding: 16px 20px;
+      border-bottom: 1px solid #333;
+    }
+    .terminal-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #3a3a3a;
+    }
+    .terminal-body {
+      padding: 24px 38px 40px; font-family: 'JetBrains Mono', monospace;
+      font-size: 14px; line-height: 20px;
+    }
+    .terminal-line { color: #e0e0e0; margin-bottom: 4px; }
+    .terminal-question { color: #8bb4cc; }
+    .terminal-answer { color: #a0a0a0; }
+    .terminal-diamond::before {
+      content: '◆'; margin-right: 8px; color: #5db3cf;
+    }
+    .terminal-prompt-group { margin-bottom: 16px; }
+    .hero-trust {
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 16px; color: #696f7b;
+      text-align: center; margin-top: 40px;
+      position: relative; z-index: 2;
+    }
+
+    /* ── Features Grid ── */
+    .features-section {
+      padding: 120px 40px; background: #faf9f7;
+      max-width: 1920px; margin: 0 auto;
+    }
+    .features-header {
+      display: flex; gap: 80px; align-items: flex-start;
+      margin-bottom: 80px; padding: 0 80px;
+    }
+    .features-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 36px; line-height: 34px;
+      color: #0f0f0f; min-width: 365px;
+    }
+    .features-description {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 54px; line-height: 60px;
+      color: #0f0f0f;
+    }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; padding: 0 80px;
+    }
+    .feature-card {
+      background: #fff; border: 1px solid #e6e6e6;
+      border-radius: 10px; padding: 36px;
+      min-height: 250px; display: flex; flex-direction: column;
+    }
+    .feature-card-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 24px; line-height: 34px;
+      color: #0f0f0f; margin-bottom: 14px;
+    }
+    .feature-card-desc {
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 16px; line-height: 24px; color: #232529;
+    }
+
+    /* ── Prompt → Production ── */
+    .prompt-section {
+      padding: 120px 40px; background: #fff;
+      max-width: 1920px; margin: 0 auto;
+    }
+    .prompt-header {
+      display: flex; gap: 80px; align-items: flex-start;
+      margin-bottom: 80px; padding: 0 80px;
+    }
+    .prompt-bubbles {
+      display: flex; align-items: center; gap: 0;
+      flex-shrink: 0;
+    }
+    .prompt-pill {
+      padding: 8px 22px; border-radius: 24px;
+      background: #0f0f0f; color: #fff;
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 18px; line-height: 30px;
+    }
+    .prompt-arrow-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #FF6600; display: flex;
+      align-items: center; justify-content: center;
+      margin: 0 -4px; z-index: 1;
+    }
+    .prompt-arrow-circle svg { width: 22px; height: 22px; }
+    .prompt-production-pill {
+      padding: 8px 22px; border-radius: 24px;
+      background: #0f0f0f; color: #fff;
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 18px; line-height: 30px;
+    }
+    .prompt-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 54px; line-height: 60px; color: #0f0f0f;
+    }
+
+    /* Steps */
+    .step {
+      display: flex; border-top: 1px solid #e6e6e6;
+      padding: 0 80px;
+    }
+    .step-left {
+      width: 560px; flex-shrink: 0;
+      padding: 60px 0; display: flex;
+      flex-direction: column; justify-content: flex-end;
+      gap: 20px;
+    }
+    .step-number {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; line-height: 30px; color: #696f7b;
+      width: 40px; height: 30px; border: 1px solid #696f7b;
+      border-radius: 11px; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .step-label {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 28px; line-height: 34px; color: #0f0f0f;
+    }
+    .step-label code {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 300; font-size: 20px; color: #696f7b;
+      display: block; margin-top: 4px;
+    }
+    .step-right { flex: 1; display: flex; }
+    .step-desc-area { flex: 1; }
+    .step-code-area {
+      width: 520px; flex-shrink: 0;
+      background: #1a1a1a; border-radius: 0;
+      min-height: 160px; overflow: hidden;
+    }
+    .step-code-lang {
+      padding: 18px 18px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: #696f7b;
+    }
+    .step-code {
+      padding: 12px 18px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px; line-height: 26px;
+      color: #e0e0e0; white-space: pre;
+    }
+    .step-code .comment { color: #696f7b; }
+    .step-code .keyword { color: #c792ea; }
+    .step-code .type { color: #82aaff; }
+    .step-code .string { color: #c3e88d; }
+    .step-code .orange { color: #FF983B; }
+
+    /* ── FAQ ── */
+    .faq-section {
+      padding: 120px 40px; background: #fff;
+    }
+    .faq-layout {
+      max-width: 1680px; margin: 0 auto;
+      display: flex; gap: 80px; align-items: flex-start;
+      padding: 0 80px;
+    }
+    .faq-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 54px; line-height: 64px;
+      color: #0f0f0f; min-width: 400px;
+    }
+    .faq-list { flex: 1; max-width: 850px; }
+    .faq-item {
+      border-bottom: 1px solid #d1d1d1;
+      padding: 46px 0;
+    }
+    .faq-question {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; cursor: pointer;
+      gap: 40px;
+    }
+    .faq-question-text {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 28px; line-height: 30px; color: #0f0f0f;
+    }
+    .faq-toggle {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s;
+    }
+    .faq-toggle svg { width: 16px; height: 16px; }
+    .faq-item.active .faq-toggle { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 300px; padding-top: 24px;
+    }
+    .faq-answer-text {
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 18px; line-height: 28px; color: #232529;
+      max-width: 740px;
+    }
+
+    /* ── CTA Banner ── */
+    .cta-banner-wrapper { padding: 40px; }
+    .cta-banner {
+      max-width: 1460px; margin: 0 auto;
+      border-radius: 16px; overflow: hidden;
+      min-height: 600px; display: flex;
+      align-items: center; justify-content: center;
+      background:
+        linear-gradient(180deg, rgba(242,237,225,0) 5%, rgba(255,240,222,0.2) 33%, rgba(255,174,83,0.5) 79%, rgb(255,116,56) 99%),
+        linear-gradient(180deg, rgb(250,249,247) 4%, rgb(255,240,222) 70%, rgba(239,129,82,0.6) 94%);
+    }
+    .cta-card {
+      background: rgba(0,0,0,0.85); border-radius: 16px;
+      padding: 60px; text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 40px;
+      width: 400px;
+    }
+    .cta-card-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 48px; line-height: 52px; color: #fff;
+    }
+    .cta-card-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #ebffb1; border: 1px solid #ade900;
+      border-radius: 300px; padding: 12px 24px;
+      font-family: 'Inter', sans-serif; font-weight: 500;
+      font-size: 16px; color: #0f0f0f; cursor: pointer;
+      text-decoration: none;
+    }
+    .cta-card-btn-icon { display: flex; }
+    .cta-card-btn-icon svg { width: 20px; height: 20px; }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 80px 40px 40px;
+      max-width: 1920px; margin: 0 auto;
+    }
+    .footer-top {
+      display: flex; gap: 80px; padding: 0 80px;
+    }
+    .footer-brand { max-width: 360px; }
+    .footer-logo { margin-bottom: 20px; }
+    .footer-logo img { height: 30px; }
+    .footer-desc {
+      font-size: 14px; line-height: 22px;
+      color: #696f7b; margin-bottom: 24px;
+    }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { color: #0f0f0f; display: flex; }
+    .footer-social svg { width: 20px; height: 20px; }
+    .footer-menus { display: flex; gap: 60px; flex: 1; }
+    .footer-menu { min-width: 140px; }
+    .footer-menu-title {
+      font-weight: 500; font-size: 14px;
+      color: #0f0f0f; margin-bottom: 16px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .footer-menu-links {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .footer-menu-links a {
+      font-size: 14px; color: #696f7b;
+      text-decoration: none;
+    }
+    .footer-menu-links a:hover { color: #0f0f0f; }
+    .footer-divider {
+      border: none; border-top: 1px solid #e6e6e6;
+      margin: 60px 80px 20px;
+    }
+    .footer-copyright {
+      font-size: 14px; color: #696f7b;
+      text-align: left; padding: 0 80px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1200px) {
+      .features-header, .prompt-header, .features-grid,
+      .step, .faq-layout, .footer-top, .footer-divider,
+      .footer-copyright { padding-left: 20px; padding-right: 20px; }
+      .features-header { flex-direction: column; gap: 30px; }
+      .features-description { font-size: 40px; line-height: 46px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .prompt-header { flex-direction: column; gap: 30px; }
+      .step { flex-direction: column; }
+      .step-left { width: 100%; padding: 40px 0 20px; }
+      .step-right { flex-direction: column; }
+      .step-code-area { width: 100%; }
+      .step-desc-area { display: none; }
+      .faq-layout { flex-direction: column; gap: 40px; }
+      .faq-title { min-width: unset; font-size: 40px; }
+      .footer-top { flex-direction: column; }
+      .footer-menus { flex-wrap: wrap; }
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 44px; line-height: 48px; }
+      .hero-buttons { flex-direction: column; width: 100%; }
+      .cli-prompt { min-width: unset; width: 100%; }
+      .secondary-cta { width: 100%; justify-content: center; }
+      .features-grid { grid-template-columns: 1fr; }
+      .features-description { font-size: 32px; line-height: 38px; }
+      .prompt-title { font-size: 36px; line-height: 42px; }
+      .faq-question-text { font-size: 22px; }
+      .cta-card { width: 90%; padding: 40px 30px; }
+      .cta-card-title { font-size: 38px; line-height: 42px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav-bar">
+      <a href="/" class="nav-logo">
+        <img src="logo.png" alt="Base44" />
+      </a>
+      <div class="nav-links">
+        <a href="#">Product</a>
+        <a href="#">Use Cases</a>
+        <a href="#">Resources</a>
+        <a href="#">Pricing</a>
+        <a href="#">Enterprise</a>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="nav-login">Login</a>
+        <button class="nav-cta">Start Building</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>The backend built for agentic development</h1>
+      <p class="hero-subtitle">Build and deploy full-stack apps with a managed backend designed for AI agents.</p>
+      <div class="hero-buttons">
+        <div class="cli-prompt" id="cliPrompt">
+          <div class="cli-prompt-text">
+            <span class="cli-prompt-dollar">$</span>
+            <span class="cli-prompt-cmd">npx base44 create</span>
+          </div>
+          <button class="cli-copy-btn" id="copyBtn">COPY</button>
+        </div>
+        <a href="#" class="secondary-cta">Start building &rarr;</a>
+      </div>
+    </div>
+
+    <div class="terminal-wrapper">
+      <div class="terminal">
+        <div class="terminal-dots">
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line" style="margin-bottom:20px">npx base44 create</div>
+          <div class="terminal-prompt-group">
+            <div class="terminal-line terminal-question"><span class="terminal-diamond"></span>Pick a template</div>
+            <div class="terminal-line terminal-answer" style="padding-left:20px">Init a basic project</div>
+          </div>
+          <div class="terminal-prompt-group">
+            <div class="terminal-line terminal-question"><span class="terminal-diamond"></span>What is the name of your project</div>
+            <div class="terminal-line terminal-answer" style="padding-left:20px">baas-waiting list</div>
+          </div>
+          <div class="terminal-prompt-group">
+            <div class="terminal-line terminal-question"><span class="terminal-diamond"></span>Description</div>
+            <div class="terminal-line terminal-answer" style="padding-left:20px">A brief description of your project</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="hero-trust">The trusted backend for over 10 million apps</p>
+  </section>
+
+  <!-- One interface. Total backend control. -->
+  <section class="features-section">
+    <div class="features-header">
+      <p class="features-title">One interface.<br>Total backend control.</p>
+      <p class="features-description">Manage your backend from the Base44 CLI, with workflows designed to work smoothly with AI agents and any frontend.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3 class="feature-card-title">AI Agents</h3>
+        <p class="feature-card-desc">Base44's CLI is optimized for leading AI agents like Claude Code and Cursor, with instant Skills that reduce rework and speed up deployment.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-card-title">Authentication &amp; Identity</h3>
+        <p class="feature-card-desc">Google OAuth ready, with support for custom auth flows. No separate auth provider needed.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-card-title">Database &amp; Entities</h3>
+        <p class="feature-card-desc">Define your data model in code. Base44 handles storage, validation, migrations, and queries with full TypeScript support.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-card-title">Permissions &amp; Security</h3>
+        <p class="feature-card-desc">Row-level security built in. Define who can read, write, or delete data. Base44 enforces it across all clients.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-card-title">Connectors &amp; Integrations</h3>
+        <p class="feature-card-desc">Ready-to-use integrations for AI, email, files, and images, plus OAuth connectors for secure third-party API access.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-card-title">Backend Functions</h3>
+        <p class="feature-card-desc">Run secure server-side code for sensitive operations. Access secrets, call external APIs, and handle business logic safely.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-card-title">Realtime Sync</h3>
+        <p class="feature-card-desc">Live updates across all connected users. No WebSocket configuration, no polling, no realtime infrastructure to maintain.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-card-title">File Storage</h3>
+        <p class="feature-card-desc">Upload and serve images, documents, and attachments. CDN-backed, permission-aware, and ready for production.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-card-title">Deployment &amp; Hosting</h3>
+        <p class="feature-card-desc">One-command deployment with CDN hosting, custom domains, and automatic HTTPS.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prompt → Production -->
+  <section class="prompt-section">
+    <div class="prompt-header">
+      <div class="prompt-bubbles">
+        <div class="prompt-pill">Prompt</div>
+        <div class="prompt-arrow-circle">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="prompt-production-pill">Production</div>
+      </div>
+      <p class="prompt-title">How AI agents ship backend with Base44</p>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">01</div>
+        <div class="step-label">Create app<code>npx base44 create my-app</code></div>
+      </div>
+      <div class="step-right">
+        <div class="step-desc-area"></div>
+        <div class="step-code-area">
+          <div class="step-code-lang">bash</div>
+          <div class="step-code">npx base44 create my-app
+<span class="orange">cd</span> my-app</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">02</div>
+        <div class="step-label">AI agent defines backend based on prompts</div>
+      </div>
+      <div class="step-right">
+        <div class="step-desc-area"></div>
+        <div class="step-code-area">
+          <div class="step-code-lang">typescript</div>
+          <div class="step-code"><span class="comment">// Claude Code generates:</span>
+<span class="keyword">export const</span> Board <span class="type">= entity</span>({
+  name<span class="type">:</span> z.<span class="type">string</span>(),
+  owner<span class="type">:</span> z.<span class="type">user</span>(),
+  members<span class="type">:</span> z.<span class="type">array</span>(z.<span class="type">user</span>()),
+  tasks<span class="type">:</span> z.<span class="type">relation</span>('<span class="string">Task</span>')
+});
+
+<span class="keyword">export const</span> Task <span class="type">= entity</span>({
+  title<span class="type">:</span> z.<span class="type">string</span>(),
+  board<span class="type">:</span> z.<span class="type">relation</span>('<span class="string">Board</span>'),
+  assignee<span class="type">:</span> z.<span class="type">user</span>(),
+  attachments<span class="type">:</span> z.<span class="type">array</span>(z.<span class="type">file</span>())
+});</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">03</div>
+        <div class="step-label">Deployment<code>npx base44 deploy</code></div>
+      </div>
+      <div class="step-right">
+        <div class="step-desc-area"></div>
+        <div class="step-code-area">
+          <div class="step-code-lang">bash</div>
+          <div class="step-code">npx base44 deploy
+
+  Backend deployed <span class="keyword">in</span> <span class="orange">47</span> seconds
+  https://my-project.base44.app
+
+<span class="comment"># Claude Code continues building:</span>
+You: Add file attachments and admin permissions
+
+Claude Code: Adding file upload support
+and role-based access control</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-layout">
+      <h2 class="faq-title">Frequently<br>asked questions</h2>
+      <div class="faq-list">
+        <div class="faq-item active">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-question-text">What is the Base44 Backend?</span>
+            <button class="faq-toggle" aria-label="Toggle">
+              <svg viewBox="0 0 16 16" fill="none"><line x1="8" y1="0" x2="8" y2="16" stroke="#0f0f0f" stroke-width="1.5"/><line x1="0" y1="8" x2="16" y2="8" stroke="#0f0f0f" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+          <div class="faq-answer">
+            <p class="faq-answer-text">The Base44 Backend is an AI-first backend that lets teams build, connect, and run production-grade applications without managing infrastructure. It handles data, logic, integrations, and permissions behind the scenes, so you can focus on solving real problems and shipping more products.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-question-text">How is the Base44 Backend different from other BaaS platforms?</span>
+            <button class="faq-toggle" aria-label="Toggle">
+              <svg viewBox="0 0 16 16" fill="none"><line x1="8" y1="0" x2="8" y2="16" stroke="#0f0f0f" stroke-width="1.5"/><line x1="0" y1="8" x2="16" y2="8" stroke="#0f0f0f" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+          <div class="faq-answer">
+            <p class="faq-answer-text">Unlike traditional BaaS platforms that require manual configuration, Base44 is built for AI-native workflows. Everything is code-first and CLI-driven, meaning AI agents can define your data model, set permissions, and deploy your backend without ever leaving the terminal.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-question-text">What does it mean to be an AI-first backend?</span>
+            <button class="faq-toggle" aria-label="Toggle">
+              <svg viewBox="0 0 16 16" fill="none"><line x1="8" y1="0" x2="8" y2="16" stroke="#0f0f0f" stroke-width="1.5"/><line x1="0" y1="8" x2="16" y2="8" stroke="#0f0f0f" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+          <div class="faq-answer">
+            <p class="faq-answer-text">AI-first means the entire platform is designed around how AI agents work. The CLI provides structured, predictable interfaces that agents can use directly. Skills reduce rework by giving agents pre-built patterns. And the declarative data model lets agents define backends in TypeScript without needing to understand infrastructure details.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span class="faq-question-text">Is Base44 production-ready?</span>
+            <button class="faq-toggle" aria-label="Toggle">
+              <svg viewBox="0 0 16 16" fill="none"><line x1="8" y1="0" x2="8" y2="16" stroke="#0f0f0f" stroke-width="1.5"/><line x1="0" y1="8" x2="16" y2="8" stroke="#0f0f0f" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+          <div class="faq-answer">
+            <p class="faq-answer-text">Yes. Base44 is the trusted backend for over 10 million apps. It includes CDN-backed hosting, automatic HTTPS, row-level security, and one-command deployment. Teams are shipping production applications with real users on the platform every day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner-wrapper">
+    <div class="cta-banner">
+      <div class="cta-card">
+        <h2 class="cta-card-title">So, what are we building?</h2>
+        <a href="#" class="cta-card-btn">
+          <span>Get started</span>
+          <span class="cta-card-btn-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#0f0f0f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="logo.png" alt="Base44" /></div>
+        <p class="footer-desc">Base44 is the AI-powered platform that lets users build fully functioning apps in minutes. Using nothing but natural language, Base44 enables anyone to turn their words into personal productivity apps, back-office tools, customer portals, or complete enterprise products.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="X"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000"/></svg></a>
+          <a href="#" aria-label="Discord"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M20.317 4.37a19.8 19.8 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.3 18.3 0 00-5.487 0 12.6 12.6 0 00-.617-1.25.077.077 0 00-.079-.037A19.7 19.7 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.1 13.1 0 01-1.872-.892.077.077 0 01-.008-.128c.12-.09.246-.186.373-.292a.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.3 12.3 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.8 19.8 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.086-2.157-2.419s.956-2.419 2.157-2.419c1.21 0 2.176 1.095 2.157 2.42 0 1.332-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419s.955-2.419 2.157-2.419c1.21 0 2.176 1.095 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z" fill="#000"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#000"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-menus">
+        <div class="footer-menu">
+          <div class="footer-menu-title">Company</div>
+          <div class="footer-menu-links">
+            <a href="#">About Us</a>
+            <a href="#">Affiliate Program</a>
+            <a href="#">Careers</a>
+          </div>
+        </div>
+        <div class="footer-menu">
+          <div class="footer-menu-title">Product</div>
+          <div class="footer-menu-links">
+            <a href="#">Features</a>
+            <a href="#">Integrations</a>
+            <a href="#">Enterprise</a>
+            <a href="#">Pricing</a>
+            <a href="#">Changelog</a>
+          </div>
+        </div>
+        <div class="footer-menu">
+          <div class="footer-menu-title">Resources</div>
+          <div class="footer-menu-links">
+            <a href="#">Docs &amp; FAQs</a>
+            <a href="#">Community</a>
+            <a href="#">Blog</a>
+          </div>
+        </div>
+        <div class="footer-menu">
+          <div class="footer-menu-title">Legal</div>
+          <div class="footer-menu-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Security</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <p class="footer-copyright">&copy; 2026 BASE44 Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleFaq(el) {
+      var item = el.closest('.faq-item');
+      var wasActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('active'); });
+      if (!wasActive) item.classList.add('active');
+    }
+
+    document.getElementById('copyBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      navigator.clipboard.writeText('npx base44 create').then(function() {
+        var btn = document.getElementById('copyBtn');
+        btn.textContent = 'COPIED!';
+        setTimeout(function() { btn.textContent = 'COPY'; }, 2000);
+      });
+    });
+
+    document.getElementById('cliPrompt').addEventListener('click', function() {
+      navigator.clipboard.writeText('npx base44 create').then(function() {
+        var btn = document.getElementById('copyBtn');
+        btn.textContent = 'COPIED!';
+        setTimeout(function() { btn.textContent = 'COPY'; }, 2000);
+      });
+    });
+  </script>
+
+</body>
+</html>

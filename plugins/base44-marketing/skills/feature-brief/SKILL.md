@@ -10,6 +10,12 @@ description: |
 
 > Turn noisy Slack feature channels into structured marketing intelligence.
 
+## Source of Truth: SLACK CHANNELS
+
+**Slack feat-* channels are ALWAYS the source of truth.** Every feature brief starts by reading the live Slack channel. Ripple is a cache/storage destination — never the primary source.
+
+**Default behavior:** When asked for a feature brief, ALWAYS fetch from Slack first. Do not look in Ripple, do not look in local files. Go to the Slack channel, read the latest messages and threads, and generate a fresh brief from live data.
+
 ## When This Skill Activates
 
 User says any of:
@@ -23,21 +29,22 @@ User says any of:
 - "Read the feat channel for [feature]"
 - "What's happening in feat-*?"
 - "List feat channels"
+- "Find feature brief for [feature]"
 - Pastes raw Slack channel content and asks for a summary
 
-## Three Modes
+## Mode Priority (ALWAYS try in this order)
 
-### Mode A: Summarize (raw Slack content provided)
+### 1. Mode C: Fetch from Slack (DEFAULT — always try first)
 
-User pastes raw Slack channel content. Skill extracts a structured brief.
+Live read from Slack feat-* channels via Slack MCP. This is the primary mode. Use it for ALL feature brief requests unless Slack MCP is unavailable.
 
-### Mode B: Pull (read existing brief from Ripple)
+### 2. Mode A: Summarize (fallback — user pastes content)
 
-User asks about a feature by name. Skill fetches the FeatureBrief from Ripple and provides context to other skills/agents.
+Only if Slack MCP is down or the user explicitly pastes raw Slack content.
 
-### Mode C: Fetch from Slack (live channel read via Slack MCP)
+### 3. Mode D: Save to Ripple (optional — after generating a brief)
 
-User asks to fetch/read a feat channel directly. Skill uses Slack MCP tools to discover channels, read messages, filter noise, and extract a structured brief — no manual pasting required.
+Push the generated brief to Ripple for storage. This is a write operation, not a read. Only do this when the user explicitly asks to push/save.
 
 ---
 
@@ -307,7 +314,15 @@ The brief is now available as context. The user can say:
 
 ---
 
-## Mode B: Pull Existing Brief
+## Mode B: Read from Ripple Storage (FALLBACK ONLY)
+
+> **Ripple is STORAGE, not a source of truth.** Only read from Ripple when Slack MCP is unavailable AND you cannot use Mode A. Prefer Mode C (Slack) in all cases.
+
+### When to use Mode B
+
+- Slack MCP is down or disconnected
+- User explicitly says "check Ripple" or "what's stored in Ripple"
+- Listing all previously saved briefs
 
 ### Step 1: Fetch from Ripple
 
@@ -321,14 +336,16 @@ curl -s "https://app.base44.com/api/apps/69809e95545ed2e086d167f9/entities/Featu
 
 Search by `feature_name` field. Fuzzy match: "builder mcp" matches "builder-mcp", "skills" matches "feat-skills", etc.
 
-### Step 3: Return Brief
+### Step 3: Return Brief (with staleness warning)
 
-If found, return the structured brief to the requesting agent/skill. When another skill (like linkedin-specialist) needs feature context, this is what it gets.
+If found, return the brief BUT warn: "This brief was pulled from Ripple storage and may be stale. For the latest, I can fetch directly from Slack."
 
-If not found, tell the user:
-> No feature brief found for "[name]". I can fetch it directly from Slack — say "fetch feat-[name] from Slack". Or paste the channel content and I'll create one.
+If not found, go to Slack:
+> No stored brief found for "[name]". Fetching live from Slack channel instead...
 
-### Step 4: List All Briefs
+Then switch to Mode C automatically.
+
+### Step 4: List All Stored Briefs
 
 If user asks "what briefs do we have" or "list features":
 
@@ -343,6 +360,30 @@ for r in data:
 "
 ```
 
+This lists what has been previously saved. To get fresh data, fetch from Slack channels.
+
+---
+
+## How to Find a Feature's Slack Channel
+
+When the user asks for a brief by feature name (e.g. "connectors", "github", "spotlight"):
+
+1. **Search Slack** for `feat-[name]` using `slack_search_channels`
+2. If exact match found, read that channel
+3. If no exact match, search broader (e.g. "connectors" might be in `#product-marketing-sync` not a dedicated feat channel)
+4. Also check if the feature is discussed in related channels (search Slack messages for the feature name)
+
+**Never say "no brief found" without searching Slack first.** The brief doesn't exist as a file — it's generated live from the channel every time.
+
+## List All Available Features
+
+When user asks "what briefs do we have" or "list features":
+
+1. **Search Slack** for all `feat-*` channels using `slack_search_channels` with query `feat-`
+2. List them with topic/purpose
+3. These ARE the available briefs — each channel is a brief waiting to be generated
+4. Optionally also show what's stored in Ripple (with staleness warning)
+
 ---
 
 ## Integration with Marketing Router
@@ -350,13 +391,15 @@ for r in data:
 When the marketing router detects a content request about a specific feature:
 
 1. Router identifies the feature name from the user's request
-2. Router calls this skill in Mode B (pull from Ripple) or Mode C (fetch from Slack) to get the brief
-3. Brief is passed as context to the content specialist (linkedin, x, email, etc.)
-4. Content is created with full feature context
+2. Router calls this skill — which ALWAYS goes to Slack first to get fresh data
+3. Brief is generated from live Slack channel content
+4. Brief is passed as context to the content specialist (linkedin, x, email, etc.)
+5. Content is created with full, up-to-date feature context
 
 This means:
-- "Write a LinkedIn post about Base Agent" → pulls the brief from Ripple (Mode B) and feeds to linkedin-specialist
-- "Fetch feat-base-agent and write a post" → reads from Slack (Mode C), extracts brief, feeds to linkedin-specialist
+- "Write a LinkedIn post about connectors" → searches Slack for connectors channels, reads them, generates brief, feeds to linkedin-specialist
+- "Brief me on GitHub integration" → reads #feat-github-2-way-integration from Slack, generates brief
+- "What features do we have?" → lists all feat-* channels from Slack
 
 ---
 
@@ -376,16 +419,16 @@ Search for a matching Feature by title, then update its `marketing_description` 
 
 ## Dependencies
 
-- **Mode A:** No external dependencies (user provides content)
-- **Mode B:** Base44 REST API (credentials in `.claude/marketing/api-config.json`)
-- **Mode C:** Slack MCP tools — `slack_search_channels`, `slack_read_channel` (must be connected)
+- **Primary:** Slack MCP tools — `slack_search_channels`, `slack_read_channel`, `slack_read_thread` (must be connected)
+- **Fallback:** User pastes raw Slack content (Mode A)
+- **Optional storage:** Base44 REST API for Ripple push (credentials in `.claude/marketing/api-config.json`)
 
 ## Notes
 
-- All briefs are living documents. Re-running on updated Slack content should UPDATE the existing record, not create a duplicate
-- The `raw_slack_dump` field stores filtered content (noise removed) for future re-processing
+- **Slack channels are the source of truth.** Always fetch live from Slack. Never treat Ripple or local files as authoritative.
+- All briefs are living documents generated on-demand from Slack channels
 - Hebrew content is translated to English in all structured fields
 - Briefs should be re-generated when significant new content arrives (launch, metrics, pivot)
 - The skill works standalone or as a dependency for other marketing skills
-- Mode C requires the Slack MCP server to be connected. If not available, fall back to Mode A (paste) or Mode B (Ripple)
-- When using Mode C, the `source` field in the payload is set to `"slack_mcp"` to distinguish from paste-based briefs
+- If Slack MCP is unavailable, fall back to Mode A (paste). Ripple is storage only, never primary source.
+- The `source` field in saved payloads tracks origin: `"slack_mcp"` for live fetch, `"paste"` for Mode A

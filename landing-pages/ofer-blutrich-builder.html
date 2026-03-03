@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ofer Blutrich - Builder Spotlight | Base44</title>
+  <meta name="description" content="8 products shipped. 10,000+ people helped. 60% retention where the industry averages 15%. Meet Ofer Blutrich." />
+  <style>
+    @font-face {
+      font-family: 'STK Miso';
+      src: url('../STKMiso-Light.ttf') format('truetype');
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'STK Miso';
+      src: url('../STKMiso-Regular.ttf') format('truetype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'STK Miso', Arial, sans-serif;
+      color: #232529;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Header ── */
+    .header {
+      position: fixed; top: 20px; left: 20px; right: 20px;
+      height: 56px; background: #fff;
+      border: 1px solid #e6e6e6; border-radius: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 12px 0 24px; z-index: 100;
+    }
+    .header-logo {
+      height: 28px; display: block;
+    }
+    .header-links {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-login {
+      padding: 10px 20px; border-radius: 70px;
+      background: transparent; color: #0f0f0f;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 16px;
+      border: none; cursor: pointer;
+    }
+    .btn-cta-green {
+      padding: 10px 24px; border-radius: 70px;
+      background: #ebffb1; border: 1px solid #ade900;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 16px;
+      color: #000; cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      width: 100%; min-height: 780px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 160px 20px 80px;
+      background:
+        radial-gradient(ellipse 70% 40% at 50% 50%, rgba(250,249,247,0.7) 0%, rgba(250,249,247,0) 100%),
+        radial-gradient(ellipse 150% 91% at 50% -17%, rgba(93,179,207,1) 22%, rgba(145,201,220,0.56) 58%, rgba(250,249,247,0) 86%),
+        radial-gradient(ellipse 139% 75% at 50% 0%, rgba(143,198,217,1) 0%, rgba(151,216,238,0) 100%),
+        linear-gradient(180deg, rgb(34,201,255) 26%, rgb(250,249,247) 24%);
+      text-align: center;
+    }
+    .ticker {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 8px 24px; border-radius: 60px;
+      background: linear-gradient(to left, #ebfad5 18%, #e6fc88 118%);
+      font-weight: 300; font-size: 16px; line-height: 28px; color: #0f0f0f;
+      margin-bottom: 32px;
+    }
+    .hero-title {
+      font-weight: 400; font-size: 74px; line-height: 78px;
+      color: #0f0f0f; max-width: 800px; margin-bottom: 24px;
+    }
+    .hero-subtitle {
+      font-weight: 300; font-size: 24px; line-height: 34px;
+      color: #232529; max-width: 640px; margin-bottom: 40px;
+    }
+    .hero-buttons {
+      display: flex; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: center;
+    }
+    .btn-primary {
+      padding: 20px 30px; border-radius: 300px;
+      background: #0f0f0f; color: #fff;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 18px;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary {
+      padding: 20px 30px; border-radius: 300px;
+      background: transparent; color: #0f0f0f;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 18px;
+      border: 1px solid rgba(15,15,15,0.4);
+      cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;
+      padding: 80px 40px;
+      background: #faf9f7;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      font-weight: 400; font-size: 54px; line-height: 60px; color: #0f0f0f;
+    }
+    .stat-number .accent { color: #FF983B; }
+    .stat-label {
+      font-weight: 300; font-size: 18px; line-height: 28px; color: #696f7b;
+      margin-top: 8px;
+    }
+
+    /* ── Section Headers ── */
+    .section {
+      padding: 120px 40px;
+      max-width: 1460px; margin: 0 auto;
+    }
+    .section-warm { background: #faf9f7; }
+    .section-header {
+      text-align: center; max-width: 869px; margin: 0 auto 80px;
+      display: flex; flex-direction: column; gap: 20px; align-items: center;
+    }
+    .section-eyebrow {
+      font-weight: 300; font-size: 20px; line-height: 28px; color: #FF983B;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .section-title {
+      font-weight: 400; font-size: 54px; line-height: 60px; color: #0f0f0f;
+    }
+    .section-description {
+      font-weight: 300; font-size: 20px; line-height: 28px; color: #232529; max-width: 700px;
+    }
+
+    /* ── Project Cards ── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; max-width: 1460px; margin: 0 auto;
+    }
+    .project-card {
+      background: #fff; border: 1px solid #e6e6e6;
+      border-radius: 10px; padding: 36px;
+      display: flex; flex-direction: column; gap: 16px;
+      min-height: 280px; position: relative; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    .project-card.featured {
+      grid-column: span 2;
+      background: #0f0f0f; color: #fff; border: none;
+    }
+    .project-card.featured .project-title { color: #fff; }
+    .project-card.featured .project-desc { color: rgba(255,255,255,0.7); }
+    .project-card.featured .project-tag { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.2); }
+    .project-card.featured .project-stat { color: #FF983B; }
+    .project-card.featured .project-stat-label { color: rgba(255,255,255,0.5); }
+
+    .project-year {
+      font-weight: 300; font-size: 14px; color: #696f7b;
+    }
+    .project-title {
+      font-weight: 400; font-size: 28px; line-height: 34px; color: #0f0f0f;
+    }
+    .project-desc {
+      font-weight: 300; font-size: 16px; line-height: 24px; color: #696f7b;
+      flex: 1;
+    }
+    .project-tags {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .project-tag {
+      padding: 4px 14px; border-radius: 60px;
+      font-size: 14px; font-weight: 300;
+      border: 1px solid #e6e6e6; color: #696f7b;
+    }
+    .project-stats {
+      display: flex; gap: 32px; margin-top: 8px;
+    }
+    .project-stat {
+      font-weight: 400; font-size: 24px; line-height: 28px; color: #0f0f0f;
+    }
+    .project-stat-label {
+      font-weight: 300; font-size: 13px; color: #696f7b; display: block;
+    }
+
+    /* ── Story / About ── */
+    .story {
+      display: flex; gap: 80px; align-items: flex-start;
+      max-width: 1200px; margin: 0 auto; padding: 120px 40px;
+    }
+    .story-left {
+      min-width: 340px; flex-shrink: 0;
+    }
+    .story-title {
+      font-weight: 400; font-size: 54px; line-height: 60px; color: #0f0f0f;
+    }
+    .story-right {
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .story-text {
+      font-weight: 300; font-size: 20px; line-height: 32px; color: #232529;
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      max-width: 1200px; margin: 0 auto;
+      justify-content: center;
+    }
+    .skill-chip {
+      padding: 12px 28px; border-radius: 60px;
+      background: #faf9f7; border: 1px solid #e6e6e6;
+      font-weight: 300; font-size: 18px; color: #232529;
+      transition: background 0.2s;
+    }
+    .skill-chip:hover { background: #ebffb1; border-color: #ade900; }
+
+    /* ── Quote ── */
+    .quote-section {
+      padding: 120px 40px; text-align: center;
+      background: #faf9f7;
+    }
+    .quote-mark {
+      font-size: 80px; line-height: 1; color: #FF983B; margin-bottom: 20px;
+    }
+    .quote-text {
+      font-weight: 400; font-size: 36px; line-height: 48px; color: #0f0f0f;
+      max-width: 800px; margin: 0 auto 24px;
+    }
+    .quote-author {
+      font-weight: 300; font-size: 18px; color: #696f7b;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 120px 40px;
+    }
+    .cta-banner {
+      max-width: 1460px; margin: 0 auto;
+      border-radius: 16px; overflow: hidden;
+      min-height: 500px; display: flex;
+      align-items: center; justify-content: center;
+      background:
+        linear-gradient(180deg, rgba(242,237,225,0) 5%, rgba(255,240,222,0.2) 33%, rgba(255,174,83,0.5) 79%, rgb(255,116,56) 99%),
+        linear-gradient(180deg, rgb(250,249,247) 4%, rgb(255,240,222) 70%, rgba(239,129,82,0.6) 94%);
+    }
+    .cta-card {
+      background: rgba(0,0,0,0.85); border-radius: 16px;
+      padding: 60px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 32px;
+      max-width: 440px; width: 90%;
+    }
+    .cta-card-title {
+      font-weight: 400; font-size: 40px; line-height: 46px; color: #fff;
+    }
+    .cta-card-desc {
+      font-weight: 300; font-size: 18px; line-height: 28px; color: rgba(255,255,255,0.7);
+    }
+    .btn-cta-white {
+      padding: 20px 36px; border-radius: 300px;
+      background: #fff; color: #0f0f0f;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 18px;
+      border: none; cursor: pointer;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 40px 20px; text-align: center;
+      border-top: 1px solid #e6e6e6;
+    }
+    .footer-links {
+      display: flex; justify-content: center; gap: 32px; margin-bottom: 20px;
+    }
+    .footer-link {
+      font-size: 16px; color: #696f7b;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .footer-link:hover { color: #0f0f0f; }
+    .footer-text { font-size: 14px; color: #696f7b; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1200px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-card.featured { grid-column: span 2; }
+      .story { flex-direction: column; gap: 40px; }
+      .story-left { min-width: auto; }
+      .stats-bar { gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      .header { top: 10px; left: 10px; right: 10px; }
+      .hero { padding: 140px 20px 60px; min-height: auto; }
+      .hero-title { font-size: 44px; line-height: 48px; }
+      .hero-subtitle { font-size: 20px; }
+      .hero-buttons { flex-direction: column; width: 100%; }
+      .hero-buttons a, .hero-buttons button { width: 100%; justify-content: center; }
+      .stats-bar { flex-direction: column; gap: 32px; padding: 60px 20px; }
+      .stat-number { font-size: 40px; }
+      .section { padding: 80px 20px; }
+      .section-title { font-size: 36px; line-height: 42px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .story { padding: 80px 20px; }
+      .story-title { font-size: 36px; line-height: 42px; }
+      .story-text { font-size: 18px; line-height: 28px; }
+      .quote-text { font-size: 24px; line-height: 36px; }
+      .cta-banner { min-height: 400px; }
+      .cta-card { padding: 40px 24px; }
+      .cta-card-title { font-size: 32px; line-height: 38px; }
+      .skills-grid { gap: 8px; }
+      .skill-chip { padding: 8px 20px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="https://base44.com"><img class="header-logo" src="logo.png" alt="Base44" /></a>
+    <div class="header-links">
+      <a href="https://www.linkedin.com/in/oferblutrich" class="btn-login">LinkedIn</a>
+      <a href="https://base44.com" class="btn-cta-green">Start Building</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="ticker">Builder Spotlight</div>
+    <h1 class="hero-title">Ofer Blutrich</h1>
+    <p class="hero-subtitle">8 products shipped solo. 10,000+ people helped. 60% retention where the industry averages 15%. This is what building looks like.</p>
+    <div class="hero-buttons">
+      <a href="https://www.linkedin.com/in/oferblutrich" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        Connect on LinkedIn
+      </a>
+      <a href="mailto:Blutrich@gmail.com" class="btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get in Touch
+      </a>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-bar">
+    <div class="stat">
+      <div class="stat-number"><span class="accent">8</span></div>
+      <div class="stat-label">Products shipped solo</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">10K<span class="accent">+</span></div>
+      <div class="stat-label">People helped</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">60<span class="accent">%</span></div>
+      <div class="stat-label">90-day retention</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4<span class="accent">x</span></div>
+      <div class="stat-label">Above industry avg</div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-eyebrow">What he shipped</span>
+      <h2 class="section-title">8 products, all built end-to-end</h2>
+      <p class="section-description">From AI coaching platforms to business intelligence tools. Every product below was built solo, from idea to live.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- FrndZ -->
+      <div class="project-card featured">
+        <span class="project-year">2024 - Present</span>
+        <h3 class="project-title">FrndZ AI Platform</h3>
+        <p class="project-desc">Community management SaaS that uses AI to keep communities active and engaged. Integrates with WhatsApp, LinkedIn, and Facebook to automate what used to take community managers hours.</p>
+        <div class="project-tags">
+          <span class="project-tag">Community</span>
+          <span class="project-tag">AI/GenAI</span>
+          <span class="project-tag">SaaS</span>
+        </div>
+        <div class="project-stats">
+          <div>
+            <span class="project-stat">100K+</span>
+            <span class="project-stat-label">Users reached</span>
+          </div>
+          <div>
+            <span class="project-stat">60%</span>
+            <span class="project-stat-label">90-day retention</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ClimbingPill -->
+      <div class="project-card">
+        <span class="project-year">2020 - Present</span>
+        <h3 class="project-title">ClimbingPill AI</h3>
+        <p class="project-desc">AI-powered climbing coach that helps climbers improve with personalized training. Built on actual sports science research.</p>
+        <div class="project-tags">
+          <span class="project-tag">Health Tech</span>
+          <span class="project-tag">AI Coaching</span>
+        </div>
+        <div class="project-stats">
+          <div>
+            <span class="project-stat">10K+</span>
+            <span class="project-stat-label">Climbers helped</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PodLearn -->
+      <div class="project-card">
+        <span class="project-year">2024</span>
+        <h3 class="project-title">PodLearn</h3>
+        <p class="project-desc">AI learning tool that turns passive podcast listening into active retention. Proven 85% improvement over standard consumption.</p>
+        <div class="project-tags">
+          <span class="project-tag">EdTech</span>
+          <span class="project-tag">AI</span>
+        </div>
+        <div class="project-stats">
+          <div>
+            <span class="project-stat">85%</span>
+            <span class="project-stat-label">Better retention vs passive</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ClimbingBrowser -->
+      <div class="project-card">
+        <span class="project-year">2025</span>
+        <h3 class="project-title">ClimbingBrowser</h3>
+        <p class="project-desc">Searchable database of climbing routes and gyms. The climbing community's resource for finding their next project.</p>
+        <div class="project-tags">
+          <span class="project-tag">Database</span>
+          <span class="project-tag">Community</span>
+        </div>
+        <div class="project-stats">
+          <div>
+            <span class="project-stat">3,200+</span>
+            <span class="project-stat-label">Climbers using it</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO is Gone -->
+      <div class="project-card">
+        <span class="project-year">2025</span>
+        <h3 class="project-title">SEO is Gone</h3>
+        <p class="project-desc">AEO (Answer Engine Optimization) tool built for the post-SEO world. Helps content rank where AI answers live.</p>
+        <div class="project-tags">
+          <span class="project-tag">Marketing</span>
+          <span class="project-tag">AI</span>
+        </div>
+      </div>
+
+      <!-- Arbox AI Agent -->
+      <div class="project-card">
+        <span class="project-year">2025</span>
+        <h3 class="project-title">Arbox CRM Agent</h3>
+        <p class="project-desc">AI business intelligence agent that queries Arbox CRM data in Hebrew and English. Shipped to production in 24 hours with sub-2-second responses.</p>
+        <div class="project-tags">
+          <span class="project-tag">AI Agent</span>
+          <span class="project-tag">B2B</span>
+        </div>
+        <div class="project-stats">
+          <div>
+            <span class="project-stat">&lt;24h</span>
+            <span class="project-stat-label">Idea to production</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GTM Strategy + Neta + Amoon -->
+      <div class="project-card">
+        <span class="project-year">2025</span>
+        <h3 class="project-title">3 More Tools</h3>
+        <p class="project-desc">GTM Strategy planner, Amoon Knowledge (VC intelligence tool), and Neta Sentiment (analytics platform). Three purpose-built tools shipped in the same year.</p>
+        <div class="project-tags">
+          <span class="project-tag">GTM</span>
+          <span class="project-tag">Analytics</span>
+          <span class="project-tag">VC</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section style="background: #faf9f7;">
+    <div class="story">
+      <div class="story-left">
+        <h2 class="story-title">The builder behind the products</h2>
+      </div>
+      <div class="story-right">
+        <p class="story-text">Ofer Blutrich is a product builder based in Tel Aviv. CPO at FrndZ and AI Architect at Israel's Ministry of Economy, he holds an MSc with honors (96 avg) and brings a research-driven approach to everything he ships.</p>
+        <p class="story-text">His background is unusual for tech: sports science research, published work on climbing biomechanics and muscle physiology, and years of coaching athletes. That scientific rigor shows up in his products, where retention isn't a buzzword but a measured outcome.</p>
+        <p class="story-text">What makes Ofer different from most builders: he ships everything end-to-end, alone. Design, backend, AI architecture, deployment. 8 live products. No team. Just building.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" style="text-align: center;">
+    <div class="section-header">
+      <span class="section-eyebrow">What he works with</span>
+      <h2 class="section-title">Stack and expertise</h2>
+    </div>
+    <div class="skills-grid">
+      <span class="skill-chip">LLMs & AI Agents</span>
+      <span class="skill-chip">RAG Systems</span>
+      <span class="skill-chip">Product-Led Growth</span>
+      <span class="skill-chip">0-to-1 Execution</span>
+      <span class="skill-chip">Health Tech</span>
+      <span class="skill-chip">Community Platforms</span>
+      <span class="skill-chip">B2B SaaS</span>
+      <span class="skill-chip">MCP Protocol</span>
+      <span class="skill-chip">Data Analysis</span>
+      <span class="skill-chip">Retention Design</span>
+      <span class="skill-chip">WhatsApp / LinkedIn / FB APIs</span>
+      <span class="skill-chip">Cloud Deployment</span>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="quote-section">
+    <div class="quote-mark">"</div>
+    <p class="quote-text">I don't build products to impress. I build them because someone has a problem and I can ship the fix before lunch.</p>
+    <p class="quote-author">Ofer Blutrich</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-banner">
+      <div class="cta-card">
+        <h2 class="cta-card-title">Want to build together?</h2>
+        <p class="cta-card-desc">Whether it's AI agents, product strategy, or shipping something from scratch, Ofer's inbox is open.</p>
+        <a href="https://www.linkedin.com/in/oferblutrich" class="btn-cta-white">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/oferblutrich" class="footer-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:Blutrich@gmail.com" class="footer-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
+      <a href="https://ofer.ai" class="footer-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        ofer.ai
+      </a>
+    </div>
+    <p class="footer-text">Built on <img src="logo.png" alt="Base44" style="height:18px;vertical-align:middle;margin-left:4px" /></p>
+  </footer>
+
+</body>
+</html>

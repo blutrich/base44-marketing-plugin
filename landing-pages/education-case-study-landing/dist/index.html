@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base44 for Education — Students Ship Real Products, Not Mockups</title>
+  <meta name="description" content="See how professors use Base44 to turn hackathons and classrooms into product launches. 1.3M education apps built. Students ship in hours, not semesters.">
+  <meta property="og:title" content="Base44 for Education — Students Ship Real Products, Not Mockups">
+  <meta property="og:description" content="See how professors use Base44 to turn hackathons and classrooms into product launches. 1.3M education apps built.">
+  <meta property="og:type" content="website">
+  <style>
+    @font-face {
+      font-family: 'STK Miso';
+      src: url('./fonts/STKMiso-Light.ttf') format('truetype');
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'STK Miso';
+      src: url('./fonts/STKMiso-Regular.ttf') format('truetype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'STK Miso', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #232529;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --color-bg-warm: #faf9f7;
+      --color-surface: #fff;
+      --color-text: #0f0f0f;
+      --color-text-body: #232529;
+      --color-text-secondary: #696f7b;
+      --color-accent: #FF983B;
+      --color-green-bg: #ebffb1;
+      --color-green-border: #ade900;
+      --color-card-border: #e6e6e6;
+      --color-divider: #d1d1d1;
+      --color-terminal: #1a1a1a;
+      --max-width: 1460px;
+      --section-padding: 120px 40px;
+      --grid-gap: 10px;
+      --radius-card: 10px;
+      --radius-pill: 300px;
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* Header */
+    .header {
+      position: fixed; top: 20px; left: 20px; right: 20px;
+      height: 56px; background: #fff;
+      border: 1px solid #e6e6e6; border-radius: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 12px 0 20px; z-index: 100;
+    }
+    .btn-login {
+      padding: 10px 14px; background: none; border: none;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 16px;
+      color: #232529; cursor: pointer; text-decoration: none;
+    }
+    .btn-cta-green {
+      padding: 10px 24px; border-radius: 70px;
+      background: #ebffb1; border: 1px solid #ade900;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 16px;
+      color: #000; cursor: pointer; text-decoration: none;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 180px 40px 100px;
+      background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+      background-size: 24px 24px;
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 400px;
+      background: linear-gradient(to top, #fff, transparent);
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .ticker {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 8px 24px; border-radius: 60px;
+      background: linear-gradient(to left, #ebfad5 18%, #e6fc88 118%);
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; line-height: 28px; color: #0f0f0f;
+      margin-bottom: 32px;
+    }
+    .hero-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 74px; line-height: 74px;
+      color: #0f0f0f; max-width: 900px;
+    }
+    .hero-subtitle {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 20px; line-height: 28px;
+      color: var(--color-text-body); max-width: 600px;
+      margin-top: 24px;
+    }
+    .hero-buttons {
+      display: flex; gap: 16px; margin-top: 40px;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .btn-primary {
+      padding: 20px 30px; border-radius: 300px;
+      background: #0f0f0f; color: #fff;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 18px;
+      border: none; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .btn-secondary {
+      padding: 20px 30px; border-radius: 300px;
+      background: transparent; color: #0f0f0f;
+      font-family: 'STK Miso', sans-serif; font-weight: 400; font-size: 18px;
+      border: 1px solid rgba(15,15,15,0.4);
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .hero-trust {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; color: var(--color-text-secondary);
+      margin-top: 32px;
+    }
+
+    /* Sections */
+    .section { padding: var(--section-padding); }
+    .section-inner { max-width: var(--max-width); margin: 0 auto; }
+    .section-header {
+      text-align: center; max-width: 869px;
+      display: flex; flex-direction: column; gap: 20px; align-items: center;
+      margin: 0 auto 60px;
+    }
+    .section-eyebrow {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 20px; line-height: 28px; color: var(--color-accent);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .section-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 54px; line-height: 60px; color: #0f0f0f;
+    }
+    .section-description {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 20px; line-height: 28px; color: #232529; max-width: 700px;
+    }
+
+    /* Metric Cards */
+    .metrics-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-top: 40px;
+    }
+    .metric-card {
+      background: #fff; border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-card); padding: 36px;
+      text-align: center;
+    }
+    .metric-number {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 48px; line-height: 52px; color: var(--color-accent);
+    }
+    .metric-label {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; line-height: 24px; color: var(--color-text-secondary);
+      margin-top: 8px;
+    }
+
+    /* Split Header */
+    .split-header {
+      display: flex; gap: 80px; align-items: flex-start;
+      margin-bottom: 60px;
+    }
+    .split-header-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 20px; line-height: 28px; color: var(--color-accent);
+      min-width: 200px; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .split-header-desc {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 54px; line-height: 60px; color: #0f0f0f;
+    }
+
+    /* Feature Cards */
+    .grid-3 {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .feature-card {
+      background: #fff; border: 1px solid #e6e6e6;
+      border-radius: 10px; padding: 36px;
+      min-height: 220px; display: flex; flex-direction: column;
+    }
+    .feature-card-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 24px; line-height: 34px; color: #0f0f0f; margin-bottom: 14px;
+    }
+    .feature-card-desc {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; line-height: 24px; color: #232529;
+    }
+    .agitation-text {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 20px; line-height: 28px; color: var(--color-text-body);
+      max-width: 700px; margin: 40px auto 0; text-align: center;
+    }
+
+    /* Numbered Cards */
+    .card {
+      background: #fff; border-radius: 10px; overflow: hidden;
+      padding: 36px; min-height: 240px; border: 1px solid #e6e6e6;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .card-number {
+      width: 40px; height: 30px; border: 1px solid #696f7b;
+      border-radius: 11px; display: flex; align-items: center; justify-content: center;
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; color: #696f7b;
+    }
+    .card-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 24px; line-height: 28px; color: #0f0f0f;
+    }
+    .card-description {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; line-height: 24px; color: #232529;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-card);
+      padding: 36px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .testimonial-quote {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 18px; line-height: 28px; color: var(--color-text-body);
+      border: none; margin: 0; padding: 0; font-style: italic;
+    }
+    .testimonial-author strong {
+      font-weight: 400; font-size: 16px; color: var(--color-text);
+    }
+    .testimonial-author span {
+      font-size: 14px; color: var(--color-text-secondary); display: block;
+    }
+    .testimonial-result {
+      font-size: 14px; color: var(--color-accent); font-weight: 400;
+    }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; }
+    .step { border-top: 1px solid var(--color-divider); padding: 40px 0; display: flex; gap: 40px; align-items: flex-start; }
+    .step-number {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; line-height: 30px; color: #696f7b;
+      width: 40px; height: 30px; border: 1px solid #696f7b;
+      border-radius: 11px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-content { flex: 1; }
+    .step-label {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 28px; line-height: 34px; color: #0f0f0f;
+    }
+    .step-desc {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; line-height: 24px; color: var(--color-text-body);
+      margin-top: 12px;
+    }
+
+    /* CTA Banner */
+    .cta-section { padding: 40px; }
+    .cta-banner {
+      max-width: 1460px; margin: 0 auto;
+      border-radius: 16px; overflow: hidden;
+      min-height: 500px; display: flex;
+      align-items: center; justify-content: center;
+      background:
+        linear-gradient(180deg, rgba(242,237,225,0) 5%, rgba(255,240,222,0.2) 33%, rgba(255,174,83,0.5) 79%, rgb(255,116,56) 99%),
+        linear-gradient(180deg, rgb(250,249,247) 4%, rgb(255,240,222) 70%, rgba(239,129,82,0.6) 94%);
+    }
+    .cta-card {
+      background: rgba(0,0,0,0.85); border-radius: 16px;
+      padding: 60px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 30px;
+      max-width: 440px;
+    }
+    .cta-card-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 48px; line-height: 52px; color: #fff;
+    }
+    .cta-card-sub {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 16px; color: rgba(255,255,255,0.7);
+    }
+
+    /* Footer */
+    .footer { padding: 60px 40px 40px; }
+    .footer-inner {
+      max-width: var(--max-width); margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .footer-brand p {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 14px; color: var(--color-text-secondary);
+      margin-top: 12px; max-width: 300px;
+    }
+    .footer-links { display: flex; gap: 60px; }
+    .footer-menu-title {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 14px; color: #0f0f0f;
+      margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .footer-menu a {
+      display: block;
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 14px; color: #696f7b; text-decoration: none;
+      margin-bottom: 10px;
+    }
+    .footer-divider { border: none; border-top: 1px solid #e6e6e6; margin: 40px 0 20px; }
+    .footer-copyright {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 14px; color: #696f7b;
+      max-width: var(--max-width); margin: 0 auto;
+    }
+
+    /* Blockquote highlight */
+    .quote-highlight {
+      background: var(--color-bg-warm);
+      border-left: 4px solid var(--color-accent);
+      padding: 40px 48px;
+      border-radius: 0 10px 10px 0;
+      max-width: 800px; margin: 0 auto;
+    }
+    .quote-highlight blockquote {
+      font-family: 'STK Miso', sans-serif; font-weight: 300;
+      font-size: 24px; line-height: 34px; color: var(--color-text);
+      font-style: italic;
+    }
+    .quote-highlight cite {
+      font-family: 'STK Miso', sans-serif; font-weight: 400;
+      font-size: 16px; color: var(--color-text-secondary);
+      display: block; margin-top: 16px; font-style: normal;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .metrics-row { grid-template-columns: repeat(2, 1fr); }
+      .split-header { flex-direction: column; gap: 24px; }
+      .footer-inner { flex-direction: column; gap: 40px; }
+      .section { padding: 80px 20px; }
+    }
+    @media (max-width: 768px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .metrics-row { grid-template-columns: 1fr; }
+      .hero-title { font-size: 44px; line-height: 48px; }
+      .section-title { font-size: 36px; line-height: 40px; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; max-width: 320px; text-align: center; }
+      .header { left: 10px; right: 10px; top: 10px; }
+      .cta-card { width: 90%; padding: 40px 24px; }
+      .cta-card-title { font-size: 36px; line-height: 40px; }
+      .step { flex-direction: column; gap: 16px; }
+      .quote-highlight { padding: 24px 28px; }
+      .quote-highlight blockquote { font-size: 20px; line-height: 28px; }
+      .footer-links { flex-direction: column; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="https://base44.com"><img src="logo.png" alt="Base44" style="height:30px" /></a>
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="https://base44.com/login" class="btn-login">Log in</a>
+      <a href="https://base44.com" class="btn-cta-green">Start Building</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="ticker">Case Study: Education</div>
+    <h1 class="hero-title">Students Ship Real Products, Not Figma Mockups</h1>
+    <p class="hero-subtitle">Professors at universities across North America use Base44 to turn 24-hour hackathons and semester projects into working apps their students actually ship.</p>
+    <div class="hero-buttons">
+      <a href="https://base44.com" class="btn-primary">Start Building Free</a>
+      <a href="#story" class="btn-secondary">Read the Story</a>
+    </div>
+    <p class="hero-trust">1.3M+ education apps built on Base44 &nbsp;|&nbsp; 3.8M+ builders worldwide</p>
+  </section>
+
+  <!-- METRICS -->
+  <section class="section" style="background:var(--color-bg-warm)">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-eyebrow">Results</p>
+        <h2 class="section-title">The numbers speak for themselves</h2>
+      </div>
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-number">5</div>
+          <div class="metric-label">Prompts to beat a full Figma+Make workflow</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">24hrs</div>
+          <div class="metric-label">Hackathon students ship real products</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">871K</div>
+          <div class="metric-label">Unique builders in education category</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">30.9%</div>
+          <div class="metric-label">Education apps that get deployed live</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE STORY -->
+  <section class="section" id="story">
+    <div class="section-inner">
+      <div class="split-header">
+        <div class="split-header-title">The Problem</div>
+        <div class="split-header-desc">Hackathons used to end with slide decks. Now they end with live products.</div>
+      </div>
+      <div class="grid-3">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Figma mockups go nowhere</h3>
+          <p class="feature-card-desc">Students spend 24 hours designing screens that never become real products. The hackathon ends, the Figma link goes stale, and the idea dies.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Technical barriers block creativity</h3>
+          <p class="feature-card-desc">Non-technical students have ideas but can't build. Technical students spend all their time on boilerplate instead of the actual product.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">No bridge from classroom to market</h3>
+          <p class="feature-card-desc">Traditional curricula teach theory. Students graduate with portfolios of mockups but zero shipped products. The gap between "learned to build" and "actually built" stays wide.</p>
+        </div>
+      </div>
+      <p class="agitation-text">A professor in Canada decided to test something different. Same project, three approaches: Gemini, Figma+Make, and Base44.</p>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="section" style="background:var(--color-bg-warm);padding-top:60px;padding-bottom:60px">
+    <div class="section-inner">
+      <div class="quote-highlight">
+        <blockquote>"Base44 achieved more in 5 prompts than the Figma approach did in a full workflow. My students now use it like Canva to create functional MVPs."</blockquote>
+        <cite>College Professor, Canada &mdash; Uses Base44 for 24-hour hackathons</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE: WHAT CHANGED -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-eyebrow">What Changed</p>
+        <h2 class="section-title">From mockups to shipped products in one semester</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-number">01</div>
+          <div>
+            <h3 class="card-title">Students ship, not just present</h3>
+            <p class="card-description">Technical students who used to show mockups now launch real businesses from their hackathon projects. The finish line moved from "demo day" to "first paying customer."</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-number">02</div>
+          <div>
+            <h3 class="card-title">Non-coders build alongside coders</h3>
+            <p class="card-description">Design students, business majors, and liberal arts students build working prototypes for local businesses. Base44 works like Canva for apps.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-number">03</div>
+          <div>
+            <h3 class="card-title">Every class becomes a pipeline</h3>
+            <p class="card-description">One professor plans to create an "app factory" at their university. Each graduating class produces apps that serve real communities and each student becomes a potential builder on the platform.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="section" style="background:var(--color-bg-warm)">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-eyebrow">From Educators</p>
+        <h2 class="section-title">What professors are building</h2>
+      </div>
+      <div class="grid-3">
+        <div class="testimonial-card">
+          <blockquote class="testimonial-quote">"Coders who insist on doing everything from scratch are a dying breed. Tools like this can complete tasks in two weeks that take three months without them."</blockquote>
+          <div class="testimonial-author">
+            <strong>College Educator</strong>
+            <span>Canada</span>
+          </div>
+          <p class="testimonial-result">Students launch businesses from hackathons</p>
+        </div>
+        <div class="testimonial-card">
+          <blockquote class="testimonial-quote">"I want to create an app factory at my university using Base44. Students are already building diabetes education apps, family heirloom platforms, and design prototypes."</blockquote>
+          <div class="testimonial-author">
+            <strong>Professor of Industrial Design</strong>
+            <span>Iowa, USA</span>
+          </div>
+          <p class="testimonial-result">Planning university-wide app factory</p>
+        </div>
+        <div class="testimonial-card">
+          <blockquote class="testimonial-quote">"Base44 expedited a process that would have typically taken 1.5 to 2 years as a single developer. My initial skepticism quickly turned to conviction."</blockquote>
+          <div class="testimonial-author">
+            <strong>35-Year Programmer</strong>
+            <span>Enterprise Builder</span>
+          </div>
+          <p class="testimonial-result">$150K/year equivalent app value</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFORMATION -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-eyebrow">Timeline</p>
+        <h2 class="section-title">What happens when you bring Base44 to your campus</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3 class="step-label">Day 1: Your first class builds something real</h3>
+            <p class="step-desc">Students describe an app in natural language. Base44 generates working code. By the end of the session, every student has a functional prototype they can share with a link.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3 class="step-label">Week 1: Hackathon projects go live</h3>
+            <p class="step-desc">Instead of presenting slides, teams ship working products. Judges evaluate apps people can actually use. The best projects keep running after the event ends.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3 class="step-label">Month 1: Students build for real clients</h3>
+            <p class="step-desc">Design students prototype for local businesses. CS students build side projects with actual users. Business students validate ideas with working MVPs instead of pitch decks.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <h3 class="step-label">Semester end: Graduates ship, not just interview</h3>
+            <p class="step-desc">Your students leave with live apps in their portfolios, not screenshots. Some have paying users. Each graduating class adds builders to a growing campus community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECONDARY CTA -->
+  <section class="cta-section">
+    <div class="cta-banner">
+      <div class="cta-card">
+        <h2 class="cta-card-title">Bring Base44 to your campus</h2>
+        <a href="https://base44.com" class="btn-primary" style="background:#fff;color:#0f0f0f">Start Building Free</a>
+        <p class="cta-card-sub">Free to start. No credit card. Students and educators build on the same platform used by 3.8M+ builders worldwide.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="logo.png" alt="Base44" style="height:24px" />
+        <p>The platform where builders ship. From hackathon prototypes to production apps.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-menu">
+          <h4 class="footer-menu-title">Product</h4>
+          <a href="https://base44.com">Platform</a>
+          <a href="https://base44.com/templates">Templates</a>
+          <a href="https://docs.base44.com">Docs</a>
+        </div>
+        <div class="footer-menu">
+          <h4 class="footer-menu-title">Company</h4>
+          <a href="https://base44.com/about">About</a>
+          <a href="https://base44.com/blog">Blog</a>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <p class="footer-copyright">&copy; 2026 Base44. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

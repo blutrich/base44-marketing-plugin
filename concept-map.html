@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept Map Explorer</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1a1a2e;
+    --surface: #16213e;
+    --surface2: #0f3460;
+    --border: #2a2a4a;
+    --text: #e0e0e0;
+    --text-dim: #8888aa;
+    --accent: #e94560;
+    --accent2: #0f9b8e;
+    --know: #0f9b8e;
+    --fuzzy: #e9a045;
+    --unknown: #e94560;
+    --edge-calls: #5588cc;
+    --edge-depends: #cc8855;
+    --edge-contains: #88cc55;
+    --edge-reads: #cc55aa;
+    --edge-triggers: #55cccc;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  header {
+    grid-column: 1 / -1;
+    padding: 12px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  header h1 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  header .mode-indicator {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    background: var(--surface2);
+    color: var(--text-dim);
+  }
+
+  header .mode-indicator.active {
+    background: var(--accent);
+    color: white;
+  }
+
+  .canvas-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+  }
+
+  canvas.connecting { cursor: crosshair; }
+  canvas.dragging { cursor: grabbing; }
+
+  .tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    max-width: 220px;
+    display: none;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+
+  .tooltip .tt-name { font-weight: 600; margin-bottom: 4px; }
+  .tooltip .tt-desc { color: var(--text-dim); line-height: 1.4; }
+
+  .sidebar {
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .sidebar section {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar section h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .preset-btn {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .preset-btn:hover {
+    border-color: var(--accent2);
+    color: var(--text);
+  }
+
+  .preset-btn.active {
+    border-color: var(--accent2);
+    background: var(--accent2);
+    color: white;
+  }
+
+  .edge-type-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .edge-type-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.15s;
+  }
+
+  .edge-type-btn:hover { background: var(--bg); }
+
+  .edge-type-btn.active {
+    border-color: var(--border);
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .edge-type-btn .swatch {
+    width: 14px;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  .node-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .node-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .node-item:hover { background: var(--bg); }
+
+  .node-item .knowledge-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .node-item .knowledge-dot.know { background: var(--know); }
+  .node-item .knowledge-dot.fuzzy { background: var(--fuzzy); }
+  .node-item .knowledge-dot.unknown { background: var(--unknown); }
+
+  .node-item .node-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .node-item .visibility-toggle {
+    opacity: 0.4;
+    cursor: pointer;
+    font-size: 10px;
+  }
+
+  .node-item .visibility-toggle.hidden { opacity: 0.15; }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .action-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .action-btn:hover {
+    border-color: var(--text-dim);
+    color: var(--text);
+  }
+
+  .action-btn.danger:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .legend-item .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .prompt-area {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    max-height: 160px;
+  }
+
+  .prompt-text {
+    flex: 1;
+    font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    overflow-y: auto;
+    max-height: 136px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--accent2);
+    background: transparent;
+    color: var(--accent2);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover {
+    background: var(--accent2);
+    color: white;
+  }
+
+  .copy-btn.copied {
+    background: var(--accent2);
+    color: white;
+  }
+
+  .instructions {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .instructions kbd {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    font-family: inherit;
+    font-size: 10px;
+  }
+
+  .add-node-form {
+    display: flex;
+    gap: 4px;
+  }
+
+  .add-node-form input {
+    flex: 1;
+    padding: 5px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 12px;
+    outline: none;
+  }
+
+  .add-node-form input:focus {
+    border-color: var(--accent2);
+  }
+
+  .add-node-form button {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--accent2);
+    background: var(--accent2);
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .node-list::-webkit-scrollbar,
+  .sidebar::-webkit-scrollbar,
+  .prompt-text::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .node-list::-webkit-scrollbar-track,
+  .sidebar::-webkit-scrollbar-track,
+  .prompt-text::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .node-list::-webkit-scrollbar-thumb,
+  .sidebar::-webkit-scrollbar-thumb,
+  .prompt-text::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Concept Map Explorer</h1>
+  <span class="mode-indicator" id="modeLabel">Drag mode</span>
+  <span class="instructions">
+    <kbd>Click</kbd> drag nodes &nbsp;
+    <kbd>Shift+Click</kbd> node to start edge &nbsp;
+    <kbd>Dbl-click</kbd> canvas to add node &nbsp;
+    <kbd>Right-click</kbd> node/edge to delete
+  </span>
+</header>
+
+<div class="canvas-wrap">
+  <canvas id="canvas"></canvas>
+  <div class="tooltip" id="tooltip">
+    <div class="tt-name"></div>
+    <div class="tt-desc"></div>
+  </div>
+</div>
+
+<div class="sidebar">
+  <section>
+    <h3>Presets</h3>
+    <div class="presets" id="presets"></div>
+  </section>
+
+  <section>
+    <h3>Connection Type</h3>
+    <div class="edge-type-selector" id="edgeTypes"></div>
+  </section>
+
+  <section>
+    <h3>Knowledge Legend</h3>
+    <div class="legend">
+      <div class="legend-item"><div class="dot" style="background:var(--know)"></div> Know</div>
+      <div class="legend-item"><div class="dot" style="background:var(--fuzzy)"></div> Fuzzy</div>
+      <div class="legend-item"><div class="dot" style="background:var(--unknown)"></div> Unknown</div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Nodes</h3>
+    <div class="node-list" id="nodeList"></div>
+  </section>
+
+  <section>
+    <h3>Add Node</h3>
+    <div class="add-node-form">
+      <input type="text" id="newNodeName" placeholder="Node name...">
+      <button onclick="addNodeFromInput()">+</button>
+    </div>
+  </section>
+
+  <section>
+    <h3>Actions</h3>
+    <div class="actions">
+      <button class="action-btn" onclick="autoLayout()">Auto-layout</button>
+      <button class="action-btn" onclick="resetKnowledge()">Reset knowledge</button>
+      <button class="action-btn danger" onclick="clearEdges()">Clear edges</button>
+      <button class="action-btn danger" onclick="resetAll()">Reset all</button>
+    </div>
+  </section>
+</div>
+
+<div class="prompt-area">
+  <div class="prompt-text" id="promptOutput">Adjust knowledge levels and draw connections to generate a learning prompt.</div>
+  <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">Copy</button>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+
+const EDGE_TYPES = [
+  { id: 'calls',      label: 'calls',       color: '#5588cc' },
+  { id: 'depends',    label: 'depends on',   color: '#cc8855' },
+  { id: 'contains',   label: 'contains',     color: '#88cc55' },
+  { id: 'reads',      label: 'reads from',   color: '#cc55aa' },
+  { id: 'triggers',   label: 'triggers',     color: '#55cccc' },
+];
+
+const KNOWLEDGE = ['know', 'fuzzy', 'unknown'];
+const K_COLORS = { know: '#0f9b8e', fuzzy: '#e9a045', unknown: '#e94560' };
+
+let nodes = [];
+let edges = [];
+let selectedEdgeType = 'calls';
+let connectingFrom = null;
+let dragNode = null;
+let dragOffset = { x: 0, y: 0 };
+let hoverNode = null;
+let hoverEdge = null;
+
+// ── Default data: marketing plugin concepts ────────────────────────────────
+
+const DEFAULT_NODES = [
+  { id: 'router',       name: 'Marketing Router',     desc: 'Entry point that routes all requests to specialized agents', knowledge: 'fuzzy' },
+  { id: 'planner',      name: 'Planner Agent',        desc: 'Plans multi-channel marketing campaigns', knowledge: 'fuzzy' },
+  { id: 'brand-guard',  name: 'Brand Guardian',       desc: 'Reviews all content for brand consistency before delivery', knowledge: 'fuzzy' },
+  { id: 'linkedin',     name: 'LinkedIn Specialist',  desc: 'Creates viral LinkedIn content with brand voice', knowledge: 'fuzzy' },
+  { id: 'x-spec',       name: 'X Specialist',         desc: 'Creates viral X/Twitter content with brand voice', knowledge: 'fuzzy' },
+  { id: 'seo',          name: 'SEO Specialist',       desc: 'Creates search-optimized and AI-citation-optimized content', knowledge: 'fuzzy' },
+  { id: 'copywriter',   name: 'Copywriter',           desc: 'Direct response and conversion copy specialist', knowledge: 'fuzzy' },
+  { id: 'ad-spec',      name: 'Ad Specialist',        desc: 'Paid ad creative for Meta, LinkedIn, Reddit', knowledge: 'fuzzy' },
+  { id: 'video',        name: 'Video Specialist',     desc: 'Creates marketing videos using Remotion', knowledge: 'fuzzy' },
+  { id: 'tone',         name: 'Tone of Voice',        desc: 'Brand voice guidelines and personality', knowledge: 'fuzzy' },
+  { id: 'brand-sys',    name: 'Brand System',         desc: 'Visual identity, colors, typography, logos', knowledge: 'fuzzy' },
+  { id: 'hooks',        name: 'Hook Rules',           desc: 'Viral content hook patterns and banned patterns', knowledge: 'fuzzy' },
+  { id: 'psychology',   name: 'Marketing Psychology', desc: '71 cognitive biases and persuasion principles', knowledge: 'fuzzy' },
+  { id: 'content-lib',  name: 'Content Library',      desc: 'CTAs, hooks, objection handling, value props', knowledge: 'fuzzy' },
+  { id: 'templates',    name: 'Templates',            desc: 'Platform-specific content templates', knowledge: 'fuzzy' },
+  { id: 'brand-mem',    name: 'Brand Memory',         desc: 'Persists patterns, feedback, improvements across sessions', knowledge: 'fuzzy' },
+  { id: 'nano',         name: 'Nano Banana',          desc: 'AI image generation with Google Imagen 3', knowledge: 'fuzzy' },
+  { id: 'remotion',     name: 'Remotion Engine',      desc: 'React-based video creation framework', knowledge: 'fuzzy' },
+];
+
+const DEFAULT_EDGES = [
+  { from: 'router',      to: 'planner',     type: 'calls' },
+  { from: 'router',      to: 'linkedin',    type: 'calls' },
+  { from: 'router',      to: 'x-spec',      type: 'calls' },
+  { from: 'router',      to: 'seo',         type: 'calls' },
+  { from: 'router',      to: 'copywriter',  type: 'calls' },
+  { from: 'router',      to: 'ad-spec',     type: 'calls' },
+  { from: 'router',      to: 'video',       type: 'calls' },
+  { from: 'router',      to: 'brand-guard', type: 'triggers' },
+  { from: 'planner',     to: 'router',      type: 'triggers' },
+  { from: 'brand-guard', to: 'tone',        type: 'reads' },
+  { from: 'brand-guard', to: 'brand-sys',   type: 'reads' },
+  { from: 'linkedin',    to: 'hooks',       type: 'reads' },
+  { from: 'linkedin',    to: 'content-lib', type: 'reads' },
+  { from: 'linkedin',    to: 'templates',   type: 'reads' },
+  { from: 'linkedin',    to: 'psychology',  type: 'reads' },
+  { from: 'x-spec',      to: 'hooks',       type: 'reads' },
+  { from: 'x-spec',      to: 'templates',   type: 'reads' },
+  { from: 'copywriter',  to: 'psychology',  type: 'reads' },
+  { from: 'copywriter',  to: 'content-lib', type: 'reads' },
+  { from: 'ad-spec',     to: 'nano',        type: 'calls' },
+  { from: 'video',       to: 'remotion',    type: 'depends' },
+  { from: 'brand-mem',   to: 'tone',        type: 'reads' },
+  { from: 'brand-mem',   to: 'brand-sys',   type: 'reads' },
+  { from: 'seo',         to: 'content-lib', type: 'reads' },
+  { from: 'seo',         to: 'templates',   type: 'reads' },
+];
+
+const PRESETS = [
+  {
+    id: 'all',
+    label: 'Show All',
+    filter: () => true,
+  },
+  {
+    id: 'agents',
+    label: 'Agents Only',
+    filter: n => ['router','planner','brand-guard','linkedin','x-spec','seo','copywriter','ad-spec','video'].includes(n.id),
+  },
+  {
+    id: 'content-flow',
+    label: 'Content Flow',
+    filter: n => ['router','linkedin','x-spec','seo','copywriter','hooks','content-lib','templates','psychology'].includes(n.id),
+  },
+  {
+    id: 'brand',
+    label: 'Brand System',
+    filter: n => ['brand-guard','tone','brand-sys','content-lib','templates','brand-mem'].includes(n.id),
+  },
+  {
+    id: 'media',
+    label: 'Rich Media',
+    filter: n => ['ad-spec','video','nano','remotion','router'].includes(n.id),
+  },
+];
+
+// ── Init ───────────────────────────────────────────────────────────────────
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const tooltipEl = document.getElementById('tooltip');
+const modeLabel = document.getElementById('modeLabel');
+let W, H;
+
+function resize() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  W = rect.width;
+  H = rect.height;
+  canvas.width = W * devicePixelRatio;
+  canvas.height = H * devicePixelRatio;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  draw();
+}
+
+function initNodes() {
+  nodes = DEFAULT_NODES.map((n, i) => ({
+    ...n,
+    x: 0, y: 0,
+    visible: true,
+    radius: 28,
+  }));
+  edges = DEFAULT_EDGES.map(e => ({ ...e }));
+  layoutCircular();
+}
+
+function layoutCircular() {
+  const visible = nodes.filter(n => n.visible);
+  const cx = W / 2, cy = H / 2;
+  const r = Math.min(W, H) * 0.36;
+  visible.forEach((n, i) => {
+    const a = (i / visible.length) * Math.PI * 2 - Math.PI / 2;
+    n.x = cx + r * Math.cos(a);
+    n.y = cy + r * Math.sin(a);
+  });
+}
+
+// ── Drawing ────────────────────────────────────────────────────────────────
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Draw grid
+  ctx.strokeStyle = '#ffffff08';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 40) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = 0; y < H; y += 40) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  // Draw edges
+  const visibleIds = new Set(nodes.filter(n => n.visible).map(n => n.id));
+  edges.forEach(e => {
+    if (!visibleIds.has(e.from) || !visibleIds.has(e.to)) return;
+    const a = nodes.find(n => n.id === e.from);
+    const b = nodes.find(n => n.id === e.to);
+    drawEdge(a, b, e);
+  });
+
+  // Draw connecting line
+  if (connectingFrom && mousePos) {
+    const a = connectingFrom;
+    ctx.beginPath();
+    ctx.strokeStyle = getEdgeColor(selectedEdgeType) + '88';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 4]);
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(mousePos.x, mousePos.y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Draw nodes
+  nodes.forEach(n => {
+    if (!n.visible) return;
+    drawNode(n);
+  });
+}
+
+function drawNode(n) {
+  const isHover = hoverNode === n;
+  const r = n.radius + (isHover ? 3 : 0);
+
+  // Glow
+  if (isHover) {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, r + 8, 0, Math.PI * 2);
+    ctx.fillStyle = K_COLORS[n.knowledge] + '15';
+    ctx.fill();
+  }
+
+  // Circle
+  ctx.beginPath();
+  ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fill();
+  ctx.strokeStyle = K_COLORS[n.knowledge];
+  ctx.lineWidth = isHover ? 3 : 2;
+  ctx.stroke();
+
+  // Inner fill based on knowledge
+  ctx.beginPath();
+  ctx.arc(n.x, n.y, r - 3, 0, Math.PI * 2);
+  ctx.fillStyle = K_COLORS[n.knowledge] + '18';
+  ctx.fill();
+
+  // Label
+  ctx.fillStyle = var_text();
+  ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const words = n.name.split(' ');
+  if (words.length <= 2) {
+    ctx.fillText(n.name, n.x, n.y, r * 1.7);
+  } else {
+    const mid = Math.ceil(words.length / 2);
+    const line1 = words.slice(0, mid).join(' ');
+    const line2 = words.slice(mid).join(' ');
+    ctx.fillText(line1, n.x, n.y - 6, r * 1.7);
+    ctx.fillText(line2, n.x, n.y + 7, r * 1.7);
+  }
+
+  // Connecting-from indicator
+  if (connectingFrom === n) {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, r + 5, 0, Math.PI * 2);
+    ctx.strokeStyle = getEdgeColor(selectedEdgeType) + '66';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+}
+
+function drawEdge(a, b, e) {
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  if (dist === 0) return;
+
+  const ux = dx / dist;
+  const uy = dy / dist;
+
+  const x1 = a.x + ux * a.radius;
+  const y1 = a.y + uy * a.radius;
+  const x2 = b.x - ux * b.radius;
+  const y2 = b.y - uy * b.radius;
+
+  const isHover = hoverEdge === e;
+  const color = getEdgeColor(e.type);
+
+  // Line
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.strokeStyle = isHover ? color : color + '88';
+  ctx.lineWidth = isHover ? 3 : 1.5;
+  ctx.stroke();
+
+  // Arrow
+  const arrowLen = 10;
+  const arrowAngle = Math.PI / 7;
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - arrowLen * Math.cos(angle - arrowAngle), y2 - arrowLen * Math.sin(angle - arrowAngle));
+  ctx.lineTo(x2 - arrowLen * Math.cos(angle + arrowAngle), y2 - arrowLen * Math.sin(angle + arrowAngle));
+  ctx.closePath();
+  ctx.fillStyle = isHover ? color : color + '88';
+  ctx.fill();
+
+  // Label
+  const mx = (x1 + x2) / 2;
+  const my = (y1 + y2) / 2;
+  const label = EDGE_TYPES.find(t => t.id === e.type)?.label || e.type;
+  ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif';
+  ctx.fillStyle = isHover ? color : '#8888aa';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'bottom';
+
+  // Offset label to avoid line
+  const perpX = -uy * 8;
+  const perpY = ux * 8;
+  ctx.fillText(label, mx + perpX, my + perpY);
+}
+
+function getEdgeColor(type) {
+  return EDGE_TYPES.find(t => t.id === type)?.color || '#888';
+}
+
+function var_text() { return '#e0e0e0'; }
+
+// ── Hit testing ────────────────────────────────────────────────────────────
+
+function nodeAt(x, y) {
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const n = nodes[i];
+    if (!n.visible) continue;
+    const dx = x - n.x;
+    const dy = y - n.y;
+    if (dx * dx + dy * dy <= (n.radius + 4) * (n.radius + 4)) return n;
+  }
+  return null;
+}
+
+function edgeAt(x, y) {
+  const threshold = 8;
+  const visibleIds = new Set(nodes.filter(n => n.visible).map(n => n.id));
+  for (const e of edges) {
+    if (!visibleIds.has(e.from) || !visibleIds.has(e.to)) continue;
+    const a = nodes.find(n => n.id === e.from);
+    const b = nodes.find(n => n.id === e.to);
+    const d = pointToSegmentDist(x, y, a.x, a.y, b.x, b.y);
+    if (d < threshold) return e;
+  }
+  return null;
+}
+
+function pointToSegmentDist(px, py, x1, y1, x2, y2) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const len2 = dx * dx + dy * dy;
+  if (len2 === 0) return Math.sqrt((px - x1) ** 2 + (py - y1) ** 2);
+  let t = ((px - x1) * dx + (py - y1) * dy) / len2;
+  t = Math.max(0, Math.min(1, t));
+  const cx = x1 + t * dx, cy = y1 + t * dy;
+  return Math.sqrt((px - cx) ** 2 + (py - cy) ** 2);
+}
+
+// ── Mouse events ───────────────────────────────────────────────────────────
+
+let mousePos = null;
+
+function getMousePos(e) {
+  const rect = canvas.getBoundingClientRect();
+  return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+}
+
+canvas.addEventListener('mousedown', e => {
+  if (e.button !== 0) return;
+  const pos = getMousePos(e);
+  const n = nodeAt(pos.x, pos.y);
+
+  if (e.shiftKey && n) {
+    // Start connecting
+    if (connectingFrom && connectingFrom !== n) {
+      // Finish connection
+      const exists = edges.some(ed => ed.from === connectingFrom.id && ed.to === n.id && ed.type === selectedEdgeType);
+      if (!exists) {
+        edges.push({ from: connectingFrom.id, to: n.id, type: selectedEdgeType });
+      }
+      connectingFrom = null;
+      modeLabel.textContent = 'Drag mode';
+      modeLabel.classList.remove('active');
+      canvas.classList.remove('connecting');
+      updateAll();
+    } else {
+      connectingFrom = n;
+      modeLabel.textContent = 'Connecting from: ' + n.name;
+      modeLabel.classList.add('active');
+      canvas.classList.add('connecting');
+    }
+    return;
+  }
+
+  if (connectingFrom && n) {
+    // Finish connection without shift
+    const exists = edges.some(ed => ed.from === connectingFrom.id && ed.to === n.id && ed.type === selectedEdgeType);
+    if (!exists && connectingFrom !== n) {
+      edges.push({ from: connectingFrom.id, to: n.id, type: selectedEdgeType });
+    }
+    connectingFrom = null;
+    modeLabel.textContent = 'Drag mode';
+    modeLabel.classList.remove('active');
+    canvas.classList.remove('connecting');
+    updateAll();
+    return;
+  }
+
+  if (n) {
+    dragNode = n;
+    dragOffset.x = pos.x - n.x;
+    dragOffset.y = pos.y - n.y;
+    canvas.classList.add('dragging');
+  } else {
+    // Cancel connecting
+    if (connectingFrom) {
+      connectingFrom = null;
+      modeLabel.textContent = 'Drag mode';
+      modeLabel.classList.remove('active');
+      canvas.classList.remove('connecting');
+      draw();
+    }
+  }
+});
+
+canvas.addEventListener('mousemove', e => {
+  const pos = getMousePos(e);
+  mousePos = pos;
+
+  if (dragNode) {
+    dragNode.x = pos.x - dragOffset.x;
+    dragNode.y = pos.y - dragOffset.y;
+    draw();
+    return;
+  }
+
+  const n = nodeAt(pos.x, pos.y);
+  const prevHover = hoverNode;
+  hoverNode = n;
+
+  if (!n) {
+    hoverEdge = edgeAt(pos.x, pos.y);
+  } else {
+    hoverEdge = null;
+  }
+
+  // Tooltip
+  if (n && n.desc) {
+    tooltipEl.style.display = 'block';
+    tooltipEl.style.left = (pos.x + 16) + 'px';
+    tooltipEl.style.top = (pos.y - 10) + 'px';
+    tooltipEl.querySelector('.tt-name').textContent = n.name;
+    tooltipEl.querySelector('.tt-desc').textContent = n.desc;
+  } else {
+    tooltipEl.style.display = 'none';
+  }
+
+  if (prevHover !== hoverNode || hoverEdge) draw();
+  if (connectingFrom) draw();
+});
+
+canvas.addEventListener('mouseup', () => {
+  dragNode = null;
+  canvas.classList.remove('dragging');
+});
+
+canvas.addEventListener('mouseleave', () => {
+  mousePos = null;
+  hoverNode = null;
+  hoverEdge = null;
+  tooltipEl.style.display = 'none';
+  draw();
+});
+
+canvas.addEventListener('dblclick', e => {
+  const pos = getMousePos(e);
+  const n = nodeAt(pos.x, pos.y);
+  if (n) {
+    // Cycle knowledge on double-click
+    const idx = KNOWLEDGE.indexOf(n.knowledge);
+    n.knowledge = KNOWLEDGE[(idx + 1) % KNOWLEDGE.length];
+    updateAll();
+    return;
+  }
+
+  // Add new node at position
+  const name = prompt('Node name:');
+  if (!name) return;
+  const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  if (nodes.find(n => n.id === id)) return;
+  nodes.push({
+    id, name, desc: '', knowledge: 'fuzzy',
+    x: pos.x, y: pos.y, visible: true, radius: 28,
+  });
+  updateAll();
+});
+
+canvas.addEventListener('contextmenu', e => {
+  e.preventDefault();
+  const pos = getMousePos(e);
+  const n = nodeAt(pos.x, pos.y);
+  if (n) {
+    edges = edges.filter(ed => ed.from !== n.id && ed.to !== n.id);
+    nodes = nodes.filter(nd => nd !== n);
+    updateAll();
+    return;
+  }
+  const ed = edgeAt(pos.x, pos.y);
+  if (ed) {
+    edges = edges.filter(e2 => e2 !== ed);
+    updateAll();
+  }
+});
+
+// ── Force-directed layout ──────────────────────────────────────────────────
+
+function autoLayout() {
+  const visible = nodes.filter(n => n.visible);
+  if (visible.length === 0) return;
+
+  // Init positions near center if clustered
+  const cx = W / 2, cy = H / 2;
+  visible.forEach(n => {
+    if (n.x === 0 && n.y === 0) {
+      n.x = cx + (Math.random() - 0.5) * 200;
+      n.y = cy + (Math.random() - 0.5) * 200;
+    }
+  });
+
+  const iterations = 200;
+  const repulsion = 8000;
+  const attraction = 0.005;
+  const damping = 0.95;
+  const maxForce = 10;
+  const padding = 60;
+
+  const vel = new Map();
+  visible.forEach(n => vel.set(n.id, { x: 0, y: 0 }));
+
+  for (let iter = 0; iter < iterations; iter++) {
+    const temp = 1 - iter / iterations;
+
+    // Repulsion
+    for (let i = 0; i < visible.length; i++) {
+      for (let j = i + 1; j < visible.length; j++) {
+        const a = visible[i], b = visible[j];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        let dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const force = repulsion / (dist * dist);
+        const fx = (dx / dist) * force * temp;
+        const fy = (dy / dist) * force * temp;
+        vel.get(a.id).x -= fx;
+        vel.get(a.id).y -= fy;
+        vel.get(b.id).x += fx;
+        vel.get(b.id).y += fy;
+      }
+    }
+
+    // Attraction along edges
+    const visibleIds = new Set(visible.map(n => n.id));
+    edges.forEach(e => {
+      if (!visibleIds.has(e.from) || !visibleIds.has(e.to)) return;
+      const a = nodes.find(n => n.id === e.from);
+      const b = nodes.find(n => n.id === e.to);
+      let dx = b.x - a.x, dy = b.y - a.y;
+      let dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const force = dist * attraction * temp;
+      const fx = (dx / dist) * force;
+      const fy = (dy / dist) * force;
+      vel.get(a.id).x += fx;
+      vel.get(a.id).y += fy;
+      vel.get(b.id).x -= fx;
+      vel.get(b.id).y -= fy;
+    });
+
+    // Center gravity
+    visible.forEach(n => {
+      const v = vel.get(n.id);
+      v.x += (cx - n.x) * 0.001 * temp;
+      v.y += (cy - n.y) * 0.001 * temp;
+    });
+
+    // Apply with damping
+    visible.forEach(n => {
+      const v = vel.get(n.id);
+      v.x = Math.max(-maxForce, Math.min(maxForce, v.x * damping));
+      v.y = Math.max(-maxForce, Math.min(maxForce, v.y * damping));
+      n.x += v.x;
+      n.y += v.y;
+      n.x = Math.max(padding, Math.min(W - padding, n.x));
+      n.y = Math.max(padding, Math.min(H - padding, n.y));
+    });
+  }
+
+  draw();
+}
+
+// ── Sidebar rendering ──────────────────────────────────────────────────────
+
+function renderPresets() {
+  const el = document.getElementById('presets');
+  el.innerHTML = PRESETS.map(p =>
+    `<button class="preset-btn" data-id="${p.id}">${p.label}</button>`
+  ).join('');
+
+  el.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const preset = PRESETS.find(p => p.id === btn.dataset.id);
+      el.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      nodes.forEach(n => { n.visible = preset.filter(n); });
+      updateAll();
+    });
+  });
+}
+
+function renderEdgeTypes() {
+  const el = document.getElementById('edgeTypes');
+  el.innerHTML = EDGE_TYPES.map(t =>
+    `<button class="edge-type-btn ${t.id === selectedEdgeType ? 'active' : ''}" data-id="${t.id}">
+      <span class="swatch" style="background:${t.color}"></span>
+      ${t.label}
+    </button>`
+  ).join('');
+
+  el.querySelectorAll('.edge-type-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedEdgeType = btn.dataset.id;
+      el.querySelectorAll('.edge-type-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+}
+
+function renderNodeList() {
+  const el = document.getElementById('nodeList');
+  el.innerHTML = nodes.map(n =>
+    `<div class="node-item" data-id="${n.id}">
+      <div class="knowledge-dot ${n.knowledge}" title="Click to cycle: know / fuzzy / unknown"></div>
+      <span class="node-label">${n.name}</span>
+      <span class="visibility-toggle ${n.visible ? '' : 'hidden'}" title="Toggle visibility">${n.visible ? 'o' : '-'}</span>
+    </div>`
+  ).join('');
+
+  el.querySelectorAll('.knowledge-dot').forEach(dot => {
+    dot.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = dot.parentElement.dataset.id;
+      const node = nodes.find(n => n.id === id);
+      const idx = KNOWLEDGE.indexOf(node.knowledge);
+      node.knowledge = KNOWLEDGE[(idx + 1) % KNOWLEDGE.length];
+      updateAll();
+    });
+  });
+
+  el.querySelectorAll('.visibility-toggle').forEach(tog => {
+    tog.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = tog.parentElement.dataset.id;
+      const node = nodes.find(n => n.id === id);
+      node.visible = !node.visible;
+      updateAll();
+    });
+  });
+
+  el.querySelectorAll('.node-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const id = item.dataset.id;
+      const node = nodes.find(n => n.id === id);
+      if (node && node.visible) {
+        // Pan to node (just highlight it)
+        hoverNode = node;
+        draw();
+        setTimeout(() => { hoverNode = null; draw(); }, 1000);
+      }
+    });
+  });
+}
+
+// ── Prompt generation ──────────────────────────────────────────────────────
+
+function updatePrompt() {
+  const known = nodes.filter(n => n.visible && n.knowledge === 'know');
+  const fuzzy = nodes.filter(n => n.visible && n.knowledge === 'fuzzy');
+  const unknown = nodes.filter(n => n.visible && n.knowledge === 'unknown');
+  const visibleIds = new Set(nodes.filter(n => n.visible).map(n => n.id));
+
+  const drawnEdges = edges.filter(e => visibleIds.has(e.from) && visibleIds.has(e.to));
+
+  if (fuzzy.length === 0 && unknown.length === 0 && drawnEdges.length === 0) {
+    document.getElementById('promptOutput').textContent =
+      'Mark some nodes as "fuzzy" or "unknown" and draw connections to generate a learning prompt.';
+    return;
+  }
+
+  const parts = [];
+  parts.push("I'm exploring the Base44 marketing plugin architecture.");
+
+  if (known.length > 0) {
+    parts.push(`\nI already understand: ${known.map(n => n.name).join(', ')}.`);
+  }
+
+  if (fuzzy.length > 0) {
+    parts.push(`\nI'm fuzzy on: ${fuzzy.map(n => n.name).join(', ')}.`);
+  }
+
+  if (unknown.length > 0) {
+    parts.push(`\nI have no idea about: ${unknown.map(n => n.name).join(', ')}.`);
+  }
+
+  if (drawnEdges.length > 0) {
+    const edgeDescs = drawnEdges.map(e => {
+      const a = nodes.find(n => n.id === e.from);
+      const b = nodes.find(n => n.id === e.to);
+      const label = EDGE_TYPES.find(t => t.id === e.type)?.label || e.type;
+      return `${a.name} ${label} ${b.name}`;
+    });
+    parts.push(`\nHere are the relationships I want to understand:\n${edgeDescs.map(d => `- ${d}`).join('\n')}`);
+  }
+
+  if (fuzzy.length > 0 || unknown.length > 0) {
+    parts.push(`\nPlease explain the ${[
+      fuzzy.length > 0 ? 'fuzzy' : '',
+      unknown.length > 0 ? 'unknown' : ''
+    ].filter(Boolean).join(' and ')} concepts, focusing on the relationships above. Build on what I already know. Use concrete examples and file references from the plugin structure.`);
+  }
+
+  document.getElementById('promptOutput').textContent = parts.join('');
+}
+
+// ── Actions ────────────────────────────────────────────────────────────────
+
+function resetKnowledge() {
+  nodes.forEach(n => { n.knowledge = 'fuzzy'; });
+  updateAll();
+}
+
+function clearEdges() {
+  edges = [];
+  updateAll();
+}
+
+function resetAll() {
+  initNodes();
+  resize();
+  updateAll();
+}
+
+function addNodeFromInput() {
+  const input = document.getElementById('newNodeName');
+  const name = input.value.trim();
+  if (!name) return;
+  const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  if (nodes.find(n => n.id === id)) { input.value = ''; return; }
+  nodes.push({
+    id, name, desc: '', knowledge: 'fuzzy',
+    x: W / 2 + (Math.random() - 0.5) * 100,
+    y: H / 2 + (Math.random() - 0.5) * 100,
+    visible: true, radius: 28,
+  });
+  input.value = '';
+  updateAll();
+}
+
+document.getElementById('newNodeName').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addNodeFromInput();
+});
+
+function copyPrompt() {
+  const text = document.getElementById('promptOutput').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+// ── Update all ─────────────────────────────────────────────────────────────
+
+function updateAll() {
+  renderNodeList();
+  updatePrompt();
+  draw();
+}
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+
+renderPresets();
+renderEdgeTypes();
+window.addEventListener('resize', resize);
+resize();          // sets W, H first
+initNodes();       // now layoutCircular() has valid dimensions
+autoLayout();
+updateAll();
+
+// Activate "Show All" preset by default
+document.querySelector('.preset-btn[data-id="all"]')?.classList.add('active');
+</script>
+</body>
+</html>

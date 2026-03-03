@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shay Summary Review — Jan 21 to Feb 17</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #0d1117;
+    color: #c9d1d9;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  header {
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  header h1 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e6edf3;
+  }
+
+  header .stats {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+  }
+
+  .stat { display: flex; align-items: center; gap: 5px; }
+  .stat .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .dot-pending { background: #bf8700; }
+  .dot-approved { background: #1a7f37; }
+  .dot-rejected { background: #cf222e; }
+
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Document panel */
+  .doc-panel {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 0;
+    border-right: 1px solid #30363d;
+  }
+
+  .doc-line {
+    display: flex;
+    padding: 1px 16px 1px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    border-left: 3px solid transparent;
+    cursor: default;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .doc-line:hover { background: rgba(110, 118, 129, 0.06); }
+
+  .doc-line.has-suggestion {
+    border-left-color: #bf8700;
+    background: rgba(191, 135, 0, 0.06);
+    cursor: pointer;
+  }
+  .doc-line.has-suggestion:hover {
+    background: rgba(191, 135, 0, 0.12);
+  }
+
+  .doc-line.approved {
+    border-left-color: #1a7f37;
+    background: rgba(26, 127, 55, 0.06);
+  }
+  .doc-line.approved:hover {
+    background: rgba(26, 127, 55, 0.12);
+  }
+
+  .doc-line.rejected {
+    border-left-color: #cf222e;
+    background: rgba(207, 34, 46, 0.06);
+    opacity: 0.5;
+  }
+
+  .doc-line.active-highlight {
+    background: rgba(56, 139, 253, 0.12) !important;
+    border-left-color: #388bfd !important;
+  }
+
+  .line-num {
+    width: 40px;
+    min-width: 40px;
+    text-align: right;
+    color: #484f58;
+    font-size: 12px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    padding-right: 12px;
+    user-select: none;
+  }
+
+  .line-content {
+    flex: 1;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .line-content h1 { font-size: 20px; color: #e6edf3; font-weight: 700; margin: 8px 0 4px; }
+  .line-content h2 { font-size: 16px; color: #e6edf3; font-weight: 600; margin: 6px 0 2px; }
+  .line-content h3 { font-size: 14px; color: #e6edf3; font-weight: 600; margin: 4px 0 2px; }
+  .line-content strong { color: #e6edf3; }
+  .line-content code {
+    background: #1c2128;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'SF Mono', monospace;
+    font-size: 12px;
+  }
+  .line-content a { color: #58a6ff; text-decoration: none; }
+  .line-content a:hover { text-decoration: underline; }
+
+  .table-line {
+    font-family: 'SF Mono', monospace;
+    font-size: 12px;
+    color: #8b949e;
+  }
+
+  .hr-line {
+    border-bottom: 1px solid #21262d;
+    margin: 4px 0;
+  }
+
+  /* Suggestions panel */
+  .suggestions-panel {
+    width: 380px;
+    min-width: 380px;
+    display: flex;
+    flex-direction: column;
+    background: #161b22;
+    overflow: hidden;
+  }
+
+  .filter-tabs {
+    display: flex;
+    border-bottom: 1px solid #30363d;
+    padding: 0 12px;
+    flex-shrink: 0;
+  }
+
+  .filter-tab {
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #8b949e;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .filter-tab:hover { color: #c9d1d9; }
+  .filter-tab.active {
+    color: #e6edf3;
+    border-bottom-color: #388bfd;
+  }
+
+  .filter-tab .count {
+    background: #30363d;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  .suggestions-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+  }
+
+  .suggestion-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .suggestion-card:hover {
+    border-color: #484f58;
+  }
+
+  .suggestion-card.active {
+    border-color: #388bfd;
+    box-shadow: 0 0 0 1px #388bfd;
+  }
+
+  .suggestion-card.status-approved {
+    border-left: 3px solid #1a7f37;
+  }
+  .suggestion-card.status-rejected {
+    border-left: 3px solid #cf222e;
+    opacity: 0.6;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .card-line-ref {
+    font-size: 11px;
+    color: #8b949e;
+    font-family: 'SF Mono', monospace;
+  }
+
+  .card-category {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  .cat-impact { background: #1f1d2e; color: #d2a8ff; }
+  .cat-clarity { background: #1c2128; color: #79c0ff; }
+  .cat-tone { background: #1c2518; color: #7ee787; }
+  .cat-structure { background: #28201a; color: #f0883e; }
+  .cat-credibility { background: #2b1a1a; color: #ff7b72; }
+
+  .card-suggestion {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .card-actions button {
+    padding: 4px 10px;
+    font-size: 11px;
+    border-radius: 5px;
+    border: 1px solid #30363d;
+    background: #21262d;
+    color: #c9d1d9;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .card-actions button:hover { border-color: #484f58; }
+
+  .btn-approve:hover { background: #1a7f37; border-color: #1a7f37; color: #fff; }
+  .btn-reject:hover { background: #cf222e; border-color: #cf222e; color: #fff; }
+  .btn-comment:hover { background: #1c2128; border-color: #388bfd; color: #388bfd; }
+  .btn-reset { font-style: italic; color: #8b949e; }
+  .btn-reset:hover { color: #c9d1d9; }
+
+  .comment-area {
+    margin-top: 8px;
+    display: none;
+  }
+
+  .comment-area.visible { display: block; }
+
+  .comment-area textarea {
+    width: 100%;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    color: #c9d1d9;
+    padding: 8px;
+    font-size: 12px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 50px;
+  }
+
+  .comment-area textarea:focus {
+    outline: none;
+    border-color: #388bfd;
+  }
+
+  /* Prompt output */
+  .prompt-section {
+    border-top: 1px solid #30363d;
+    background: #161b22;
+    flex-shrink: 0;
+    max-height: 220px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    border-bottom: 1px solid #21262d;
+    flex-shrink: 0;
+  }
+
+  .prompt-header label {
+    font-size: 12px;
+    color: #8b949e;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .copy-btn {
+    padding: 4px 12px;
+    font-size: 11px;
+    border-radius: 5px;
+    border: 1px solid #30363d;
+    background: #21262d;
+    color: #c9d1d9;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover { background: #30363d; }
+  .copy-btn.copied { background: #1a7f37; border-color: #1a7f37; color: #fff; }
+
+  .prompt-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #8b949e;
+    font-family: 'SF Mono', monospace;
+    white-space: pre-wrap;
+  }
+
+  .prompt-output .placeholder {
+    color: #484f58;
+    font-style: italic;
+    font-family: inherit;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #484f58; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shay Summary Review — Jan 21 to Feb 17</h1>
+  <div class="stats">
+    <div class="stat"><div class="dot dot-pending"></div><span id="stat-pending">0</span> pending</div>
+    <div class="stat"><div class="dot dot-approved"></div><span id="stat-approved">0</span> approved</div>
+    <div class="stat"><div class="dot dot-rejected"></div><span id="stat-rejected">0</span> rejected</div>
+  </div>
+</header>
+
+<div class="main">
+  <div class="doc-panel" id="docPanel"></div>
+  <div class="suggestions-panel">
+    <div class="filter-tabs">
+      <div class="filter-tab active" data-filter="all">All <span class="count" id="count-all">0</span></div>
+      <div class="filter-tab" data-filter="pending">Pending <span class="count" id="count-pending">0</span></div>
+      <div class="filter-tab" data-filter="approved">Approved <span class="count" id="count-approved">0</span></div>
+      <div class="filter-tab" data-filter="rejected">Rejected <span class="count" id="count-rejected">0</span></div>
+    </div>
+    <div class="suggestions-list" id="suggestionsList"></div>
+  </div>
+</div>
+
+<div class="prompt-section">
+  <div class="prompt-header">
+    <label>Prompt Output</label>
+    <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">Copy</button>
+  </div>
+  <div class="prompt-output" id="promptOutput">
+    <span class="placeholder">Approve suggestions or add comments to generate a revision prompt.</span>
+  </div>
+</div>
+
+<script>
+const DOC_LINES = [
+  "# What We Built — Jan 21 to Feb 17, 2026",
+  "",
+  "Summary for Shay. 4 weeks of work on the Base44 marketing automation infrastructure.",
+  "",
+  "---",
+  "",
+  "## The Big Picture",
+  "",
+  "Built a **fully operational marketing automation system** that lives inside Claude Code. It takes a single prompt and produces brand-consistent, research-backed marketing content — across LinkedIn, X, email, paid ads, landing pages, and full multi-channel campaigns. It also connects directly to Base44's Trino data warehouse to pull real analytics into content.",
+  "",
+  "---",
+  "",
+  "## By the Numbers",
+  "",
+  "| Metric | Value |",
+  "|--------|-------|",
+  "| Plugin versions shipped | v1.1.0 → v1.7.0 → v1.8.0 → **v1.9.0** |",
+  "| Git commits | **57** |",
+  "| Agents built | **9** (linkedin, x, copywriter, ad, seo, video, planner, gtm-strategist, brand-guardian) |",
+  "| Skills built | **20** (router, brand-memory, data-insight, landing pages, paid ads, SEO, video, etc.) |",
+  "| Trino queries wired | **19** across **6 analytics tables** |",
+  "| Validation tests | **97/97 passing** |",
+  "| User interviews synthesized | **34** (2 batches, JTBD framework) |",
+  "| Brand rules codified | **30** (21 NEVER + 9 ALWAYS) |",
+  "| GTM assets generated in one session | **20+** (Mini Window + Wix Payments campaign) |",
+  "| Landing pages deployed | **2** live on Base44 hosting |",
+  "| Videos produced (Remotion) | **2** (mobile app promo + PH upvote animation at 4K) |",
+  "| Data tables discovered | **681** base44-related tables in Trino |",
+  "",
+  "---",
+  "",
+  "## What Was Shipped (Chronological)",
+  "",
+  "### Week 1 (Jan 21-31) — Foundation",
+  "- **Marketing plugin v1.1.0** — initial release with router, 5 agents, brand assets",
+  "- **Marketing Playbook** — brand documentation from real LinkedIn/X posts (Base44, Maor, Tomer)",
+  "- **Brand review document** prepared for Shay validation",
+  "- **X skill, marketing-ideas (77 tactics), marketing psychology (71 principles)** added",
+  "- **App Store Launch Kit** built with Rotem (help builders publish to App Store/Play Store)",
+  "- Remotion promo video for Base44 mobile app launch",
+  "",
+  "### Week 2 (Feb 1-9) — Scale + Voice",
+  "- **Plugin v1.7.0** — marketplace restructure, Nano Banana (AI images), Remotion (video), 105-test suite",
+  "- **Capture Mode content session** — 7 new brand rules from hands-on content creation with Asaf",
+  "- **Ambassador Program redesign** (Figma-driven pixel-perfect implementation)",
+  "- **Shay demo (Feb 9)** — 30-min engaged session, plugin confirmed as core deliverable",
+  "- First real user validation: **Tiffany (PMM) published content**, her X post reposted by the founder",
+  "",
+  "### Week 3 (Feb 10-16) — Research + Production",
+  "- **34 user interviews synthesized** (JTBD: 24 functional jobs, 7 personas, 31 ranked unmet needs)",
+  "- **Central finding: The Confidence Gap** — builders can build but don't trust platform to launch",
+  "- **4 brand files rewritten with research** — every generated piece of content now evidence-backed",
+  "- **Plugin v1.9.0** — 69 files changed, +10,286 lines: Base44 CLI landing page skill, agent teams, design system, GTM strategist",
+  "- **PH Upvote Video** built and delivered for BaaS launch (animated Remotion, 4K render)",
+  "- **\"What's New\" landing page** built and deployed: https://whats-new-landing-48e32d79.base44.app",
+  "- **Full GTM campaign** generated in one session: 20+ assets for Mini Window + Wix Payments (10 agents, 2 parallel waves)",
+  "- **Trino data warehouse explored** — $470K-$760K/day paid spend, User Voice customer pain points surfaced",
+  "",
+  "### Week 4 (Feb 17) — Data Intelligence",
+  "- **Data-insight skill expanded**: 19 queries, 6 tables — growth, models, funnel, apps, monetization, AI classification",
+  "- **Education case study landing page** built and deployed with real Trino data: https://education-case-study-landing-f6f346a6.base44.app",
+  "- **Key analytics surfaced**: 3.8M+ builders, 8.9M apps, 1.3M education apps, 871K education builders, 30.9% education deploy rate",
+  "- **Paid vs free segmentation**: 88% free-tier apps, enterprise orgs average 2,518 apps each, only 2 apps have Stripe integrated but 672K rated \"high\" payment likelihood",
+  "",
+  "---",
+  "",
+  "## Business Impact",
+  "",
+  "### 1. Marketing Content at Scale",
+  "One prompt generates brand-consistent content for any channel. The Mini Window + Wix Payments campaign proved this: **20+ assets across 10 agents in a single session** — LinkedIn posts, X threads, emails, paid ads with image commands, blog post, Discord, changelog, in-app notifications, and a day-by-day launch timeline. All scored 7-9/10 by the brand guardian.",
+  "",
+  "### 2. Research-Backed Messaging",
+  "34 user interviews distilled into the brand system. Content agents read from evidence-backed pain points, real builder quotes, and persona profiles. This is not generic marketing copy — it references real builder stories and specific product feedback.",
+  "",
+  "### 3. Landing Pages from Prompt to Live URL",
+  "One prompt → scaffolded project → HTML with design system → deployed on Base44 hosting. Two pages live. The education case study page uses real Trino data (not made-up numbers).",
+  "",
+  "### 4. Data Pipeline Connected",
+  "19 Trino queries wired up across 6 analytics tables. The marketing system can now pull real growth numbers, model usage, funnel metrics, paid vs free segmentation, and user voice data — and feed them directly into content creation. No more \"400K builders\" copy when the real number is 3.8M.",
+  "",
+  "### 5. First External Validation",
+  "Tiffany (PMM) used the plugin unprompted, published content from it, and asked for ongoing access. Her X post was reposted by the founder. Shay saw the demo and confirmed the plugin is the core deliverable.",
+  "",
+  "---",
+  "",
+  "## What's Next",
+  "",
+  "- **Phase 2**: Data-intelligence pipeline — automated weekly metrics → content suggestions",
+  "- **Phase 3**: Agent architecture redesign (per Shay's vision: each person has their own marketing department)",
+  "- Vertical-specific landing pages using AI classification data",
+  "- Monetization narrative from paid vs free data",
+  "- Olga sync for marketing analytics integration"
+];
+
+const suggestions = [
+  {
+    id: 1,
+    lineStart: 1,
+    lineEnd: 1,
+    lineRef: "Line 1",
+    targetText: "# What We Built — Jan 21 to Feb 17, 2026",
+    suggestion: "Lead with the outcome, not the date range. Consider: \"Marketing Infrastructure That Ships Content in One Prompt\" with the date as a subtitle.",
+    category: "impact",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 2,
+    lineStart: 3,
+    lineEnd: 3,
+    lineRef: "Line 3",
+    targetText: "Summary for Shay. 4 weeks of work...",
+    suggestion: "\"4 weeks of work on marketing automation infrastructure\" undersells it. Frame as the business result: \"In 4 weeks, we built a system that turns one prompt into a full marketing campaign.\"",
+    category: "tone",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 3,
+    lineStart: 9,
+    lineEnd: 9,
+    lineRef: "Line 9",
+    targetText: "Built a fully operational marketing automation system...",
+    suggestion: "This paragraph is the elevator pitch but it reads like a feature list. Add a concrete time comparison: \"What took 2-3 days per channel now takes one prompt.\" Shay thinks in time-to-value.",
+    category: "impact",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 4,
+    lineStart: 18,
+    lineEnd: 18,
+    lineRef: "Line 18",
+    targetText: "| Git commits | **57** |",
+    suggestion: "Git commits is an engineering metric, not a business metric. Shay won't connect with this. Replace with something like \"Time from prompt to published content: ~3 minutes\" or remove entirely.",
+    category: "clarity",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 5,
+    lineStart: 22,
+    lineEnd: 22,
+    lineRef: "Line 22",
+    targetText: "| Validation tests | **97/97 passing** |",
+    suggestion: "Same issue — test counts are developer metrics. If the point is reliability, say \"Zero brand violations in production\" or \"100% brand compliance rate.\"",
+    category: "clarity",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 6,
+    lineStart: 28,
+    lineEnd: 28,
+    lineRef: "Line 28",
+    targetText: "| Data tables discovered | **681** base44-related tables in Trino |",
+    suggestion: "681 tables is an exploration stat, not an impact stat. Consider: \"Connected to 6 analytics tables covering growth, monetization, and user voice\" — that's the actionable outcome.",
+    category: "clarity",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 7,
+    lineStart: 46,
+    lineEnd: 46,
+    lineRef: "Line 46",
+    targetText: "**Shay demo (Feb 9)** — 30-min engaged session...",
+    suggestion: "You're writing TO Shay. Referencing his own demo back at him reads awkward. Rephrase as: \"Plugin validated as core deliverable (Feb 9 session)\" without explaining Shay's own reaction to him.",
+    category: "tone",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 8,
+    lineStart: 51,
+    lineEnd: 51,
+    lineRef: "Line 51",
+    targetText: "Central finding: The Confidence Gap...",
+    suggestion: "This is your single most important research finding. It's buried in a Week 3 bullet. Consider pulling it into The Big Picture section or giving it a standalone \"Key Discovery\" section before the weekly breakdown.",
+    category: "structure",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 9,
+    lineStart: 57,
+    lineEnd: 57,
+    lineRef: "Line 57",
+    targetText: "$470K-$760K/day paid spend...",
+    suggestion: "This is a massive data point dropped as a sub-bullet. If Shay doesn't already know about Base44's daily paid spend, this needs context. If he does, explain what the marketing system will DO with this data.",
+    category: "impact",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 10,
+    lineStart: 63,
+    lineEnd: 63,
+    lineRef: "Line 63",
+    targetText: "only 2 apps have Stripe integrated but 672K rated \"high\"...",
+    suggestion: "This is a billion-dollar insight hidden in a bullet point. The gap between 2 Stripe integrations and 672K high-likelihood apps is a monetization story that deserves its own Business Impact subsection — \"Untapped Monetization Signal.\"",
+    category: "impact",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 11,
+    lineStart: 70,
+    lineEnd: 70,
+    lineRef: "Line 70",
+    targetText: "All scored 7-9/10 by the brand guardian.",
+    suggestion: "Self-grading (your own bot scores your own content) may not carry weight. Replace with the external proof: \"Tiffany published it without edits\" or \"Maor reposted it.\" Those are real validation signals.",
+    category: "credibility",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 12,
+    lineStart: 73,
+    lineEnd: 73,
+    lineRef: "Line 73",
+    targetText: "This is not generic marketing copy...",
+    suggestion: "Defensive framing (\"this is NOT X\") weakens the claim. Flip to positive: \"Every piece of content references real builder stories and product feedback from 34 interviews.\"",
+    category: "tone",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 13,
+    lineStart: 79,
+    lineEnd: 79,
+    lineRef: "Line 79",
+    targetText: "No more \"400K builders\" copy when the real number is 3.8M.",
+    suggestion: "This is a great point but it highlights a past mistake. Reframe as the capability: \"Content now pulls live numbers from Trino — the system knows the real count is 3.8M, not the outdated 400K.\"",
+    category: "tone",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 14,
+    lineStart: 82,
+    lineEnd: 82,
+    lineRef: "Line 82",
+    targetText: "Her X post was reposted by the founder.",
+    suggestion: "\"The founder\" is vague and impersonal in a document for Shay. Name them: \"Reposted by Maor.\" Shay knows who Maor is — using the name adds credibility and specificity.",
+    category: "clarity",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 15,
+    lineStart: 88,
+    lineEnd: 92,
+    lineRef: "Lines 88-92",
+    targetText: "What's Next section — all 5 bullets",
+    suggestion: "The \"What's Next\" section has no timelines or priorities. Shay will ask \"when?\" Add rough timeframes: Phase 2 this month, Phase 3 next month, etc. Or frame as: \"Next sprint\" vs \"Next quarter\" buckets.",
+    category: "structure",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 16,
+    lineStart: 25,
+    lineEnd: 25,
+    lineRef: "Line 25",
+    targetText: "| GTM assets generated in one session | **20+** |",
+    suggestion: "\"20+ assets in one session\" is impressive but doesn't land without a time reference. Add: \"20+ assets in ~45 minutes\" (or whatever the actual time was). The speed is the story.",
+    category: "impact",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  },
+  {
+    id: 17,
+    lineStart: 47,
+    lineEnd: 47,
+    lineRef: "Line 47",
+    targetText: "Tiffany (PMM) published content...",
+    suggestion: "\"PMM\" may not be immediately clear. Spell out on first use: \"Tiffany (Product Marketing Manager)\" — removes any ambiguity.",
+    category: "clarity",
+    status: "pending",
+    userComment: "",
+    showComment: false
+  }
+];
+
+let state = {
+  suggestions: suggestions,
+  activeFilter: "all",
+  activeSuggestionId: null
+};
+
+function getSuggestionForLine(lineNum) {
+  return state.suggestions.find(s => lineNum >= s.lineStart && lineNum <= s.lineEnd);
+}
+
+function renderDocument() {
+  const panel = document.getElementById('docPanel');
+  let html = '';
+  let inCodeBlock = false;
+
+  DOC_LINES.forEach((line, i) => {
+    const lineNum = i + 1;
+    const suggestion = getSuggestionForLine(lineNum);
+    let statusClass = '';
+    let extraClass = '';
+
+    if (suggestion) {
+      statusClass = 'has-suggestion';
+      if (suggestion.status === 'approved') statusClass = 'has-suggestion approved';
+      if (suggestion.status === 'rejected') statusClass = 'has-suggestion rejected';
+    }
+
+    if (state.activeSuggestionId && suggestion && suggestion.id === state.activeSuggestionId) {
+      extraClass = ' active-highlight';
+    }
+
+    let rendered = escapeHtml(line);
+
+    if (line === '---') {
+      html += `<div class="doc-line ${statusClass}${extraClass}" data-line="${lineNum}" onclick="handleLineClick(${lineNum})">
+        <span class="line-num">${lineNum}</span>
+        <span class="line-content"><div class="hr-line"></div></span>
+      </div>`;
+      return;
+    }
+
+    if (line.startsWith('```')) {
+      inCodeBlock = !inCodeBlock;
+      return;
+    }
+
+    if (line.startsWith('| ') || line.startsWith('|--')) {
+      html += `<div class="doc-line ${statusClass}${extraClass}" data-line="${lineNum}" onclick="handleLineClick(${lineNum})">
+        <span class="line-num">${lineNum}</span>
+        <span class="line-content table-line">${rendered}</span>
+      </div>`;
+      return;
+    }
+
+    if (!inCodeBlock) {
+      if (line.startsWith('### ')) {
+        rendered = `<h3>${formatInline(line.slice(4))}</h3>`;
+      } else if (line.startsWith('## ')) {
+        rendered = `<h2>${formatInline(line.slice(3))}</h2>`;
+      } else if (line.startsWith('# ')) {
+        rendered = `<h1>${formatInline(line.slice(2))}</h1>`;
+      } else {
+        rendered = formatInline(rendered);
+      }
+    }
+
+    html += `<div class="doc-line ${statusClass}${extraClass}" data-line="${lineNum}" onclick="handleLineClick(${lineNum})">
+      <span class="line-num">${lineNum}</span>
+      <span class="line-content">${rendered || '&nbsp;'}</span>
+    </div>`;
+  });
+
+  panel.innerHTML = html;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function formatInline(str) {
+  str = str.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  str = str.replace(/`([^`]+)`/g, '<code>$1</code>');
+  str = str.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank">$1</a>');
+  return str;
+}
+
+function handleLineClick(lineNum) {
+  const suggestion = getSuggestionForLine(lineNum);
+  if (suggestion) {
+    state.activeSuggestionId = suggestion.id;
+    renderAll();
+    const card = document.querySelector(`.suggestion-card[data-id="${suggestion.id}"]`);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function renderSuggestions() {
+  const list = document.getElementById('suggestionsList');
+  const filtered = state.activeFilter === 'all'
+    ? state.suggestions
+    : state.suggestions.filter(s => s.status === state.activeFilter);
+
+  let html = '';
+  filtered.forEach(s => {
+    const catClass = `cat-${s.category}`;
+    const statusClass = s.status !== 'pending' ? `status-${s.status}` : '';
+    const activeClass = s.id === state.activeSuggestionId ? 'active' : '';
+
+    html += `<div class="suggestion-card ${statusClass} ${activeClass}" data-id="${s.id}" onclick="selectSuggestion(${s.id})">
+      <div class="card-header">
+        <span class="card-line-ref">${s.lineRef}</span>
+        <span class="card-category ${catClass}">${s.category}</span>
+      </div>
+      <div class="card-suggestion">${s.suggestion}</div>
+      <div class="card-actions">
+        ${s.status === 'pending' ? `
+          <button class="btn-approve" onclick="event.stopPropagation(); setStatus(${s.id}, 'approved')">Approve</button>
+          <button class="btn-reject" onclick="event.stopPropagation(); setStatus(${s.id}, 'rejected')">Reject</button>
+          <button class="btn-comment" onclick="event.stopPropagation(); toggleComment(${s.id})">Comment</button>
+        ` : `
+          <button class="btn-reset" onclick="event.stopPropagation(); setStatus(${s.id}, 'pending')">Reset</button>
+          <button class="btn-comment" onclick="event.stopPropagation(); toggleComment(${s.id})">Comment</button>
+        `}
+      </div>
+      <div class="comment-area ${s.showComment ? 'visible' : ''}">
+        <textarea placeholder="Add a note..." oninput="updateComment(${s.id}, this.value)" onclick="event.stopPropagation()">${s.userComment}</textarea>
+      </div>
+    </div>`;
+  });
+
+  list.innerHTML = html || '<div style="padding:20px;color:#484f58;text-align:center;font-size:13px;">No suggestions match this filter.</div>';
+}
+
+function selectSuggestion(id) {
+  state.activeSuggestionId = id;
+  renderAll();
+
+  const suggestion = state.suggestions.find(s => s.id === id);
+  if (suggestion) {
+    const lineEl = document.querySelector(`.doc-line[data-line="${suggestion.lineStart}"]`);
+    if (lineEl) lineEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function setStatus(id, status) {
+  const s = state.suggestions.find(s => s.id === id);
+  if (s) s.status = status;
+  renderAll();
+}
+
+function toggleComment(id) {
+  const s = state.suggestions.find(s => s.id === id);
+  if (s) s.showComment = !s.showComment;
+  renderSuggestions();
+}
+
+function updateComment(id, value) {
+  const s = state.suggestions.find(s => s.id === id);
+  if (s) s.userComment = value;
+  updatePrompt();
+}
+
+function updateStats() {
+  const counts = { pending: 0, approved: 0, rejected: 0 };
+  state.suggestions.forEach(s => counts[s.status]++);
+  document.getElementById('stat-pending').textContent = counts.pending;
+  document.getElementById('stat-approved').textContent = counts.approved;
+  document.getElementById('stat-rejected').textContent = counts.rejected;
+  document.getElementById('count-all').textContent = state.suggestions.length;
+  document.getElementById('count-pending').textContent = counts.pending;
+  document.getElementById('count-approved').textContent = counts.approved;
+  document.getElementById('count-rejected').textContent = counts.rejected;
+}
+
+function updatePrompt() {
+  const output = document.getElementById('promptOutput');
+  const approved = state.suggestions.filter(s => s.status === 'approved');
+  const commented = state.suggestions.filter(s => s.userComment.trim() && s.status !== 'approved');
+  const rejected = state.suggestions.filter(s => s.status === 'rejected');
+
+  if (approved.length === 0 && commented.length === 0) {
+    output.innerHTML = '<span class="placeholder">Approve suggestions or add comments to generate a revision prompt.</span>';
+    return;
+  }
+
+  let prompt = 'Please revise the Shay summary (output/shay-summary-jan21-feb17.md) with the following changes:\n\n';
+
+  if (approved.length > 0) {
+    prompt += '## Approved Changes\n\n';
+    approved.forEach(s => {
+      prompt += `**${s.lineRef}:** ${s.suggestion}`;
+      if (s.userComment.trim()) prompt += `\n  Note: ${s.userComment.trim()}`;
+      prompt += '\n\n';
+    });
+  }
+
+  if (commented.length > 0) {
+    prompt += '## Additional Feedback\n\n';
+    commented.forEach(s => {
+      prompt += `**${s.lineRef}** (${s.category}): ${s.userComment.trim()}\n\n`;
+    });
+  }
+
+  if (rejected.length > 0) {
+    prompt += '## Rejected (keep as-is)\n\n';
+    rejected.forEach(s => {
+      prompt += `- ${s.lineRef}: ${s.suggestion.substring(0, 60)}...\n`;
+    });
+  }
+
+  output.textContent = prompt;
+}
+
+function copyPrompt() {
+  const text = document.getElementById('promptOutput').textContent;
+  if (text.includes('Approve suggestions')) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+function renderAll() {
+  renderDocument();
+  renderSuggestions();
+  updateStats();
+  updatePrompt();
+}
+
+// Filter tabs
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    state.activeFilter = tab.dataset.filter;
+    renderSuggestions();
+  });
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'TEXTAREA') return;
+
+  if (e.key === 'a' && state.activeSuggestionId) {
+    setStatus(state.activeSuggestionId, 'approved');
+  } else if (e.key === 'r' && state.activeSuggestionId) {
+    setStatus(state.activeSuggestionId, 'rejected');
+  } else if (e.key === 'ArrowDown' || e.key === 'j') {
+    e.preventDefault();
+    navigateSuggestion(1);
+  } else if (e.key === 'ArrowUp' || e.key === 'k') {
+    e.preventDefault();
+    navigateSuggestion(-1);
+  }
+});
+
+function navigateSuggestion(dir) {
+  const filtered = state.activeFilter === 'all'
+    ? state.suggestions
+    : state.suggestions.filter(s => s.status === state.activeFilter);
+  if (filtered.length === 0) return;
+
+  const idx = filtered.findIndex(s => s.id === state.activeSuggestionId);
+  let next = idx + dir;
+  if (next < 0) next = filtered.length - 1;
+  if (next >= filtered.length) next = 0;
+  selectSuggestion(filtered[next].id);
+}
+
+// Init
+renderAll();
+</script>
+</body>
+</html>
