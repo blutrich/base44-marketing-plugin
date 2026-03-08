@@ -28,6 +28,9 @@ brand-source
 !plugins/base44-marketing/assets/
 !plugins/base44-marketing/assets/**
 
+# Node modules (anywhere in repo)
+**/node_modules/
+
 # Transcriptions and source files
 transcriptions/
 
