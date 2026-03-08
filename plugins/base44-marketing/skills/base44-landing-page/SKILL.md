@@ -247,6 +247,29 @@ Before deploying, verify:
 
 ---
 
+## Lessons Learned (Super Agents LP, 2026-03-08)
+
+Hard-won patterns from building + reviewing with stakeholders:
+
+### Copy Structure
+- **H1 and H2 must flow as ONE connected thought.** If H2 doesn't continue H1, rewrite. Two separate clever ideas stacked vertically reads as disconnected, not punchy.
+- **Don't claim "no X" when there IS X.** "No setup" when there's simpler setup is a lie. Say "under 3 min" or "without the technical setup." Speed claims beat absence claims.
+- **"Is live" only works for expected launches.** For new products nobody's heard of, use "Introducing" or "New from Base44."
+- **Each sentence in announcement copy must connect to the previous one.** If you can shuffle the sentence order without noticing, the copy has no flow.
+
+### Design & Layout
+- **Product mockups must commit to mobile OR desktop.** An in-between size (not phone, not laptop) looks awkward and unfinished. Use a phone frame for chat-based products.
+- **Figma asset URLs are temporary (7-day expiry).** Always convert to inline SVGs for production. Never use `figma.com/api/mcp/asset/` URLs in deployed HTML.
+- **Competitive research before design.** Look at 5-6 competitor landing pages first. Extract what works (outcome-first H1s, speed claims, comparison tables) before writing copy.
+
+### What Converts for Chat-Based Products
+- **The chat conversation IS the hero.** For WhatsApp/Telegram/Slack products, show a realistic conversation, not a dashboard screenshot.
+- **Make conversations realistic.** Include specific numbers ("over $500"), tool names ("Stripe", "HubSpot"), and short, natural replies. Not marketing-speak.
+- **Channel badges (WhatsApp/Telegram/Slack) belong in the hero.** These are the differentiator, not just integrations. Make them prominent.
+- **Comparison tables work.** "You shouldn't need a 37 min tutorial" with competitor complexity vs your simplicity drives the point home.
+
+---
+
 ## Dependencies
 
 | Dependency | Purpose |

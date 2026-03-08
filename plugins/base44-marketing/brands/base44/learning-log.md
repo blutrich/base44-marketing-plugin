@@ -62,6 +62,13 @@ After content review:
 | Emoji as directional arrow (👉 as →) | DONT | format | [COUNT: 1] | watching | 2026-03-08 |
 | Have opinions, show mixed feelings | DO | voice | [COUNT: 1] | watching | 2026-02-28 |
 | Leave imperfection (asides, half-thoughts) | DO | voice | [COUNT: 1] | watching | 2026-02-28 |
+| H1+H2 must flow as one connected thought | DO | copy | [COUNT: 1] | watching | 2026-03-08 |
+| Don't claim "no X" when there IS X (say "less/simpler/faster") | DONT | positioning | [COUNT: 1] | watching | 2026-03-08 |
+| "Is live" only works when audience was already expecting it | DONT | announcements | [COUNT: 1] | watching | 2026-03-08 |
+| Disconnected one-liners stacked as copy | DONT | structure | [COUNT: 1] | watching | 2026-03-08 |
+| Forcing unnatural word combos ("complex servers") | DONT | voice | [COUNT: 1] | watching | 2026-03-08 |
+| "Comment X to get Y" over "comment what you'd do" | DO | engagement | [COUNT: 1] | watching | 2026-03-08 |
+| Product mockups must commit to mobile OR desktop size | DO | design | [COUNT: 1] | watching | 2026-03-08 |
 
 ### How to Update Counts
 

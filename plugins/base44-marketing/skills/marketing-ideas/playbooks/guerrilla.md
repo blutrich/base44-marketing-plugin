@@ -179,4 +179,64 @@ Wordle-style reveals, interactive experiences.
 
 ---
 
+## Repost & Comment Mechanics
+
+> "People don't share to help you. They share to look smart."
+
+### Why People Share
+
+| Trigger | What it says about THEM |
+|---------|------------------------|
+| Comparison screenshot | "I found the smarter way" |
+| Speed demo video | "I discover cutting-edge stuff first" |
+| Hot take they agree with | "I've been saying this forever" |
+| Something unbelievable | "Is this even real?" |
+
+### Why People Comment
+
+1. **"I have an opinion"** — polarizing statements, not safe ones
+2. **"Let me tell my story"** — relatable frustration invites their own horror stories
+3. **"I know something you don't"** — leave a gap for people to fill
+
+### What Kills Engagement
+
+- "Comment what you'd build" — people won't think for you
+- Feature lists — nobody shares specs
+- "We're excited to announce" — nobody cares about your excitement
+- Perfection — polished content gets likes, messy content gets comments
+- Links in post body — algorithm buries them
+
+### Formats That Drive Reposts
+
+1. **"Comment X to get Y"** — selfish incentive, every comment boosts reach
+2. **Raw screen recording** — no editing, show the clock, show imperfection
+3. **Side-by-side comparison** — competitor complexity vs your simplicity
+4. **Polls** — 3-5x reach, force an opinion, "tag someone still doing X"
+
+### Scarcity Launch Playbook
+
+```
+Week 1: Closed circle (20-30 people with audiences)
+  → Don't ask them to post. Let the product speak.
+  → Every screenshot they take IS your marketing.
+
+Week 2: Invite codes (5 per user)
+  → "Comment AGENT for an invite code" post
+  → Each invite makes the GIVER feel powerful
+
+Week 3: Open access
+  → "500 agents already running. Opening to everyone."
+  → Scarcity created the story. Now launch with proof.
+```
+
+### Chat-Native Products (WhatsApp/Telegram/Slack)
+
+For products where the UI is a chat conversation:
+- **The product IS the ad** — every user screenshot is organic marketing
+- **Public demo number** — let anyone text a demo agent. Zero friction, inherently shareable
+- **Design for screenshots** — make agent responses clean enough to screenshot with subtle branding
+- **"My Agent" summary cards** — "Your agent handled 47 tasks this week" = Spotify Wrapped for agents
+
+---
+
 *High-impact, low-budget tactics that AI cannot replicate*
