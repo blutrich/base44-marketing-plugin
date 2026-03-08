@@ -1,11 +1,14 @@
 ---
 name: landing-page-architecture
-description: Builds high-converting landing pages using the 8-Section Framework. Use when creating landing pages, lead magnet pages, product launches, sales pages, webinar registrations, service pages, or pricing pages.
+description: |
+  Builds high-converting landing pages using the Copy Brief System + 8-Section Framework. The Copy Brief is MANDATORY before any HTML generation. It ensures every claim is grounded in real evidence, every hook is tested against the Hormozi formula, and every section has a clear audience and wedge.
+
+  Triggers on: landing page, sales page, product page, LP, create a landing page, build a page, lp copy, landing page copy, page architecture.
 ---
 
 # Landing Page Architecture Skill
 
-> Build high-converting landing pages using the 8-Section Framework.
+> Copy Brief (grounded) then Structure (8 sections) then HTML (design system).
 
 ## When to Use This Skill
 
@@ -14,20 +17,207 @@ Apply when creating:
 - Lead magnet pages
 - Product launch pages
 - Sales pages
-- Webinar registration pages
-- Service offering pages
+- Feature announcement pages
 - Pricing pages
-- Squeeze pages
 
 ## Core Philosophy
 
-**Page architecture = conversion psychology.** Every section has ONE job. Each section earns the right to show the next section. Skip a section, lose the visitor.
+**Copy comes before design.** The #1 mistake is jumping to HTML before the copy is locked. Every landing page needs:
 
-Two key principles:
-1. **The 8-Section Framework** - WHERE elements go and WHY
-2. **SLIDE Alignment** - Connect structure to persuasive copy
+1. **Copy Brief** (Phase 1) - WHO are we talking to, WHAT's the wedge, WHERE's the proof
+2. **8-Section Framework** (Phase 2) - WHERE elements go and WHY
+3. **HTML Generation** (Phase 3) - Handled by `base44-landing-page` skill
+
+**Never skip Phase 1.** A beautiful page with weak copy converts at 0%.
 
 ---
+
+# PHASE 1: COPY BRIEF (MANDATORY)
+
+> Complete this BEFORE writing any section copy. No exceptions.
+
+## Step 1: Audience Lock
+
+Define 2-4 specific audience segments. Generic "all builders" is rejected.
+
+**For each segment, fill:**
+
+| Field | Requirement |
+|-------|-------------|
+| Segment name | Specific label (e.g., "Non-technical PMs at startups") |
+| Pain | What they can't do today, in their words |
+| Trigger | What event makes them search for this |
+| Evidence | Link to Slack message, tweet, support ticket, or user quote that proves this segment exists |
+| Size signal | Any number that shows this segment matters (waitlist count, search volume, channel size) |
+
+**How to find segments:**
+1. Read the feature's Slack channel (Slack MCP: `slack_read_channel`)
+2. Read threads with 3+ replies (that's where real pain shows up)
+3. Check Product Insights Bot reports for usage patterns
+4. Look for user feedback in #base-agent, #feat-* channels, Discord
+
+**Output format:**
+```
+AUDIENCE LOCK
+Segment 1: [Name]
+  Pain: [specific]
+  Trigger: [event]
+  Evidence: [Slack quote or data point]
+
+Segment 2: [Name]
+  Pain: [specific]
+  Trigger: [event]
+  Evidence: [Slack quote or data point]
+
+Primary segment: [which one the H1 targets]
+```
+
+## Step 2: Competitor Wedge
+
+Research the main alternative and find the positioning gap.
+
+**Process:**
+1. Identify the top 1-2 alternatives (what would the audience use instead?)
+2. Search for complaints about those alternatives (Tavily/WebSearch: "[competitor] problems", "[competitor] setup difficulty", "[competitor] vs")
+3. Find the wedge: the ONE thing they do badly that we do well
+
+**Sources to check:**
+- Reddit threads complaining about the competitor
+- GitHub issues / discussions
+- Hacker News comments
+- "X vs Y" blog posts and comparison sites
+- Twitter/X complaints
+
+**Output format:**
+```
+COMPETITOR WEDGE
+Alternative: [name]
+Top complaints:
+  1. [complaint] (source: [link/quote])
+  2. [complaint] (source: [link/quote])
+  3. [complaint] (source: [link/quote])
+
+Our wedge: [one sentence, e.g., "They proved the demand. We removed the friction."]
+Proof: [specific fact, e.g., "2 minutes vs 3 hours setup"]
+```
+
+**Skip this step** only if the feature has no direct competitor (rare).
+
+## Step 3: Proof Points
+
+Gather every real number, quote, and data point BEFORE writing copy. No copy should contain a claim that isn't backed by something here.
+
+**Collect from:**
+- Slack channels (feature channel + #product-marketing-sync)
+- Product Insights Bot reports
+- Metrics (user counts, session counts, waitlist size)
+- Real user quotes (with name or anonymized role)
+- External validation (tweets, posts, press)
+
+**Output format:**
+```
+PROOF POINTS
+Numbers:
+  - [metric]: [number] (source: [where])
+  - [metric]: [number] (source: [where])
+
+Quotes:
+  - "[exact quote]" - [who] (source: [where])
+  - "[exact quote]" - [who] (source: [where])
+
+External:
+  - [tweet/post/article] (source: [link])
+
+User stories:
+  - [Name/Role]: [what they did with the feature, in 1-2 sentences]
+```
+
+## Step 4: Hook Generation (Hormozi Formula)
+
+Generate 4-5 H1 candidates using the **Hormozi Hook Formula**:
+
+```
+[Specific Result] + [Surprising Context] + [Implied "how"]
+```
+
+**Rules:**
+- The result must come from Proof Points (Step 3)
+- The context must attack the Competitor Wedge (Step 2)
+- The "how" is implied, never stated (creates curiosity)
+- Target the Primary Segment from Audience Lock (Step 1)
+
+**Examples:**
+```
+"His AI agent was live in 2 minutes. No terminal. No Docker. No API keys."
+  Result: AI agent was live
+  Context: 2 minutes (vs hours for competitors)
+  Implied how: How is that possible? (Base44)
+
+"She replaced 4 SaaS tools with one app she built over lunch."
+  Result: replaced 4 tools
+  Context: built over lunch (speed)
+  Implied how: what tool lets you do that?
+```
+
+**Validation checklist (from hook-rules):**
+- [ ] Hook only makes sense for THIS feature (not interchangeable)
+- [ ] No TV-ad cadence
+- [ ] No em dashes
+- [ ] No "we're excited"
+- [ ] Passes Maor Test
+- [ ] Grounded in a real proof point
+- [ ] Attacks the competitor wedge without naming them
+
+**Output: Pick top 2 candidates. Present both to user for selection.**
+
+## Step 5: Section Copy Brief
+
+For each of the 8 sections, write a 1-2 sentence brief BEFORE writing the actual copy. This prevents drift.
+
+```
+SECTION COPY BRIEF
+
+HERO:
+  H1: [selected hook]
+  H2: [what it does + how, 1 sentence]
+  Trust: [which proof points to show]
+  CTA: [benefit-focused, from audience pain]
+
+SUCCESS:
+  What they get: [4-5 deliverables/capabilities]
+  Feeling: [what emotion after reading this section]
+
+PROBLEM-AGITATE:
+  Problems: [2-4 pain points from audience research]
+  Agitation: [cost of not acting, with number]
+  Source: [which Slack quotes or competitor complaints]
+
+VALUE STACK:
+  Features: [4-6 capabilities, each with SO WHAT benefit]
+  Comparison: [optional: us vs alternative table]
+
+SOCIAL PROOF:
+  Quotes: [which proof points to use]
+  Results: [specific numbers per quote]
+
+TRANSFORMATION:
+  Timeline: [realistic progression for THIS feature]
+
+SECONDARY CTA:
+  Objection: [biggest remaining doubt]
+  Handler: [how we address it]
+
+FAQ:
+  Questions: [4-6 real questions from Slack/support]
+```
+
+**This brief is the contract.** All copy must trace back to it.
+
+---
+
+# PHASE 2: 8-SECTION FRAMEWORK
+
+> Now write the actual copy, section by section. Every claim must reference something from the Copy Brief.
 
 ## The 8-Section Framework
 
@@ -195,35 +385,39 @@ Privacy | Terms
 ## Section Rules
 
 ### Every Section Must Have:
-- Specific numbers (not "many" → "2,847")
+- A specific claim traced back to the Copy Brief proof points
 - One clear job (not multiple objectives)
 - Transition to next section (flow)
-- Trust element where possible
+- Real numbers from Step 3, not invented ones
 
 ### Hero Section:
-- Eyebrow = credibility or category
-- Headline = 10-15 words, primary promise
-- Subheadline = how + de-risk
-- CTA = benefit-focused (not "Submit")
-- Trust = logos, numbers, credentials
+- H1 = Hormozi formula hook from Step 4 (user-approved)
+- H2 = what it does + how, plain language
+- CTA = benefit-focused, attacks primary audience pain
+- Trust = real numbers from proof points only
+
+### Problem-Agitate:
+- Pain points from Audience Lock (Step 1), not invented
+- Competitor complaints from Wedge Research (Step 2)
+- Agitation uses real cost/time numbers
+- Optional: comparison table (us vs alternative)
 
 ### Value Stack:
-- 4 tiers descending in value
-- Assign dollar amounts to each
-- Total must be 3x+ the price
-- Create obvious "yes"
+- Features map to SO WHAT benefits
+- Each feature grounded in Slack evidence
+- For free products: show capability value, not dollar amounts
+- For paid: 4 tiers, total 3x+ price
 
 ### Social Proof:
-- Always include specific results
-- Name + role + company
-- Quantified outcome
-- 3 testimonials minimum
+- Only real quotes from Proof Points (Step 3)
+- Name + role (or anonymized "Head of Product at fintech")
+- Specific result per quote
+- If not enough real quotes: use metric proof instead (700 signups, 150 sessions)
 
 ### Transformation:
-- Time-based progression
-- Week 1 → Month 1 → Month 3 → Year 1
-- Each stage builds on previous
-- End with aspirational outcome
+- Timeline realistic for THIS feature
+- Each stage references something a real user did
+- End with aspirational but grounded outcome
 
 ---
 
@@ -284,22 +478,31 @@ When creating landing pages, output:
 
 Before finalizing:
 
-**Structure:**
+**Copy Brief (Phase 1):**
+- [ ] Audience Lock complete (2-4 segments with evidence)
+- [ ] Competitor Wedge researched (or explicitly marked "no competitor")
+- [ ] Proof Points gathered (numbers, quotes, external)
+- [ ] H1 generated with Hormozi formula and user-approved
+- [ ] Section Copy Brief written for all 8 sections
+
+**Structure (Phase 2):**
 - [ ] All 8 sections present in order
 - [ ] Each section does ONE job
-- [ ] Transitions flow naturally
+- [ ] Every claim traces to a Copy Brief proof point
 
 **Copy:**
-- [ ] Applied SO WHAT chain
-- [ ] Zero brand-voice kill list words
-- [ ] Specific numbers in every section
-- [ ] Headlines 10-15 words max
+- [ ] Applied SO WHAT chain to features
+- [ ] Zero brand-voice kill list words (check RULES.md)
+- [ ] No em dashes, no arrows, no AI filler
+- [ ] Specific numbers from real data, not invented
+- [ ] H1 passes Hormozi formula validation
+- [ ] Passes Maor Test
 
 **Conversion:**
-- [ ] Value stack > 3x price
-- [ ] Trust signals near CTAs
-- [ ] Secondary CTA catches scrollers
-- [ ] Transformation shows progression
+- [ ] Trust signals use real proof points
+- [ ] Secondary CTA handles biggest objection
+- [ ] Comparison table attacks competitor wedge (if applicable)
+- [ ] FAQ uses real questions from Slack/support
 
 ---
 
@@ -445,12 +648,35 @@ Before creating landing page content, load brand context:
 
 ---
 
+## Pipeline: Copy Brief to Live Page
+
+```
+PHASE 1: Copy Brief (this skill)
+  Step 1: Audience Lock (Slack MCP + user input)
+  Step 2: Competitor Wedge (Tavily/WebSearch)
+  Step 3: Proof Points (Slack + metrics + external)
+  Step 4: Hook Generation (Hormozi formula)
+  Step 5: Section Copy Brief
+     ↓
+PHASE 2: Section Copy (this skill)
+  Write 8 sections using Copy Brief as contract
+  Run brand-guardian (score >= 7/10)
+     ↓
+PHASE 3: HTML Generation (base44-landing-page skill)
+  Load design-system.md + brand.json
+  Generate self-contained HTML
+  Deploy via Base44 CLI
+```
+
+**HARD RULE:** Phase 3 cannot start until Phase 1 and 2 are complete. The `base44-landing-page` skill expects finished copy as input.
+
 ## Integration
 
-**Depends on:** brand-voice (tone), direct-response-copy (THE SLIDE)
-**Used by:** Campaign launches, lead generation, product launches
-**Layer:** Page architecture - WHERE elements go and WHY
+**Depends on:** brand-voice (tone), direct-response-copy (THE SLIDE), hook-rules (Hormozi formula)
+**Used by:** `base44-landing-page` (HTML generation), campaign launches, product launches
+**Layer:** Copy strategy + page architecture. Runs BEFORE design/HTML.
+**Data sources:** Slack MCP (channels, threads), Tavily (competitor research), Product App API (metrics)
 
 ---
 
-*Based on James Dickerson / The Boring Marketer framework*
+*Copy Brief System based on real-session patterns. 8-Section Framework based on James Dickerson / The Boring Marketer.*

@@ -22,19 +22,16 @@ description: |
 ## Architecture
 
 ```
-Input (goal, persona, message, slug)
+PHASE 1: Copy Brief (landing-page-architecture skill)
+  Audience Lock → Competitor Wedge → Proof Points → Hormozi Hook → Section Brief
         |
         v
-  Template Selection (5 layouts)
+PHASE 2: Section Copy (landing-page-architecture skill)
+  Write 8 sections from brief → Brand Guardian >= 7/10
         |
         v
-  Copy Generation (8-Section Framework)
-        |
-        v
-  Brand Validation (brand-guardian >= 7/10)
-        |
-        v
-  HTML Generation (design-system.md + brand.json)
+PHASE 3: HTML Generation (THIS skill)
+  Template Selection → Load Design System → Generate HTML
         |
         v
   Base44 CLI Deploy (npx base44 site deploy -y)
@@ -42,6 +39,8 @@ Input (goal, persona, message, slug)
         v
   Live at: https://{slug}.base44.app
 ```
+
+**PREREQUISITE:** Phase 1 and 2 (Copy Brief + Section Copy) must be complete before this skill runs. If copy hasn't been generated yet, run `landing-page-architecture` first. This skill takes FINISHED copy as input and generates HTML.
 
 ---
 

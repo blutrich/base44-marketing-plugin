@@ -63,6 +63,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | 11.5 | APP_DATA | fetch features, show features, feature list, roadmap, pull data, product sync, what features, feature data | **APP_DATA** |
 | 11.7 | PUSH_RIPPLE | push to ripple, save to ripple, send to ripple | **PUSH_RIPPLE** |
 | 11.8 | SESSION_LOG | log session, save session, track session, session report, wrap up, end session | **SESSION_LOG** |
+| 11.9 | FEATURE_SCAN | scan features, feature scan, process features, brief all features, morning scan, what's new in product-marketing-sync, check for new features | **FEATURE_SCAN** |
 | 12 | DEFAULT | content, write, create | **CONTENT** |
 
 **Conflict Resolution:**
@@ -92,6 +93,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | APP_DATA | base44-feature skill (fetch & display) |
 | PUSH_RIPPLE | push-to-ripple skill (extract content → push to Ripple CMS) |
 | SESSION_LOG | session-log skill (capture session → push to Ripple) |
+| FEATURE_SCAN | feature-scan skill (scan #product-marketing-sync → check Ripple → generate briefs + content → push → notify) |
 | CONTENT | copywriter → brand-guardian (default for generic content requests) |
 
 For detailed workflows, see [reference/workflows.md](reference/workflows.md).

@@ -77,6 +77,32 @@ Benefit-focused statements grounded in real outcomes. NOT TV-ad cadence.
 We just cut build time from 2 weeks to 3 hours. Here's how.
 ```
 
+#### 6. Hormozi Formula (for landing page H1s)
+**[Specific Result] + [Surprising Context] + [Implied "how"]**
+
+The result must be real (from Slack/metrics). The context attacks the competitor wedge. The "how" is never stated, it creates curiosity that pulls the reader in.
+
+```
+His AI agent was live in 2 minutes. No terminal. No Docker. No API keys.
+  Result: AI agent was live
+  Context: 2 minutes (vs hours for competitors)
+  Implied how: what tool makes this possible?
+
+She replaced 4 SaaS tools with one app she built over lunch.
+  Result: replaced 4 tools
+  Context: built over lunch
+  Implied how: how is that even possible?
+
+700 people asked for early access in one day. The feature isn't even public yet.
+  Result: 700 signups
+  Context: one day, not even public
+  Implied how: what is it?
+```
+
+**When to use:** Landing page H1s, hero sections, campaign headlines. Not for social posts (use styles 1-5 for those).
+
+**Validation:** The result must trace to a real proof point. If you can't cite the source, the hook is invented and gets rejected.
+
 ## Approved Emoji Bullets
 
 Use these instead of arrows:

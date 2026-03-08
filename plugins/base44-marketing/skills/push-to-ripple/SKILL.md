@@ -1,11 +1,11 @@
 ---
 name: push-to-ripple
-description: Push generated marketing content into Ripple's Content entity. Use when user says "push to ripple", "save to ripple", "send to ripple", or wants to persist generated content into the Ripple CMS.
+description: Push generated marketing content into Ripple's Content entity via the Base44 REST API. Use when user says "push to ripple", "save to ripple", "send to ripple", or wants to persist generated content into the Ripple CMS.
 ---
 
 # Push to Ripple
 
-> Bridge CLI-generated marketing content into Ripple's Content entity.
+> Push CLI-generated marketing content directly to Ripple's Content entity via REST API.
 
 ## When This Skill Activates
 
@@ -16,62 +16,83 @@ User says any of:
 - "push this to ripple"
 - Wants to persist generated content into Ripple
 
-## Step 0: Locate Ripple Project
+## API Configuration
 
-Before pushing, resolve the Ripple project directory:
+```
+Ripple App ID: 69809e95545ed2e086d167f9
+Entity: Content
+Credentials: .claude/marketing/api-config.json
+```
 
-1. If `$RIPPLE_PROJECT_DIR` is set and non-empty, use it
-2. Otherwise, search common locations:
-   ```bash
-   # Check sibling directories of the current project
-   ls -d ../ripple ../*/ripple ../../ripple 2>/dev/null | head -1
-   ```
-3. Look for a `.ripple` or `ripple/scripts/push-to-ripple.js` marker file
-4. If still not found, ask the user:
-   > "Where is your Ripple project? Provide the path, or set `RIPPLE_PROJECT_DIR` in your environment."
+**Read credentials:**
+```bash
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])")
+```
 
-Store the resolved path as `RIPPLE_DIR` for the remaining steps.
+**Base URL:**
+```
+https://app.base44.com/api/apps/69809e95545ed2e086d167f9/entities/Content
+```
 
-**If the user has no Ripple project:** Save the JSON payload to `output/ripple-push-{timestamp}.json` instead and tell the user the content is ready to import when Ripple is configured.
+## Content Entity Schema
+
+All filterable fields on the Content entity:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `title` | string | Content title or first line |
+| `body` | string | Full content text |
+| `channel` | string | Platform channel (see Valid Channels) |
+| `content_type` | string | Type of content (post, tweet, thread, etc.) |
+| `status` | string | `draft` / `published` / `scheduled` |
+| `brand_id` | string | Brand identifier |
+| `campaign_id` | string | Campaign grouping |
+| `image_url` | string | Attached image URL |
+| `published_url` | string | URL where content was published |
+| `published_at` | datetime | When content was published |
+| `scheduled_date` | datetime | When content is scheduled to publish |
+| `engagement` | object | Engagement metrics after publishing |
+| `source_feature_id` | string | Linked FeatureBrief record ID |
+| `source_feature_data` | object | Inline feature context snapshot |
+| `source_app_id` | string | Source app reference |
+| `generation_batch_id` | string | Groups content from the same push |
+| `metadata` | object | Arbitrary metadata |
+| `visibility` | string | `team` / `private` |
+| `assets` | array | Attached files/media |
+| `created_by` | string | Auto-set by API |
 
 ## Step 1: Extract Content from Conversation
 
-Scan the conversation for `<!-- CONTENT_START:channel -->` markers using this pattern:
+Scan the conversation for generated content. Look for:
 
-```
-/<!-- CONTENT_START:(\w+) -->\s*([\s\S]*?)\s*<!-- CONTENT_END -->/g
-```
+1. `<!-- CONTENT_START:channel -->` markers (if present)
+2. The most recently generated content piece in the conversation
+3. Channel detection from context (e.g., LinkedIn post was just written → channel = `linkedin`)
 
-For each match:
-- **channel** = capture group 1 (e.g., `linkedin`, `x`, `email`, `blog`)
-- **body** = capture group 2 (the content between markers)
-
-Also extract the guardian score if present. Look for patterns like:
+Also extract the guardian score if present:
 - `Guardian Score: X/10`
 - `Score: X/10`
-- `Brand Guardian: X`
-
-**Fallback:** If no `CONTENT_START` markers are found, detect the channel from conversation context (e.g., if a LinkedIn post was just generated, channel = `linkedin`). Use the full generated text as the body.
 
 ## Step 2: Build JSON Payload
 
-For each extracted content piece, build an item object:
+Build the payload matching the Content entity schema:
 
 ```json
 {
-  "items": [
-    {
-      "channel": "<detected channel>",
-      "body": "<extracted content body>",
-      "title": "<first line of content or subject line if email>",
-      "content_type": "<post|thread|tweet|blog_post|etc>",
-      "guardian_score": <number or null>
-    }
-  ]
+  "channel": "linkedin",
+  "content_type": "post",
+  "title": "First line or subject of the content",
+  "body": "Full content text here",
+  "status": "draft",
+  "source_feature_id": "feature-brief-record-id-if-available",
+  "metadata": {
+    "source": "cli_marketing_skill",
+    "guardian_score": 8
+  }
 }
 ```
 
-**Channel-to-content_type mapping defaults:**
+**Channel-to-content_type mapping:**
 - linkedin → `post`
 - x → `tweet` (or `thread` if multi-part)
 - email → `nurture`
@@ -83,51 +104,59 @@ For each extracted content piece, build an item object:
 - linkedin_ads → `feed_ad`
 - reddit_ads → `feed_ad`
 
-## Step 3: Confirm with User
+If a feature brief was used as context, link it via `source_feature_id`.
 
-Before pushing, show the user what will be sent:
+## Step 3: Push via REST API
 
-```
-Ready to push to Ripple:
-- 1x LinkedIn post (Guardian Score: 8/10)
-- 1x X tweet (Guardian Score: 7/10)
-
-Confirm? (y/n)
-```
-
-Use AskUserQuestion to get confirmation.
-
-## Step 4: Execute Bridge Script
-
-Write the JSON payload to a temp file to avoid shell escaping issues, then pipe it to the bridge script:
+Write the payload to a temp file, then POST:
 
 ```bash
-cat /tmp/ripple-push.json | node "$RIPPLE_DIR/scripts/push-to-ripple.js"
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s -X POST "https://app.base44.com/api/apps/69809e95545ed2e086d167f9/entities/Content" \
+  -H "api_key: $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d @/tmp/ripple-push.json
 ```
 
-Steps:
-1. Write JSON payload to `/tmp/ripple-push.json` using the Write tool
-2. Run the bash command above using the resolved `RIPPLE_DIR` from Step 0
-3. Capture stdout (the result JSON)
+**To update an existing record:**
 
-## Step 5: Report Results
+```bash
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s -X PUT "https://app.base44.com/api/apps/69809e95545ed2e086d167f9/entities/Content/{RECORD_ID}" \
+  -H "api_key: $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d @/tmp/ripple-push.json
+```
 
-Parse the JSON output from the script.
+## Step 4: Report Results
+
+Parse the JSON response from the API.
 
 **On success:**
 ```
 Pushed to Ripple:
-- LinkedIn post → content_id: abc123 (draft)
-- X tweet → content_id: def456 (draft)
+- LinkedIn post → record_id: abc123 (draft)
 
-Batch ID: cli_1739654400000
 Open Ripple to review and publish.
 ```
 
 **On error:**
-- If auth error: Tell user to run `npx base44 login`
-- If per-item errors: Report which items failed and which succeeded
-- If total failure: Show the error message from the script
+- If `Entity schema Content not found`: Wrong app ID — use `69809e95545ed2e086d167f9`
+- If auth error: Check `.claude/marketing/api-config.json` credentials
+- If validation error: Check required fields against schema
+
+## List All Content
+
+```bash
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s "https://app.base44.com/api/apps/69809e95545ed2e086d167f9/entities/Content" \
+  -H "api_key: $API_KEY" | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for r in data:
+    print(f'{r.get(\"channel\",\"?\"):12} | {r.get(\"status\",\"?\"):10} | {r.get(\"title\",\"?\")[:50]}')
+"
+```
 
 ## Valid Channels
 
@@ -137,5 +166,7 @@ Open Ripple to review and publish.
 
 - All content is created as **draft** status — user publishes from Ripple UI
 - Guardian review is NOT needed here — it's already built into the marketing skills
-- The `source: cli_marketing_skill` metadata tag identifies CLI-pushed content in Ripple
-- Multiple content pieces from the same push share a `batch_id` for grouping
+- The `metadata.source: cli_marketing_skill` tag identifies CLI-pushed content in Ripple
+- Multiple content pieces from the same campaign can share a `campaign_id`
+- Use `source_feature_id` to link content back to the FeatureBrief it was generated from
+- Use `generation_batch_id` to group content from the same push session
