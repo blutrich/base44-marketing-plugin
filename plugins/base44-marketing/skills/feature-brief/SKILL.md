@@ -30,9 +30,12 @@ Every step falls through to the next available source. No manual mode selection 
 | Product App | `692b72212d45f3a5bc07e7ae` | Feature entity (read) + MarketingActivity entity (write) + Feature.marketing_description (write) |
 | Ripple | `69809e95545ed2e086d167f9` | FeatureBrief entity (optional storage) |
 
-**API Key:** `e3c64eda7bcf4d4183230ff4f6283c3e`
+**Credentials:** `.claude/marketing/api-config.json` (contains `api_key` and `product_app_api_key`)
 
-**Ripple credentials:** `.claude/marketing/api-config.json`
+**Read Product App key:**
+```bash
+PRODUCT_API_KEY=$(python3 -c "import json; c=json.load(open('.claude/marketing/api-config.json')); print(c.get('product_app_api_key', c.get('api_key')))")
+```
 
 ---
 
@@ -44,7 +47,7 @@ Try these sources in order until one works:
 
 ```bash
 curl -s "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/Feature" \
-  -H "api_key: e3c64eda7bcf4d4183230ff4f6283c3e"
+  -H "api_key: $PRODUCT_API_KEY"
 ```
 
 Search by title (fuzzy match). Extract from the record:
@@ -167,7 +170,7 @@ Using Slack context + Feature entity metadata, generate content for **all Market
 Check if one exists for this feature first:
 ```bash
 curl -s "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity" \
-  -H "api_key: e3c64eda7bcf4d4183230ff4f6283c3e"
+  -H "api_key: $PRODUCT_API_KEY"
 ```
 
 Search by `feature_id` or title match. **If exists → PUT (update). If not → POST (create).**
@@ -209,7 +212,7 @@ When updating, preserve fields already filled by the team (media_urls, approval_
 **Create:**
 ```bash
 curl -s -X POST "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity" \
-  -H "api_key: e3c64eda7bcf4d4183230ff4f6283c3e" \
+  -H "api_key: $PRODUCT_API_KEY" \
   -H "Content-Type: application/json" \
   -d @/tmp/marketing-activity.json
 ```
@@ -217,7 +220,7 @@ curl -s -X POST "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entiti
 **Update:**
 ```bash
 curl -s -X PUT "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity/[RECORD_ID]" \
-  -H "api_key: e3c64eda7bcf4d4183230ff4f6283c3e" \
+  -H "api_key: $PRODUCT_API_KEY" \
   -H "Content-Type: application/json" \
   -d @/tmp/marketing-activity.json
 ```
@@ -226,7 +229,7 @@ curl -s -X PUT "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entitie
 
 ```bash
 curl -s -X PUT "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/Feature/[FEATURE_ID]" \
-  -H "api_key: e3c64eda7bcf4d4183230ff4f6283c3e" \
+  -H "api_key: $PRODUCT_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"marketing_description": "..."}'
 ```

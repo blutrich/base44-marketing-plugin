@@ -228,8 +228,9 @@ curl -s -X POST "https://app.base44.com/api/apps/69809e95545ed2e086d167f9/entiti
 Also write to MarketingActivity in Product App, same as feature-brief Step 4a.
 
 ```bash
+PRODUCT_API_KEY=$(python3 -c "import json; c=json.load(open('.claude/marketing/api-config.json')); print(c.get('product_app_api_key', c.get('api_key')))") && \
 curl -s -X POST "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity" \
-  -H "api_key: e3c64eda7bcf4d4183230ff4f6283c3e" \
+  -H "api_key: $PRODUCT_API_KEY" \
   -H "Content-Type: application/json" \
   -d @/tmp/marketing-activity-[name].json
 ```
