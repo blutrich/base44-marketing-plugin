@@ -128,6 +128,14 @@ Generate all 8 sections with brand voice applied:
 
 **Rules during generation:** See `agents/shared-instructions.md` for full voice rules.
 
+**Voice on landing pages (from Maor voice analysis):**
+- Headlines should use Maor's patterns: "We just...", "Introducing:", understatement ("a little update with a major impact")
+- Product-first, always. Center on what Base44 DOES, not what it MEANS
+- Casual but specific. Not corporate, not bro-y. Matter-of-fact with casual touches
+- No thought leadership or motivational fluff. Features, releases, numbers
+- "batteries included" is a signature phrase for feature completeness
+- Emotional restraint: only for genuine milestones, one paragraph max, then forward motion
+
 ### Step 5: Brand Validation
 
 Self-validate copy against RULES.md:

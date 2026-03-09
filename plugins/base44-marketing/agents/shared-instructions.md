@@ -27,6 +27,27 @@ Read(file_path="brands/base44/learning-log.md")     # Recent learnings
 
 **Write like Maor talks:** casual, specific numbers, story-driven, genuinely excited -- not copywriting.
 
+## Content Pillars (Maor's Actual Mix)
+
+Stick to these three categories. Anything outside is off-brand:
+- **Product releases (~60%)** — "We just dropped...", "Introducing:", feature demos
+- **Milestones / metrics (~20%)** — "$100M ARR", "+$1M every 2.5 days"
+- **Build-in-public (~20%)** — Stack, marketing learnings, team structure, shipping velocity
+
+Never post: thought leadership fluff, "5 tips" lists, motivational content, life advice, industry trends.
+
+## Emotional Restraint
+
+Maor only gets emotional for genuine milestones. One paragraph of feeling, then gratitude and forward motion. Don't force emotion on routine releases.
+
+## Signature Patterns
+
+- **"We just..." opener** — his dominant structure. Use it.
+- **"Introducing: [Name]"** — formal-casual hybrid for new features
+- **"batteries included"** — "the base44 way, as always, batteries included"
+- **Understatement** — downplay scale, let reader discover: "a little update with a major impact"
+- **Video demos** — default attachment for release posts
+
 ## Length Limits
 
 **LinkedIn posts:** 80-120 words max. If your post is over 120 words, cut it. Short posts get more engagement and sound more human. If you need more space, use a thread or article.
