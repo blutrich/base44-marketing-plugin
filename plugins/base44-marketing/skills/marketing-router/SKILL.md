@@ -64,6 +64,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | 11.7 | PUSH_RIPPLE | push to ripple, save to ripple, send to ripple | **PUSH_RIPPLE** |
 | 11.8 | SESSION_LOG | log session, save session, track session, session report, wrap up, end session | **SESSION_LOG** |
 | 11.9 | FEATURE_SCAN | scan features, feature scan, process features, brief all features, morning scan, what's new in product-marketing-sync, check for new features | **FEATURE_SCAN** |
+| 11.95 | DISCOVERY_AUTO | daily discovery, run discovery, discovery automation, auto-discover, run daily, scheduled scan, autonomous scan, headless scan | **DISCOVERY_AUTO** |
 | 12 | DEFAULT | content, write, create | **CONTENT** |
 
 **Conflict Resolution:**
@@ -94,6 +95,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | PUSH_RIPPLE | push-to-ripple skill (extract content → push to Ripple CMS) |
 | SESSION_LOG | session-log skill (capture session → push to Ripple) |
 | FEATURE_SCAN | feature-scan skill (scan #product-marketing-sync → check Ripple → generate briefs + content → push → notify) |
+| DISCOVERY_AUTO | discovery-automation skill (headless 24h scan → deduplicate → generate briefs → push → post daily digest to Slack, no confirmation gates) |
 | CONTENT | copywriter → brand-guardian (default for generic content requests) |
 
 For detailed workflows, see [reference/workflows.md](reference/workflows.md).

@@ -1,0 +1,60 @@
+name: Daily Feature Discovery
+
+on:
+  schedule:
+    # 9:00 AM UTC every day (11 AM Israel time, start of workday)
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    inputs:
+      window:
+        description: 'Lookback window (e.g. 24h, 48h, 7 days)'
+        required: false
+        default: '24h'
+      dry_run:
+        description: 'Dry run (print prompt only, do not execute)'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  discover:
+    name: Discover & Brief New Features
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Write API config
+        run: |
+          mkdir -p plugins/base44-marketing/.claude/marketing
+          cat > plugins/base44-marketing/.claude/marketing/api-config.json <<EOF
+          {
+            "api_key": "${{ secrets.RIPPLE_API_KEY }}",
+            "product_app_api_key": "${{ secrets.PRODUCT_APP_API_KEY }}"
+          }
+          EOF
+
+      - name: Run daily discovery
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_MCP_TOKEN: ${{ secrets.SLACK_MCP_TOKEN }}
+        run: |
+          WINDOW="${{ github.event.inputs.window || '24h' }}"
+          DRY_RUN_FLAG=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            DRY_RUN_FLAG="--dry-run"
+          fi
+          ./run-daily-discovery.sh --window "$WINDOW" $DRY_RUN_FLAG
+
+      - name: Upload discovery log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-log-${{ github.run_id }}
+          path: logs/discovery-*.log
+          retention-days: 30
