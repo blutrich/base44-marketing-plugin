@@ -108,9 +108,28 @@ Also read any pinned messages or canvas — these often have specs.
 
 ---
 
-## Step 5: Enrich with Product-Marketing-Sync
+## Step 5: Enrich with ETA + Structured Data
 
-Check if this feature has a structured announcement in `#product-marketing-sync`:
+### 5a. Feature Entity (best ETA source)
+
+Query the Product App for a matching Feature record:
+
+```bash
+PRODUCT_API_KEY=$(python3 -c "import json; c=json.load(open('.claude/marketing/api-config.json')); print(c.get('product_app_api_key', c.get('api_key')))") && \
+curl -s "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/Feature" \
+  -H "api_key: $PRODUCT_API_KEY"
+```
+
+Match by title (fuzzy). Pull:
+- `eta` — the official timeline
+- `tier` — feature priority (T1/T2/T3)
+- `owners` — PM/dev owners
+- `who_is_this_for` — target audience
+- `why_building` — business rationale
+
+### 5b. Product-Marketing-Sync (structured announcements)
+
+Check if this feature has a bot announcement in `#product-marketing-sync`:
 
 ```
 Tool: slack_search_public
@@ -118,6 +137,17 @@ Query: [feature name] in:#product-marketing-sync
 ```
 
 If found, pull the structured fields (ETA, owner, marketing channels requested, etc.) from the bot announcement format. This gives marketing-specific context the feat channel won't have.
+
+### 5c. ETA Display in Digest
+
+Always include a timeline in the digest:
+
+| Source | Display |
+|--------|---------|
+| Feature entity `eta` field | Show exact date: "ETA: Mar 15" |
+| Bot announcement `:date: ETA:` | Show exact date: "ETA: Mar 15" |
+| Slack discussion mentions a date | Show with caveat: "~Mar 15 (mentioned in chat)" |
+| No date found anywhere | Show: "No ETA yet" |
 
 ---
 
@@ -139,8 +169,9 @@ Channel ID: C0AKHFFRS1Y
 
 *What:* [1-2 sentences — what is being built]
 *Who:* [Dev team members working on it]
-*When:* [ETA if known, or "no timeline yet"]
+*ETA:* [Date from Feature entity/bot announcement, or "No ETA yet"]
 *Status:* [Early / In Development / Testing / Near Ship]
+*Tier:* [T1/T2/T3 from Feature entity, or omit if unknown]
 
 *Why it matters for marketing:*
 [1-2 sentences — why marketing should care, what to prepare]
