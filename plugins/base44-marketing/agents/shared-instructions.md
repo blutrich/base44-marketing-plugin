@@ -80,6 +80,7 @@ The feature name can appear once, buried in the body, never as the hook or headl
 - Repeat phrases like "no big teams" in every post
 - Write overly choppy sentences
 - Make structure too perfect/predictable
+- Fake vulnerability ("Honestly wasn't sure we'd get this right", "Not gonna lie...", "I have a confession...") - engagement-bait disguised as honesty
 
 **DO:**
 - Mix sentence lengths naturally

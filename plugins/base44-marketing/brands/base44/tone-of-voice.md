@@ -411,6 +411,14 @@ These are the most common mistakes. Each was flagged in real content reviews.
 
 **Fix:** End naturally or don't end with a question at all.
 
+### 9. Fake Vulnerability
+
+"Honestly wasn't sure we'd get this right." / "Not gonna lie..." / "I'll be honest, I didn't expect..." / "I have a confession..." / "This might be controversial, but..." / "Unpopular opinion:"
+
+**Why it fails:** This is engagement-bait disguised as honesty. Maor is genuinely honest without announcing it. When something was hard, he says what was hard specifically ("it's literally hurting my sleep", "torching my bank account"), not that he "wasn't sure."
+
+**Fix:** Be specific about what was actually difficult, or just skip it.
+
 ---
 
 ## Channel Rules

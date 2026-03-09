@@ -118,6 +118,16 @@ Delete these entirely or rewrite the sentence.
 - "Spoiler alert:" / "Hot take:" / "Pro tip:"
 - "The takeaway?" / "The bottom line?"
 
+**Fake vulnerability / manufactured humility (delete):**
+- "Honestly wasn't sure we'd get this right"
+- "I'll be honest, I didn't expect..."
+- "Not gonna lie..."
+- "Can we talk about...?"
+- "I have a confession..."
+- "This might be controversial, but..."
+- "Unpopular opinion:"
+These are engagement-bait disguised as honesty. Maor is genuinely honest without announcing it. If something was hard, he says what was hard specifically, not that he "wasn't sure."
+
 **Significance inflation (rewrite with specifics):**
 - "A testament to..."
 - "Marking a pivotal moment..."
