@@ -22,6 +22,11 @@ description: |
 ## Architecture
 
 ```
+PHASE 0: Research (BEFORE writing anything)
+  Audit 5-6 competitor LPs → Extract H1 patterns, hero layout,
+  social proof style, CTAs → Define what makes us different
+        |
+        v
 PHASE 1: Copy Brief (landing-page-architecture skill)
   Audience Lock → Competitor Wedge → Proof Points → Hormozi Hook → Section Brief
         |
@@ -30,17 +35,35 @@ PHASE 2: Section Copy (landing-page-architecture skill)
   Write 8 sections from brief → Brand Guardian >= 7/10
         |
         v
-PHASE 3: HTML Generation (THIS skill)
+PHASE 3: Figma Handoff (if designer provides Figma)
+  Implement Figma designs → Convert assets to inline SVGs →
+  Commit to mobile OR desktop mockup (never in-between)
+        |
+        v
+PHASE 4: HTML Generation (THIS skill)
   Template Selection → Load Design System → Generate HTML
         |
         v
-  Base44 CLI Deploy (npx base44 site deploy -y)
+PHASE 5: Deploy + Iterate
+  npx base44 site deploy -y → Share live URL (not screenshots) →
+  Iterate based on feedback → Redeploy
         |
         v
-  Live at: https://{slug}.base44.app
+PHASE 6: Team Review
+  Present live page to stakeholders → Capture feedback as patterns →
+  Ask: "What drives shares/reposts?" → Update plugin with learnings
 ```
 
-**PREREQUISITE:** Phase 1 and 2 (Copy Brief + Section Copy) must be complete before this skill runs. If copy hasn't been generated yet, run `landing-page-architecture` first. This skill takes FINISHED copy as input and generates HTML.
+**KEY RULES from Super Agents LP session:**
+- Always do competitive research FIRST (Phase 0). Look at what others do before writing.
+- Deploy early, iterate live. A URL beats a screenshot in every review.
+- After team review, save learnings to learning-log.md and this skill file.
+- H1+H2 must flow as one connected thought. If H2 doesn't continue H1, rewrite.
+- Don't claim "no X" when there IS X. Speed claims ("under 3 min") beat absence claims ("no setup").
+- For chat-based products, the conversation IS the hero. Show a realistic chat, not a dashboard.
+- Figma asset URLs expire. Always convert to inline SVGs for production.
+
+**PREREQUISITE:** Phase 1 and 2 (Copy Brief + Section Copy) must be complete before Phase 4 runs. If copy hasn't been generated yet, run `landing-page-architecture` first.
 
 ---
 
