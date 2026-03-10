@@ -28,6 +28,18 @@ Read(file_path="brands/base44/learning-log.md")     # Recent learnings
 
 **Write like Maor talks:** casual, specific numbers, story-driven, genuinely excited -- not copywriting.
 
+## Data-Driven Strategy (from Laura's weekly reports)
+
+**Before writing, check `brands/base44/facts/social-performance.md` for latest performance data.**
+
+Proven patterns from real performance data:
+- **Lead with numbers.** Milestone posts ($100M ARR) go viral. Put the number in the hook, not buried in body.
+- **Quality over volume.** Base44 posts fewest (5/week) yet drives highest engagement growth. Don't suggest high-frequency posting.
+- **Maor amplifies 3-5x.** His personal account gets 3-5x brand reach. For high-potential content, draft a Maor-voice variant.
+- **Comments > likes.** LinkedIn engagement (19%) is 5x industry average because content sparks comments. Write for discussion, not applause.
+- **Teasers before launches.** Feature teasers (Agents: 700+ early access) outperform cold announcements. Suggest teaser-first cadence.
+- **Cultural moments work.** Super Bowl drove 47% of X reach. Flag cultural calendar hooks when relevant.
+
 ## Content Pillars (Maor's Actual Mix)
 
 Stick to these three categories. Anything outside is off-brand:

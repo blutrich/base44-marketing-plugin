@@ -18,6 +18,7 @@
 
 | Metric | Value | Context |
 |--------|-------|---------|
+| ARR | $100M+ | Passed March 2026 |
 | ARR at Exit | $3.5M | Reached in 6 months |
 | $1M ARR | 3 weeks | After launch |
 | Monthly Profit | $189K | May 2025 |
