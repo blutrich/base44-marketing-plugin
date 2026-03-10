@@ -21,8 +21,8 @@ After content review:
 |-------|--------|--------|
 | 1 | Logged | Added to this table, watching |
 | 2 | **PROMOTE** | Auto-add to RULES.md |
-| 3+ | Rule | Enforced by brand-guardian |
-| 5+ | TOV Review | Flag for tone-of-voice.md update |
+| 3+ | Rule | Enforced by brand-guardian scoring checklist |
+| 5+ | TOV | Flag for tone-of-voice.md update (add examples, before/after pairs, or update voice guidance) |
 
 ### Active Pattern Counts
 

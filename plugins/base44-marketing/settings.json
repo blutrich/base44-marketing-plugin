@@ -9,6 +9,7 @@
       "Read(.claude/marketing/**)",
       "Edit(.claude/marketing/**)",
       "Write(.claude/marketing/**)",
+      "Write(.claude/marketing/sessions.md)",
       "Bash(mkdir -p .claude/marketing)",
       "Bash(mkdir -p docs/plans)",
       "Bash(mkdir -p docs/research)",
@@ -16,7 +17,10 @@
       "Bash(git diff:*)",
       "Bash(git log:*)",
       "Bash(git blame:*)",
-      "Bash(git ls-files:*)"
+      "Bash(git ls-files:*)",
+      "Bash(python3 -c *api-config*)",
+      "Bash(curl -s *PluginSession*)",
+      "Bash(cat .claude/marketing/api-config.json*)"
     ],
     "deny": [
       "Bash(rm -rf *)",
@@ -25,7 +29,7 @@
     ]
   },
   "env": {
-    "MARKETING_PLUGIN_VERSION": "1.12.0",
+    "MARKETING_PLUGIN_VERSION": "1.13.0",
     "BRAND_DEFAULT": "base44",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   }

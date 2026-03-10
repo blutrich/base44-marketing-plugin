@@ -10,6 +10,7 @@ tools:
 skills:
   - marketing-ideas
   - marketing-psychology
+  - cross-platform-repurpose
 ---
 
 # Campaign Planner

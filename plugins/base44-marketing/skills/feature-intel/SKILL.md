@@ -397,6 +397,15 @@ Status values: `new` (no content yet), `active`, `shipped`, `archived`, `stale` 
 
 Runs twice daily — morning scan catches overnight activity, evening scan catches the workday.
 
+---
+
+## Related Skills
+
+| Skill | Relationship |
+|-------|-------------|
+| `feature-brief` | Deep-dive into a single feature. feature-intel discovers features; run `/feature-brief [name]` to generate full marketing content for one. |
+| `feature-scan` | Batch processor for #product-marketing-sync announcements. Overlaps on source channel but different scope (scan processes and pushes to Ripple; intel discovers and digests). |
+
 For heavy launch weeks:
 ```
 /loop 4h scan feat channels for new features via marketing plugin

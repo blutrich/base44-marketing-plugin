@@ -12,10 +12,10 @@ description: |
 
 ## When to Use
 
-- User says "log session", "save session", "track this session"
-- User says "show team usage", "who used the plugin", "usage report"
-- At the end of a session where content was created or data was queried
-- When the marketing-router reminds the user to log
+- **AUTO MODE (default):** Invoked automatically by brand-guardian after every content review, and by marketing-router after non-guardian workflows. Skips Steps 2 and 6 (no user prompts). Uses "Auto" as user_name if unknown.
+- **MANUAL MODE:** User says "log session", "save session", "track this session", "show team usage", "who used the plugin", "usage report". Runs full flow with confirmation.
+
+**How to detect mode:** If you were invoked by brand-guardian or marketing-router (not by direct user request), use AUTO MODE.
 
 ---
 

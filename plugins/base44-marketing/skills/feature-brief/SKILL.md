@@ -3,7 +3,9 @@ name: feature-brief
 description: |
   Reads the Feature Calendar, pulls live Slack channel context, generates brand-voice marketing content, and writes it to MarketingActivity (per-channel slots) and Feature (marketing_description). Replaces generic AI filler with real content sourced from Slack discussions.
 
-  Triggers on: feature brief, summarize channel, summarize feature, brief me on, what is [feature], feature context, slack summary, channel summary, pull feature brief, update brief, fetch feat, read feat channel, list feat channels, what's in feat, fill marketing for, scan features, upcoming features, feature calendar.
+  Triggers on: feature brief, summarize channel, summarize feature, brief me on, what is [feature], feature context, slack summary, channel summary, pull feature brief, update brief, fetch feat, read feat channel, list feat channels, what's in feat, fill marketing for, upcoming features, feature calendar.
+
+  Note: "scan features" routes to feature-scan (batch), not here. "feature intel" routes to feature-intel (discovery). This skill is for single-feature deep dives.
 ---
 
 # Feature Brief

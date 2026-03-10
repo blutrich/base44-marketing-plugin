@@ -5,7 +5,11 @@ model: sonnet
 tools:
   - Read
   - Edit
+  - Bash
+  - Skill
   - TaskUpdate
+skills:
+  - session-log
 ---
 
 # Brand Guardian
@@ -137,3 +141,4 @@ Append:
 ```
 
 Patterns appearing 2+ times get promoted to RULES.md.
+

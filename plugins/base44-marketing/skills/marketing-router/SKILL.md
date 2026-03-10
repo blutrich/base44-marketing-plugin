@@ -230,18 +230,30 @@ For task hierarchy and validation details, see [reference/task-pattern.md](refer
 
 ## Supporting Skills
 
-| Skill | Purpose |
-|-------|---------|
-| marketing-ideas | 77 tactics, playbooks |
-| marketing-psychology | 71 persuasion principles |
-| hook-rules | Approved hooks, banned patterns |
-| base44-landing-page | HTML generation + Base44 hosting deployment |
-| cross-platform-repurpose | Transform between platforms |
-| brand-memory | Persistent learning |
-| base44-feature | Fetch live data from Base44 app entities (features, roadmap) |
-| push-to-ripple | Push generated content into Ripple CMS |
-| data-insight | Trino analytics: growth, models, funnel, apps, features, remix, referrals, user voice (16 queries, 5 tables) |
-| session-log | Session tracking: usage, time saved, business impact |
+| Skill | Purpose | Loaded By |
+|-------|---------|-----------|
+| marketing-ideas | 77 tactics, playbooks | Router (BRAINSTORM) |
+| marketing-psychology | 71 persuasion principles | Agents (gtm, planner, specialists) |
+| hook-rules | Approved hooks, banned patterns | Agents (linkedin, x, ad, video) |
+| base44-landing-page | HTML generation + Base44 hosting deployment | Router (LANDING) |
+| landing-page-architecture | Copy Brief + 8-Section Framework (prerequisite for base44-landing-page) | copywriter agent |
+| cross-platform-repurpose | Transform between platforms | Router (REPURPOSE) |
+| brand-memory | Persistent learning | Router (init) |
+| base44-feature | Fetch live data from Base44 app entities (features, roadmap) | Router (APP_DATA) |
+| push-to-ripple | Push generated content into Ripple CMS | Router (PUSH_RIPPLE) |
+| data-insight | Trino analytics: growth, models, funnel, apps, features, remix, referrals, user voice (19 queries, 6 tables) | Router (DATA_INSIGHT) |
+| session-log | Session tracking: usage, time saved, business impact | Router (SESSION_LOG) |
+| direct-response-copy | THE SLIDE framework for conversion copy | copywriter agent |
+| linkedin-viral | LinkedIn optimization patterns | linkedin-specialist agent |
+| x-viral | X/Twitter optimization patterns | x-specialist agent |
+| seo-content | Search optimization | seo-specialist agent |
+| geo-content | AI citation optimization (ChatGPT, Perplexity, Claude) | seo-specialist agent |
+| nano-banana | Marketing image generation via Google Imagen 3 | ad-specialist, video-specialist agents |
+| remotion | Video creation in React (24 sub-rule files) | video-specialist agent |
+| verification-before-delivery | Quality assurance before output | Optional QA gate |
+| feature-brief | Single-feature deep dive: Slack → MarketingActivity | Router (FEATURE_BRIEF) |
+| feature-scan | Batch scanner: #product-marketing-sync → Ripple | Router (FEATURE_SCAN) |
+| feature-intel | Intel scan: #feat-* channels → digest to Slack | Router (FEATURE_INTEL) |
 
 ---
 
@@ -255,13 +267,18 @@ For task hierarchy and validation details, see [reference/task-pattern.md](refer
 
 ---
 
-## Session Logging
+## Session Logging (AUTOMATIC)
 
-At the end of every session where content was created or data was queried, remind the user:
+**For content workflows (LINKEDIN, X, EMAIL, SEO, LANDING, VIDEO, PAID_AD, CAMPAIGN, REPURPOSE):**
+Brand-guardian handles auto-logging after every review. No action needed from the router.
 
-"Want me to log this session? I'll track what we did and how much time it saved."
+**For non-guardian workflows (GTM_STRATEGY, BRAINSTORM, DATA_INSIGHT, APP_DATA, FEATURE_BRIEF, FEATURE_SCAN, FEATURE_INTEL):**
+After the workflow completes, automatically invoke `session-log` in silent mode:
+1. Scan conversation for workflows used, content pieces, data queries
+2. Push to PluginSession entity — skip user confirmation
+3. Report: `Session logged. Time saved: ~{N} min`
 
-If user agrees, invoke the `session-log` skill.
+If credentials missing, silently skip — don't interrupt the workflow.
 
 ---
 

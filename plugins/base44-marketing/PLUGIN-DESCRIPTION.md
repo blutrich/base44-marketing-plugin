@@ -1,1 +1,1 @@
-
+Orchestrated marketing content creation for Base44. 9 agents, 23 skills, brand governance, and persistent learning. Routes plain-English requests to specialized agents (LinkedIn, X, email, SEO, video, ads, landing pages) with automatic brand-guardian quality gate.

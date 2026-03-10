@@ -19,9 +19,10 @@ Read(file_path="brands/base44/learning-log.md")     # Recent learnings
 
 **NEVER** write content that sounds like a TV commercial or billboard. Specifically:
 - **No stacked declarative fragments:** "One workspace. Unlimited builders. No friction." = REJECTED
-- **No "No X, no Y, just Z" lists:** "No plugins, no exports, no manual rebuilding, just..." = AI-coded contrast framing. Just say what it does.
+- **No contrast framing:** "No plugins, no exports, no manual rebuilding, just..." or "It's not X, it's Y" or "It's not A. It's not even B. It's C." = AI-coded patterns. Just say what it does.
 - **No advertising melody:** If it could be read over a swooshing logo animation, rewrite it
 - **No bulleted idea dumps:** Deliver connected narratives, not grocery lists
+- **No stacked short sentences.** Three or more short sentences in a row for dramatic effect = AI pattern. Mix short and long naturally.
 - **No em dashes. Period.** Use commas, periods, or parentheses instead. Em dashes are the single biggest AI tell in 2026. Zero tolerance.
 - **The Maor Test:** Would Maor post this on his LinkedIn exactly as written? If you'd need to "make it more polished," you've already failed.
 
@@ -51,6 +52,10 @@ Maor only gets emotional for genuine milestones. One paragraph of feeling, then 
 ## Length Limits
 
 **LinkedIn posts:** 80-120 words max. If your post is over 120 words, cut it. Short posts get more engagement and sound more human. If you need more space, use a thread or article.
+
+**Emails:** 150-200 words max. Start direct (no "You know that moment..." intros). Problem, solution, result.
+
+**Emoji rules are platform-specific.** Each channel agent (linkedin-specialist, x-specialist) defines its own approved emoji list. Don't carry LinkedIn emoji rules into X posts or vice versa.
 
 ## Word Rules
 
@@ -115,9 +120,72 @@ Read `brands/base44/banned-words.md` for the full list. Key categories:
 
 When you catch yourself using any of these, replace with the plain English alternative.
 
-## Complete Task
+## Complete Task (MANDATORY — EVERY workflow, EVERY time)
 
-When done:
+After delivering content or completing your task, run these steps IN ORDER. Do NOT skip.
+
+### Step 1: Log Session (Local File — Zero Config)
+
+Append one row to `.claude/marketing/sessions.md`. No API key needed. Works immediately.
+
+Use the **Edit tool** to append this EXACT row to the table in `.claude/marketing/sessions.md`:
+
+```
+| {DATE} | {WORKFLOW} | {CHANNEL} | {PIECES} | {SCORE} | {MINUTES} | {SUMMARY} |
+```
+
+**Field reference (use these EXACT values):**
+
+| Field | Value | Example |
+|-------|-------|---------|
+| `DATE` | YYYY-MM-DD | `2026-03-10` |
+| `WORKFLOW` | One of: LINKEDIN, X, EMAIL, SEO, LANDING, VIDEO, PAID_AD, CAMPAIGN, REPURPOSE, GTM_STRATEGY, BRAINSTORM, DATA_INSIGHT, APP_DATA, FEATURE_BRIEF, FEATURE_SCAN, FEATURE_INTEL | `LINKEDIN` |
+| `CHANNEL` | Platform or `internal` | `linkedin`, `x`, `email`, `internal` |
+| `PIECES` | Count of content pieces | `1` |
+| `SCORE` | Guardian score 1-10 or `-` if no review | `8` |
+| `MINUTES` | Time saved (use lookup below) | `45` |
+| `SUMMARY` | One sentence | `LinkedIn post about $100M ARR` |
+
+**Time saved lookup (fixed values):**
+
+| Workflow | Min |
+|----------|-----|
+| LINKEDIN | 45 |
+| X | 30 |
+| EMAIL | 60 |
+| SEO | 120 |
+| LANDING | 180 |
+| VIDEO | 90 |
+| PAID_AD | 45 |
+| CAMPAIGN | 120 |
+| REPURPOSE | 30 |
+| GTM_STRATEGY | 240 |
+| BRAINSTORM | 60 |
+| DATA_INSIGHT | 30 |
+| APP_DATA | 15 |
+| FEATURE_BRIEF | 45 |
+| FEATURE_SCAN | 60 |
+| FEATURE_INTEL | 45 |
+
+**If `.claude/marketing/sessions.md` doesn't exist yet, create it with this header:**
+
+```markdown
+# Plugin Session Log
+
+| Date | Workflow | Channel | Pieces | Score | Min Saved | Summary |
+|------|----------|---------|--------|-------|-----------|---------|
+```
+
+**Then** optionally push to Ripple if `.claude/marketing/api-config.json` exists:
+
+```bash
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])" 2>/dev/null) && APP_ID=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['app_id'])" 2>/dev/null) && curl -s -X POST "https://app.base44.com/api/apps/$APP_ID/entities/PluginSession" -H "api_key: $API_KEY" -H "Content-Type: application/json" -d "{\"workflow\":\"$WORKFLOW\",\"channel\":\"$CHANNEL\",\"content_pieces\":$PIECES,\"guardian_score\":$SCORE,\"estimated_time_saved_min\":$MINUTES,\"session_date\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"session_summary\":\"$SUMMARY\"}" || true
+```
+
+**If API config missing or fails:** Silently skip. The local file is the source of truth.
+
+### Step 2: Mark Task Complete
+
 ```
 TaskUpdate({ taskId: "{TASK_ID}", status: "completed" })
 ```
