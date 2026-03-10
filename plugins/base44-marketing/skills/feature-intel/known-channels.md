@@ -1,24 +1,25 @@
 # Known Feat Channels
 
-> Last full scan: 2026-03-09
-> Total: 60 feat channels (excluding deployed-feat-*, feature-flags-*, e2e-*)
+> Last full scan: 2026-03-10 (v2 — full 9-step scan with API gap analysis)
+> Total: 61 feat channels (excluding deployed-feat-*, feature-flags-*, e2e-*)
 
 ## Active (created in last 14 days — high priority)
 
-| Channel | ID | Created | Creator | Status | Last Digest |
-|---------|-----|---------|---------|--------|-------------|
-| feat-design-system | C0AKCDWTUHJ | 2026-03-08 | Liron Monitz | new | — |
-| feat-student-discount | C0AK8CH7SQ2 | 2026-03-08 | Yoav Achiam | new | — |
-| feat-suggestions | C0AKCF91WBE | 2026-03-08 | Nitzan Pode | new | — |
-| feat-gift-card | C0AL12ACBJL | 2026-03-07 | Raphael | new | — |
-| feat-experiment-higher-credits | C0AJXRTD45U | 2026-03-06 | Maor Shlomo | new | — |
-| feat-data-api | C0AJKUA9QS1 | 2026-03-05 | Maor Shlomo | new | — |
-| feat-git-signup | C0AJRCH657U | 2026-03-05 | Yoav Achiam | new | — |
-| feat-branches | C0AJ2L6EBFZ | 2026-03-04 | Nir Natan | new | — |
-| feat-auto-save | C0AJBTSH3QT | 2026-03-04 | Keren Or Peer | new | — |
-| feat-migration-to-mp | C0AJ0JJJ33R | 2026-03-04 | Fayga Derevicher | new | — |
-| feat-competitors-migrations | C0AJ3UL7NP7 | 2026-03-03 | Maor Shlomo | new | — |
-| feat-connectors-trigger | C0AJFAZD9PB | 2026-03-02 | Rotem Eisenkot | new | — |
+| Channel | ID | Created | Creator | Status | Last Digest | Last Known |
+|---------|-----|---------|---------|--------|-------------|------------|
+| feat-backoffice-service | C0AKJBT43CN | 2026-03-10 | Natan Silnitsky | active | 2026-03-10 | Separating admin endpoints to backoffice.base44.com. CF Zero Trust vs IP debate. Internal/security. |
+| feat-design-system | C0AKCDWTUHJ | 2026-03-08 | Liron Monitz | active | 2026-03-09 | Planning: shadcn alignment, Storybook, dark mode. Guidelines by Thu |
+| feat-student-discount | C0AK8CH7SQ2 | 2026-03-08 | Yoav Achiam | new | — | Canvas only, no discussion |
+| feat-suggestions | C0AKCF91WBE | 2026-03-08 | Nitzan Pode | active | — | Home page + editor suggestions, ~10 min task |
+| feat-gift-card | C0AL12ACBJL | 2026-03-07 | Raphael | active | 2026-03-09 | Testing on Velino. Credit order debate. Yoav wants subscription model |
+| feat-experiment-higher-credits | C0AJXRTD45U | 2026-03-06 | Maor Shlomo | active | — | A/B test 0.85/1/1.2/1.35x credits. Internal only |
+| feat-data-api | C0AJKUA9QS1 | 2026-03-05 | Maor Shlomo | active | 2026-03-09 | Sub-agent for data pipelines. Concept stage |
+| feat-git-signup | C0AJRCH657U | 2026-03-05 | Yoav Achiam | new | — | No content yet |
+| feat-branches | C0AJ2L6EBFZ | 2026-03-04 | Nir Natan | active | 2026-03-09 | Phase 1 PRD in progress. Safe experimentation, shared read-only DB |
+| feat-auto-save | C0AJBTSH3QT | 2026-03-04 | Keren Or Peer | active | — | PR #4623, 3rd iteration, in QA |
+| feat-migration-to-mp | C0AJ0JJJ33R | 2026-03-04 | Fayga Derevicher | active | — | Supabase→MP migration. 2 PRs merged, gradual rollout starting |
+| feat-competitors-migrations | C0AJ3UL7NP7 | 2026-03-03 | Maor Shlomo | active | 2026-03-09 | Migration wizard for Lovable/Bolt/Replit/Monday/HubSpot. Early dev |
+| feat-connectors-trigger | C0AJFAZD9PB | 2026-03-02 | Rotem Eisenkot | active | 2026-03-09 | Gmail/Calendar/Drive/Slack triggers. Near ship on avner.velino.org |
 
 ## Recent (15-30 days old)
 

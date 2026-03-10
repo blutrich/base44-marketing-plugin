@@ -27,7 +27,7 @@ The `marketing-router` skill is the entry point. When it loads, it:
 | Brainstorm | `marketing-router` → `marketing-ideas` |
 | Push to Ripple | `marketing-router` → `push-to-ripple` |
 | Feature brief | `marketing-router` → `feature-brief` (Feature entity → Slack MCP → MarketingActivity + Feature card) |
-| Feature intel | `marketing-router` → `feature-intel` (scan #feat-* channels → detect new → digest to #new-features-intel) |
+| Feature intel | `marketing-router` → `feature-intel` (scan #feat-* channels → detect new → digest to #features-intel-changelog-4marketing) |
 | Log session | `marketing-router` → `session-log` |
 
 **Every content workflow** must also read `agents/shared-instructions.md` and `brands/base44/RULES.md` before generating.
@@ -51,7 +51,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
         ├── PUSH_RIPPLE → push-to-ripple (extract content → push to Ripple CMS)
         ├── FEATURE_BRIEF → feature-brief (Feature Calendar → Slack → MarketingActivity)
         ├── FEATURE_SCAN → feature-scan (scan channel → check Ripple → brief + content → push → notify)
-        ├── FEATURE_INTEL → feature-intel (scan #feat-* channels → detect new features → post to #new-features-intel)
+        ├── FEATURE_INTEL → feature-intel (scan #feat-* channels → detect new features → post to #features-intel-changelog-4marketing)
         ├── SESSION_LOG → session-log (team usage → Base44 PluginSession entity)
         └── CAMPAIGN → planner → [specialists ∥] → brand-guardian
 ```
@@ -95,7 +95,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `remotion` | Video creation in React |
 | `feature-brief` | Feature Calendar → Slack → MarketingActivity pipeline (find feature → read Slack → generate content → write to MarketingActivity + Feature card) |
 | `feature-scan` | Batch scanner: scans #product-marketing-sync → checks Ripple for duplicates → generates briefs + draft content → pushes to Ripple → notifies Slack. Works with `/loop 30m /feature-scan`. |
-| `feature-intel` | Early warning: scans all #feat-* channels, detects new ones, reads for context, posts marketing digests to #new-features-intel. Works with `/loop 24h /feature-intel`. |
+| `feature-intel` | Single-pass intel scan: discovers new feat channels, reads #product-marketing-sync releases, pulls Feature + MarketingActivity from API, detects status changes, and posts a unified digest with release tracker + marketing gaps + action items to #features-intel-changelog-4marketing. Works with `/loop 12h`. |
 | `verification-before-delivery` | Quality assurance before output |
 
 ## Brand Voice (TL;DR)

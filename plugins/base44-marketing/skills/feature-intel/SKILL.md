@@ -1,9 +1,12 @@
 ---
 name: feature-intel
 description: |
-  Scans Slack for #feat-* channels to detect new features in development BEFORE they ship.
-  Posts marketing-ready digests to #new-features-intel so Tiffany and the marketing team
-  can prepare ahead of time instead of chasing 20+ channels manually.
+  Single-pass intelligence scan that gives marketing a complete picture every run:
+  new features, status updates, release dates, delays, shipped features, and gaps.
+  Posts a unified daily digest to #features-intel-changelog-4marketing-4marketing.
+
+  Sources: #feat-* channels + #product-marketing-sync + Feature entity API.
+  Designed for /loop 12h — runs twice daily (morning + evening).
 
   Triggers on: feature intel, scan feat channels, new features, what's being built,
   feature discovery, feature radar, morning intel, daily scan, what features are coming.
@@ -11,223 +14,357 @@ description: |
 
 # Feature Intelligence
 
-> Early warning system. Catch features while they're being built, not after they ship.
+> One scan. Complete picture. Every day.
 
 ## Why This Exists
 
-Developers open `#feat-*` channels when they start building something. Marketing finds out weeks later when it hits `#base-product-updates`. This skill closes that gap by scanning for new feat channels daily and posting digests so marketing can prepare content, assets, and launch plans early.
+Marketing needs to know: what's being built, what's shipping soon, what slipped, and what just went live. Today that info is scattered across 60+ feat channels, #product-marketing-sync bot announcements, and the Feature entity. This skill consolidates everything into a single daily digest.
 
-**Key rule:** Already-shipped features are NOT useful here. This is about what's coming, not what's done.
+## The Single Pass
 
-## How It Works
+Every run executes ALL of these in sequence, then posts ONE unified digest:
 
 ```
-1. DISCOVER  Search Slack for all #feat-* channels
-2. DETECT    Compare against known channels → find NEW ones
-3. FILTER    Skip shipped/archived/stale channels
-4. READ      Read new channels for context (what, who, when, why)
-5. ENRICH    Cross-reference with #product-marketing-sync for structured data
-6. DIGEST    Post intel summaries to #new-features-intel
-7. TRACK     Update known channels state file
+1. DISCOVER    Search Slack for all #feat-* channels → find NEW ones
+2. READ NEW    Read new channels for context (what, who, when, why)
+3. RELEASES    Read #product-marketing-sync for ETAs, delays, shipped features
+4. CALENDAR    Pull Feature entity + MarketingActivity from Product App API
+5. UPDATES     Re-read active channels with recent digests → detect changes
+6. RE-CHECK    Re-read channels that had no content previously
+7. COMPILE     Build unified digest: new + updates + release tracker + gaps
+8. POST        Send to #features-intel-changelog-4marketing-4marketing (summary + thread cards)
+9. TRACK       Update known-channels.md state file
 ```
 
 ---
 
-## Step 1: Discover All Feat Channels
+## Step 1: Discover New Feat Channels
 
 ```
 Tool: slack_search_channels
 Query: feat-
 ```
 
-Paginate through ALL results. Feat channels follow patterns:
-- `#feat-[feature-name]` (most common)
-- `#feat-[feature-name]-[phase]`
+Paginate through ALL results. Compare against `known-channels.md`.
 
-Collect: channel ID, name, creation date, member count, purpose/topic.
-
----
-
-## Step 2: Detect New Channels
-
-Read the known channels state file:
-
-```
-Read(file_path="plugins/base44-marketing/skills/feature-intel/known-channels.md")
-```
-
-Compare discovered channels against the known list.
-
-| Status | Action |
-|--------|--------|
-| **New channel** (not in known list) | → READ + DIGEST |
-| **Known, active** (in list, not shipped) | → Check for significant new activity (optional) |
-| **Known, shipped** (in list, marked shipped) | → SKIP |
-| **Archived channel** | → SKIP |
+| Found | Action |
+|-------|--------|
+| Not in known list | → NEW — read in Step 2 |
+| In list, status `active` | → check in Step 4 |
+| In list, status `new` (no content yet) | → re-check in Step 5 |
+| In list, status `shipped`/`archived` | → SKIP |
+| `deployed-feat-*` / `feature-flags-*` / `e2e-*` prefix | → SKIP (excluded) |
 
 ---
 
-## Step 3: Filter Out Shipped Features
+## Step 2: Read New Channels
 
-A feature is likely **shipped** if:
-- Channel has messages containing "shipped", "live", "released", "deployed", "merged to main"
-- Channel has had no activity in 14+ days
-- Channel topic/purpose contains "shipped" or "done" or "completed"
-- The feature appears in `#base-product-updates` release notes
-
-A feature is **in development** if:
-- Channel was created recently (last 30 days)
-- Channel has recent activity (messages in last 14 days)
-- No "shipped" signals found
-
-**When uncertain, include it.** Better to surface a shipped feature than miss one in development.
-
----
-
-## Step 4: Read New Channels
-
-For each new/active channel:
+For each new channel:
 
 ```
 Tool: slack_read_channel
 Channel ID: [channel_id]
 Limit: 50
+Response format: concise
 ```
 
 Extract:
 | Field | Look for |
 |-------|----------|
 | `what` | First messages usually describe what's being built |
-| `who` | Channel creator + active participants = dev team |
-| `when` | Any ETA/timeline mentioned? Target dates? |
+| `who` | Channel creator + active participants |
+| `when` | Any ETA/timeline mentioned |
 | `why` | Business reason, user request, competitive pressure |
-| `status` | How far along? Design phase? In development? Testing? |
-| `blockers` | Any issues or dependencies mentioned? |
+| `status` | How far along? Design? Development? Testing? |
 
-Also read any pinned messages or canvas — these often have specs.
+Filter out noise: join messages, canvas notifications, emoji-only replies, channel renames.
+
+If channel has ONLY joins and no real content → mark as `new` with no digest. Step 5 will re-check next run.
+
+**Translate Hebrew to English. Keep names as-is.**
 
 ---
 
-## Step 5: Enrich with ETA + Structured Data
+## Step 3: Read #product-marketing-sync
 
-### 5a. Feature Entity (best ETA source)
+This is the **richest structured source** — the bot posts ETAs, owners, delays, and ship confirmations.
 
-Query the Product App for a matching Feature record:
+```
+Tool: slack_read_channel
+Channel ID: C0A8DTGTHBK
+Limit: 50
+Response format: concise
+```
+
+Parse bot messages for:
+
+| Signal | Pattern | Extract |
+|--------|---------|---------|
+| **New feature announced** | `:new: New Feature:` | Title, ETA, owner, developer, what's new, who it's for, why, showcase link, Figma, Slack channel, marketing activities requested |
+| **ETA changed** | `:date: Release Date Updated:` | Feature name, previous date, new date, owner |
+| **Feature shipped** | `:rocket:` + `has been released` or `Feature Released:` | Feature name, release date, owner |
+| **Manual announcements** | Ron/Tiffany/team messages | Launch plans, community teasers, timing decisions |
+
+Also parse human messages for:
+- Launch timing discussions ("Wednesday", "Thursday", "big announcement on 23.3")
+- Feature status updates ("X is LIVE!")
+- Marketing channel requests ("just what's new and community")
+
+### Build the Release Calendar
+
+From all parsed data, build a structured view:
+
+```
+SHIPPED (last 7 days):
+  [Feature] — shipped [date] — owner: [name]
+
+SHIPPING TODAY:
+  [Feature] — ETA [today] — owner: [name] — on time? [yes/delayed from X]
+
+THIS WEEK:
+  [Feature] — ETA [date] — owner: [name] — on time? [yes/delayed X days]
+
+NEXT WEEK+:
+  [Feature] — ETA [date] — owner: [name] — on time? [yes/delayed X days]
+```
+
+### Cross-Reference with Feat Channels
+
+Match #product-marketing-sync features to known feat channels by name. This links:
+- Structured ETA data → to channel-level context
+- Ship confirmations → to channels that should be marked `shipped`
+- Marketing activity requests → to content the team needs to prepare
+
+---
+
+## Step 4: Pull Feature Calendar + Marketing Gaps
+
+Query the Product App for the Feature entity and MarketingActivity entity. This gives the **real** release calendar and shows which features have marketing content prepared.
+
+### 4a. Read API key
 
 ```bash
-PRODUCT_API_KEY=$(python3 -c "import json; c=json.load(open('.claude/marketing/api-config.json')); print(c.get('product_app_api_key', c.get('api_key')))") && \
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])")
+```
+
+### 4b. Pull Feature entity (release calendar)
+
+```bash
 curl -s "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/Feature" \
-  -H "api_key: $PRODUCT_API_KEY"
+  -H "api_key: $API_KEY" -H "Content-Type: application/json"
 ```
 
-Match by title (fuzzy). Pull:
-- `eta` — the official timeline
-- `tier` — feature priority (T1/T2/T3)
-- `owners` — PM/dev owners
-- `who_is_this_for` — target audience
-- `why_building` — business rationale
+For each non-archived feature, extract:
+- `title`, `eta`, `status` (new/in_progress/ready/released/on_going/pending)
+- `tier` (tier_1/tier_2/tier_3), `owners`, `developer`
+- `marketing_description` (has content? ✓/✗)
+- `marketing_owner`, `marketing_release_date`
+- `slack_channel_id`, `showcase_link`, `figma_link`
+- `hide_from_marketing` (skip if true)
 
-### 5b. Product-Marketing-Sync (structured announcements)
+### 4c. Pull MarketingActivity entity (content readiness)
 
-Check if this feature has a bot announcement in `#product-marketing-sync`:
-
+```bash
+curl -s "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity" \
+  -H "api_key: $API_KEY" -H "Content-Type: application/json"
 ```
-Tool: slack_search_public
-Query: [feature name] in:#product-marketing-sync
-```
 
-If found, pull the structured fields (ETA, owner, marketing channels requested, etc.) from the bot announcement format. This gives marketing-specific context the feat channel won't have.
+For each activity, extract:
+- `title`, `status`, `approval_status`, `date`
+- `feature_id` (links to Feature entity)
+- Content slot flags: `has_linkedin_base44`, `has_linkedin_maor`, `has_x_base44`, `has_x_maor`, `has_community`, `has_whats_new`
 
-### 5c. ETA Display in Digest
+### 4d. Build Gap Analysis
 
-Always include a timeline in the digest:
+Cross-reference Feature (what's shipping) with MarketingActivity (what's prepared):
 
-| Source | Display |
-|--------|---------|
-| Feature entity `eta` field | Show exact date: "ETA: Mar 15" |
-| Bot announcement `:date: ETA:` | Show exact date: "ETA: Mar 15" |
-| Slack discussion mentions a date | Show with caveat: "~Mar 15 (mentioned in chat)" |
-| No date found anywhere | Show: "No ETA yet" |
+| Gap Type | Condition |
+|----------|-----------|
+| **No marketing at all** | Feature has ETA in next 14 days, status in_progress/ready, no MarketingActivity exists |
+| **Activity exists but empty** | MarketingActivity exists but all content slot flags are false |
+| **Missing channels** | Activity exists, some slots filled, but key channels empty (LinkedIn, X) |
+| **Shipped without brief** | Feature status = released, no marketing_description |
+
+**Priority order for gaps:**
+1. Ships today/tomorrow with no content → CRITICAL
+2. Ships this week with no content → HIGH
+3. Ships next week with no content → MEDIUM
+4. Shipped already with no announcement → LOW (retroactive)
 
 ---
 
-## Step 6: Post Digest to #new-features-intel
+## Step 5: Re-Read Active Channels for Updates
 
-**Channel:** `#new-features-intel` (`C0AKHFFRS1Y`)
+Select channels where:
 
-### Per-Feature Intel Card
+- Status is `active` AND Last Digest exists (within last 14 days)
+- Cap: up to 10 channels per run (prioritize by recency)
+
+Read new messages and look for change signals:
+
+| Change Type | Signal Keywords |
+|-------------|----------------|
+| **Status change** | "shipped", "live", "released", "deployed", "in QA", "ready for review", "postponed", "blocked" |
+| **ETA set/changed** | Date mentions, "next week", "targeting", "pushed to", "moved to" |
+| **Scope change** | "cut", "descoped", "added", "phase 2", "out of scope" |
+| **New decision** | "decided", "going with", "confirmed", "approved", "the plan is" |
+| **Blocker** | "blocked", "waiting on", "dependency", "can't proceed" |
+| **Near ship** | "PR ready", "deploying", "velino link", "QA passed" |
+
+**Threshold:** Only flag genuinely meaningful changes. Skip minor discussion, questions without answers, incremental progress.
+
+---
+
+## Step 6: Re-Check Empty Channels
+
+Select channels where status is `new` and Last Digest is `—`.
 
 ```
-Tool: slack_send_message
-Channel ID: C0AKHFFRS1Y
+Tool: slack_read_channel
+Channel ID: [channel_id]
+Limit: 20
+Response format: concise
 ```
 
-**Format:**
+- If real content found → process as new feature (extract context, add to digest)
+- If still only joins → leave as `new`
+- If 7+ days old with no content → mark as `stale`
+
+---
+
+## Step 7: Compile Unified Digest
+
+Merge ALL findings into one structured digest. **Lead with discovery, then changes, then gaps.** Scale detail to the news — big discovery day gets full cards, quiet day gets 3 lines.
+
+### Main Message Format
+
+```
+:satellite_antenna: *Feature Intel — [date]*
+
+:new: *New Features Discovered ([N]):*
+1. *[Feature]* — [one-liner] | [status] | <#channel>
+2. *[Feature]* — [one-liner] | [status] | <#channel>
+
+:arrows_counterclockwise: *Updates ([N]):*
+• *[Feature]* — [what changed] (was: [old state])
+• *[Feature]* — [what changed]
+
+:rocket: *Shipped:*
+• *[Feature]* — went live [date]
+
+:calendar: *Coming Up:*
+• *[Feature]* — ships [date] — [on time / delayed X days]
+• *[Feature]* — ships [date] — [on time / delayed X days]
+
+:warning: *Marketing Gaps:*
+:red_circle: *[Feature]* — ships [date] — NO content. Run `/feature-brief [name]`
+:large_orange_diamond: *[Feature]* — ships [date] — LinkedIn/X empty
+:yellow_heart: *[Feature]* — ships next week — no brief yet
+
+:clipboard: *Readiness ([N] features shipping in 14 days):*
+:white_check_mark: Ready: [N] — [names]
+:warning: Partial: [N] — [names] (missing: [channels])
+:red_circle: Nothing: [N] — [names]
+
+:point_right: *Action Items:*
+1. [TODAY] `/feature-brief [name]` — ships tomorrow, no content
+2. [THIS WEEK] Fill [LinkedIn/X] for [Feature]
+3. [PLAN] Brief [Feature] — ships [date]
+
+_Details in thread :thread:_
+```
+
+### Scaling Rules
+
+| Day Type | What to Show |
+|----------|-------------|
+| Big discovery (3+ new) | Full digest, all sections, thread cards for each new feature |
+| Normal day (1-2 new + updates) | All sections, thread cards for new features only |
+| Quiet day (no new, minor updates) | Short message: "No new features. [N] updates: [one-liners]. Gaps unchanged." |
+| Nothing changed | Skip posting. Say "No updates since last scan." |
+
+### Omit Empty Sections
+
+If no new features → skip `:new:` section. If no updates → skip `:arrows_counterclockwise:`. If no gaps → skip `:warning:`. Never show empty sections with "None" — just leave them out.
+
+---
+
+## Step 8: Post to #features-intel-changelog-4marketing-4marketing
+
+**Channel:** `#features-intel-changelog-4marketing` (`C0AKHFFRS1Y`)
+
+Post the compiled digest as a summary message. If there are 3+ individual feature cards (new features or significant updates), post them as thread replies.
+
+> **Note:** Channel was renamed from `#features-intel-changelog-4marketing-4marketing` to `#features-intel-changelog-4marketing` on 2026-03-10.
+
+### New Feature Card (thread reply)
 
 ```
 :mag: *Feature Intel: [Feature Name]*
 
-*What:* [1-2 sentences — what is being built]
-*Who:* [Dev team members working on it]
-*ETA:* [Date from Feature entity/bot announcement, or "No ETA yet"]
-*Status:* [Early / In Development / Testing / Near Ship]
-*Tier:* [T1/T2/T3 from Feature entity, or omit if unknown]
+*What:* [1-2 sentences]
+*Who:* [Team members]
+*ETA:* [Date from sync bot / Feature entity / chat mention / "No ETA yet"]
+*Status:* [Early / In Development / Testing / Near Ship / Shipped]
 
 *Why it matters for marketing:*
-[1-2 sentences — why marketing should care, what to prepare]
+[1-2 sentences — what to prepare]
 
-*Source:* <#[channel_id]|#feat-[name]> ([N] messages, created [date])
+*Source:* <#[channel_id]|#feat-[name]> + #product-marketing-sync
 ```
 
-### Batch Summary (if 3+ new features)
-
-Post a summary first, then individual cards as thread replies:
+### Update Card (thread reply)
 
 ```
-:satellite: *Feature Intel Scan — [Date]*
+:arrows_counterclockwise: *Feature Update: [Feature Name]*
 
-[N] new features detected across feat channels:
+*Change:* [What changed]
+*Previous:* [Old state]
+*Now:* [New state]
 
-1. *[Feature 1]* — [one-liner] | [status]
-2. *[Feature 2]* — [one-liner] | [status]
-3. *[Feature 3]* — [one-liner] | [status]
+*Source:* <#[channel_id]|#feat-[name]> (activity since [last digest])
+```
 
-Details in thread :point_down:
+### Shipped Card (thread reply)
+
+```
+:white_check_mark: *Feature Shipped: [Feature Name]*
+
+Shipped [date]. Owner: [name].
+→ Run `/feature-brief [name]` for launch content.
 ```
 
 ### Anti-Spam Rules
 
-1. **Never auto-post.** Always show draft messages and ask for confirmation.
-2. **Check for existing posts.** Search `#new-features-intel` for the feature name before posting. Skip if already posted within 7 days.
-3. **Max 10 cards per run.** Batch the rest into a summary with channel links.
-4. **No shipped features.** Double-check each feature isn't already released before posting.
+1. **Never auto-post.** Always show the full draft digest and ask for confirmation.
+2. **Dedup:** Search `#features-intel-changelog-4marketing` for feature names. Skip if already posted within 3 days (updates) or 7 days (new cards).
+3. **Max 10 thread cards per run.** Summarize the rest in the main message.
+4. **Only post if there's news.** If nothing changed since last run, say "No updates" and skip posting.
+5. **Updates must be meaningful.** "Still in development" is not an update.
 
 ---
 
-## Step 7: Update Known Channels
+## Step 9: Update State
 
-After processing, update the state file:
-
-```
-Edit(file_path="plugins/base44-marketing/skills/feature-intel/known-channels.md")
-```
-
-Add new channels with: name, ID, first seen date, status (active/shipped), last digest date.
+Update `known-channels.md`:
+- Add new channels
+- Update statuses (active → shipped when confirmed)
+- Update Last Digest dates
+- Update Last Known state summaries
+- Mark shipped features from #product-marketing-sync confirmations
+- Mark stale channels (7+ days, no content)
 
 ---
 
-## Using with /loop
+## ETA Priority
 
-```
-/loop 24h /feature-intel
-```
+When multiple sources have ETAs for the same feature:
 
-Runs daily. The known-channels state file prevents duplicate processing.
-
-For more frequent checks during heavy development periods:
-```
-/loop 4h /feature-intel
-```
+1. Feature entity `eta` field (source of truth — PM sets this)
+2. #product-marketing-sync bot announcement date
+3. MarketingActivity `date` field
+4. Slack channel discussion mentions
+5. "No ETA yet"
 
 ---
 
@@ -238,13 +375,32 @@ For more frequent checks during heavy development periods:
 ```markdown
 # Known Feat Channels
 
-| Channel | ID | First Seen | Status | Last Digest | Notes |
-|---------|-----|-----------|--------|-------------|-------|
-| feat-gift-card | C0XX... | 2026-03-01 | active | 2026-03-09 | ETA Mar 15 |
-| feat-data-api | C0YY... | 2026-02-20 | shipped | 2026-02-25 | Shipped Feb 28 |
+> Last full scan: 2026-03-10
+> Total: 60 feat channels
+
+## Active (created in last 14 days — high priority)
+
+| Channel | ID | Created | Creator | Status | Last Digest | Last Known |
+|---------|-----|---------|---------|--------|-------------|------------|
+| feat-gift-card | C0XX... | 2026-03-07 | Raphael | active | 2026-03-10 | ETA Mar 12. Testing on Velino. |
 ```
 
-Status values: `new`, `active`, `shipped`, `archived`, `stale`
+Status values: `new` (no content yet), `active`, `shipped`, `archived`, `stale` (7+ days no content)
+
+---
+
+## Using with /loop
+
+```
+/loop 12h scan feat channels for new features via marketing plugin
+```
+
+Runs twice daily — morning scan catches overnight activity, evening scan catches the workday.
+
+For heavy launch weeks:
+```
+/loop 4h scan feat channels for new features via marketing plugin
+```
 
 ---
 
@@ -253,9 +409,11 @@ Status values: `new`, `active`, `shipped`, `archived`, `stale`
 - **Slack MCP** — `slack_search_channels`, `slack_read_channel`, `slack_search_public`, `slack_send_message`
 - **State file** — `skills/feature-intel/known-channels.md`
 - **Brand rules** — `agents/shared-instructions.md` + `brands/base44/RULES.md` (for digest copy)
-- **Destination** — `#new-features-intel` (`C0AKHFFRS1Y`)
+- **#product-marketing-sync** — `C0A8DTGTHBK` (release tracker source)
+- **#features-intel-changelog-4marketing** — `C0AKHFFRS1Y` (digest destination)
+- **Product App API** — Feature entity (release calendar) + MarketingActivity entity (content readiness). Key in `.claude/marketing/api-config.json`
 
 ## Related Skills
 
 - `feature-scan` — Scans `#product-marketing-sync` for structured announcements, generates briefs + content, pushes to Ripple. Use **after** feature-intel identifies what's coming.
-- `feature-brief` — Deep-dive brief for a single feature. Use when marketing needs full content package.
+- `feature-brief` — Deep-dive brief for a single feature. Use when marketing needs full content package for a specific feature.

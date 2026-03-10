@@ -95,7 +95,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | PUSH_RIPPLE | push-to-ripple skill (extract content → push to Ripple CMS) |
 | SESSION_LOG | session-log skill (capture session → push to Ripple) |
 | FEATURE_SCAN | feature-scan skill (scan #product-marketing-sync → check Ripple → generate briefs + content → push → notify) |
-| FEATURE_INTEL | feature-intel skill (scan #feat-* channels → detect new features in dev → post digests to #new-features-intel) |
+| FEATURE_INTEL | feature-intel skill (scan #feat-* channels → detect new features in dev → post digests to #features-intel-changelog-4marketing) |
 | CONTENT | copywriter → brand-guardian (default for generic content requests) |
 
 For detailed workflows, see [reference/workflows.md](reference/workflows.md).
