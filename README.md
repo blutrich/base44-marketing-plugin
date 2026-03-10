@@ -31,24 +31,31 @@
 ```
 marketing-router (ENTRY POINT — open-ended, no menu)
         │
-        ├── GTM_STRATEGY → gtm-strategist (deep exploration, then plan)
-        ├── BRAINSTORM → marketing-ideas (connected narrative, not bullet dumps)
-        ├── DATA_INSIGHT → data-insight (Trino analytics) → gtm-strategist (if strategy)
-        ├── APP_DATA → base44-feature (pull product features)
-        ├── PAID_AD → ad-specialist → brand-guardian
-        ├── LINKEDIN → linkedin-specialist → brand-guardian
-        ├── X → x-specialist → brand-guardian
-        ├── EMAIL → copywriter → brand-guardian
-        ├── LANDING → base44-landing-page (8-Section → HTML → Base44 CLI deploy) → brand-guardian
-        ├── SEO → seo-specialist → brand-guardian
-        ├── VIDEO → video-specialist → brand-guardian
-        ├── REPURPOSE → cross-platform-repurpose → brand-guardian
-        ├── PUSH_RIPPLE → push-to-ripple (content → Ripple CMS)
-        ├── FEATURE_BRIEF → feature-brief (Feature → Slack → MarketingActivity)
-        ├── FEATURE_SCAN → feature-scan (scan channel → check Ripple → brief + content → push)
-        ├── FEATURE_INTEL → feature-intel (scan #feat-* → detect new → digest to Slack)
-        ├── SESSION_LOG → session-log (usage tracking → Base44 PluginSession)
-        └── CAMPAIGN → planner → [specialists in parallel] → brand-guardian
+        │── CONTENT WORKFLOWS (→ brand-guardian quality gate)
+        │   ├── PAID_AD → ad-specialist → brand-guardian
+        │   ├── LINKEDIN → linkedin-specialist → brand-guardian
+        │   ├── X → x-specialist → brand-guardian
+        │   ├── EMAIL / CONTENT → copywriter → brand-guardian
+        │   ├── LANDING → base44-landing-page → brand-guardian
+        │   ├── SEO → seo-specialist → brand-guardian
+        │   ├── VIDEO → video-specialist → brand-guardian
+        │   ├── REPURPOSE → cross-platform-repurpose → brand-guardian
+        │   └── CAMPAIGN → planner → [specialists ∥] → brand-guardian
+        │
+        │── STRATEGY WORKFLOWS (no guardian — plans, not content)
+        │   ├── GTM_STRATEGY → gtm-strategist (deep exploration, then plan)
+        │   └── BRAINSTORM → marketing-ideas (connected narrative, not bullet dumps)
+        │
+        │── DATA & INTELLIGENCE (no guardian — data pipelines)
+        │   ├── DATA_INSIGHT → data-insight (Trino analytics) → gtm-strategist (if strategy)
+        │   ├── APP_DATA → base44-feature (pull product features)
+        │   ├── FEATURE_BRIEF → feature-brief (Feature → Slack → MarketingActivity)
+        │   ├── FEATURE_SCAN → feature-scan (batch: channel → Ripple → notify)
+        │   └── FEATURE_INTEL → feature-intel (#feat-* → detect new → digest)
+        │
+        └── INFRASTRUCTURE
+            ├── PUSH_RIPPLE → push-to-ripple (content → Ripple CMS)
+            └── SESSION_LOG → session-log (auto after every workflow)
 ```
 
 ## Workflow Flowchart
@@ -57,24 +64,16 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 flowchart TD
     Start([User Request]) --> Router[marketing-router<br/>ENTRY POINT]
 
-    Router -->|GTM_STRATEGY| GTMAgent[gtm-strategist<br/>Opus]
-    Router -->|BRAINSTORM| BrainstormSkill[marketing-ideas<br/>Skill]
-    Router -->|DATA_INSIGHT| DataSkill[data-insight<br/>Skill]
-    Router -->|APP_DATA| FeatureSkill[base44-feature<br/>Skill]
+    %% Content workflows (go through brand-guardian)
     Router -->|PAID_AD| AdAgent[ad-specialist<br/>Sonnet]
     Router -->|LINKEDIN| LinkedInAgent[linkedin-specialist<br/>Opus]
     Router -->|X| XAgent[x-specialist<br/>Opus]
-    Router -->|EMAIL| CopyAgent1[copywriter<br/>Sonnet]
+    Router -->|EMAIL / CONTENT| CopyAgent1[copywriter<br/>Sonnet]
     Router -->|LANDING| LandingSkill[base44-landing-page<br/>Skill]
     Router -->|SEO| SEOAgent[seo-specialist<br/>Sonnet]
     Router -->|VIDEO| VideoAgent[video-specialist<br/>Sonnet]
     Router -->|REPURPOSE| RepurposeSkill[cross-platform-repurpose<br/>Skill]
     Router -->|CAMPAIGN| PlannerAgent[planner<br/>Opus]
-    Router -->|FEATURE_BRIEF| FeatureBrief[feature-brief<br/>Skill]
-    Router -->|FEATURE_SCAN| FeatureScan[feature-scan<br/>Skill]
-    Router -->|FEATURE_INTEL| FeatureIntel[feature-intel<br/>Skill]
-    Router -->|PUSH_RIPPLE| RippleSkill[push-to-ripple<br/>Skill]
-    Router -->|SESSION_LOG| SessionSkill[session-log<br/>Skill]
 
     AdAgent --> Guardian[brand-guardian<br/>Sonnet<br/>QUALITY GATE]
     LinkedInAgent --> Guardian
@@ -92,10 +91,41 @@ flowchart TD
     Rewrite --> Guardian
     BrandCheck -->|Yes| Output([Final Content<br/>Ready to Ship])
 
+    %% Strategy workflows (no brand-guardian)
+    Router -->|GTM_STRATEGY| GTMAgent[gtm-strategist<br/>Opus]
+    Router -->|BRAINSTORM| BrainstormSkill[marketing-ideas<br/>Skill]
+    GTMAgent --> StrategyOut([Strategy / Plan])
+    BrainstormSkill --> StrategyOut
+
+    %% Data & intelligence workflows (no brand-guardian)
+    Router -->|DATA_INSIGHT| DataSkill[data-insight<br/>Skill]
+    DataSkill -->|If strategy needed| GTMAgent
+    DataSkill --> DataOut([Analytics Report])
+    Router -->|APP_DATA| FeatureSkill[base44-feature<br/>Skill]
+    Router -->|FEATURE_BRIEF| FeatureBrief[feature-brief<br/>Skill]
+    Router -->|FEATURE_SCAN| FeatureScan[feature-scan<br/>Skill]
+    Router -->|FEATURE_INTEL| FeatureIntel[feature-intel<br/>Skill]
+    FeatureSkill --> DataOut
+    FeatureBrief --> DataOut
+    FeatureScan --> DataOut
+    FeatureIntel --> DataOut
+
+    %% Infrastructure workflows
+    Router -->|PUSH_RIPPLE| RippleSkill[push-to-ripple<br/>Skill]
+    Router -->|SESSION_LOG| SessionSkill[session-log<br/>Skill]
+
+    %% Auto session logging (every workflow)
+    Output -.->|auto-log| SessionSkill
+    StrategyOut -.->|auto-log| SessionSkill
+    DataOut -.->|auto-log| SessionSkill
+
     style Router fill:#e1f5ff
     style Guardian fill:#fff4e1
     style Output fill:#e8f5e9
+    style StrategyOut fill:#e8f5e9
+    style DataOut fill:#e8f5e9
     style BrandCheck fill:#fff4e1
+    style SessionSkill fill:#f0f0f0
 ```
 
 ## Skills (23)
