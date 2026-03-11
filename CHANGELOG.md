@@ -2,6 +2,45 @@
 
 All notable changes to the base44-marketing plugin.
 
+## [1.13.0] - 2026-03-11
+
+### Added
+- **Feature-intel skill** (`feature-intel`) - Single-pass intelligence scan across feat-* channels
+  - 9-step scan: discover channels, read releases, pull Feature + MarketingActivity from API, detect status changes
+  - ETA enrichment from Feature entity + product-marketing-sync
+  - Posts unified digest with release tracker, marketing gaps, and action items to #features-intel-changelog-4marketing
+  - Works with `/loop 12h` for automated recurring scans
+- **Laura's social performance data** - Feed social post performance metrics into agent context for data-driven content decisions
+- **Auto session logging** - Guaranteed session logging via Stop hook fallback in shared-instructions.md
+
+### Changed
+- **Full audit fix** - Plugin structure alignment, cross-file integrity verification
+  - Correct flowchart: added CONTENT route, DATA to GTM link, auto-log flow
+- **Feature-scan trigger tightening** - Reduced overlap between feature-scan, feature-brief, and feature-intel triggers
+- **CLAUDE.md updated** - Complete skill table (20 to 23 skills), feature-intel and feature-scan workflows documented
+
+### Fixed
+- **Session logging reliability** - Stop hook fallback ensures logs are written even if agent exits unexpectedly
+- **Marketplace.json version sync** - Updated to match plugin.json v1.13.0
+
+## [1.12.0] - 2026-03-06
+
+### Added
+- **Feature-intel early warning system** - Scans feat-* channels to detect new features before they ship
+- **Fake vulnerability ban** - Banned fake vulnerability patterns across voice rules
+
+### Changed
+- **tone-of-voice.md deep rewrite** - Replaced with verified Maor posts version (real examples, not synthetic)
+- **Landing page skill** - Full LP workflow (Phase 0-6) documented
+- **Feature-brief updated** - Slack channels are now source of truth, not Ripple
+
+### Fixed
+- **Hardcoded API key removed** from feature-brief and feature-scan
+- **Copy Brief System** added to LP architecture
+
+### Contributors
+- Ofer - Plugin architecture, feature-intel design
+
 ## [1.11.0] - 2026-03-02
 
 ### Added
