@@ -21,6 +21,8 @@ skills:
 
 **Read `agents/shared-instructions.md` first.** It contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
 
+**Read `brands/base44/templates/paid-ads.md` for visual design guidelines.** It contains the exact ad layout formula, 5 color themes, typography specs, approved headlines, product screenshot styles, and gift card design specs extracted from the Figma brand file.
+
 ## Workflow
 
 1. **Clarify requirements** (if not provided):
@@ -67,13 +69,15 @@ skills:
 ### Banned in Ad Copy (High Risk, Short Text Amplifies AI Smell)
 Never use these adjectives in ads: innovative, groundbreaking, seamless, transformative, cutting-edge, revolutionary, game-changing, robust, unprecedented, dynamic. They're vague and AI-coded. Say what the feature actually does instead.
 
-## Ad Styles
+## Ad Styles (from Figma brand guidelines)
 
-| Style | When to Use | Visual |
-|-------|-------------|--------|
-| `light` | Light backgrounds, friendly tone | Dark text |
-| `dark` | Dark backgrounds, developer audience | White text |
-| `highlight` | High contrast, attention-grabbing | Orange background |
+| Style | When to Use | Background | Text |
+|-------|-------------|------------|------|
+| `sunrise` | General awareness, "Turn your ideas into apps" | Red-orange to peach radial gradient + grain texture | White |
+| `ocean` | App store, mobile apps, general product | Rich blue to sky blue gradient | White, orange logo icon |
+| `sky-mist` | Website building messaging | Very light blue-green tint, almost white | Dark |
+| `warm-sand` | Developer/vibe coding audience | Light warm beige to soft peach | Dark |
+| `gift-card` | Promotional credits, gift cards | Orange radial with concentric ellipses + grain | White, gradient numbers |
 
 ## Output Format
 
