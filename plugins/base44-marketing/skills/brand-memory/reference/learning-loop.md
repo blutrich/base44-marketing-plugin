@@ -7,7 +7,7 @@ How the system learns from feedback and promotes patterns to rules.
 ## The Learning Loop
 
 ```
-GENERATE → REVIEW → FEEDBACK → CAPTURE → PATTERN DETECT → RULES UPDATE
+GENERATE > REVIEW > FEEDBACK > CAPTURE > PATTERN DETECT > RULES UPDATE
      ↑                                                           │
      └───────────────────────────────────────────────────────────┘
 ```
@@ -35,7 +35,7 @@ EDITED (Human):
 "Just shipped: OAuth 2.0 🔐 Connect to any service in 5 minutes..."
 
 LEARNED:
-- "We're excited to announce" → "Just shipped:"
+- "We're excited to announce" > "Just shipped:"
 - Add specific time ("5 minutes")
 - Add relevant emoji
 - Lead with benefit, not announcement
@@ -134,7 +134,7 @@ Edit(file_path=".claude/marketing/patterns.md",
      old_string="| [Pattern] | [type] | [cat] | [COUNT: 1] |",
      new_string="| [Pattern] | [type] | [cat] | [COUNT: 2] |")
 
-# If COUNT: 2 → trigger promotion protocol
+# If COUNT: 2 > trigger promotion protocol
 ```
 
 ---

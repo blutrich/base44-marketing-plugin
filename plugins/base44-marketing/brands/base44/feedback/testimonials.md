@@ -133,13 +133,13 @@
 ## How to Use These
 
 **For LinkedIn posts:**
-- Enterprise scale: "1.5-2 years → Base44" quote, "2 days → 3 hours" quote
+- Enterprise scale: "1.5-2 years > Base44" quote, "2 days > 3 hours" quote
 - Non-technical empowerment: "not a programmer, but I made this", "like a game"
 - Agency/business: "lead magnets" quote, "niche solutions" quote
 - Education: "app factory" quote, "dying breed" quote
 
 **For landing pages:**
-- Hero section: "2 days → 3 hours" metric
+- Hero section: "2 days > 3 hours" metric
 - Social proof section: Mix of Gift My Book results + builder quotes
 - Enterprise section: 16 stores, 1000+ hrs, $150K value builder
 
@@ -149,10 +149,10 @@
 - "Academic pricing": University app factory vision
 
 **For objection handling:**
-- "Is it production-ready?" → 16-store enterprise, 60+ apps agency, full CRM builder
-- "Is it just for prototypes?" → Gift My Book ($1M ARR), CRM builder ($150K equivalent)
-- "Do real developers use it?" → College educator ("hardcore coder"), 35-year programmer
-- "What about security?" → SOC 2 + ISO 27001 + Security Scan feature
+- "Is it production-ready?" > 16-store enterprise, 60+ apps agency, full CRM builder
+- "Is it just for prototypes?" > Gift My Book ($1M ARR), CRM builder ($150K equivalent)
+- "Do real developers use it?" > College educator ("hardcore coder"), 35-year programmer
+- "What about security?" > SOC 2 + ISO 27001 + Security Scan feature
 
 **For competitive positioning:**
 - vs Replit: "Base44 auto-fixes errors without consuming credits, unlike Replit"
@@ -197,7 +197,7 @@
 ### Speed / Time Savings
 | Quote | Context | Use For |
 |-------|---------|---------|
-| "1.5-2 years as single developer → Base44" | Enterprise, 16 stores | Developer audience |
+| "1.5-2 years as single developer > Base44" | Enterprise, 16 stores | Developer audience |
 | "2 days to 3 hours" | CRM builder | Productivity |
 | "Built in 1 week, $1M ARR" | Gift My Book | Startup audience |
 | "5 prompts beat Figma approach" | Educator | Education, comparison |

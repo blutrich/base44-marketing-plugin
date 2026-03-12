@@ -6,6 +6,8 @@ description: |
   Triggers on: log session, save session, track session, session report, end session, wrap up, team usage, who used the plugin.
 ---
 
+> **This is the ONLY place that pushes session data to Ripple.** `agents/shared-instructions.md` handles local logging only. Do not add Ripple push logic elsewhere.
+
 # Session Log
 
 **PURPOSE:** Track plugin usage, time saved, and business impact. Data is shared across the team via the Base44 `PluginSession` entity.

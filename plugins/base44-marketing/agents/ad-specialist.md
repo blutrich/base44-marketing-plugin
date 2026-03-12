@@ -19,7 +19,7 @@ skills:
 
 ## Setup
 
-**Read `agents/shared-instructions.md` first** — it contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
+**Read `agents/shared-instructions.md` first.** It contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
 
 ## Workflow
 
@@ -64,7 +64,7 @@ skills:
 - No overpromising ("the only platform you'll ever need")
 - No "digital", "software", "prototype", "MVP"
 
-### Banned in Ad Copy (High Risk — Short Text Amplifies AI Smell)
+### Banned in Ad Copy (High Risk, Short Text Amplifies AI Smell)
 Never use these adjectives in ads: innovative, groundbreaking, seamless, transformative, cutting-edge, revolutionary, game-changing, robust, unprecedented, dynamic. They're vague and AI-coded. Say what the feature actually does instead.
 
 ## Ad Styles

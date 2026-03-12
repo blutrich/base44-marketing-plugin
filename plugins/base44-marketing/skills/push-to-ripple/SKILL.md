@@ -67,7 +67,7 @@ Scan the conversation for generated content. Look for:
 
 1. `<!-- CONTENT_START:channel -->` markers (if present)
 2. The most recently generated content piece in the conversation
-3. Channel detection from context (e.g., LinkedIn post was just written → channel = `linkedin`)
+3. Channel detection from context (e.g., LinkedIn post was just written > channel = `linkedin`)
 
 Also extract the guardian score if present:
 - `Guardian Score: X/10`
@@ -93,16 +93,16 @@ Build the payload matching the Content entity schema:
 ```
 
 **Channel-to-content_type mapping:**
-- linkedin → `post`
-- x → `tweet` (or `thread` if multi-part)
-- email → `nurture`
-- blog → `blog_post`
-- landing → `landing`
-- discord → `announcement`
-- video → `clip`
-- meta_ads → `feed_ad`
-- linkedin_ads → `feed_ad`
-- reddit_ads → `feed_ad`
+- linkedin > `post`
+- x > `tweet` (or `thread` if multi-part)
+- email > `nurture`
+- blog > `blog_post`
+- landing > `landing`
+- discord > `announcement`
+- video > `clip`
+- meta_ads > `feed_ad`
+- linkedin_ads > `feed_ad`
+- reddit_ads > `feed_ad`
 
 If a feature brief was used as context, link it via `source_feature_id`.
 
@@ -135,13 +135,13 @@ Parse the JSON response from the API.
 **On success:**
 ```
 Pushed to Ripple:
-- LinkedIn post → record_id: abc123 (draft)
+- LinkedIn post > record_id: abc123 (draft)
 
 Open Ripple to review and publish.
 ```
 
 **On error:**
-- If `Entity schema Content not found`: Wrong app ID — use `69809e95545ed2e086d167f9`
+- If `Entity schema Content not found`: Wrong app ID, use `69809e95545ed2e086d167f9`
 - If auth error: Check `.claude/marketing/api-config.json` credentials
 - If validation error: Check required fields against schema
 
@@ -164,8 +164,8 @@ for r in data:
 
 ## Notes
 
-- All content is created as **draft** status — user publishes from Ripple UI
-- Guardian review is NOT needed here — it's already built into the marketing skills
+- All content is created as **draft** status. User publishes from Ripple UI
+- Guardian review is NOT needed here. It's already built into the marketing skills
 - The `metadata.source: cli_marketing_skill` tag identifies CLI-pushed content in Ripple
 - Multiple content pieces from the same campaign can share a `campaign_id`
 - Use `source_feature_id` to link content back to the FeatureBrief it was generated from

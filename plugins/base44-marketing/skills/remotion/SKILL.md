@@ -16,9 +16,9 @@ Apply when writing Remotion code for video compositions, animations, or renderin
 
 1. **Read brand file first:** [rules/base44-brand.md](rules/base44-brand.md)
 2. **Apply brand colors** from the Base44 palette (warm orange accents on light gradient)
-3. **Use brand font** (STK Miso — Regular 400 for headings, Light 300 for body)
+3. **Use brand font** (STK Miso: Regular 400 for headings, Light 300 for body)
 4. **Follow voice guidelines** for any text in videos (builders not users, ship not deploy, etc.)
-5. **Avoid anti-patterns** (no arrows →, natural flow, short punchy text)
+5. **Avoid anti-patterns** (no arrows >, natural flow, short punchy text)
 
 This ensures all video content is on-brand and consistent with Base44's visual identity and tone of voice.
 

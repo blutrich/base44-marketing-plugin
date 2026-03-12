@@ -7,7 +7,7 @@
 - Specific numbers always
 
 ## Platform Patterns
-- LinkedIn: 1-3 emoji, Hook → Details → CTA
+- LinkedIn: 1-3 emoji, Hook > Details > CTA
 - X: Threads for long content, intrigue hooks
 - Discord: Casual, humor OK, more emoji
 
@@ -18,7 +18,7 @@
 - NO question CTAs
 
 ## Anti-Patterns
-- Arrows (→) in lists - AI tell
+- Arrows in lists - AI tell
 - Too many bullets
 - Same structure every post
 - Repeated phrases

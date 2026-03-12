@@ -70,7 +70,7 @@ Classify what the user wants:
 | "monetization", "stripe", "payment likelihood", "revenue" | `APP_MONETIZATION_SIGNALS` |
 | "app classification", "what category", "industry", "audience" | `APP_AI_CLASSIFICATION` |
 | "dashboard", "overview", "all metrics" | Run `GROWTH_WEEKLY` + `LLM_MODELS` + `PREMIUM_FUNNEL` |
-| Anything else specific | `CUSTOM` — build SQL from user description |
+| Anything else specific | `CUSTOM` (build SQL from user description) |
 
 ### Step 2: Load and Run Query
 
@@ -84,7 +84,7 @@ Find the matching query. Execute it using the Trino MCP:
 mcp__trino__trino__execute_trino_sql_query(query="<SQL from catalog>")
 ```
 
-**If Trino MCP is not available:** Tell the user to install it — `Read(file_path="skills/data-insight/reference/setup.md")` and share the setup instructions.
+**If Trino MCP is not available:** Tell the user to install it. `Read(file_path="skills/data-insight/reference/setup.md")` and share the setup instructions.
 
 ### Step 3: Format Results
 
@@ -127,7 +127,7 @@ If the user wants content based on the data:
 | `APP_MODEL_PREFERENCES` | Builder model choices in editor | Model popularity, deploy success by model |
 | `APP_FEATURE_ADOPTION` | Platform feature usage rates | Agents, deep coding, GitHub, auth adoption |
 | `APP_REMIX_MARKETPLACE` | Remix and marketplace activity | Remix rate, marketplace purchases, community reuse |
-| `FUNNEL_DETAILED` | Full funnel with all touchpoints | Anonymous → message → publish → credit wall → pricing → premium |
+| `FUNNEL_DETAILED` | Full funnel with all touchpoints | Anonymous > message > publish > credit wall > pricing > premium |
 | `FUNNEL_TIME_DETAILED` | Hours between each funnel step | Step-by-step activation speed |
 | `REFERRAL_IMPACT` | Referral-driven signups & conversion | Referral %, referred publish/premium rates |
 | `USER_VOICE` | Top issues by highlight/ticket count | Pain points, trending complaints |
@@ -197,7 +197,7 @@ remains low at [X]% monthly.
 
 On the AI side, Gemini 2.0 Flash Lite dominates with 42% of model
 calls, followed by Claude Sonnet 4.5 at 18%. GPT-5 is starting to
-appear in the logs — worth watching.
+appear in the logs. Worth watching.
 ```
 
 ### Raw Table

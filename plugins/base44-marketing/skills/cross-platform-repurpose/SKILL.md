@@ -8,7 +8,7 @@ description: |
 
 # Cross-Platform Repurpose
 
-> One great post → Every platform in one click
+> One great post > Every platform in one click
 
 ## The Problem
 
@@ -21,13 +21,13 @@ Manually rewriting = time wasted + inconsistent quality.
 |----------|------------|------|-------|-----------|
 | LinkedIn | 1,300 chars | Professional but warm | 1-3 | Paragraphs, hooks |
 | X (Tweet) | 280 chars | Punchy, casual | 2-4 | One tight statement |
-| X (Thread) | 5-7 tweets | Engaging, numbered | 2-4 per tweet | 1/ Hook → Points → CTA |
+| X (Thread) | 5-7 tweets | Engaging, numbered | 2-4 per tweet | 1/ Hook > Points > CTA |
 | Email | Varies | Personal, direct | Minimal | Subject + Preview + Body |
 | Discord | Varies | Casual, community | Heavy | Scannable, conversational |
 
 ## Transformation Rules
 
-### LinkedIn → X (Single Tweet)
+### LinkedIn > X (Single Tweet)
 
 | LinkedIn | X |
 |----------|---|
@@ -45,7 +45,7 @@ Add 1-2 relevant emoji.
 End with engagement hook if space allows.
 ```
 
-### LinkedIn → X Thread
+### LinkedIn > X Thread
 
 | LinkedIn | X Thread |
 |----------|----------|
@@ -63,7 +63,7 @@ Number format: 1/, 2/, etc.
 Each tweet under 280 chars.
 ```
 
-### LinkedIn → Email
+### LinkedIn > Email
 
 | LinkedIn | Email |
 |----------|-------|
@@ -81,7 +81,7 @@ CTA: Single clear action
 Keep the core message but make it feel 1:1.
 ```
 
-### LinkedIn → Discord
+### LinkedIn > Discord
 
 | LinkedIn | Discord |
 |----------|---------|
@@ -98,7 +98,7 @@ Keep it scannable
 Add a question or reaction prompt at the end
 ```
 
-### X → LinkedIn (Expand)
+### X > LinkedIn (Expand)
 
 | X | LinkedIn |
 |---|----------|
@@ -115,7 +115,7 @@ Keep the core insight but give it room to breathe.
 Target: 800-1,200 characters.
 ```
 
-### X Thread → LinkedIn
+### X Thread > LinkedIn
 
 **Transformation Prompt:**
 ```
@@ -126,7 +126,7 @@ Target: 800-1,200 characters.
 Remove numbering, make it conversational.
 ```
 
-### Email → LinkedIn
+### Email > LinkedIn
 
 **Transformation Prompt:**
 ```
@@ -218,8 +218,8 @@ Track the content family:
 
 | I have... | I need... | Use... |
 |-----------|-----------|--------|
-| LinkedIn announcement | Quick tweet | LinkedIn → X (Tweet) |
-| LinkedIn deep dive | Twitter engagement | LinkedIn → X (Thread) |
-| Tweet that went viral | LinkedIn reach | X → LinkedIn (Expand) |
-| LinkedIn post | Email to list | LinkedIn → Email |
-| Any content | Community announcement | [Any] → Discord |
+| LinkedIn announcement | Quick tweet | LinkedIn > X (Tweet) |
+| LinkedIn deep dive | Twitter engagement | LinkedIn > X (Thread) |
+| Tweet that went viral | LinkedIn reach | X > LinkedIn (Expand) |
+| LinkedIn post | Email to list | LinkedIn > Email |
+| Any content | Community announcement | [Any] > Discord |

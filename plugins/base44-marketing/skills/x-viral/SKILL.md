@@ -182,7 +182,7 @@ Tweet 6: [Where to start + CTA]
 ### Visual Hierarchy
 ```
 Use:
-→ Arrows for lists
+> Arrows for lists
 • Bullets for options
 — Dashes for asides
 CAPS for emphasis (sparingly)

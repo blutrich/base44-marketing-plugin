@@ -112,7 +112,7 @@
 | E-commerce | Gift My Book | $1M ARR, 6-8% conversion |
 | Enterprise | Horse blanket mgmt | 16 stores, $150K/year value |
 | Agency | 60+ app agency | 60+ apps, recurring revenue |
-| CRM | Flooring CRM | 2 days → 3 hours for quotes |
+| CRM | Flooring CRM | 2 days > 3 hours for quotes |
 | Education | College hackathons | Students launch real products |
 | Healthcare | EMT training sim | First app ever built |
 | Marketplace | Bridal marketplace | Comparing Base44 vs Replit |
@@ -124,9 +124,9 @@
 
 | Metric | Source |
 |--------|--------|
-| "1.5-2 years → weeks" | Enterprise builder |
+| "1.5-2 years > weeks" | Enterprise builder |
 | "$1M ARR in 3 months" | Gift My Book |
-| "2 days → 3 hours" | CRM builder |
+| "2 days > 3 hours" | CRM builder |
 | "60+ apps built" | Agency builder |
 | "1000+ hours invested" | Enterprise builder |
 | "$150K/year estimated value" | Enterprise builder (Gemini estimate) |

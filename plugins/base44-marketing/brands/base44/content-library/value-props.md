@@ -145,7 +145,7 @@ Unlike other tools that require connecting external services:
 | "Actually works" | $1M ARR, 6-8% conversion | Gift My Book |
 | "Enterprise-ready" | 16 stores, $150K/year value | John Kenneth |
 | "Agency-scale" | 60+ apps built and sold | Giovanni |
-| "Real productivity gains" | 2 days → 3 hours | Kurtis Taylor |
+| "Real productivity gains" | 2 days > 3 hours | Kurtis Taylor |
 | "Even experts choose it" | 35yr programmer, 1000+ hours | John Kenneth |
 | "Students can build" | First app ever, non-technical | Avital Jayson |
 | "Beats competitors" | More in 5 prompts than Figma | Stephen Gagne |
@@ -155,10 +155,10 @@ Unlike other tools that require connecting external services:
 
 ## Messaging Pillars
 
-1. **Speed:** "2 days → 3 hours" (Kurtis), "1 week" (Gift My Book)
+1. **Speed:** "2 days > 3 hours" (Kurtis), "1 week" (Gift My Book)
 2. **Completeness:** Full stack, not fragments — database, auth, payments, hosting
 3. **Accessibility:** 25yo first-time builder to 35yr veteran programmer
-4. **Scalability:** Prototype → 16-store enterprise deployment
+4. **Scalability:** Prototype > 16-store enterprise deployment
 5. **Security:** SOC 2 + ISO 27001 + Security Scan + RLS
 6. **Community:** 400K builders across every industry
 

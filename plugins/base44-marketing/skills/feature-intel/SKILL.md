@@ -1,15 +1,15 @@
 ---
 name: feature-intel
 description: |
-  Single-pass intelligence scan that gives marketing a complete picture every run:
+  DISCOVERY scan across all feat-* channels. Single-pass intelligence scan that gives marketing a complete picture every run:
   new features, status updates, release dates, delays, shipped features, and gaps.
-  Posts a unified daily digest to #features-intel-changelog-4marketing-4marketing.
+  Posts a unified daily digest to #features-intel-changelog-4marketing.
 
   Sources: #feat-* channels + #product-marketing-sync + Feature entity API.
   Designed for /loop 12h — runs twice daily (morning + evening).
 
-  Triggers on: feature intel, scan feat channels, new features, what's being built,
-  feature discovery, feature radar, morning intel, daily scan, what features are coming.
+  Triggers on: feature intel, scan feat channels, what's being built,
+  feature discovery, feature radar, morning intel, what features are coming.
 ---
 
 # Feature Intelligence
@@ -25,11 +25,11 @@ Marketing needs to know: what's being built, what's shipping soon, what slipped,
 Every run executes ALL of these in sequence, then posts ONE unified digest:
 
 ```
-1. DISCOVER    Search Slack for all #feat-* channels → find NEW ones
+1. DISCOVER    Search Slack for all #feat-* channels > find NEW ones
 2. READ NEW    Read new channels for context (what, who, when, why)
 3. RELEASES    Read #product-marketing-sync for ETAs, delays, shipped features
 4. CALENDAR    Pull Feature entity + MarketingActivity from Product App API
-5. UPDATES     Re-read active channels with recent digests → detect changes
+5. UPDATES     Re-read active channels with recent digests > detect changes
 6. RE-CHECK    Re-read channels that had no content previously
 7. COMPILE     Build unified digest: new + updates + release tracker + gaps
 8. POST        Send to #features-intel-changelog-4marketing-4marketing (summary + thread cards)
@@ -49,11 +49,11 @@ Paginate through ALL results. Compare against `known-channels.md`.
 
 | Found | Action |
 |-------|--------|
-| Not in known list | → NEW — read in Step 2 |
-| In list, status `active` | → check in Step 4 |
-| In list, status `new` (no content yet) | → re-check in Step 5 |
-| In list, status `shipped`/`archived` | → SKIP |
-| `deployed-feat-*` / `feature-flags-*` / `e2e-*` prefix | → SKIP (excluded) |
+| Not in known list | > NEW — read in Step 2 |
+| In list, status `active` | > check in Step 4 |
+| In list, status `new` (no content yet) | > re-check in Step 5 |
+| In list, status `shipped`/`archived` | > SKIP |
+| `deployed-feat-*` / `feature-flags-*` / `e2e-*` prefix | > SKIP (excluded) |
 
 ---
 
@@ -79,7 +79,7 @@ Extract:
 
 Filter out noise: join messages, canvas notifications, emoji-only replies, channel renames.
 
-If channel has ONLY joins and no real content → mark as `new` with no digest. Step 5 will re-check next run.
+If channel has ONLY joins and no real content > mark as `new` with no digest. Step 5 will re-check next run.
 
 **Translate Hebrew to English. Keep names as-is.**
 
@@ -131,9 +131,9 @@ NEXT WEEK+:
 ### Cross-Reference with Feat Channels
 
 Match #product-marketing-sync features to known feat channels by name. This links:
-- Structured ETA data → to channel-level context
-- Ship confirmations → to channels that should be marked `shipped`
-- Marketing activity requests → to content the team needs to prepare
+- Structured ETA data > to channel-level context
+- Ship confirmations > to channels that should be marked `shipped`
+- Marketing activity requests > to content the team needs to prepare
 
 ---
 
@@ -186,10 +186,10 @@ Cross-reference Feature (what's shipping) with MarketingActivity (what's prepare
 | **Shipped without brief** | Feature status = released, no marketing_description |
 
 **Priority order for gaps:**
-1. Ships today/tomorrow with no content → CRITICAL
-2. Ships this week with no content → HIGH
-3. Ships next week with no content → MEDIUM
-4. Shipped already with no announcement → LOW (retroactive)
+1. Ships today/tomorrow with no content > CRITICAL
+2. Ships this week with no content > HIGH
+3. Ships next week with no content > MEDIUM
+4. Shipped already with no announcement > LOW (retroactive)
 
 ---
 
@@ -226,9 +226,9 @@ Limit: 20
 Response format: concise
 ```
 
-- If real content found → process as new feature (extract context, add to digest)
-- If still only joins → leave as `new`
-- If 7+ days old with no content → mark as `stale`
+- If real content found > process as new feature (extract context, add to digest)
+- If still only joins > leave as `new`
+- If 7+ days old with no content > mark as `stale`
 
 ---
 
@@ -285,7 +285,7 @@ _Details in thread :thread:_
 
 ### Omit Empty Sections
 
-If no new features → skip `:new:` section. If no updates → skip `:arrows_counterclockwise:`. If no gaps → skip `:warning:`. Never show empty sections with "None" — just leave them out.
+If no new features > skip `:new:` section. If no updates > skip `:arrows_counterclockwise:`. If no gaps > skip `:warning:`. Never show empty sections with "None" — just leave them out.
 
 ---
 
@@ -331,7 +331,7 @@ Post the compiled digest as a summary message. If there are 3+ individual featur
 :white_check_mark: *Feature Shipped: [Feature Name]*
 
 Shipped [date]. Owner: [name].
-→ Run `/feature-brief [name]` for launch content.
+> Run `/feature-brief [name]` for launch content.
 ```
 
 ### Anti-Spam Rules
@@ -348,7 +348,7 @@ Shipped [date]. Owner: [name].
 
 Update `known-channels.md`:
 - Add new channels
-- Update statuses (active → shipped when confirmed)
+- Update statuses (active > shipped when confirmed)
 - Update Last Digest dates
 - Update Last Known state summaries
 - Mark shipped features from #product-marketing-sync confirmations
@@ -426,3 +426,22 @@ For heavy launch weeks:
 
 - `feature-scan` — Scans `#product-marketing-sync` for structured announcements, generates briefs + content, pushes to Ripple. Use **after** feature-intel identifies what's coming.
 - `feature-brief` — Deep-dive brief for a single feature. Use when marketing needs full content package for a specific feature.
+- `launch-waterfall` — 7-phase structured launch process. feature-intel auto-triggers Phase 0 (Discovery) when it detects a significant new feature.
+
+## Launch Waterfall Auto-Trigger (Phase 0)
+
+When feature-intel discovers a significant new feature (not a bug fix or minor tweak), check if it's launch-worthy:
+
+**Launch-worthy signals:**
+- New product category (e.g., "agents", "marketplace", "API v2")
+- Major feature with its own channel and 3+ team members
+- Feature mentioned in #product-marketing-sync with a launch date
+- CEO/founder discussing it in product channels
+
+**If launch-worthy:**
+1. Create directory: `output/launch/{feature-slug}/`
+2. Auto-run Phase 0 (competitive landscape research via WebSearch)
+3. Save Discovery Brief to `output/launch/{feature-slug}/phase-0-discovery-brief.md`
+4. Include in digest: ":rocket: *Launch-worthy feature detected: {name}. Discovery Brief auto-generated. Run LAUNCH workflow when ready.*"
+
+This gives marketing a head start. By the time the team gets the formal launch assignment, competitive research is already done.

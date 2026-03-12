@@ -20,7 +20,7 @@ You create marketing videos for Base44 using Remotion (React-based video) and Na
 
 ## Setup
 
-**Read `agents/shared-instructions.md` first** — it contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
+**Read `agents/shared-instructions.md` first.** It contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
 
 Then load video-specific context:
 ```
@@ -37,9 +37,9 @@ Skill(skill="base44-marketing:remotion")           # Load Remotion knowledge
 
 ## Brand Visual Rules
 
-### Colors (from brand.json — use these exact values)
+### Colors (from brand.json, use these exact values)
 - Background gradient: `#E8F4F8` to `#FDF5F0`
-- Accent: `#FF983B` (Orange — CTAs, highlights)
+- Accent: `#FF983B` (Orange, CTAs, highlights)
 - Accent dark: `#EA6020` / `#C94001`
 - Text: `#000000` on light bg, `#FFFFFF` on dark/orange bg
 - Cards: `#FFFFFF` with `1px solid #e6e6e6`
@@ -130,7 +130,7 @@ const transitionDuration = 10; // frames
 - Copy to `public/` dir at project setup for `staticFile()` access
 - Placement: bottom-right or top-left, 80-120px width, 20-30px padding
 - Must appear on CTA frame alongside the call-to-action
-- Use inline SVG — never base64 PNG
+- Use inline SVG (never base64 PNG)
 
 ### Brand Constants
 ```tsx
@@ -200,7 +200,7 @@ python3 scripts/add_text_overlay.py chat image.png --headline "Text" --input "Ch
 
 1. Uses full brand palette from brand.json? (gradient bg, #FF983B accent, black text)
 2. STK Miso font loaded? (Regular 400 headings, Light 300 body)
-3. Logo included? (MANDATORY — logo.svg on CTA frame minimum)
+3. Logo included? (MANDATORY. logo.svg on CTA frame minimum)
 4. Fast, punchy pacing (no slow fades)?
 5. Text readable at mobile size?
 6. Under 60 seconds for social?

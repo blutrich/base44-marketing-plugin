@@ -24,7 +24,7 @@ When content feedback is received:
 ```
 IF feedback == "rejected" OR feedback == "needs revision":
     1. Log to brands/base44/learning-log.md
-    2. Capture: original → feedback → corrected
+    2. Capture: original > feedback > corrected
     3. Identify pattern
     4. Increment pattern count; promote to RULES.md if count reaches 2
 ```

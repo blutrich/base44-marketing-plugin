@@ -1,16 +1,16 @@
 ---
 name: feature-brief
 description: |
-  Reads the Feature Calendar, pulls live Slack channel context, generates brand-voice marketing content, and writes it to MarketingActivity (per-channel slots) and Feature (marketing_description). Replaces generic AI filler with real content sourced from Slack discussions.
+  SINGLE named feature deep-dive. Reads the Feature Calendar, pulls live Slack channel context for ONE specific feature, generates brand-voice marketing content, and writes it to MarketingActivity (per-channel slots) and Feature (marketing_description). Replaces generic AI filler with real content sourced from Slack discussions.
 
-  Triggers on: feature brief, summarize channel, summarize feature, brief me on, what is [feature], feature context, slack summary, channel summary, pull feature brief, update brief, fetch feat, read feat channel, list feat channels, what's in feat, fill marketing for, upcoming features, feature calendar.
+  Triggers on: feature brief, brief me on, what is [feature], feature context, summarize channel, summarize feature, slack summary, channel summary, pull feature brief, update brief, fetch feat, read feat channel, what's in feat, fill marketing for, feature calendar.
 
-  Note: "scan features" routes to feature-scan (batch), not here. "feature intel" routes to feature-intel (discovery). This skill is for single-feature deep dives.
+  Disambiguation: For batch processing of the #product-marketing-sync queue use feature-scan. For discovery across all feat-* channels use feature-intel. This skill is for single-feature deep dives only.
 ---
 
 # Feature Brief
 
-> Feature Calendar → Slack → Marketing Content → Write Back
+> Feature Calendar > Slack > Marketing Content > Write Back
 
 ## The Pipeline
 
@@ -150,7 +150,7 @@ Using Slack context + Feature entity metadata, generate content for **all Market
 |------|-------|
 | `linkedin_base44_content` | Company page. Feature announcement, what builders get, concrete example. |
 | `linkedin_maor_content` | Maor's personal. Casual, "I noticed...", behind-the-scenes. |
-| `x_base44_content` | Short. Feature → benefit → proof. Under 280 chars ideal. |
+| `x_base44_content` | Short. Feature > benefit > proof. Under 280 chars ideal. |
 | `x_maor_content` | Lowercase, direct, shipped-something tone. |
 | `community_content` | Discord/Reddit. Conversational, invite feedback, explain the "how". |
 | `whats_new_content` | Changelog style. Feature name header, 2-3 sentences, no fluff. |
@@ -175,7 +175,7 @@ curl -s "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/Marke
   -H "api_key: $PRODUCT_API_KEY"
 ```
 
-Search by `feature_id` or title match. **If exists → PUT (update). If not → POST (create).**
+Search by `feature_id` or title match. **If exists > PUT (update). If not > POST (create).**
 
 When updating, preserve fields already filled by the team (media_urls, approval_reviewers).
 
@@ -291,7 +291,7 @@ Channel ID: C0A8DTGTHBK
 • What's New ✓
 • Overview (goals, description, concepts, target_audience) ✓
 
-<https://app.base44.com/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity/[RECORD_ID]|View MarketingActivity →>
+<https://app.base44.com/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity/[RECORD_ID]|View MarketingActivity >>
 ```
 
 ### Rules

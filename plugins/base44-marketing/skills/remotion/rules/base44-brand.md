@@ -219,7 +219,7 @@ const textStyles = {
 - "Users" or "customers" (say "builders")
 - "Deploy" or "launch" (say "ship" or "go live")
 - Corporate speak ("leveraging synergies", "best-in-class")
-- Passive voice ("it was built" → "we built")
+- Passive voice ("it was built" > "we built")
 - Vague claims ("fast", "easy" without specifics)
 - Hedging ("might", "perhaps", "we think")
 
@@ -279,7 +279,7 @@ From side project to SaaS in a weekend
 
 **BAD:**
 ```
-Deploy Your Application Using Our Platform → (uses "deploy", has arrow)
+Deploy Your Application Using Our Platform > (uses "deploy", has arrow)
 ```
 ```
 We're excited to announce our new features! (corporate speak)
@@ -313,9 +313,9 @@ Your app can now send and receive emails, and yes, read them too.
 **BAD:**
 ```
 We're excited to announce that we've deployed Gmail integration:
-→ Send emails
-→ Receive messages
-→ Read inbox
+> Send emails
+> Receive messages
+> Read inbox
 (corporate, arrows, list format)
 ```
 
@@ -334,7 +334,7 @@ Join the builders
 
 **BAD:**
 ```
-Try our platform today → (arrow)
+Try our platform today > (arrow)
 ```
 ```
 Perhaps you'd like to consider building with us (hedging)

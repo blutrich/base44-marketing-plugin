@@ -109,3 +109,7 @@ Uses STKMiso font and Base44 colors (#FF983B accent) automatically.
 ## API Reference
 
 See `references/api_reference.md` for Gemini API docs.
+
+## Fallback
+
+If GOOGLE_API_KEY is not set, inform the user and suggest providing their API key or using stock photos.

@@ -270,11 +270,11 @@ CTA: Direct to destination
 
 ```
 [Primary keyword] explained: [Main benefit]. Learn [what they'll learn]
-with [unique value prop]. [CTA] →
+with [unique value prop]. [CTA] >
 
 Example:
 AI implementation guide for 2024: Get your team using AI in 14 days,
-not 6 months. Proven 7-step framework with templates. Start free →
+not 6 months. Proven 7-step framework with templates. Start free >
 ```
 
 Character limit: 150-160 (Google truncates longer)

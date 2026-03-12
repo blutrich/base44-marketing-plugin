@@ -11,7 +11,7 @@ Bash(command="mkdir -p .claude/marketing")
 Read(file_path=".claude/marketing/activeContext.md")
 Read(file_path=".claude/marketing/patterns.md")
 Read(file_path=".claude/marketing/feedback.md")
-# If any file errors → Create with template
+# If any file errors > Create with template
 ```
 
 ---
@@ -66,8 +66,8 @@ If a guaranteed anchor is missing:
 Read(file_path=".claude/marketing/activeContext.md")
 
 # If "## Current Focus" NOT found:
-#   → File is corrupted
-#   → Recreate from template
+#   > File is corrupted
+#   > Recreate from template
 
 Write(file_path=".claude/marketing/activeContext.md", content="[TEMPLATE]")
 ```
@@ -75,7 +75,7 @@ Write(file_path=".claude/marketing/activeContext.md", content="[TEMPLATE]")
 ### Heal Decision Tree
 
 ```
-Read file → Check anchors → All present?
+Read file > Check anchors > All present?
                               │
                     YES       │       NO
                       │       │       │
@@ -92,7 +92,7 @@ Read file → Check anchors → All present?
 
 Format:
 ```
-[DEBUG-N]: [Issue] → [Attempted Fix] → [Result]
+[DEBUG-N]: [Issue] > [Attempted Fix] > [Result]
 ```
 
 Track in feedback.md:

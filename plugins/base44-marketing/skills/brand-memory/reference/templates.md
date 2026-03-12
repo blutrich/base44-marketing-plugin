@@ -57,12 +57,12 @@ Templates for creating memory files with guaranteed anchors.
 |--------|-----|--------|-------|
 | "We're excited to announce" | Corporate, not builder-voice | Brand rules | - |
 | "users" / "customers" | Not builder-centric | RULES.md | - |
-| Arrow bullets (→) | AI detection flag | Lora feedback | - |
+| Arrow bullets (>) | AI detection flag | Lora feedback | - |
 
 ## Channel Patterns
 ### LinkedIn
 - 1-3 emoji max
-- Hook → Details → CTA
+- Hook > Details > CTA
 - Numbers always specific
 
 ### Discord
@@ -71,7 +71,7 @@ Templates for creating memory files with guaranteed anchors.
 - Self-deprecating works
 
 ### Email
-- Problem → Solution → Result
+- Problem > Solution > Result
 - Single CTA
 - Short paragraphs (150-200 words)
 

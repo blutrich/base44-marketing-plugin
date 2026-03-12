@@ -85,7 +85,7 @@ For detailed operations, see [reference/operations.md](reference/operations.md).
 ## Learning Loop
 
 ```
-GENERATE → REVIEW → FEEDBACK → PATTERN DETECT → RULES UPDATE → GENERATE
+GENERATE > REVIEW > FEEDBACK > PATTERN DETECT > RULES UPDATE > GENERATE
 ```
 
 ### Pattern Promotion

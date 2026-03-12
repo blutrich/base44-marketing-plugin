@@ -71,12 +71,12 @@ Write(file_path=".claude/marketing/patterns.md", content="
 | Phrase | Why | Source | Count |
 |--------|-----|--------|-------|
 | \"We're excited to announce\" | Corporate | Brand rules | - |
-| Arrow bullets (→) | AI detection | Lora | - |
+| Arrow bullets (>) | AI detection | Lora | - |
 
 ## Channel Patterns
 ### LinkedIn
 - 1-3 emoji max
-- Hook → Details → CTA
+- Hook > Details > CTA
 
 ### X (Twitter)
 - 2-4 emoji OK
@@ -144,7 +144,7 @@ Check guaranteed anchors exist:
 - **patterns.md:** `## Phrases That Work`, `## Phrases to AVOID`, `## Pattern Tracking`
 - **feedback.md:** `## Awaiting Review`, `## Recent Feedback`, `## Debug Attempts`
 
-If ANY anchor missing → Auto-heal (recreate from template)
+If ANY anchor missing > Auto-heal (recreate from template)
 
 ---
 

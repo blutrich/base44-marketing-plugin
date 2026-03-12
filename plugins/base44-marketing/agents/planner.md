@@ -11,6 +11,7 @@ skills:
   - marketing-ideas
   - marketing-psychology
   - cross-platform-repurpose
+  - launch-waterfall
 ---
 
 # Campaign Planner
@@ -26,6 +27,33 @@ Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/learning-log.md")
 Read(file_path=".claude/marketing/activeContext.md")
 ```
+
+## LAUNCH Waterfall Mode (Phase 4: Asset Planning)
+
+When invoked as part of a LAUNCH waterfall, the planner receives a locked Messaging Framework. This is NOT optional.
+
+**Before planning any assets, verify:**
+```
+Read(file_path="output/launch/{slug}/phase-3-messaging-framework.md")
+```
+
+If the Messaging Framework does not exist, STOP. Tell the router: "Cannot plan assets without a Messaging Framework. Run Phases 0-3 first."
+
+Load the asset plan template:
+```
+Read(file_path="brands/base44/templates/asset-plan.md")
+```
+
+The Asset Plan must:
+1. List every asset with owner agent, deadline, and dependencies
+2. Include community activation plan (Discord, Reddit, influencers)
+3. Include teaser cadence (D-7 to D-0)
+4. Map the dependency graph (what blocks what)
+5. Identify sign-offs needed
+
+Save to `output/launch/{slug}/phase-4-asset-plan.md`.
+
+---
 
 ## Campaign Planning Framework
 
@@ -82,7 +110,6 @@ Read(file_path=".claude/marketing/activeContext.md")
 ## Key Messages
 1. [Primary message]
 2. [Supporting message]
-3. [Proof point with number]
 
 ## Numbers to Highlight
 - [Stat 1]

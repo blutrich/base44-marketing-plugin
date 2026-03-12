@@ -5,14 +5,14 @@ description: |
 
   Triggers on: marketing ideas, brainstorm, amplify, promote, tactics, growth, ideas, viral, buzz, campaign ideas.
 
-  LAYER: Ideation → feeds into linkedin-viral, x-viral, seo-content, direct-response-copy.
+  LAYER: Ideation > feeds into linkedin-viral, x-viral, seo-content, direct-response-copy.
 ---
 
 # Marketing Ideas Brainstorm Partner
 
 > "Every tactic here has one thing in common: AI can't do any of them."
 
-**LAYER POSITION:** Input/Ideation → Feeds into execution skills
+**LAYER POSITION:** Input/Ideation > Feeds into execution skills
 
 ## Skill Hierarchy
 
@@ -144,11 +144,11 @@ Based on your **[content type]** about **[topic]**, here are 5 tactics to **[goa
 ---
 
 ### Next Steps
-→ **LinkedIn content?** Route to linkedin-viral skill
-→ **X/Twitter content?** Route to x-viral skill
-→ **Product Hunt launch?** Deep dive into PH playbook
-→ **Guerrilla tactics?** Load guerrilla playbook for more
-→ **More ideas?** Apply I.D.E.A. framework
+> **LinkedIn content?** Route to linkedin-viral skill
+> **X/Twitter content?** Route to x-viral skill
+> **Product Hunt launch?** Deep dive into PH playbook
+> **Guerrilla tactics?** Load guerrilla playbook for more
+> **More ideas?** Apply I.D.E.A. framework
 ```
 
 ---

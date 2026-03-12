@@ -613,15 +613,15 @@ Orange check marks with item text.
 
 ```css
 @media (max-width: 1200px) {
-  /* Grid: 3col → 2col */
+  /* Grid: 3col > 2col */
   /* Split headers: stack vertically */
   /* Steps: stack vertically */
   /* Footer: stack vertically */
-  /* Side padding: 80px → 20px */
+  /* Side padding: 80px > 20px */
 }
 @media (max-width: 768px) {
-  /* Grid: 2col → 1col */
-  /* Hero title: 74px → 44px */
+  /* Grid: 2col > 1col */
+  /* Hero title: 74px > 44px */
   /* Buttons: full width, stacked */
   /* Nav links: hidden */
   /* CTA card: 90% width */
@@ -633,10 +633,10 @@ Orange check marks with item text.
 ## Page Templates
 
 ### Consumer Landing Page
-Header (pill) → Hero (blue gradient + ticker) → Features (numbered cards, warm bg) → Benefits (icon cards + checklist) → CTA (sunset gradient) → Footer (simple)
+Header (pill) > Hero (blue gradient + ticker) > Features (numbered cards, warm bg) > Benefits (icon cards + checklist) > CTA (sunset gradient) > Footer (simple)
 
 ### Technical Product Page
-Header (full nav) → Hero (dot grid + terminal) → Features (bordered cards, split header) → Steps (code walkthrough) → FAQ (accordion) → CTA (sunset + dark card) → Footer (full columns)
+Header (full nav) > Hero (dot grid + terminal) > Features (bordered cards, split header) > Steps (code walkthrough) > FAQ (accordion) > CTA (sunset + dark card) > Footer (full columns)
 
 ---
 
@@ -764,6 +764,6 @@ When generating standalone HTML files (not inside a Base44 React app), use the r
 - Logo is always inline SVG (orange half-circle mark + "Base44" wordmark) — never base64 PNG
 - Use `#0f0f0f` (not pure `#000`) for text and dark backgrounds
 - Card gaps are `10px` (tight), not the typical 16-24px
-- Section backgrounds alternate: `#fff` → `#faf9f7` → `#fff`
+- Section backgrounds alternate: `#fff` > `#faf9f7` > `#fff`
 - The CTA sunset gradient is used on both page types
 - Base44 apps are React-based: prefer React components when building inside a Base44 project

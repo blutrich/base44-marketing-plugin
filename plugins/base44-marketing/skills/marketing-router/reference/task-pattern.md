@@ -13,7 +13,7 @@ How to create and manage task hierarchies for marketing workflows.
 └─────────────────────────────────────────────────────────────────┘
          │
          ├─── CHILD: [specialist]-agent: Create content
-         │         Status: pending → in_progress → completed
+         │         Status: pending > in_progress > completed
          │
          ├─── CHILD: brand-guardian: Review content
          │         Status: pending (blocked by specialist)
@@ -33,7 +33,7 @@ TaskCreate({
   description: "Full workflow for [description]",
   activeForm: "Creating [content type]"
 })
-# → Returns parent_id
+# > Returns parent_id
 
 # Step 2: Create specialist task
 TaskCreate({
@@ -41,7 +41,7 @@ TaskCreate({
   description: "Create [content type] following brand guidelines",
   activeForm: "Writing [content type]"
 })
-# → Returns specialist_id
+# > Returns specialist_id
 
 # Step 3: Create guardian task
 TaskCreate({
@@ -49,7 +49,7 @@ TaskCreate({
   description: "Validate brand consistency, score content",
   activeForm: "Reviewing content"
 })
-# → Returns guardian_id
+# > Returns guardian_id
 
 # Step 4: Create memory task
 TaskCreate({
@@ -57,7 +57,7 @@ TaskCreate({
   description: "Update patterns.md, feedback.md, learning-log.md",
   activeForm: "Updating memory"
 })
-# → Returns memory_id
+# > Returns memory_id
 
 # Step 5: Set dependencies
 TaskUpdate({ taskId: guardian_id, addBlockedBy: [specialist_id] })

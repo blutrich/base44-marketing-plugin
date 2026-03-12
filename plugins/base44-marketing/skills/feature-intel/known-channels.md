@@ -17,7 +17,7 @@
 | feat-git-signup | C0AJRCH657U | 2026-03-05 | Yoav Achiam | new | — | No content yet |
 | feat-branches | C0AJ2L6EBFZ | 2026-03-04 | Nir Natan | active | 2026-03-09 | Phase 1 PRD in progress. Safe experimentation, shared read-only DB |
 | feat-auto-save | C0AJBTSH3QT | 2026-03-04 | Keren Or Peer | active | — | PR #4623, 3rd iteration, in QA |
-| feat-migration-to-mp | C0AJ0JJJ33R | 2026-03-04 | Fayga Derevicher | active | — | Supabase→MP migration. 2 PRs merged, gradual rollout starting |
+| feat-migration-to-mp | C0AJ0JJJ33R | 2026-03-04 | Fayga Derevicher | active | — | Supabase>MP migration. 2 PRs merged, gradual rollout starting |
 | feat-competitors-migrations | C0AJ3UL7NP7 | 2026-03-03 | Maor Shlomo | active | 2026-03-09 | Migration wizard for Lovable/Bolt/Replit/Monday/HubSpot. Early dev |
 | feat-connectors-trigger | C0AJFAZD9PB | 2026-03-02 | Rotem Eisenkot | active | 2026-03-09 | Gmail/Calendar/Drive/Slack triggers. Near ship on avner.velino.org |
 

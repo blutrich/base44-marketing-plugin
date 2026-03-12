@@ -35,6 +35,50 @@ This workflow is for when the user needs strategic thinking, not just content cr
 
 ---
 
+## LAUNCH (Feature Launch Waterfall)
+
+**This is the structured waterfall for shipping features and products.** It prevents the "grocery list" problem by enforcing sequential phases with gates.
+
+1. Load brand context + memory
+2. Load launch-waterfall skill:
+```
+Skill(skill="launch-waterfall")
+```
+3. **Check for existing Discovery Brief:**
+   - Scan `output/launch/{slug}/` for previous phase outputs
+   - If Phase 0 exists from feature-intel auto-discovery: resume from next incomplete phase
+   - If nothing exists: start from Phase 0
+
+4. **Execute phases sequentially (NEVER skip):**
+
+| Phase | Name | Agent | Output | Gate |
+|-------|------|-------|--------|------|
+| 0 | Auto-Discovery | gtm-strategist + WebSearch | Discovery Brief (competitive landscape, channel intel) | Brief has all sections filled |
+| 1 | Product Understanding | gtm-strategist + Slack MCP | Product Brief | All open questions resolved |
+| 2 | Pain Points + Positioning | gtm-strategist | Positioning Document | Core Position is 1 sentence |
+| 3 | Messaging Framework | gtm-strategist | Messaging Framework | Framework locked, H1s exist, channel adaptations complete |
+| 4 | Asset Planning | planner | Asset Plan | All assets have owner, deadline, dependencies |
+| 5 | Asset Creation | specialists in parallel | All assets | All pass brand-guardian >= 7/10 |
+| 6 | Launch Execution | planner | Launch Checklist | All items checked |
+
+5. **Between each phase:**
+   - Save output to `output/launch/{slug}/phase-{N}-{name}.md`
+   - Present to user for approval
+   - Only proceed when user approves
+
+6. **Phase 5 (Asset Creation) is the ONLY parallel phase.**
+   All other phases are strictly sequential.
+   Specialists in Phase 5 ALL receive the locked Messaging Framework as context.
+   They derive content from it, they do NOT invent new messaging.
+
+7. **Phase 0 auto-trigger:**
+   When feature-intel detects a significant new feature, auto-run Phase 0.
+   This means by the time the team gets the launch assignment, competitive research is done.
+
+**LAUNCH vs CAMPAIGN:** LAUNCH is for specific feature/product launches (waterfall). CAMPAIGN is for general multi-channel campaigns (content calendar). If someone says "launch agents" = LAUNCH. If someone says "run a brand awareness campaign" = CAMPAIGN.
+
+---
+
 ## BRAINSTORM (Ideation Layer)
 
 1. Load brand context
@@ -80,10 +124,10 @@ Create paid ad creatives for Meta, LinkedIn, Reddit.
    - Key message or product to highlight
    - Number of variations needed?
 3. Create task hierarchy (see task-pattern.md)
-4. Execute chain: ad-specialist → brand-guardian
+4. Execute chain: ad-specialist > brand-guardian
 5. **Output includes:**
-   - 3 headline variations
-   - 3 primary text variations
+   - 2-4 headline variations
+   - 2-4 primary text variations
    - Recommended visual style
    - nano-banana commands to generate image
 6. Update memory with learnings
@@ -97,8 +141,9 @@ Create paid ad creatives for Meta, LinkedIn, Reddit.
    - Single tweet or thread?
    - What's the key message?
    - Any specific numbers/results to include?
+   - Target audience segment?
 3. Create task hierarchy
-4. Execute chain: x-specialist → brand-guardian
+4. Execute chain: x-specialist > brand-guardian
 5. Update memory with learnings
 
 ---
@@ -110,8 +155,9 @@ Create paid ad creatives for Meta, LinkedIn, Reddit.
    - What's the key message?
    - What outcome/result to highlight?
    - Any specific numbers to include?
+   - Target audience segment?
 3. Create task hierarchy
-4. Execute chain: linkedin-specialist → brand-guardian
+4. Execute chain: linkedin-specialist > brand-guardian
 5. Update memory with learnings
 
 ---
@@ -123,8 +169,9 @@ Create paid ad creatives for Meta, LinkedIn, Reddit.
    - What channels? (LinkedIn, Email, Landing page)
    - What's the launch/announcement?
    - Key messages and CTAs?
+   - Timeline and launch date?
 3. Create task hierarchy with parallel specialists
-4. Execute parallel → then review
+4. Execute parallel > then review
 5. Update memory
 
 ---
@@ -151,11 +198,11 @@ Read(file_path="skills/base44-landing-page/SKILL.md")
    - URL slug (used as Base44 app name)
    - CTA URL (default: `https://base44.com`)
 5. **SELECT TEMPLATE** based on goal:
-   - Feature launch → `feature-launch`
-   - Campaign / event → `campaign`
-   - Sign-up / free trial → `signup`
-   - Case study → `case-study`
-   - Enterprise / security → `enterprise`
+   - Feature launch > `feature-launch`
+   - Campaign / event > `campaign`
+   - Sign-up / free trial > `signup`
+   - Case study > `case-study`
+   - Enterprise / security > `enterprise`
 6. **GENERATE COPY** using 8-Section Framework:
    - Load `landing-page-architecture` skill
    - Load brand files (testimonials, value-props, hooks, CTAs)
@@ -191,10 +238,10 @@ Read(file_path="skills/cross-platform-repurpose/SKILL.md")
    - What platform is the original content from?
    - What platform(s) to transform to?
 4. **Apply transformation rules:**
-   - LinkedIn → X: Compress to 280 chars, punchier
-   - LinkedIn → Thread: Break into 5-7 numbered tweets
-   - LinkedIn → Email: Make personal, add subject line
-   - X → LinkedIn: Expand with context and story
+   - LinkedIn > X: Compress to 280 chars, punchier
+   - LinkedIn > Thread: Break into 5-7 numbered tweets
+   - LinkedIn > Email: Make personal, add subject line
+   - X > LinkedIn: Expand with context and story
 5. Validate with brand-guardian
 6. **Output format:**
 ```markdown
@@ -217,7 +264,7 @@ Pass brand context to each agent:
 ```
 Task(subagent_type="base44-marketing:linkedin-specialist", prompt="
 ## Brand Context
-- Voice: Builder-first, fast-paced, results-focused
+- Voice: Builder-first, fast-paced, results-focused, show-don't-tell
 - Style: 'Cool big brother' - supportive, teaches, teases
 
 ## Task

@@ -6,29 +6,31 @@
 
 The `marketing-router` skill is the entry point. When it loads, it:
 
-1. Initializes memory → reads brand → detects intent → executes the matching workflow
+1. Initializes memory > reads brand > detects intent > executes the matching workflow
 2. Chains to the right agent + skill files based on intent
 3. Finishes every content workflow through `agents/brand-guardian.md` (quality gate)
+4. Logs the session to `.claude/marketing/sessions.md`
 
 **Workflow chains by intent:**
 
 | Intent | Chain |
 |--------|-------|
-| LinkedIn post | `marketing-router` → `linkedin-specialist` → `linkedin-viral` → `brand-guardian` |
-| X/Twitter | `marketing-router` → `x-specialist` → `x-viral` → `brand-guardian` |
-| Email | `marketing-router` → `copywriter` → `direct-response-copy` → `brand-guardian` |
-| Paid ad | `marketing-router` → `ad-specialist` → `brand-guardian` |
-| Landing page | `marketing-router` → `base44-landing-page` → `brand-guardian` |
-| Blog / SEO | `marketing-router` → `seo-specialist` → `seo-content` → `brand-guardian` |
-| Video | `marketing-router` → `video-specialist` → `brand-guardian` |
-| Strategy / GTM | `marketing-router` → `gtm-strategist` |
-| Campaign | `marketing-router` → `planner` → [specialists in parallel] → `brand-guardian` |
-| Data / Analytics | `marketing-router` → `data-insight` |
-| Brainstorm | `marketing-router` → `marketing-ideas` |
-| Push to Ripple | `marketing-router` → `push-to-ripple` |
-| Feature brief | `marketing-router` → `feature-brief` (Feature entity → Slack MCP → MarketingActivity + Feature card) |
-| Feature intel | `marketing-router` → `feature-intel` (scan #feat-* channels → detect new → digest to #features-intel-changelog-4marketing) |
-| Log session | `marketing-router` → `session-log` |
+| LinkedIn post | `marketing-router` > `linkedin-specialist` > `linkedin-viral` > `brand-guardian` |
+| X/Twitter | `marketing-router` > `x-specialist` > `x-viral` > `brand-guardian` |
+| Email | `marketing-router` > `copywriter` > `direct-response-copy` > `brand-guardian` |
+| Paid ad | `marketing-router` > `ad-specialist` > `brand-guardian` |
+| Landing page | `marketing-router` > `base44-landing-page` > `brand-guardian` |
+| Blog / SEO | `marketing-router` > `seo-specialist` > `seo-content` > `brand-guardian` |
+| Video | `marketing-router` > `video-specialist` > `brand-guardian` |
+| Strategy / GTM | `marketing-router` > `gtm-strategist` |
+| Feature Launch | `marketing-router` > `launch-waterfall` > `gtm-strategist` (Ph 0-3) > `planner` (Ph 4) > [specialists in parallel] (Ph 5) > `brand-guardian` > `planner` (Ph 6) |
+| Campaign | `marketing-router` > `planner` > [specialists in parallel] > `brand-guardian` |
+| Data / Analytics | `marketing-router` > `data-insight` |
+| Brainstorm | `marketing-router` > `marketing-ideas` |
+| Push to Ripple | `marketing-router` > `push-to-ripple` |
+| Feature brief | `marketing-router` > `feature-brief` (Feature entity > Slack MCP > MarketingActivity + Feature card) |
+| Feature intel | `marketing-router` > `feature-intel` (scan #feat-* channels > detect new > digest to #features-intel-changelog-4marketing) |
+| Log session | `marketing-router` > `session-log` |
 
 **Every content workflow** must also read `agents/shared-instructions.md` and `brands/base44/RULES.md` before generating.
 
@@ -37,23 +39,24 @@ The `marketing-router` skill is the entry point. When it loads, it:
 ```
 marketing-router (ENTRY POINT — open-ended, no menu)
         │
-        ├── GTM_STRATEGY → gtm-strategist (deep exploration, then plan)
-        ├── BRAINSTORM → marketing-ideas (connected narrative, not bullet dumps)
-        ├── DATA_INSIGHT → data-insight (Trino analytics) → gtm-strategist (if strategy)
-        ├── APP_DATA → base44-feature (pull product features for content)
-        ├── PAID_AD → ad-specialist → brand-guardian
-        ├── LINKEDIN → linkedin-specialist → brand-guardian
-        ├── X → x-specialist → brand-guardian
-        ├── EMAIL → copywriter → brand-guardian
-        ├── LANDING → base44-landing-page (8-Section → HTML → Base44 CLI deploy) → brand-guardian
-        ├── SEO → seo-specialist → brand-guardian
-        ├── VIDEO → video-specialist → brand-guardian
-        ├── PUSH_RIPPLE → push-to-ripple (extract content → push to Ripple CMS)
-        ├── FEATURE_BRIEF → feature-brief (Feature Calendar → Slack → MarketingActivity)
-        ├── FEATURE_SCAN → feature-scan (scan channel → check Ripple → brief + content → push → notify)
-        ├── FEATURE_INTEL → feature-intel (scan #feat-* channels → detect new features → post to #features-intel-changelog-4marketing)
-        ├── SESSION_LOG → session-log (team usage → Base44 PluginSession entity)
-        └── CAMPAIGN → planner → [specialists ∥] → brand-guardian
+        ├── GTM_STRATEGY > gtm-strategist (deep exploration, then plan)
+        ├── LAUNCH > launch-waterfall (Ph 0: discovery > Ph 1: product > Ph 2: positioning > Ph 3: messaging > Ph 4: asset plan > Ph 5: create ∥ > Ph 6: execute)
+        ├── BRAINSTORM > marketing-ideas (connected narrative, not bullet dumps)
+        ├── DATA_INSIGHT > data-insight (Trino analytics) > gtm-strategist (if strategy)
+        ├── APP_DATA > base44-feature (pull product features for content)
+        ├── PAID_AD > ad-specialist > brand-guardian
+        ├── LINKEDIN > linkedin-specialist > brand-guardian
+        ├── X > x-specialist > brand-guardian
+        ├── EMAIL > copywriter > brand-guardian
+        ├── LANDING > base44-landing-page (8-Section > HTML > Base44 CLI deploy) > brand-guardian
+        ├── SEO > seo-specialist > brand-guardian
+        ├── VIDEO > video-specialist > brand-guardian
+        ├── PUSH_RIPPLE > push-to-ripple (extract content > push to Ripple CMS)
+        ├── FEATURE_BRIEF > feature-brief (Feature Calendar > Slack > MarketingActivity)
+        ├── FEATURE_SCAN > feature-scan (scan channel > check Ripple > brief + content > push > notify)
+        ├── FEATURE_INTEL > feature-intel (scan #feat-* channels > detect new features > post to #features-intel-changelog-4marketing)
+        ├── SESSION_LOG > session-log (team usage > Base44 PluginSession entity)
+        └── CAMPAIGN > planner > [specialists ∥] > brand-guardian
 ```
 
 ## Agents
@@ -87,14 +90,15 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `data-insight` | Trino analytics: growth, models, funnel, apps, features, remix, referrals, monetization, AI classification, user voice (19 queries, 6 tables) |
 | `push-to-ripple` | Push generated content into Ripple CMS |
 | `session-log` | Team usage tracking via Base44 PluginSession entity |
+| `launch-waterfall` | 7-phase waterfall for feature launches: auto-discovery, product understanding, positioning, messaging framework, asset planning, parallel creation, launch execution |
 | `cross-platform-repurpose` | Adapt content across channels (LinkedIn to X, blog to thread, etc.) |
 | `hook-rules` | Hook pattern library with banned/approved patterns |
 | `marketing-ideas` | Brainstorm generation with 77+ proven tactics |
 | `marketing-psychology` | 71 psychological principles for persuasion |
 | `nano-banana` | Marketing image generation via Google Imagen 3 |
 | `remotion` | Video creation in React |
-| `feature-brief` | Feature Calendar → Slack → MarketingActivity pipeline (find feature → read Slack → generate content → write to MarketingActivity + Feature card) |
-| `feature-scan` | Batch scanner: scans #product-marketing-sync → checks Ripple for duplicates → generates briefs + draft content → pushes to Ripple → notifies Slack. Works with `/loop 30m /feature-scan`. |
+| `feature-brief` | Feature Calendar > Slack > MarketingActivity pipeline (find feature > read Slack > generate content > write to MarketingActivity + Feature card) |
+| `feature-scan` | Batch scanner: scans #product-marketing-sync > checks Ripple for duplicates > generates briefs + draft content > pushes to Ripple > notifies Slack. Works with `/loop 30m /feature-scan`. |
 | `feature-intel` | Single-pass intel scan: discovers new feat channels, reads #product-marketing-sync releases, pulls Feature + MarketingActivity from API, detects status changes, and posts a unified digest with release tracker + marketing gaps + action items to #features-intel-changelog-4marketing. Works with `/loop 12h`. |
 | `verification-before-delivery` | Quality assurance before output |
 
@@ -155,4 +159,4 @@ Located in `agents/`:
 
 ---
 
-*Following the cc10x pattern: Router → Agent Chains → Quality Gate*
+*Following the cc10x pattern: Router > Agent Chains > Quality Gate*

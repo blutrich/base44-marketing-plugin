@@ -19,22 +19,22 @@ Marketing Playbook (Source of Truth)
 │   ├── brand.json
 │   └── learning-log.md
 │
-    ↓ symlinks ↓
+    | symlinks |
 
 ~/.claude/skills/base44-brand/ (Global Skill)
 ├── SKILL.md
 └── references/
-    ├── AGENTS.md → symlink
-    ├── tone-of-voice.md → symlink
-    ├── brand.json → symlink
-    └── facts.md → symlink
+    ├── AGENTS.md (symlink)
+    ├── tone-of-voice.md (symlink)
+    ├── brand.json (symlink)
+    └── facts.md (symlink)
 
-    ↓ symlinks ↓
+    | symlinks |
 
 Individual Skills
-├── linkedin-post/references/base44-voice.md → symlink
-├── x-post/references/base44-voice.md → symlink
-└── pptx-generator/brands/base44/tone-of-voice.md → symlink
+├── linkedin-post/references/base44-voice.md (symlink)
+├── x-post/references/base44-voice.md (symlink)
+└── pptx-generator/brands/base44/tone-of-voice.md (symlink)
 ```
 
 ## How to Use
@@ -53,7 +53,7 @@ uvicorn server.main:app --reload --port 8000
 ## Next Steps
 1. [ ] Shay validation interview (guide at `Interview Guide - Shay Brand Discovery.md`)
 2. [ ] Test content generation with synced system
-3. [ ] Activate learning loop (log feedback → extract patterns → update AGENTS.md)
+3. [ ] Activate learning loop (log feedback > extract patterns > update AGENTS.md)
 
 ## Last Updated
 2026-01-31

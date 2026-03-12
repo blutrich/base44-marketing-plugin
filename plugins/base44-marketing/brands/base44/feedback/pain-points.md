@@ -33,7 +33,7 @@ This is the #1 insight from all research. It's not a feature gap — it's a trus
 
 ### 3. Credits Consumed on Debugging
 **Severity:** P0 | **Affected:** 8+ builders
-**The pain:** AI makes a mistake → builder pays credits to fix it → fix creates new problems → more credits → "money pit" feeling.
+**The pain:** AI makes a mistake > builder pays credits to fix it > fix creates new problems > more credits > "money pit" feeling.
 
 **For marketing:** Highlight Discussion Mode as a free way to plan before building. Promote credit-saving techniques.
 
@@ -156,7 +156,7 @@ This is the #1 insight from all research. It's not a feature gap — it's a trus
 
 ---
 
-## Pain → Solution Messaging
+## Pain > Solution Messaging
 
 | Pain | Solution Framing | Evidence |
 |------|------------------|----------|

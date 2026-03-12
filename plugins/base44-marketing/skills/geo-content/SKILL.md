@@ -43,7 +43,7 @@ AI systems cite content that is:
 | **Depth** | Comprehensive | Definitive statements |
 | **Updates** | Regular freshness | Evergreen authority |
 
-**Key insight:** AI systems don't "rank" pages—they select the most citable answer.
+**Key insight:** AI systems don't "rank" pages. They select the most citable answer.
 
 ---
 
@@ -372,4 +372,4 @@ Before writing GEO content, load brand context:
 
 ---
 
-*Optimized for AI citation as of 2024-2025. AI search behavior evolves rapidly—update strategies quarterly.*
+*Optimized for AI citation as of 2024-2025. AI search behavior evolves rapidly. Update strategies quarterly.*

@@ -242,9 +242,9 @@ This isn't theory. In 6 months:
 
 [CTA]
 Book Your Free AI Audit (15 min, no pitch)
-→ See exactly where your team is losing time
-→ Get 3 quick wins you can implement this week
-→ No commitment, no sales pressure
+> See exactly where your team is losing time
+> Get 3 quick wins you can implement this week
+> No commitment, no sales pressure
 
 [Book My Free Audit]
 

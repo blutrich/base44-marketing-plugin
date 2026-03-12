@@ -142,11 +142,11 @@ These are engagement-bait disguised as honesty. Maor is genuinely honest without
 - "Only time will tell"
 
 **Contrast framing (just say what it does):**
-- "No plugins, no exports, no manual rebuilding, just..." → just say what it does
-- "It's not X, it's Y" → just say Y
-- "It's not about X. It's about Y." → just say Y
-- "It's not A. It's not even B. It's actually C." → just say C
-- "No [thing]. No [thing]. Just [thing]." → describe the benefit directly
+- "No plugins, no exports, no manual rebuilding, just..." > just say what it does
+- "It's not X, it's Y" > just say Y
+- "It's not about X. It's about Y." > just say Y
+- "It's not A. It's not even B. It's actually C." > just say C
+- "No [thing]. No [thing]. Just [thing]." > describe the benefit directly
 
 **Business cliches (rewrite):**
 - "Level up"

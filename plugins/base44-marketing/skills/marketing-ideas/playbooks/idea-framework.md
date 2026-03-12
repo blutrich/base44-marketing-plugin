@@ -2,7 +2,7 @@
 
 > "Creativity isn't magic - it's a system."
 
-**I**dentify → **D**ecode → **E**xtract → **A**pply
+**I**dentify > **D**ecode > **E**xtract > **A**pply
 
 ---
 
@@ -77,7 +77,7 @@ KEY INSIGHT:
 ### Process
 
 1. **Remove brand-specific elements**
-   "Spotify Wrapped" → "Annual personalized review with shareable results"
+   "Spotify Wrapped" > "Annual personalized review with shareable results"
 
 2. **Identify core pattern**
    What category? What psychological trigger?
@@ -208,16 +208,16 @@ For every idea, ask:
 
 ```
 I - IDENTIFY: Where do I find good tactics?
-    → Google Alerts, Product Hunt, Ad libraries
+    > Google Alerts, Product Hunt, Ad libraries
 
 D - DECODE: Why does this work?
-    → Problem? Mechanism? Why spread?
+    > Problem? Mechanism? Why spread?
 
 E - EXTRACT: What's the reusable pattern?
-    → Remove brand-specific, name it
+    > Remove brand-specific, name it
 
 A - APPLY: How does this work for ME?
-    → USED assets → ICE Score → 24-hour version → Execute
+    > USED assets > ICE Score > 24-hour version > Execute
 ```
 
 ---

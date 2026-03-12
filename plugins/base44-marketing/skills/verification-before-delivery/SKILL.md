@@ -47,11 +47,11 @@ Before ANY content goes to brand-guardian, the creating agent MUST run this self
 | "users/customers" | No | - |
 | "deploy/launch" | No | - |
 | "we're excited" | No | - |
-| Arrow bullets (→) | No | - |
+| Arrow bullets (>) | No | - |
 
 ### Format Check
 - Channel: [LinkedIn/X/Email/etc.]
-- Expected format: [Hook→Details→CTA / Thread / etc.]
+- Expected format: [Hook>Details>CTA / Thread / etc.]
 - Matches: [Yes/No]
 
 ### Numbers Check
@@ -178,14 +178,14 @@ Every review MUST produce this evidence table:
 ┌─────────────────────────────────────────────────────────────────┐
 │                    SELF-CRITIQUE GATE                            │
 │  • 4 Critical Questions                                          │
-│  • If ANY fail → FIX FIRST (loop back)                          │
+│  • If ANY fail > FIX FIRST (loop back)                          │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    STUB DETECTION                                │
 │  • Scan for [TODO], [TBD], Lorem ipsum, etc.                    │
-│  • If ANY found → COMPLETE FIRST (loop back)                    │
+│  • If ANY found > COMPLETE FIRST (loop back)                    │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -225,14 +225,14 @@ When content fails verification, track attempts:
 
 ### Format
 ```
-[DEBUG-N]: [Issue] → [Attempted Fix] → [Result]
+[DEBUG-N]: [Issue] > [Attempted Fix] > [Result]
 ```
 
 ### Examples
 ```
-[DEBUG-1]: Arrow bullets found → Replaced with emoji bullets → PASSED
-[DEBUG-2]: Score 5/10 "too corporate" → Rewrote opener with builder voice → Score 8/10
-[DEBUG-3]: Missing numbers → Added "400K+ builders" → PASSED
+[DEBUG-1]: Arrow bullets found > Replaced with emoji bullets > PASSED
+[DEBUG-2]: Score 5/10 "too corporate" > Rewrote opener with builder voice > Score 8/10
+[DEBUG-3]: Missing numbers > Added "400K+ builders" > PASSED
 ```
 
 ### Escalation
@@ -267,9 +267,9 @@ Update `.claude/marketing/feedback.md`:
 
 If same issue appears 3+ times in feedback.md:
 ```
-→ Promote to patterns.md "Phrases to AVOID"
-→ Log to brands/base44/learning-log.md
-→ Consider adding to RULES.md
+> Promote to patterns.md "Phrases to AVOID"
+> Log to brands/base44/learning-log.md
+> Consider adding to RULES.md
 ```
 
 ---

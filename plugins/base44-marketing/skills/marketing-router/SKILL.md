@@ -10,7 +10,7 @@ description: |
 
 # Marketing Router
 
-**EXECUTION ENGINE.** When loaded: Initialize memory → Read brand → Detect intent → Execute workflow → Update memory.
+**EXECUTION ENGINE.** When loaded: Initialize memory > Read brand > Detect intent > Execute workflow > Update memory.
 
 **NEVER** list capabilities. **ALWAYS** execute.
 
@@ -31,7 +31,7 @@ description: |
 When a user starts a conversation, DO NOT present a menu of options. Instead:
 
 1. **If the request is specific and clear** (e.g., "Write a LinkedIn post about our new AI feature"):
-   - Skip to Phase 2 -- classify intent and route directly
+   - Skip to Phase 2. Classify intent and route directly
    - This is the fast path for users who know what they want
 
 2. **If the request is broad or strategic** (e.g., "Help me think about our content strategy" or "What should we be posting about?"):
@@ -52,26 +52,30 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | 1 | BRAINSTORM | ideas, brainstorm, tactics, amplify, promote | **BRAINSTORM** |
 | 2 | PAID_AD | ad, paid, meta ad, linkedin ad, reddit ad, creative | **PAID_AD** |
 | 3 | REPURPOSE | repurpose, transform, convert, adapt, rewrite for | **REPURPOSE** |
-| 4 | CAMPAIGN | campaign, launch, multi-channel, announcement | **CAMPAIGN** |
-| 5 | X | x, twitter, tweet, thread | **X** |
-| 6 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
-| 7 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
-| 8 | LANDING | landing page, sales page, deploy landing page, base44 landing, host landing, ship landing page, create landing page, landing page for [feature] | **LANDING** |
-| 9 | SEO | blog, seo, article, pillar | **SEO** |
-| 10 | VIDEO | video, remotion, animation | **VIDEO** |
-| 11 | DATA_INSIGHT | data, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, builders building, categories, trends, app trends, apps created, feature adoption, agents usage, deep coding, remix, marketplace, funnel, drop-off, activation speed, referrals, model preferences, paid vs free, subscription, monetization, stripe, revenue, app classification, industry, audience | **DATA_INSIGHT** |
-| 11.5 | APP_DATA | fetch features, show features, feature list, roadmap, pull data, product sync, what features, feature data | **APP_DATA** |
-| 11.7 | PUSH_RIPPLE | push to ripple, save to ripple, send to ripple | **PUSH_RIPPLE** |
-| 11.8 | SESSION_LOG | log session, save session, track session, session report, wrap up, end session | **SESSION_LOG** |
-| 11.9 | FEATURE_SCAN | scan features, feature scan, process features, brief all features, morning scan, what's new in product-marketing-sync, check for new features | **FEATURE_SCAN** |
-| 11.95 | FEATURE_INTEL | feature intel, scan feat channels, new features, what's being built, feature discovery, feature radar, daily scan, what features are coming | **FEATURE_INTEL** |
-| 12 | DEFAULT | content, write, create | **CONTENT** |
+| 4 | LAUNCH | launch, ship feature, feature launch, product launch, launch plan, go-to-market launch, launch campaign, launch assets | **LAUNCH** |
+| 5 | CAMPAIGN | campaign, multi-channel, announcement | **CAMPAIGN** |
+| 6 | X | x, twitter, tweet, thread | **X** |
+| 7 | LINKEDIN | linkedin, post, social, viral | **LINKEDIN** |
+| 8 | EMAIL | email, nurture, sequence, drip | **EMAIL** |
+| 9 | LANDING | landing page, sales page, deploy landing page, base44 landing, host landing, ship landing page, create landing page, landing page for [feature] | **LANDING** |
+| 10 | SEO | blog, seo, article, pillar | **SEO** |
+| 11 | VIDEO | video, remotion, animation | **VIDEO** |
+| 12 | DATA_INSIGHT | data, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, builders building, categories, trends, app trends, apps created, feature adoption, agents usage, deep coding, remix, marketplace, funnel, drop-off, activation speed, referrals, model preferences, paid vs free, subscription, monetization, stripe, revenue, app classification, industry, audience | **DATA_INSIGHT** |
+| 13 | APP_DATA | fetch features, show features, feature list, roadmap, pull data, product sync, what features, feature data | **APP_DATA** |
+| 14 | PUSH_RIPPLE | push to ripple, save to ripple, send to ripple | **PUSH_RIPPLE** |
+| 15 | FEATURE_SCAN | scan features, feature scan, process features, brief all, morning scan, process the feature queue | **FEATURE_SCAN** |
+| 16 | FEATURE_INTEL | feature intel, feature radar, feature discovery, what's being built, scan feat channels, what features are coming | **FEATURE_INTEL** |
+| 17 | SESSION_LOG | log session, save session, track session, session report, wrap up, end session | **SESSION_LOG** |
+| 18 | DEFAULT | content, write, create | **CONTENT** |
 
 **Conflict Resolution:**
 - GTM_STRATEGY wins when the request is strategic/planning-oriented
+- LAUNCH wins when a specific feature/product is being shipped (not generic campaigns)
 - BRAINSTORM = ideation only (tactical ideas, not holistic plans)
-- CAMPAIGN wins if multi-channel execution is specified
+- CAMPAIGN wins if multi-channel execution is specified WITHOUT a specific feature launch
 - DATA_INSIGHT queries Trino analytics first, then routes to gtm-strategist if strategy is needed
+- LAUNCH vs CAMPAIGN: If a specific feature is being launched, use LAUNCH (waterfall). If it's a general campaign (brand awareness, event), use CAMPAIGN.
+- **FEATURE_SCAN vs FEATURE_INTEL:** SCAN processes the #product-marketing-sync queue (batch briefs). INTEL discovers new #feat-* channels (radar). "scan for new features" = INTEL. "process the feature queue" = SCAN.
 
 ---
 
@@ -80,23 +84,24 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | Workflow | Agents |
 |----------|--------|
 | GTM_STRATEGY | gtm-strategist (deep exploration, then plan) |
+| LAUNCH | launch-waterfall skill (7-phase waterfall: discovery -> product -> positioning -> messaging -> asset plan -> creation -> execution) |
 | BRAINSTORM | marketing-ideas (then routes to execution) |
 | DATA_INSIGHT | data-insight skill (Trino analytics queries) -> gtm-strategist (if strategy requested) |
-| PAID_AD | ad-specialist → brand-guardian |
-| REPURPOSE | cross-platform-repurpose → brand-guardian |
-| CAMPAIGN | planner → [specialists in parallel] → brand-guardian |
-| X | x-specialist → brand-guardian |
-| LINKEDIN | linkedin-specialist → brand-guardian |
-| EMAIL | copywriter → brand-guardian |
-| LANDING | base44-landing-page skill (8-Section Framework → HTML → Base44 CLI deploy) → brand-guardian |
-| SEO | seo-specialist → brand-guardian |
-| VIDEO | video-specialist → brand-guardian |
+| PAID_AD | ad-specialist > brand-guardian |
+| REPURPOSE | cross-platform-repurpose > brand-guardian |
+| CAMPAIGN | planner > [specialists in parallel] > brand-guardian |
+| X | x-specialist > brand-guardian |
+| LINKEDIN | linkedin-specialist > brand-guardian |
+| EMAIL | copywriter > brand-guardian |
+| LANDING | base44-landing-page skill (8-Section Framework > HTML > Base44 CLI deploy) > brand-guardian |
+| SEO | seo-specialist > brand-guardian |
+| VIDEO | video-specialist > brand-guardian |
 | APP_DATA | base44-feature skill (fetch & display) |
-| PUSH_RIPPLE | push-to-ripple skill (extract content → push to Ripple CMS) |
-| SESSION_LOG | session-log skill (capture session → push to Ripple) |
-| FEATURE_SCAN | feature-scan skill (scan #product-marketing-sync → check Ripple → generate briefs + content → push → notify) |
-| FEATURE_INTEL | feature-intel skill (scan #feat-* channels → detect new features in dev → post digests to #features-intel-changelog-4marketing) |
-| CONTENT | copywriter → brand-guardian (default for generic content requests) |
+| PUSH_RIPPLE | push-to-ripple skill (extract content > push to Ripple CMS) |
+| SESSION_LOG | session-log skill (capture session > push to Ripple) |
+| FEATURE_SCAN | feature-scan skill (scan #product-marketing-sync > check Ripple > generate briefs + content > push > notify) |
+| FEATURE_INTEL | feature-intel skill (scan #feat-* channels > detect new features in dev > post digests to #features-intel-changelog-4marketing) |
+| CONTENT | copywriter > brand-guardian (default for generic content requests) |
 
 For detailed workflows, see [reference/workflows.md](reference/workflows.md).
 
@@ -148,7 +153,7 @@ Do NOT modify files outside your directory.
 ## Task Protocol
 1. Create a task for each content piece
 2. Mark tasks in_progress when you start
-3. When done, mark complete — brand-guardian will review
+3. When done, mark complete. Brand-guardian will review
 4. If guardian requests revision, create a new task
 ```
 
@@ -185,12 +190,7 @@ Read(file_path=".claude/marketing/patterns.md")
 Read(file_path=".claude/marketing/feedback.md")
 ```
 
-Then load brand context:
-```
-Read(file_path="brands/base44/RULES.md")
-Read(file_path="brands/base44/tone-of-voice.md")
-Read(file_path="brands/base44/learning-log.md")
-```
+Then load brand context per `brands/base44/context-loading.md`.
 
 For full initialization sequence, see [reference/memory-init.md](reference/memory-init.md).
 
@@ -208,10 +208,10 @@ For full initialization sequence, see [reference/memory-init.md](reference/memor
 
 | Channel | Emoji | Key Pattern |
 |---------|-------|-------------|
-| LinkedIn | 1-3 | Hook → Details → CTA |
+| LinkedIn | 1-3 | Hook > Details > CTA |
 | X | 2-4 | Threads for long content |
 | Discord | Many | Humor OK, casual |
-| Email | Minimal | Problem → Solution → Result |
+| Email | Minimal | Problem > Solution > Result |
 
 ---
 
@@ -250,10 +250,11 @@ For task hierarchy and validation details, see [reference/task-pattern.md](refer
 | geo-content | AI citation optimization (ChatGPT, Perplexity, Claude) | seo-specialist agent |
 | nano-banana | Marketing image generation via Google Imagen 3 | ad-specialist, video-specialist agents |
 | remotion | Video creation in React (24 sub-rule files) | video-specialist agent |
+| launch-waterfall | 7-phase waterfall for feature launches (auto-discovery to execution) | Router (LAUNCH) |
 | verification-before-delivery | Quality assurance before output | Optional QA gate |
-| feature-brief | Single-feature deep dive: Slack → MarketingActivity | Router (FEATURE_BRIEF) |
-| feature-scan | Batch scanner: #product-marketing-sync → Ripple | Router (FEATURE_SCAN) |
-| feature-intel | Intel scan: #feat-* channels → digest to Slack | Router (FEATURE_INTEL) |
+| feature-brief | Single-feature deep dive: Slack > MarketingActivity | Router (FEATURE_BRIEF) |
+| feature-scan | Batch scanner: #product-marketing-sync > Ripple | Router (FEATURE_SCAN) |
+| feature-intel | Intel scan: #feat-* channels > digest to Slack | Router (FEATURE_INTEL) |
 
 ---
 
@@ -275,10 +276,10 @@ Brand-guardian handles auto-logging after every review. No action needed from th
 **For non-guardian workflows (GTM_STRATEGY, BRAINSTORM, DATA_INSIGHT, APP_DATA, FEATURE_BRIEF, FEATURE_SCAN, FEATURE_INTEL):**
 After the workflow completes, automatically invoke `session-log` in silent mode:
 1. Scan conversation for workflows used, content pieces, data queries
-2. Push to PluginSession entity — skip user confirmation
+2. Push to PluginSession entity (skip user confirmation)
 3. Report: `Session logged. Time saved: ~{N} min`
 
-If credentials missing, silently skip — don't interrupt the workflow.
+If credentials missing, silently skip. Don't interrupt the workflow.
 
 ---
 

@@ -210,7 +210,7 @@
 **Source:** Conversation with Lora reviewing content creation workflow
 
 **Anti-AI Patterns (CRITICAL):**
-- **Arrows (→)** - "Outdated, AI-coded looking" - BANNED
+- **Arrows (>)** - "Outdated, AI-coded looking" - BANNED
 - **Too many bullets** - "Not every post needs a list" - REDUCE
 - **Choppy sentences** - Too robotic, need natural flow - VARY
 - **Repeated phrases** - Don't use same phrases every post - MIX
@@ -225,7 +225,7 @@
 1. Check Slack channels (Product Sync, Base Product Updates)
 2. Coordinate with Tiffany on timing
 3. Create demos showing real product usage
-4. Write content → Review → Publish
+4. Write content > Review > Publish
 5. Track metrics weekly using Excel + ChatGPT analysis
 
 **Anti-AI Checklist (before posting):**

@@ -72,7 +72,7 @@ Punchy benefit statements.
 
 ## BANNED Patterns (Never Use)
 
-- Arrows (→, ➡️, ▸) - AI-tell
+- Arrows (>, ➡️, ▸) - AI-tell
 - "We're excited to announce" - Corporate
 - FOMO language ("Don't miss out!")
 - Question CTAs at end ("What would you build?")

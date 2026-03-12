@@ -212,7 +212,7 @@ Use testimonial cards:
         </div>
         <p class="testimonial-result">{RESULT_1}</p>
       </div>
-      <!-- repeat for 3 testimonials -->
+      <!-- repeat for 2-4 testimonials -->
     </div>
   </div>
 </section>

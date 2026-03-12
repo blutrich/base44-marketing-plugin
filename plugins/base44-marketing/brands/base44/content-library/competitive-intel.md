@@ -14,9 +14,9 @@
 | GitHub / dev forums | John Kenneth | Developer discovery |
 | Word of mouth / friend | Yedidia + multiple | Highest trust signal |
 | Colleague recommendation | Stephen Gagne | Institutional adoption vector |
-| Course / educational program | Avital Jayson | Learning AI → discovers Base44 |
+| Course / educational program | Avital Jayson | Learning AI > discovers Base44 |
 | Searching for programming help | Geomar Medina | Organic search for coding alternatives |
-| "Heard about vibe coding" | Martin Richards | Category awareness → tool discovery |
+| "Heard about vibe coding" | Martin Richards | Category awareness > tool discovery |
 
 **Insight:** Social ads drive volume, but word-of-mouth and ecosystem (Wix) drive highest-quality users.
 

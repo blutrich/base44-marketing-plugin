@@ -62,7 +62,7 @@ Make demo callable. The call IS the demo. 5% conversion from billboard.
 **Best for:** Voice AI, phone services
 
 ### 11. The Micro-Commitment Funnel
-Quiz → Result → Email → Free tool → Paid. Each yes makes next easier.
+Quiz > Result > Email > Free tool > Paid. Each yes makes next easier.
 **Best for:** Complex purchases, high-consideration products
 
 ### 12. The Exit Intent Pivot

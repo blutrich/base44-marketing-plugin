@@ -1,12 +1,13 @@
 ---
 name: base44-landing-page
 description: |
-  Generates self-contained HTML landing pages and deploys them to Base44 hosting via the Base44 CLI.
+  Primary landing page orchestrator. Calls landing-page-architecture for copy, then generates HTML and deploys via Base44 CLI. This is the main "landing page" entry point.
 
-  Triggers on: deploy landing page, base44 landing page, ship landing page,
-  build landing page, host landing page, live landing page, base44 page.
+  Triggers on: landing page, deploy landing page, base44 landing page, ship landing page,
+  build landing page, host landing page, live landing page, base44 page, create a landing page,
+  build a page, sales page, product page, LP.
 
-  CHAIN: base44-landing-page → landing-page-architecture (copy) → brand-guardian (review) → Base44 CLI deploy
+  CHAIN: base44-landing-page > landing-page-architecture (copy) > brand-guardian (review) > Base44 CLI deploy
 ---
 
 # Base44 Landing Page
@@ -23,35 +24,35 @@ description: |
 
 ```
 PHASE 0: Research (BEFORE writing anything)
-  Audit 5-6 competitor LPs → Extract H1 patterns, hero layout,
-  social proof style, CTAs → Define what makes us different
+  Audit 5-6 competitor LPs > Extract H1 patterns, hero layout,
+  social proof style, CTAs > Define what makes us different
         |
         v
 PHASE 1: Copy Brief (landing-page-architecture skill)
-  Audience Lock → Competitor Wedge → Proof Points → Hormozi Hook → Section Brief
+  Audience Lock > Competitor Wedge > Proof Points > Hormozi Hook > Section Brief
         |
         v
 PHASE 2: Section Copy (landing-page-architecture skill)
-  Write 8 sections from brief → Brand Guardian >= 7/10
+  Write 8 sections from brief > Brand Guardian >= 7/10
         |
         v
 PHASE 3: Figma Handoff (if designer provides Figma)
-  Implement Figma designs → Convert assets to inline SVGs →
+  Implement Figma designs > Convert assets to inline SVGs >
   Commit to mobile OR desktop mockup (never in-between)
         |
         v
 PHASE 4: HTML Generation (THIS skill)
-  Template Selection → Load Design System → Generate HTML
+  Template Selection > Load Design System > Generate HTML
         |
         v
 PHASE 5: Deploy + Iterate
-  npx base44 site deploy -y → Share live URL (not screenshots) →
-  Iterate based on feedback → Redeploy
+  npx base44 site deploy -y > Share live URL (not screenshots) >
+  Iterate based on feedback > Redeploy
         |
         v
 PHASE 6: Team Review
-  Present live page to stakeholders → Capture feedback as patterns →
-  Ask: "What drives shares/reposts?" → Update plugin with learnings
+  Present live page to stakeholders > Capture feedback as patterns >
+  Ask: "What drives shares/reposts?" > Update plugin with learnings
 ```
 
 **KEY RULES from Super Agents LP session:**
@@ -119,10 +120,10 @@ Read(file_path="skills/landing-page-architecture/SKILL.md")
 Generate all 8 sections with brand voice applied:
 1. HERO: Eyebrow + Headline + Subheadline + CTA + Trust Signals
 2. SUCCESS: Confirmation + Deliverables
-3. PROBLEM-AGITATE: 3 pain points + Agitation + Transition
+3. PROBLEM-AGITATE: 2-4 pain points + Agitation + Transition
 4. VALUE STACK: 3-4 tiers + Total value + Price + CTA
-5. SOCIAL PROOF: 3 testimonials with specific results
-6. TRANSFORMATION: Week 1 → Month 1 → Month 3 → Year 1
+5. SOCIAL PROOF: 2-4 testimonials with specific results
+6. TRANSFORMATION: Week 1 > Month 1 > Month 3 > Year 1
 7. SECONDARY CTA: Question headline + Yes button + Objection handler
 8. FOOTER: Logo + Navigation + Legal
 
@@ -232,7 +233,7 @@ Output to user:
 If Base44 CLI is not authenticated:
 
 1. Write HTML to `./landing-pages/{slug}/index.html`
-2. Logo is inline SVG (no file copy needed — see asset-strategy.md)
+2. Logo is inline SVG (no file copy needed, see asset-strategy.md)
 3. Tell user:
 ```
 HTML saved locally at landing-pages/{slug}/index.html
@@ -318,4 +319,4 @@ Hard-won patterns from building + reviewing with stakeholders:
 
 **Called by:** marketing-router (LANDING_DEPLOY workflow), copywriter agent
 **Depends on:** landing-page-architecture, design-system.md, brand.json, Base44 CLI
-**Outputs to:** Base44 hosting → live URL
+**Outputs to:** Base44 hosting > live URL

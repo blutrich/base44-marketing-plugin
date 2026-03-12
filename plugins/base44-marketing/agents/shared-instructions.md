@@ -10,9 +10,18 @@ Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/learning-log.md")     # Recent learnings
 ```
 
+## Messaging Framework Rule (LAUNCH workflows)
+
+When creating content as part of a LAUNCH waterfall, your Messaging Framework is your source of truth:
+```
+Read(file_path="output/launch/{slug}/phase-3-messaging-framework.md")
+```
+
+**DERIVE, DON'T INVENT.** Every headline, hook, CTA, and key message MUST trace back to the Messaging Framework. You adapt tone and format for your channel, but you do NOT create new messaging, angles, or claims. If you need something not in the framework, flag it to the router instead of improvising.
+
 ## Voice Character
 
-- **3 Words:** BUILDER-FIRST | FAST-PACED | RESULTS-FOCUSED
+- **4 Words:** BUILDER-FIRST | FAST-PACED | RESULTS-FOCUSED | SHOW-DON'T-TELL
 - **Energy:** Genuine excitement about democratizing app creation
 
 ## Anti-TV-Ad Cadence (MANDATORY)
@@ -26,7 +35,7 @@ Read(file_path="brands/base44/learning-log.md")     # Recent learnings
 - **No em dashes. Period.** Use commas, periods, or parentheses instead. Em dashes are the single biggest AI tell in 2026. Zero tolerance.
 - **The Maor Test:** Would Maor post this on his LinkedIn exactly as written? If you'd need to "make it more polished," you've already failed.
 
-**Write like Maor talks:** casual, specific numbers, story-driven, genuinely excited -- not copywriting.
+**Write like Maor talks:** casual, specific numbers, story-driven, genuinely excited. Not copywriting.
 
 ## Data-Driven Strategy (from Laura's weekly reports)
 
@@ -43,9 +52,9 @@ Proven patterns from real performance data:
 ## Content Pillars (Maor's Actual Mix)
 
 Stick to these three categories. Anything outside is off-brand:
-- **Product releases (~60%)** — "We just dropped...", "Introducing:", feature demos
-- **Milestones / metrics (~20%)** — "$100M ARR", "+$1M every 2.5 days"
-- **Build-in-public (~20%)** — Stack, marketing learnings, team structure, shipping velocity
+- **Product releases (~60%):** "We just dropped...", "Introducing:", feature demos
+- **Milestones / metrics (~20%):** "$100M ARR", "+$1M every 2.5 days"
+- **Build-in-public (~20%):** Stack, marketing learnings, team structure, shipping velocity
 
 Never post: thought leadership fluff, "5 tips" lists, motivational content, life advice, industry trends.
 
@@ -55,15 +64,15 @@ Maor only gets emotional for genuine milestones. One paragraph of feeling, then 
 
 ## Signature Patterns
 
-- **"We just..." opener** — his dominant structure. Use it.
-- **"Introducing: [Name]"** — formal-casual hybrid for new features
-- **"batteries included"** — "the base44 way, as always, batteries included"
-- **Understatement** — downplay scale, let reader discover: "a little update with a major impact"
-- **Video demos** — default attachment for release posts
+- **"We just..." opener:** his dominant structure. Use it.
+- **"Introducing: [Name]":** formal-casual hybrid for new features
+- **"batteries included":** "the base44 way, as always, batteries included"
+- **Understatement:** downplay scale, let reader discover: "a little update with a major impact"
+- **Video demos:** default attachment for release posts
 
 ## Length Limits
 
-**LinkedIn posts:** 80-120 words max. If your post is over 120 words, cut it. Short posts get more engagement and sound more human. If you need more space, use a thread or article.
+**LinkedIn posts:** 80-120 words for short posts. See linkedin-viral skill for tiered limits (up to 330 words for deep dives).
 
 **Emails:** 150-200 words max. Start direct (no "You know that moment..." intros). Problem, solution, result.
 
@@ -81,7 +90,7 @@ AI groups everything in threes. If you write three adjectives, three bullets, or
 
 ## Feature Naming (MANDATORY)
 
-**NEVER** lead with or headline an internal feature name. Builders don't care what you called it internally — they care what it does for them.
+**NEVER** lead with or headline an internal feature name. Builders don't care what you called it internally. They care what it does for them.
 
 - **Bad:** "We're shipping Builder Skills next week."
 - **Good:** "You can now customize how your AI builder works, per workspace, per app."
@@ -91,7 +100,7 @@ The feature name can appear once, buried in the body, never as the hook or headl
 ## Anti-AI Patterns (MANDATORY)
 
 **DON'T:**
-- Use arrows (→) - outdated, AI-tell
+- Use arrows (>) - outdated, AI-tell
 - Start every paragraph the same way
 - Use too many bullet points/lists
 - Repeat phrases like "no big teams" in every post
@@ -132,11 +141,11 @@ Read `brands/base44/banned-words.md` for the full list. Key categories:
 
 When you catch yourself using any of these, replace with the plain English alternative.
 
-## Complete Task (MANDATORY — EVERY workflow, EVERY time)
+## Complete Task (MANDATORY, EVERY workflow, EVERY time)
 
 After delivering content or completing your task, run these steps IN ORDER. Do NOT skip.
 
-### Step 1: Log Session (Local File — Zero Config)
+### Step 1: Log Session (Local File, Zero Config)
 
 Append one row to `.claude/marketing/sessions.md`. No API key needed. Works immediately.
 
@@ -188,13 +197,7 @@ Use the **Edit tool** to append this EXACT row to the table in `.claude/marketin
 |------|----------|---------|--------|-------|-----------|---------|
 ```
 
-**Then** optionally push to Ripple if `.claude/marketing/api-config.json` exists:
-
-```bash
-API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])" 2>/dev/null) && APP_ID=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['app_id'])" 2>/dev/null) && curl -s -X POST "https://app.base44.com/api/apps/$APP_ID/entities/PluginSession" -H "api_key: $API_KEY" -H "Content-Type: application/json" -d "{\"workflow\":\"$WORKFLOW\",\"channel\":\"$CHANNEL\",\"content_pieces\":$PIECES,\"guardian_score\":$SCORE,\"estimated_time_saved_min\":$MINUTES,\"session_date\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"session_summary\":\"$SUMMARY\"}" || true
-```
-
-**If API config missing or fails:** Silently skip. The local file is the source of truth.
+**Ripple push is handled by the session-log skill when invoked by brand-guardian or marketing-router.** Do NOT push to Ripple from here. This step only writes to the local file.
 
 ### Step 2: Mark Task Complete
 

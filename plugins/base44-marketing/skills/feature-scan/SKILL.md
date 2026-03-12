@@ -1,9 +1,9 @@
 ---
 name: feature-scan
 description: |
-  Scans #product-marketing-sync for new feature announcements, checks Ripple for existing briefs, generates briefs + draft content for unprocessed features, pushes to Ripple, and posts condensed summaries back to Slack.
+  BATCH processing of the #product-marketing-sync queue. Scans for new feature announcements, checks Ripple for existing briefs, generates briefs + draft content for unprocessed features, pushes to Ripple, and posts condensed summaries back to Slack.
 
-  Triggers on: scan features, feature scan, process features, what's new in product-marketing-sync, brief all features, morning scan, scan channel, check for new features.
+  Triggers on: feature scan, scan features, process features, what's new in product-marketing-sync, brief all features, morning scan, scan channel, process the feature queue.
 ---
 
 # Feature Scan
@@ -56,7 +56,7 @@ Also parse **date update messages** from the bot with `:date: Release Date Updat
 | `previous_date` | After "Previous Date:" (strikethrough) |
 | `new_date` | After "New Date:" (bold) |
 
-Also capture **non-bot feature mentions** from team members (Ron, Rotem, Maor) that reference new features not covered by bot announcements. These are secondary — flag them but don't auto-process.
+Also capture **non-bot feature mentions** from team members (Ron, Rotem, Maor) that reference new features not covered by bot announcements. These are secondary. Flag them but don't auto-process.
 
 ### Lookback Window
 

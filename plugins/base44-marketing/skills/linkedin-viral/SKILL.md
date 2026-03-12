@@ -104,7 +104,7 @@ You probably are too.
 
 ## Post Structures
 
-### Structure 1: Story → Lesson → Takeaway
+### Structure 1: Story > Lesson > Takeaway
 
 ```
 [Hook: Something happened]
@@ -143,13 +143,13 @@ Which one resonates most?
 Here's my [X]-step framework:
 
 Step 1: [Action]
-→ [Why it matters]
+> [Why it matters]
 
 Step 2: [Action]
-→ [Why it matters]
+> [Why it matters]
 
 Step 3: [Action]
-→ [Why it matters]
+> [Why it matters]
 
 [Where to start]
 ```

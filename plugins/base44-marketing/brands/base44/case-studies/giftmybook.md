@@ -33,7 +33,7 @@ Yoav and two friends spent months working with traditional developers on a gifti
 They rebuilt from scratch with Base44. One week later: fully working, end-to-end product.
 
 **What they built:**
-- Simple user flow (answer questions → generate book → print & ship)
+- Simple user flow (answer questions > generate book > print & ship)
 - AI-generated content and visuals
 - Print-on-demand integration
 - Payment processing
@@ -54,7 +54,7 @@ Instead of heavy investment, they ran a quick test:
 
 ## Growth
 
-**Conversion rates:** 6-8% (visitor → purchase)
+**Conversion rates:** 6-8% (visitor > purchase)
 **Peak season:** Holiday gifting (December)
 **First profitable month:** December 2025
 

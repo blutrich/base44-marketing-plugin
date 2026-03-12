@@ -301,18 +301,18 @@ Central Brand Source (Marketing Playbook)
 Shared Skill (~/.claude/skills/base44-brand/)
 ├── SKILL.md (skill definition)
 └── references/
-    ├── AGENTS.md → symlink
-    ├── tone-of-voice.md → symlink
-    ├── brand.json → symlink
-    └── facts.md → symlink
+    ├── AGENTS.md > symlink
+    ├── tone-of-voice.md > symlink
+    ├── brand.json > symlink
+    └── facts.md > symlink
 
     ↓ symlinks ↓
 
 Individual Skills
-├── linkedin-post/references/base44-voice.md → symlink
-├── x-post/references/base44-voice.md → symlink
-├── pptx-generator/brands/base44/ → symlinks
-└── remotion/references/base44-*.md → symlinks
+├── linkedin-post/references/base44-voice.md > symlink
+├── x-post/references/base44-voice.md > symlink
+├── pptx-generator/brands/base44/ > symlinks
+└── remotion/references/base44-*.md > symlinks
 ```
 
 ---

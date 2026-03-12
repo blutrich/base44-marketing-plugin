@@ -224,11 +224,11 @@ This skill is designed to feed live data into other marketing skills:
 ```
 1. Fetch a specific feature via base44-feature
 2. Pass to base44-landing-page:
-   - title → page title
-   - whats_new → hero copy
-   - who_is_this_for → persona
-   - why_building → problem section
-   - media_urls → hero image
+   - title > page title
+   - whats_new > hero copy
+   - who_is_this_for > persona
+   - why_building > problem section
+   - media_urls > hero image
 ```
 
 ### Feature -> Campaign
@@ -246,7 +246,7 @@ This skill is designed to feed live data into other marketing skills:
 Output: "No {Entity} records found matching your criteria."
 
 ### API key not set
-Output the curl command template and instructions for the user to set credentials. Do not block — the user can provide credentials and retry.
+Output the curl command template and instructions for the user to set credentials. Do not block. The user can provide credentials and retry.
 
 ### HTML in fields
 Some fields (`why_building`, `who_is_this_for`, `whats_new`) may contain HTML tags. Strip tags for display, or note that raw HTML is available.

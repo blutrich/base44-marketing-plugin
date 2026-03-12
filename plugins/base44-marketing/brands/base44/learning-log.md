@@ -28,7 +28,7 @@ After content review:
 
 | Pattern | Type | Category | Count | Status | Last Updated |
 |---------|------|----------|-------|--------|--------------|
-| Arrow bullets (→) | DONT | format | [COUNT: 3] | RULE | 2026-02-01 |
+| Arrow bullets (>) | DONT | format | [COUNT: 0] | RULE | 2026-03-12 |
 | Question CTAs | DONT | cta | [COUNT: 2] | RULE | 2026-02-02 |
 | "vibe-coder" in posts | DONT | vocabulary | [COUNT: 1] | watching | 2026-02-02 |
 | Too many bullets | DONT | structure | [COUNT: 2] | RULE | 2026-02-01 |
@@ -59,7 +59,7 @@ After content review:
 | Hedging stacks (multiple qualifiers) | DONT | voice | [COUNT: 1] | watching | 2026-02-28 |
 | Boldface abuse (every key term bolded) | DONT | format | [COUNT: 1] | watching | 2026-02-28 |
 | Self-narration openers ("Worth saying clearly:", "A few things worth knowing:") | DONT | voice | [COUNT: 2] | RULE | 2026-03-08 |
-| Emoji as directional arrow (👉 as →) | DONT | format | [COUNT: 1] | watching | 2026-03-08 |
+| Emoji as directional arrow (👉 as >) | DONT | format | [COUNT: 1] | watching | 2026-03-08 |
 | Have opinions, show mixed feelings | DO | voice | [COUNT: 1] | watching | 2026-02-28 |
 | Leave imperfection (asides, half-thoughts) | DO | voice | [COUNT: 1] | watching | 2026-02-28 |
 | H1+H2 must flow as one connected thought | DO | copy | [COUNT: 1] | watching | 2026-03-08 |
@@ -75,11 +75,11 @@ After content review:
 When feedback matches an existing pattern:
 ```
 1. Find pattern in table above
-2. Increment [COUNT: N] → [COUNT: N+1]
+2. Increment [COUNT: N] > [COUNT: N+1]
 3. Update "Last Updated" date
 4. Check if threshold reached:
-   - COUNT: 2 → Change Status to "PROMOTE", add to RULES.md
-   - COUNT: 5 → Change Status to "TOV", flag for review
+   - COUNT: 2 > Change Status to "PROMOTE", add to RULES.md
+   - COUNT: 5 > Change Status to "TOV", flag for review
 ```
 
 When new pattern discovered:
@@ -96,7 +96,7 @@ When new pattern discovered:
 ### Words/Phrases to AVOID
 | Phrase | Why |
 |--------|-----|
-| Arrows (→) in lists | Outdated, looks AI-generated |
+| Arrows (>) in lists | Outdated, looks AI-generated |
 | Too many bullet points | Not every post needs a list structure |
 | Overly choppy sentences | "This. Is. Not. Natural." - too robotic |
 | Repeated phrases every post | "no big teams" / "for real" - vary it |
@@ -128,7 +128,7 @@ When new pattern discovered:
 ### Tone Patterns
 | Pattern | Example |
 |---------|---------|
-| Problem → Solution → Result | "When X happens... Now you can... So you..." |
+| Problem > Solution > Result | "When X happens... Now you can... So you..." |
 | Channel-specific emoji | Discord = lots, X = some, LinkedIn = minimal |
 | Community gratitude | "it's all thanks to our community" |
 | Intrigue hooks | "The results were honestly shocking." |

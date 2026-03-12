@@ -17,7 +17,7 @@ Rules for creating engaging, on-brand hooks that avoid AI-detection patterns.
 | Contrarian hooks | We don't need to be "against" something to stand out | "Stop doing X..." |
 | FOMO tactics | No fear-based urgency | "Don't miss out", "Before it's too late" |
 | Negative framing | We lead with possibility, not problems | "You're doing it wrong" |
-| Arrow bullets (→, ➡️, ▸) | Creates a cold, listicle feel - AI detection flag | "→ Feature one" |
+| Arrow bullets (>, ➡️, ▸) | Creates a cold, listicle feel - AI detection flag | "> Feature one" |
 | "We're excited to announce" | Corporate speak | Any variation |
 | TV-ad tagline cadence | Sounds like a commercial, not a builder | "One workspace. Unlimited builders. No friction." |
 | Advertising melody | Billboard/radio spot rhythm | "Build faster. Ship smarter. Scale infinitely." |
@@ -123,9 +123,9 @@ Use these instead of arrows:
 ### ❌ Wrong (Contrarian + FOMO + Arrows)
 ```
 Stop wasting time on code that doesn't matter.
-→ Your competitors are already shipping faster
-→ Don't get left behind
-→ The window is closing
+> Your competitors are already shipping faster
+> Don't get left behind
+> The window is closing
 ```
 
 ### ✅ Right (Positive + Emoji + Builder-focused)
@@ -143,7 +143,7 @@ Your turn.
 
 Before using any hook, verify:
 
-1. [ ] No arrow bullets (→ ➡️ ▸)
+1. [ ] No arrow bullets (> ➡️ ▸)
 2. [ ] No FOMO language ("don't miss", "before it's too late", "left behind")
 3. [ ] No negative framing ("stop wasting", "you're doing it wrong")
 4. [ ] No contrarian angle for its own sake
@@ -178,7 +178,7 @@ NEVER:
 ❌ Contrarian angles
 ❌ FOMO urgency
 ❌ Negative framing
-❌ Arrow bullets (→ ➡️ ▸)
+❌ Arrow bullets (> ➡️ ▸)
 ❌ "We're excited to announce"
 ❌ TV-ad cadence (stacked declaratives)
 ❌ Advertising melody/rhythm

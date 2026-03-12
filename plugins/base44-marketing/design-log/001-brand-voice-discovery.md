@@ -27,7 +27,7 @@ Base44 marketing team lacks official Brand Guidelines. Content quality is incons
 ## Discovery Questions (For Shay Interview)
 
 ### Voice Definition
-- [ ] What 3 words describe Base44's voice?
+- [ ] What 4 words describe Base44's voice?
 - [ ] "Cool big brother" — what does that mean in practice?
 - [ ] What would Base44 never say?
 
@@ -48,17 +48,20 @@ Base44 marketing team lacks official Brand Guidelines. Content quality is incons
 
 *To be filled during/after Shay interview*
 
-### Voice in 3 Words
+### Voice in 4 Words
 1. _______________
 2. _______________
 3. _______________
+4. _______________
 
 ### "Cool Big Brother" Means:
 -
 -
 -
+-
 
 ### Cool Big Brother Would NEVER:
+-
 -
 -
 -

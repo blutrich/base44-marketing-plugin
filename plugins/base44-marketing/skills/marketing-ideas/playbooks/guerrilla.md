@@ -10,16 +10,16 @@
 If you can't ship in 24 hours, it's too complicated.
 
 **2. Asymmetric ROI**
-$500 spend → $50,000 earned media
-1 hour work → weeks of attention
+$500 spend > $50,000 earned media
+1 hour work > weeks of attention
 
 **3. AI-Proof Marketing**
 Focus on: genuine relationships, physical presence, authentic weirdness, real vulnerability.
 
 ### The Moonshot Test
-1. Can I do this in 24 hours? → If no, simplify
-2. Is upside 10x+ the effort? → If no, skip
-3. Could AI replicate this? → If yes, it's not a moat
+1. Can I do this in 24 hours? > If no, simplify
+2. Is upside 10x+ the effort? > If no, skip
+3. Could AI replicate this? > If yes, it's not a moat
 
 ---
 
@@ -68,8 +68,8 @@ Build free tools attracting target audience.
 
 | Tool | Company | Strategy |
 |------|---------|----------|
-| Website Grader | HubSpot | Grade → CRM value |
-| Headline Analyzer | CoSchedule | Analyze → upsell |
+| Website Grader | HubSpot | Grade > CRM value |
+| Headline Analyzer | CoSchedule | Analyze > upsell |
 
 **24-Hour Build:** Build in Typeform/Spreadsheet first, test with 10 people.
 
@@ -217,16 +217,16 @@ Wordle-style reveals, interactive experiences.
 
 ```
 Week 1: Closed circle (20-30 people with audiences)
-  → Don't ask them to post. Let the product speak.
-  → Every screenshot they take IS your marketing.
+  > Don't ask them to post. Let the product speak.
+  > Every screenshot they take IS your marketing.
 
 Week 2: Invite codes (5 per user)
-  → "Comment AGENT for an invite code" post
-  → Each invite makes the GIVER feel powerful
+  > "Comment AGENT for an invite code" post
+  > Each invite makes the GIVER feel powerful
 
 Week 3: Open access
-  → "500 agents already running. Opening to everyone."
-  → Scarcity created the story. Now launch with proof.
+  > "500 agents already running. Opening to everyone."
+  > Scarcity created the story. Now launch with proof.
 ```
 
 ### Chat-Native Products (WhatsApp/Telegram/Slack)

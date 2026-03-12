@@ -31,7 +31,7 @@ Just shipped: [Feature name]
 
 [What it does in one line]
 
-Build yours → (link in reply)
+Build yours > (link in reply)
 ```
 
 **Example:**
@@ -40,7 +40,7 @@ Just shipped: AI-powered database schema generation
 
 Describe your data. Get a working schema in seconds.
 
-Build yours → (link in reply) 🧪
+Build yours > (link in reply) 🧪
 ```
 
 ### Builder Spotlight
@@ -231,7 +231,7 @@ Tweet 8: [CTA]
 - "The results were honestly shocking"
 - "Here's what happened:"
 - "🧵 Thread:"
-- "Build yours →"
+- "Build yours >"
 - "This is underrated"
 
 ### Banned Phrases
