@@ -7,13 +7,13 @@
   },
   "metadata": {
     "description": "Base44 Marketing Content Creation System - Orchestrated brand content with specialized agents",
-    "version": "1.15.0"
+    "version": "1.16.0"
   },
   "plugins": [
     {
       "name": "base44-marketing",
       "description": "Marketing content orchestrator with brand-aware sub-agents, 77+ tactics, 71 psychology principles, and brand governance. Features open-ended routing, GTM strategist, anti-TV-ad tone enforcement, channel-specific content (LinkedIn, X, Email, SEO), hook creation rules, cross-platform repurposing, and automated landing page generation.",
-      "version": "1.15.0",
+      "version": "1.16.0",
       "author": {
         "name": "Base44 Team",
         "url": "https://github.com/blutrich"

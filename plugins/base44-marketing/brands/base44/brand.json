@@ -6,7 +6,7 @@
     "background": "E8F4F8",
     "background_alt": "FDF5F0",
     "background_secondary": "F0F0F0",
-    "background_warm": "faf9f7",
+    "background_warm": "FAF3E9",
     "surface": "FFFFFF",
     "text_primary": "0f0f0f",
     "text": "000000",
@@ -27,7 +27,16 @@
     "card_border": "e6e6e6",
     "divider": "d1d1d1",
     "button_bg": "000000",
-    "button_text": "FFFFFF"
+    "button_text": "FFFFFF",
+
+    "_brand_palette_comment": "Main brand colors from Figma Brand Guidelines (node 1059:41)",
+    "brand_orange": "FF631F",
+    "brand_peach": "FFBE8D",
+    "brand_green": "EBFAD5",
+    "brand_cream": "FAF3E9",
+    "brand_blue": "7CBFD5",
+    "brand_blue_light": "BFD7E0",
+    "brand_green_accent": "E6FC88"
   },
 
   "gradients": {

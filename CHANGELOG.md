@@ -2,6 +2,26 @@
 
 All notable changes to the base44-marketing plugin.
 
+## [1.16.0] - 2026-03-15
+
+### Added
+- **Branded social creative system** (`composite_social.py`) - Full compositor that takes AI-generated photos and composites them into branded templates with Base44 logo (SVG), STK Miso typography, and brand colors
+  - 10 templates: linkedin-post, linkedin-square, x-card, x-square, story, ad-square, ad-landscape, text-card, discord-banner, hero
+  - 9 background styles matching Figma Brand Guidelines: warm-grain, orange-sunset, plan-mode, bold-orange, pastel, blue-waves, white, black, cream
+  - Grain texture overlay, gradient fades, CTA buttons, 2x render scale
+- **Brand backgrounds reference** (`references/brand-backgrounds.md`) - Documents all 6 Figma background styles, full color palette, logo placement rules, typography specs
+- **7 new brand colors** in `brand.json` from Figma Brand Guidelines: brand_orange (#FF631F), brand_peach (#FFBE8D), brand_green (#EBFAD5), brand_cream (#FAF3E9), brand_blue (#7CBFD5), brand_blue_light (#BFD7E0), brand_green_accent (#E6FC88)
+- **3 new NEVER rules** (#42-44): no leading with features (lead with user value), no single-version content (always 2-3 variations), no off-brand visuals
+- **3 new guardian checklist items** (#21-23): user value first, multiple variations, brand visuals. Checklist now 24 items
+- **Figma-to-creative workflow** in nano-banana SKILL.md - pixel-perfect matching from Figma designs to composite output
+
+### Changed
+- **nano-banana SKILL.md** fully rewritten - now documents branded composite pipeline, all templates, background styles, and Figma workflow
+- **shared-instructions.md** - Added "Always Lead with User Value" and "Always Generate 2-3 Variations" as mandatory rules
+- **brand-guardian.md** - Updated from 21 to 24 checklist items, scoring thresholds adjusted
+- **RULES.md** - Updated from 41 to 44 NEVER rules
+- **brand.json** - Fixed background_warm to match Figma (#FAF3E9)
+
 ## [1.15.0] - 2026-03-15
 
 ### Added

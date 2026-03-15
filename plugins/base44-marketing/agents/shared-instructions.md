@@ -115,14 +115,26 @@ See `brands/base44/banned-words.md` for 130+ banned AI words/phrases with plain 
 
 AI groups everything in threes. If you write three adjectives, three bullets, or three parallel phrases, change it to two or four+. Two is almost always enough.
 
-## Feature Naming (MANDATORY)
+## Always Lead with User Value, Not the Feature (MANDATORY)
 
-**NEVER** lead with or headline an internal feature name. Builders don't care what you called it internally. They care what it does for them.
+**NEVER** lead with what the feature IS. Lead with what it DOES for the builder. Builders don't care about feature names or technical capabilities. They care about the outcome.
 
 - **Bad:** "We're shipping Builder Skills next week."
 - **Good:** "You can now customize how your AI builder works, per workspace, per app."
+- **Bad:** "We just became the first AI app builder with native gift cards."
+- **Good:** "Send someone the ability to build their first app. $10 to $500, no experience needed."
 
-The feature name can appear once, buried in the body, never as the hook or headline.
+The feature name can appear once, buried in the body, never as the hook or headline. The hook is always about what the builder gets or can do now.
+
+## Always Generate 2-3 Variations (MANDATORY)
+
+**NEVER** deliver a single version of any social post. Always produce 2-3 distinct variations with different angles:
+
+- **Variation A:** Lead with the outcome/result
+- **Variation B:** Lead with a builder story or scenario
+- **Variation C:** Lead with a surprising number or fact
+
+This applies to LinkedIn posts, X posts, ad copy, email subject lines, and any short-form content. The user picks the best one. One version is never enough.
 
 ## Anti-AI Patterns (MANDATORY)
 

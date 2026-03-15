@@ -24,7 +24,7 @@ Read(file_path="brands/base44/banned-words.md")
 Read(file_path="agents/shared-instructions.md")
 ```
 
-## Scoring Checklist (18 items)
+## Scoring Checklist (24 items)
 
 Run every item. Score each PASS (1) or FAIL (0).
 
@@ -63,17 +63,23 @@ Run every item. Score each PASS (1) or FAIL (0).
 19. **No unverified stats** - Every number cited is either a Base44 metric or from a verifiable public source. No made-up competitor stats ("8 million builders on Lovable")
 20. **Correct voice persona** - Brand account posts use "we" voice. Only Maor personal posts use "I". No "I just migrated..." on the Base44 brand account
 
+### Value & Variations (3 items)
+
+21. **User value first** - Hook/headline leads with what the builder gets, not the feature name. "We just shipped gift cards" = fail. "Send someone the ability to build" = pass
+22. **Multiple variations** - For social posts (LinkedIn, X, ads): 2-3 variations delivered, not just one
+23. **Brand visuals** - Any attached creative uses Base44 brand colors, STK Miso font, and official logo. No generic AI-generated graphics
+
 ### Voice (1 item)
 
-21. **The Maor Test** - Would Maor post this exactly as written? If you'd need to "make it more polished", it fails. Maor's voice IS the polish.
+24. **The Maor Test** - Would Maor post this exactly as written? If you'd need to "make it more polished", it fails. Maor's voice IS the polish.
 
 ## Scoring
 
-- Total items: 21
-- Score = passing items / 21, mapped to 1-10 scale
-- **9/10 or above (19+ items passing):** APPROVED. Ship it.
-- **7-8/10 (15-18 items passing):** AUTO-REVISE. Fix every failing item, re-score, and deliver the improved version. Do NOT return a 7 or 8 to the user without attempting a rewrite first.
-- **Below 7/10 (under 15 items):** REWRITE. Fix every failing item and deliver the corrected version.
+- Total items: 24
+- Score = passing items / 24, mapped to 1-10 scale
+- **9/10 or above (22+ items passing):** APPROVED. Ship it.
+- **7-8/10 (17-21 items passing):** AUTO-REVISE. Fix every failing item, re-score, and deliver the improved version. Do NOT return a 7 or 8 to the user without attempting a rewrite first.
+- **Below 7/10 (under 17 items):** REWRITE. Fix every failing item and deliver the corrected version.
 
 ## Auto-Revise Loop (NEW)
 

@@ -54,6 +54,9 @@
 39. **No competitor names in posts** - Never name competitors directly (Lovable, Bolt, Monday, Bubble, etc.) in any published content. Say "other platforms", "another builder", "your current tool". Maor doesn't punch down. Only exception: internal briefs and positioning docs. (Laura + Nina, 2026-03-15)
 40. **No first-person "I" on brand accounts** - Base44 brand account = "we" voice. Only Maor's personal posts use "I". If you see "I just migrated..." on a brand post, rewrite to "We just shipped..." or "Builders can now...". (Nina + Laura, 2026-03-15)
 41. **No unverified competitor stats** - Never cite competitor numbers ("8 million builders on Lovable") unless sourced from a public, verifiable document. Only use Base44's own verified metrics. Making up competitor stats destroys credibility. (Asaf, 2026-03-15)
+42. **No leading with the feature** - Never headline what the feature IS. Lead with what it DOES for the builder. "We just became the first AI app builder with native gift cards" = bad. "Send someone the ability to build their first app" = good. User value first, feature name buried. (Ofer, 2026-03-15)
+43. **No single-version content** - Never deliver just one version of a social post. Always produce 2-3 distinct variations with different angles (outcome, story, surprising fact). One version is never enough. (Ofer, 2026-03-15)
+44. **No off-brand visuals** - Social creatives MUST use Base44 brand colors (#FF631F, #FF983B, #FFBE8D, #E6FC88, #EBFAD5, #FAF3E9, #7CBFD5, #BFD7E0), STK Miso font, and official logo. Generic AI-generated graphics without brand treatment are rejected. Reference: Figma Brand Guidelines. (Ofer, 2026-03-15)
 
 ## ALWAYS DO
 
@@ -85,4 +88,4 @@
 ---
 
 *Last updated: 2026-03-15*
-*Rules: 41 NEVER + 14 ALWAYS*
+*Rules: 44 NEVER + 14 ALWAYS*
