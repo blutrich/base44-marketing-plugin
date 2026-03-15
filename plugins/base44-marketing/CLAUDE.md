@@ -23,11 +23,12 @@ The `marketing-router` skill is the entry point. When it loads, it:
 | Blog / SEO | `marketing-router` > `seo-specialist` > `seo-content` > `brand-guardian` |
 | Video | `marketing-router` > `video-specialist` > `brand-guardian` |
 | Strategy / GTM | `marketing-router` > `gtm-strategist` |
-| Feature Launch | `marketing-router` > `launch-waterfall` > `gtm-strategist` (Ph 0-3) > `planner` (Ph 4) > [specialists in parallel] (Ph 5) > `brand-guardian` > `planner` (Ph 6) |
+| Feature Launch | `marketing-router` > `launch-waterfall` > `gtm-strategist` (Ph 0-3) > `planner` (Ph 4) > [specialists in parallel] (Ph 5) > `brand-guardian` > `planner` (Ph 6) > `push-to-activity` (Ph 7) |
 | Campaign | `marketing-router` > `planner` > [specialists in parallel] > `brand-guardian` |
 | Data / Analytics | `marketing-router` > `data-insight` |
 | Brainstorm | `marketing-router` > `marketing-ideas` |
 | Push to Ripple | `marketing-router` > `push-to-ripple` |
+| Push to Activity | `marketing-router` > `push-to-activity` (map assets > MarketingActivity entity in Product App) |
 | Feature brief | `marketing-router` > `feature-brief` (Feature entity > Slack MCP > MarketingActivity + Feature card) |
 | Feature intel | `marketing-router` > `feature-intel` (scan #feat-* channels > detect new > digest to #features-intel-changelog-4marketing) |
 | Log session | `marketing-router` > `session-log` |
@@ -40,7 +41,7 @@ The `marketing-router` skill is the entry point. When it loads, it:
 marketing-router (ENTRY POINT — open-ended, no menu)
         │
         ├── GTM_STRATEGY > gtm-strategist (deep exploration, then plan)
-        ├── LAUNCH > launch-waterfall (Ph 0: discovery > Ph 1: product > Ph 2: positioning > Ph 3: messaging > Ph 4: asset plan > Ph 5: create ∥ > Ph 6: execute)
+        ├── LAUNCH > launch-waterfall (Ph 0: discovery > Ph 1: product > Ph 2: positioning > Ph 3: messaging > Ph 4: asset plan > Ph 5: create ∥ > Ph 6: execute > Ph 7: push-to-activity)
         ├── BRAINSTORM > marketing-ideas (connected narrative, not bullet dumps)
         ├── DATA_INSIGHT > data-insight (Trino analytics) > gtm-strategist (if strategy)
         ├── APP_DATA > base44-feature (pull product features for content)
@@ -52,6 +53,7 @@ marketing-router (ENTRY POINT — open-ended, no menu)
         ├── SEO > seo-specialist > brand-guardian
         ├── VIDEO > video-specialist > brand-guardian
         ├── PUSH_RIPPLE > push-to-ripple (extract content > push to Ripple CMS)
+        ├── PUSH_ACTIVITY > push-to-activity (map channel assets > MarketingActivity entity)
         ├── FEATURE_BRIEF > feature-brief (Feature Calendar > Slack > MarketingActivity)
         ├── FEATURE_SCAN > feature-scan (scan channel > check Ripple > brief + content > push > notify)
         ├── FEATURE_INTEL > feature-intel (scan #feat-* channels > detect new features > post to #features-intel-changelog-4marketing)
@@ -89,8 +91,9 @@ marketing-router (ENTRY POINT — open-ended, no menu)
 | `base44-feature` | Pull product features for content creation |
 | `data-insight` | Trino analytics: growth, models, funnel, apps, features, remix, referrals, monetization, AI classification, user voice (19 queries, 6 tables) |
 | `push-to-ripple` | Push generated content into Ripple CMS |
+| `push-to-activity` | Push channel assets into MarketingActivity entity (Product App). Works standalone or as waterfall Phase 7. |
 | `session-log` | Team usage tracking via Base44 PluginSession entity |
-| `launch-waterfall` | 7-phase waterfall for feature launches: auto-discovery, product understanding, positioning, messaging framework, asset planning, parallel creation, launch execution |
+| `launch-waterfall` | 8-phase waterfall for feature launches: auto-discovery, product understanding, positioning, messaging framework, asset planning, parallel creation, launch execution, push to Product App |
 | `cross-platform-repurpose` | Adapt content across channels (LinkedIn to X, blog to thread, etc.) |
 | `hook-rules` | Hook pattern library with banned/approved patterns |
 | `marketing-ideas` | Brainstorm generation with 77+ proven tactics |

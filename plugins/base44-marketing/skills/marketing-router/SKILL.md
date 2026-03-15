@@ -63,6 +63,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | 12 | DATA_INSIGHT | data, analytics, growth numbers, builder stats, conversion data, model usage, weekly numbers, metrics, how many builders, premium stats, user voice, top issues, builders building, categories, trends, app trends, apps created, feature adoption, agents usage, deep coding, remix, marketplace, funnel, drop-off, activation speed, referrals, model preferences, paid vs free, subscription, monetization, stripe, revenue, app classification, industry, audience | **DATA_INSIGHT** |
 | 13 | APP_DATA | fetch features, show features, feature list, roadmap, pull data, product sync, what features, feature data | **APP_DATA** |
 | 14 | PUSH_RIPPLE | push to ripple, save to ripple, send to ripple | **PUSH_RIPPLE** |
+| 14.5 | PUSH_ACTIVITY | push to activity, save to activity, push assets, push waterfall, sync to product app, update marketing activity | **PUSH_ACTIVITY** |
 | 15 | FEATURE_SCAN | scan features, feature scan, process features, brief all, morning scan, process the feature queue | **FEATURE_SCAN** |
 | 16 | FEATURE_INTEL | feature intel, feature radar, feature discovery, what's being built, scan feat channels, what features are coming | **FEATURE_INTEL** |
 | 17 | SESSION_LOG | log session, save session, track session, session report, wrap up, end session | **SESSION_LOG** |
@@ -98,6 +99,7 @@ When a user starts a conversation, DO NOT present a menu of options. Instead:
 | VIDEO | video-specialist > brand-guardian |
 | APP_DATA | base44-feature skill (fetch & display) |
 | PUSH_RIPPLE | push-to-ripple skill (extract content > push to Ripple CMS) |
+| PUSH_ACTIVITY | push-to-activity skill (map channel content > push to MarketingActivity entity in Product App) |
 | SESSION_LOG | session-log skill (capture session > push to Ripple) |
 | FEATURE_SCAN | feature-scan skill (scan #product-marketing-sync > check Ripple > generate briefs + content > push > notify) |
 | FEATURE_INTEL | feature-intel skill (scan #feat-* channels > detect new features in dev > post digests to #features-intel-changelog-4marketing) |
@@ -241,6 +243,7 @@ For task hierarchy and validation details, see [reference/task-pattern.md](refer
 | brand-memory | Persistent learning | Router (init) |
 | base44-feature | Fetch live data from Base44 app entities (features, roadmap) | Router (APP_DATA) |
 | push-to-ripple | Push generated content into Ripple CMS | Router (PUSH_RIPPLE) |
+| push-to-activity | Push channel content into MarketingActivity entity (Product App) | Router (PUSH_ACTIVITY), launch-waterfall (Phase 7) |
 | data-insight | Trino analytics: growth, models, funnel, apps, features, remix, referrals, user voice (19 queries, 6 tables) | Router (DATA_INSIGHT) |
 | session-log | Session tracking: usage, time saved, business impact | Router (SESSION_LOG) |
 | direct-response-copy | THE SLIDE framework for conversion copy | copywriter agent |

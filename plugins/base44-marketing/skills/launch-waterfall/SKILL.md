@@ -1,9 +1,10 @@
 ---
 name: launch-waterfall
 description: |
-  Structured 7-phase waterfall for product launches. Enforces sequential phases with gates:
+  Structured 8-phase waterfall for product launches. Enforces sequential phases with gates:
   Phase 0 (Auto-Discovery) -> Phase 1 (Product Understanding) -> Phase 2 (Pain Points + Positioning) ->
-  Phase 3 (Messaging Framework) -> Phase 4 (Asset Planning) -> Phase 5 (Asset Creation) -> Phase 6 (Launch Execution).
+  Phase 3 (Messaging Framework) -> Phase 4 (Asset Planning) -> Phase 5 (Asset Creation) -> Phase 6 (Launch Execution) ->
+  Phase 7 (Push to Product App).
 
   Prevents "grocery list" marketing by requiring each phase to complete before the next begins.
   Phase 0 runs proactively when feature-intel detects new features in development.
@@ -13,7 +14,7 @@ description: |
 
 # Launch Waterfall
 
-**Sequential execution engine for product launches.** Each phase produces a specific deliverable that gates the next phase. No phase can be skipped. No assets are created until the Messaging Framework (Phase 3) is locked.
+**Sequential execution engine for product launches.** Each phase produces a specific deliverable that gates the next phase. No phase can be skipped. No assets are created until the Messaging Framework (Phase 3) is locked. After launch execution, Phase 7 auto-pushes all channel content into the Product App's MarketingActivity entity.
 
 ## Why This Exists
 
@@ -42,7 +43,10 @@ Phase 5: ASSET CREATION (parallel, specialists work from Messaging Framework)
     v  GATE: All assets pass brand-guardian (score >= 7/10)
 Phase 6: LAUNCH EXECUTION
     |
-    v  DONE: Launch checklist complete
+    v  GATE: Launch checklist complete
+Phase 7: PUSH TO PRODUCT APP (auto)
+    |
+    v  DONE: MarketingActivity record created with all channel content
 ```
 
 ---
@@ -437,6 +441,46 @@ Use template from `brands/base44/templates/launch-checklist.md`.
 ```
 
 **GATE:** All checklist items checked. Post-launch report filed.
+
+---
+
+## Phase 7: Push to Product App (AUTO)
+
+**Who runs it:** push-to-activity skill (auto-invoked after Phase 6).
+**Input:** All approved assets from `output/launch/{slug}/assets/` + Messaging Framework metadata.
+
+### What happens:
+
+1. Reads all asset files from the waterfall output directory
+2. Picks the recommended variation from each asset
+3. Maps each asset to the corresponding MarketingActivity channel field
+4. Creates or updates a MarketingActivity record in the Product App
+5. Sets `approval_status: pending` and `submitted_at: now`
+6. Reports which channels were filled and which are local-only
+
+### Channel mapping:
+
+| Asset | MarketingActivity Field |
+|-------|------------------------|
+| What's New (full launch version) | `whats_new_content` |
+| LinkedIn Brand | `linkedin_base44_content` |
+| LinkedIn Maor | `linkedin_maor_content` |
+| X Brand (single + thread) | `x_base44_content` |
+| X Maor (announcement + teaser) | `x_maor_content` |
+| Discord (community + full launch) | `community_content` |
+| Demo Video script | `demo_video_content` |
+
+Assets without entity fields (email, reddit, blog, teasers) remain in the local output directory only.
+
+### Invocation:
+
+```
+Skill(skill="push-to-activity")
+```
+
+No user confirmation needed. Content was already approved in Phase 5 (brand-guardian gate).
+
+**GATE:** MarketingActivity record exists with all available channel content populated.
 
 ---
 

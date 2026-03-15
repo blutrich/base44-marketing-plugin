@@ -2,6 +2,22 @@
 
 All notable changes to the base44-marketing plugin.
 
+## [1.14.0] - 2026-03-15
+
+### Added
+- **Push-to-activity skill** (`push-to-activity`) - Push waterfall assets or individual content into MarketingActivity entity in Product App
+  - Maps channel content to per-channel fields (linkedin_base44_content, x_maor_content, etc.)
+  - Sets approval_status to pending for team review
+  - Works standalone ("push to activity") or as waterfall Phase 7 (auto)
+  - Checks for existing records to avoid duplicates (idempotent)
+  - Reports filled channels vs local-only assets (email, reddit, blog)
+- **Waterfall Phase 7** - Launch waterfall now 8 phases; Phase 7 auto-pushes approved assets to Product App after launch execution
+
+### Changed
+- **Router** - Added PUSH_ACTIVITY intent (priority 14.5) with trigger keywords
+- **CLAUDE.md** - Architecture diagram, workflow table, and skills table updated for push-to-activity and 8-phase waterfall
+- **Launch waterfall** - Updated from 7-phase to 8-phase; frontmatter and flow diagram reflect Phase 7
+
 ## [1.13.0] - 2026-03-11
 
 ### Added
