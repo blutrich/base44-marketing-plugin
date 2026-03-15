@@ -368,17 +368,43 @@ Save to `output/launch/{feature-slug}/phase-4-asset-plan.md` AND use template fr
 **Who runs it:** Specialist agents in parallel, ALL reading from the locked Messaging Framework.
 **Input:** Messaging Framework + Asset Plan.
 
+### MANDATORY: Channel-to-Agent Routing
+
+**Each channel MUST be written by its designated specialist agent.** The copywriter is NOT a fallback for channels that have a dedicated specialist. This is non-negotiable.
+
+| Channel | Agent | Skill | Why This Agent |
+|---------|-------|-------|----------------|
+| LinkedIn (brand + Maor) | `linkedin-specialist` | `linkedin-viral` | Knows LinkedIn algorithm, hook patterns, word limits, engagement triggers |
+| X/Twitter (brand + Maor) | `x-specialist` | `x-viral` | Knows thread structure, character limits, X algorithm, hashtag strategy |
+| Email | `copywriter` | `direct-response-copy` | THE SLIDE framework, subject line optimization |
+| Landing Page | `copywriter` | `landing-page-architecture` + `base44-landing-page` | 8-Section Framework, HTML generation |
+| Blog / SEO | `seo-specialist` | `seo-content` + `geo-content` | Search optimization, keyword targeting, AI citation |
+| Paid Ads | `ad-specialist` | (none) | Platform-specific creative, A/B variations |
+| Video | `video-specialist` | `remotion` | Remotion pipeline, brand animations |
+| Discord | `copywriter` | (none) | Casual tone, community format |
+| What's New | `copywriter` | (none) | Product changelog format |
+| Reddit | `copywriter` | (none) | Community-native, non-promotional |
+| Visual / Creative | `nano-banana` skill | (none) | Branded composite with logo, colors, STK Miso |
+
+**WRONG:** Having the copywriter write a LinkedIn post. The linkedin-specialist exists for a reason.
+**WRONG:** Having the linkedin-specialist write an email. The copywriter owns email.
+**RIGHT:** Each asset routed to its specialist, who loads their channel skill for platform-specific rules.
+
 ### Execution:
 
 ```
 FOR EACH asset in Asset Plan:
   1. Check dependencies (is the asset it depends on done?)
-  2. Invoke specialist agent with:
+  2. Look up the CORRECT agent from the routing table above
+  3. Invoke that SPECIFIC agent with:
      - Messaging Framework (MANDATORY context)
      - Asset Plan row (specific brief)
-     - Brand context (RULES.md, tone-of-voice.md)
-  3. Run through brand-guardian (score >= 7/10)
-  4. Update Asset Plan status column
+     - Brand context (RULES.md, tone-of-voice.md, shared-instructions.md)
+     - Channel skill (agent's designated skill from the routing table)
+  4. Agent MUST produce 2-3 variations (RULES.md #43)
+  5. Agent MUST lead with user value, not the feature (RULES.md #42)
+  6. Run through brand-guardian (score >= 9/10)
+  7. Update Asset Plan status column
 ```
 
 ### Key Rule: DERIVE, DON'T INVENT
@@ -389,7 +415,10 @@ Every headline, hook, CTA, and key message in every asset MUST trace back to the
 
 ```
 ## Context
-You are creating {asset_name} for the {feature_name} launch.
+You are the {agent_name} creating {asset_name} for the {feature_name} launch.
+
+## Your Channel Skill (LOAD FIRST)
+Read(file_path="skills/{skill_name}/SKILL.md")
 
 ## Messaging Framework (YOUR SOURCE OF TRUTH)
 {Full contents of phase-3-messaging-framework.md}
@@ -404,13 +433,15 @@ You are creating {asset_name} for the {feature_name} launch.
 ## Channel Adaptation Notes
 {Relevant row from Messaging Framework channel adaptations table}
 
-## RULE: Derive, Don't Invent
-Your content MUST trace back to the Messaging Framework.
-Do NOT create new messaging, angles, or claims not in the framework.
-If you need something that isn't there, flag it. Don't improvise.
+## RULES (Non-Negotiable)
+1. Derive, Don't Invent - content MUST trace to the Messaging Framework
+2. Lead with user value, not the feature name (RULES.md #42)
+3. Produce 2-3 distinct variations with different angles (RULES.md #43)
+4. Load shared-instructions.md for voice rules
+5. If creating visuals, use nano-banana with brand composite (RULES.md #44)
 ```
 
-**GATE:** All assets in the Asset Plan have status "approved" with brand-guardian score >= 7/10.
+**GATE:** All assets in the Asset Plan have status "approved" with brand-guardian score >= 9/10. Every LinkedIn asset was written by linkedin-specialist. Every X asset was written by x-specialist. Every email by copywriter. No channel was written by the wrong agent.
 
 ---
 
@@ -509,8 +540,9 @@ When LAUNCH intent is detected:
 2. Execute phases sequentially:
    Phase 0-3: gtm-strategist (with WebSearch for competitive intel)
    Phase 4: planner
-   Phase 5: specialists in parallel -> brand-guardian
+   Phase 5: specialists in parallel (EACH channel routed to its designated agent) -> brand-guardian
    Phase 6: planner (coordination)
+   Phase 7: push-to-activity (auto)
 
 3. Between each phase:
    - Save output to output/launch/{slug}/phase-{N}-{name}.md
