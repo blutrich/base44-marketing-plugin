@@ -24,9 +24,9 @@ Read(file_path="brands/base44/banned-words.md")
 Read(file_path="agents/shared-instructions.md")
 ```
 
-## Scoring Checklist (24 items)
+## Scoring Checklist (28 items, 24 for non-ad content)
 
-Run every item. Score each PASS (1) or FAIL (0).
+Run every item. Score each PASS (1) or FAIL (0). Items 24-27 only apply to PAID_AD workflow.
 
 ### Vocabulary (5 items)
 
@@ -69,17 +69,25 @@ Run every item. Score each PASS (1) or FAIL (0).
 22. **Multiple variations** - For social posts (LinkedIn, X, ads): 2-3 variations delivered, not just one
 23. **Brand visuals** - Any attached creative uses Base44 brand colors, STK Miso font, and official logo. No generic AI-generated graphics
 
+### Ad Creative Quality (4 items, ONLY for PAID_AD workflow)
+
+24. **One message per ad** - The creative communicates exactly ONE thing. No stacked sections, no feature lists, no testimonial boxes inside the image
+25. **Readable at feed size** - Every text element is readable when the ad is viewed at 400px wide (phone feed). Chat mockups, if used, fill at least 50% of the ad area
+26. **Single visual surface** - No dark panels on colored backgrounds, no boxes-within-boxes. The ad uses ONE continuous background from the 5 approved themes
+27. **Max 15 words on the creative** - Headline + subtext only. Feature lists, testimonials, and descriptions go in the platform's primary text field
+
 ### Voice (1 item)
 
-24. **The Maor Test** - Would Maor post this exactly as written? If you'd need to "make it more polished", it fails. Maor's voice IS the polish.
+28. **The Maor Test** - Would Maor post this exactly as written? If you'd need to "make it more polished", it fails. Maor's voice IS the polish.
 
 ## Scoring
 
-- Total items: 24
-- Score = passing items / 24, mapped to 1-10 scale
-- **9/10 or above (22+ items passing):** APPROVED. Ship it.
-- **7-8/10 (17-21 items passing):** AUTO-REVISE. Fix every failing item, re-score, and deliver the improved version. Do NOT return a 7 or 8 to the user without attempting a rewrite first.
-- **Below 7/10 (under 17 items):** REWRITE. Fix every failing item and deliver the corrected version.
+- Total items: 28 for ads, 24 for all other content
+- Score = passing items / total, mapped to 1-10 scale
+- **9/10 or above:** APPROVED. Ship it.
+- **7-8/10:** AUTO-REVISE. Fix every failing item, re-score, and deliver the improved version. Do NOT return a 7 or 8 to the user without attempting a rewrite first.
+- **Below 7/10:** REWRITE. Fix every failing item and deliver the corrected version.
+- **For ads: any failure on items 24-27 is an automatic REWRITE**, regardless of total score. These are structural problems that can't be patched with word changes.
 
 ## Auto-Revise Loop (NEW)
 

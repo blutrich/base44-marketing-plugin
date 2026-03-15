@@ -163,14 +163,29 @@ Every Base44 ad follows the same vertical structure:
 
 ## Visual DON'Ts
 
+### Layout Violations
 - Never place headline below product screenshots
-- Never use generic stock photos instead of real app mockups
 - Never show more than 2 lines of headline text
-- Never use dark backgrounds with dark text
-- Never crop the Base44 logo
 - Never add CTAs or buttons inside the ad creative itself (platform handles CTAs)
+- Never crop the Base44 logo
+- **Never stack multiple sections.** No "hero area + info box + CTA + testimonial + footer URL." An ad has ONE visual surface with logo, headline, and product visual. That's it.
+- **Never add dark panels (black/dark green boxes) on top of colored gradient backgrounds.** This creates a jarring "two designs glued together" look. One background, one surface.
+- **Never put bullet-point feature lists inside the ad image.** Feature lists belong in the platform's primary text field, not the creative.
+- **Never include a testimonial section inside the ad image.** Testimonials go in the primary text below the image.
+
+### Content Violations
+- **Max 15 words on the creative.** Headline (2 lines) + optional subtext (1 line). Everything else goes in the primary text field the platform provides.
+- **Never use negative framing.** No "Stop checking 6 apps", "I used to waste 2 hours", "Don't get left behind." Lead with the positive outcome.
+- **Never use "Before/After" as the main ad structure.** The "before" column adds negativity and doubles the text. Show only the "after" state.
+
+### Visual Quality
+- Never use generic stock photos instead of real app mockups (unless lifestyle photo per nano-banana prompt rules)
+- Never use dark backgrounds with dark text
 - Never use flat/boring single-color backgrounds. Always use gradients with depth.
 - Never show wireframes or low-fidelity mockups. Apps must look production-ready.
+- **Never use chat/app mockups smaller than 50% of the ad area.** If the mockup is a tiny inset surrounded by text, it's unreadable at feed size. Make the mockup the hero or cut it.
+- **Never use abstract node/connection diagrams.** Circles connected by lines explaining "how it works" belong in documentation, not ads.
+- **Never mix photography with UI mockups in the same ad.** Pick one: lifestyle photo OR product screenshot. Not both.
 
 ## Figma Source
 
