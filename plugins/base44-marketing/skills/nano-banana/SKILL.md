@@ -213,7 +213,7 @@ python3 scripts/composite_social.py ad-square photo.png \
   -o creative-ad-square.png
 ```
 
-### Chat Overlay (legacy "This year I will" style)
+### Chat Overlay (prompt bar style)
 
 ```bash
 python3 scripts/add_text_overlay.py chat photo.png \
@@ -222,6 +222,8 @@ python3 scripts/add_text_overlay.py chat photo.png \
   --logo top-left \
   -o creative-chat.png
 ```
+
+> **Important:** The input box auto-sizes to fit the text. Long text is truncated with ellipsis. Keep input text short (5-7 words) for best visual results. Use Figma product screenshots or brand backgrounds as the base image — not generic stock photos (Rule #47).
 
 ## Full Workflow (Agent-Driven)
 

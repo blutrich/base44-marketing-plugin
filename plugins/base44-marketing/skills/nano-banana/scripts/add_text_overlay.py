@@ -144,8 +144,14 @@ def add_chat_overlay(
     draw.text((headline_x, headline_y), headline, font=font_headline,
               fill=(255, 255, 255, 255), anchor="mm")
 
-    # Chat input box (scaled)
-    box_width = min(520 * RENDER_SCALE, w - 80 * RENDER_SCALE)
+    # Chat input box — size to fit text with padding
+    text_padding_left = 28 * RENDER_SCALE
+    text_padding_right = 70 * RENDER_SCALE  # space for send button + margin
+    text_bbox = draw.textbbox((0, 0), input_text, font=font_input)
+    text_width = text_bbox[2] - text_bbox[0]
+    min_box_width = 520 * RENDER_SCALE
+    needed_width = text_width + text_padding_left + text_padding_right
+    box_width = min(max(min_box_width, needed_width), w - 80 * RENDER_SCALE)
     box_height = 64 * RENDER_SCALE
     box_x = (w - box_width) // 2
 
@@ -156,8 +162,17 @@ def add_chat_overlay(
         fill=(255, 255, 255, 250)
     )
 
-    # Input text
-    draw.text((box_x + 28 * RENDER_SCALE, box_y + box_height // 2), input_text,
+    # Input text — clip to box bounds
+    max_text_width = box_width - text_padding_left - text_padding_right
+    display_text = input_text
+    if text_width > max_text_width:
+        # Truncate with ellipsis to fit inside the box
+        while text_width > max_text_width and len(display_text) > 1:
+            display_text = display_text[:-1]
+            text_bbox = draw.textbbox((0, 0), display_text + "...", font=font_input)
+            text_width = text_bbox[2] - text_bbox[0]
+        display_text += "..."
+    draw.text((box_x + text_padding_left, box_y + box_height // 2), display_text,
               font=font_input, fill=(0, 0, 0, 255), anchor="lm")
 
     # Orange send button
