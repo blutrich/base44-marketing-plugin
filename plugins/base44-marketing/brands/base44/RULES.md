@@ -51,6 +51,9 @@
 36. **No false ranges** - Remove "from X to Y" constructions where X and Y aren't on a real spectrum. "From hobbyist experiments to enterprise rollouts" is filler. (Editor, 2026-02-28)
 37. **No hedging stacks** - One qualifier per claim max. "It could potentially possibly be argued that" becomes "The policy may affect outcomes." (Editor, 2026-02-28)
 38. **No boldface abuse** - Don't mechanically bold key terms in every sentence. Use bold sparingly or not at all in social posts. (Editor, 2026-02-28)
+39. **No competitor names in posts** - Never name competitors directly (Lovable, Bolt, Monday, Bubble, etc.) in any published content. Say "other platforms", "another builder", "your current tool". Maor doesn't punch down. Only exception: internal briefs and positioning docs. (Laura + Nina, 2026-03-15)
+40. **No first-person "I" on brand accounts** - Base44 brand account = "we" voice. Only Maor's personal posts use "I". If you see "I just migrated..." on a brand post, rewrite to "We just shipped..." or "Builders can now...". (Nina + Laura, 2026-03-15)
+41. **No unverified competitor stats** - Never cite competitor numbers ("8 million builders on Lovable") unless sourced from a public, verifiable document. Only use Base44's own verified metrics. Making up competitor stats destroys credibility. (Asaf, 2026-03-15)
 
 ## ALWAYS DO
 
@@ -81,5 +84,5 @@
 
 ---
 
-*Last updated: 2026-03-09*
-*Rules: 38 NEVER + 14 ALWAYS*
+*Last updated: 2026-03-15*
+*Rules: 41 NEVER + 14 ALWAYS*

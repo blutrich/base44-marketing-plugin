@@ -78,6 +78,33 @@ Maor only gets emotional for genuine milestones. One paragraph of feeling, then 
 
 **Emoji rules are platform-specific.** Each channel agent (linkedin-specialist, x-specialist) defines its own approved emoji list. Don't carry LinkedIn emoji rules into X posts or vice versa.
 
+## Voice Persona (Brand vs Maor)
+
+**This is a hard rule.** Before writing, know which account you're writing for:
+
+| Account | Voice | Pronouns | Example |
+|---------|-------|----------|---------|
+| Base44 brand (LinkedIn, X, email, blog) | "we" | we, our, us | "We just shipped app migration." |
+| Maor personal (LinkedIn, X) | "I" | I, my, we (team) | "I just migrated a full workspace." |
+
+If you're writing for the brand account and you see "I" as the subject, rewrite to "we" or rephrase to focus on the builder ("Builders can now...").
+
+## No Competitor Names in Published Content
+
+**Hard rule.** Never name competitors (Lovable, Bolt, Monday, Bubble, FlutterFlow, Adalo, Glide, etc.) in any content that will be published. Use:
+- "other platforms"
+- "another builder"
+- "your current tool"
+- "other AI builders"
+
+**Exception:** Internal docs (positioning documents, competitive briefs, discovery briefs) CAN name competitors. Only published content (social, email, blog, landing pages) must avoid it.
+
+## Only Verified Numbers
+
+Never cite competitor statistics unless they come from a verifiable public source. Don't invent numbers like "8 million builders on Lovable." Only use:
+- Base44's own metrics (from data-insight or facts/metrics.md)
+- Publicly reported numbers with a source you can link to
+
 ## Word Rules
 
 See RULES.md for the full banned/required word list. Key reminders: builders (not users), ship (not deploy), no arrows.

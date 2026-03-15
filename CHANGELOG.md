@@ -2,6 +2,25 @@
 
 All notable changes to the base44-marketing plugin.
 
+## [1.15.0] - 2026-03-15
+
+### Added
+- **3 new NEVER rules** from workshop feedback (rules #39-41):
+  - No competitor names in published content (Laura + Nina)
+  - No first-person "I" on brand account posts (Nina + Laura)
+  - No unverified competitor stats (Asaf)
+- **Brand guardian auto-revise loop** - Guardian now auto-rewrites content scoring 7-8/10, pushing toward 9+. Users no longer see mediocre scores without an improved alternative (Asaf's feedback)
+- **3 new guardian checklist items** (#18-20: no competitor names, no unverified stats, correct voice persona). Checklist now 21 items, approval threshold raised to 9/10
+- **Voice persona enforcement** in shared-instructions.md - Brand account = "we", Maor personal = "I". Clear table and rules
+- **No competitor names** rule in shared-instructions.md with approved alternatives
+- **Only verified numbers** rule in shared-instructions.md
+- **PMM interview notes** as optional input to waterfall Phase 1 (Asaf's feedback: Slack channels don't capture everything from dev conversations)
+- **Onboarding guide** (`onboarding.md`) - 10-minute setup guide for Cowork + Code, Slack connection, plugin install, API keys, common issues, troubleshooting (workshop showed setup friction)
+
+### Changed
+- Brand guardian approval threshold raised from 7/10 to 9/10
+- RULES.md updated from 38 NEVER to 41 NEVER rules
+
 ## [1.14.0] - 2026-03-15
 
 ### Added

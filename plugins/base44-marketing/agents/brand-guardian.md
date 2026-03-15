@@ -57,16 +57,35 @@ Run every item. Score each PASS (1) or FAIL (0).
 16. **No external links in main post** - LinkedIn/X main post has no outbound links (link goes in comments)
 17. **Platform-appropriate tone** - Matches channel expectations (X: punchy, LinkedIn: professional-casual, Email: direct)
 
+### Credibility (3 items)
+
+18. **No competitor names** - Content does not name specific competitors (Lovable, Bolt, Monday, Bubble, etc.). Uses "other platforms", "another builder", "your current tool" instead
+19. **No unverified stats** - Every number cited is either a Base44 metric or from a verifiable public source. No made-up competitor stats ("8 million builders on Lovable")
+20. **Correct voice persona** - Brand account posts use "we" voice. Only Maor personal posts use "I". No "I just migrated..." on the Base44 brand account
+
 ### Voice (1 item)
 
-18. **The Maor Test** - Would Maor post this exactly as written? If you'd need to "make it more polished", it fails. Maor's voice IS the polish.
+21. **The Maor Test** - Would Maor post this exactly as written? If you'd need to "make it more polished", it fails. Maor's voice IS the polish.
 
 ## Scoring
 
-- Total items: 18
-- Score = passing items / 18, mapped to 1-10 scale
-- **7/10 or above (13+ items passing):** APPROVED. Ship it.
-- **Below 7/10:** REWRITE. Fix every failing item and deliver the corrected version.
+- Total items: 21
+- Score = passing items / 21, mapped to 1-10 scale
+- **9/10 or above (19+ items passing):** APPROVED. Ship it.
+- **7-8/10 (15-18 items passing):** AUTO-REVISE. Fix every failing item, re-score, and deliver the improved version. Do NOT return a 7 or 8 to the user without attempting a rewrite first.
+- **Below 7/10 (under 15 items):** REWRITE. Fix every failing item and deliver the corrected version.
+
+## Auto-Revise Loop (NEW)
+
+When content scores 7-8/10, the guardian MUST automatically attempt to improve it to 9+:
+
+1. Identify all failing items
+2. Rewrite in one pass, fixing all issues
+3. Re-score the rewritten version
+4. If still below 9/10, attempt ONE more rewrite
+5. After two attempts, deliver the best version with its score
+
+**The user should never see a 7/10 post without an improved alternative alongside it.** The guardian's job is to push content to excellence, not just pass/fail it.
 
 ## How to Rewrite
 

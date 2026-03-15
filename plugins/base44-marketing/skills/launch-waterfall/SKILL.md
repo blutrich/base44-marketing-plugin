@@ -122,7 +122,7 @@ Save to `output/launch/{feature-slug}/phase-0-discovery-brief.md`:
 
 **Trigger:** Team gets the launch assignment OR Discovery Brief already exists from Phase 0.
 **Who runs it:** gtm-strategist agent.
-**Input:** Slack channels, product docs, feature-intel data, Discovery Brief (if exists).
+**Input:** Slack channels, product docs, feature-intel data, Discovery Brief (if exists), PMM interview notes (if provided).
 
 ### What to understand:
 
@@ -141,6 +141,19 @@ Skill(skill="data-insight")           # Pull usage data if available
 slack_read_channel(channel_id=...)    # Product channels, beta feedback
 Read(file_path="output/launch/{slug}/phase-0-discovery-brief.md")  # If exists
 ```
+
+### PMM Interview Notes (Optional but Valuable)
+
+Slack channels capture dev discussions but often miss the product vision, design rationale, and nuanced use cases that only come from talking to the PM/dev directly. If the PMM has interview notes, meeting recordings, or personal context from conversations with the product team, they should be provided here.
+
+**How to include:** Drop a file into the working folder (any format: .md, .txt, pasted text) or paste notes directly into the conversation. The agent will incorporate them into the Product Brief alongside Slack data.
+
+**What PMM notes typically add that Slack doesn't:**
+- Why the feature exists (business motivation, user request patterns)
+- How it actually works under the hood (capabilities and limitations)
+- What was considered but cut (scope decisions, Phase 2 plans)
+- Who the ideal first users are (beyond "builders")
+- Known edge cases or gotchas
 
 ### Output: Product Brief
 
