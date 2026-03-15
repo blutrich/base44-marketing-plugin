@@ -34,6 +34,9 @@ brand-source
 # Transcriptions and source files
 transcriptions/
 
+# Output artifacts
+output/
+
 # Internal planning docs
 Brand Review - For Shay.md
 Interview Guide - Shay Brand Discovery.md

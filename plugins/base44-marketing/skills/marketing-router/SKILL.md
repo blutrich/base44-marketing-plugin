@@ -26,25 +26,62 @@ description: |
 
 ## Intent Detection (FOLLOW IN ORDER)
 
-### Phase 1: Open Conversation (DEFAULT)
+### Phase 1: Understand the User's Intent (MANDATORY)
 
-When a user starts a conversation, DO NOT present a menu of options. Instead:
+**ALWAYS ask the user what they need before routing.** Never silently auto-detect and execute. The user must confirm intent.
 
-1. **If the request is specific and clear** (e.g., "Write a LinkedIn post about our new AI feature"):
-   - Skip to Phase 2. Classify intent and route directly
-   - This is the fast path for users who know what they want
+**Step 1: Ask what they need.**
 
-2. **If the request is broad or strategic** (e.g., "Help me think about our content strategy" or "What should we be posting about?"):
-   - Route to **GTM_STRATEGY** workflow
-   - Begin with deep exploration, not suggestions
+If the request is NOT already crystal clear (e.g., "Write a LinkedIn post about gift cards"), ask:
 
-3. **If the request is ambiguous** (e.g., "I need help with marketing"):
-   - Ask ONE open question: "Tell me more about what you're working on. What's the context?"
-   - Do NOT present a bulleted list of options
-   - Do NOT ask "Would you like to: A) B) C) D)"
-   - Let the user describe their need in their own words
+```
+AskUserQuestion(questions=[{
+  "question": "What are you looking to do?",
+  "header": "Marketing Router",
+  "options": [
+    {"label": "Write content", "description": "LinkedIn post, X tweet, email, blog, ad copy"},
+    {"label": "Launch a feature", "description": "Full launch waterfall: strategy > messaging > assets > execution"},
+    {"label": "Plan strategy", "description": "Go-to-market thinking, content strategy, positioning"},
+    {"label": "Create visuals", "description": "Branded social creatives, images, carousels"},
+    {"label": "Build a landing page", "description": "Copy + HTML + deploy to Base44"},
+    {"label": "Scan for features", "description": "Feature intel, feature scan, what's being built"},
+    {"label": "Pull data", "description": "Analytics, growth numbers, builder stats"},
+    {"label": "Something else", "description": "Repurpose, push to Ripple, video, campaign"}
+  ],
+  "multiSelect": false
+}])
+```
 
-### Phase 2: Intent Classification (After Context Is Clear)
+**Step 2: If they chose "Write content", ask which channel:**
+
+```
+AskUserQuestion(questions=[{
+  "question": "Which channel?",
+  "header": "Content Channel",
+  "options": [
+    {"label": "LinkedIn", "description": "Post for Base44 brand or Maor personal"},
+    {"label": "X / Twitter", "description": "Tweet, thread, or quote tweet"},
+    {"label": "Email", "description": "Email to builders"},
+    {"label": "Blog / SEO", "description": "Blog post or SEO article"},
+    {"label": "Paid ad", "description": "Meta, LinkedIn, or Reddit ad creative"},
+    {"label": "Multiple channels", "description": "Campaign across channels"}
+  ],
+  "multiSelect": false
+}])
+```
+
+**Step 3: Ask what it's about (the feature/topic):**
+
+```
+AskUserQuestion(questions=[{
+  "question": "What's this about? Give me the context: which feature, milestone, or topic?",
+  "header": "Content Brief"
+}])
+```
+
+**Fast path:** If the user's original request already specifies intent + channel + topic (e.g., "Write a LinkedIn post about our new gift card feature"), skip directly to Phase 2 classification. No need to re-ask what they already said.
+
+### Phase 2: Intent Classification (After Intent Is Confirmed)
 
 | Priority | Signal | Keywords | Workflow |
 |----------|--------|----------|----------|

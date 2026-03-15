@@ -122,7 +122,50 @@ Save to `output/launch/{feature-slug}/phase-0-discovery-brief.md`:
 
 **Trigger:** Team gets the launch assignment OR Discovery Brief already exists from Phase 0.
 **Who runs it:** gtm-strategist agent.
-**Input:** Slack channels, product docs, feature-intel data, Discovery Brief (if exists), PMM interview notes (if provided).
+**Input:** Slack channels, product docs, feature-intel data, Discovery Brief (if exists), PMM context interview (MANDATORY).
+
+### Step 1a: Ask the PMM (MANDATORY, BEFORE anything else)
+
+**The agent MUST ask the PMM running the launch for their context before pulling any automated data.** Slack channels capture dev discussions but miss product vision, design rationale, user stories, and nuanced use cases that only come from the person closest to the feature.
+
+**Use AskUserQuestion to collect PMM context:**
+
+```
+AskUserQuestion(questions=[
+  {
+    "question": "What does this feature actually do? Explain like you're telling a friend.",
+    "header": "PMM Context: Product Understanding"
+  },
+  {
+    "question": "Who is this for? Which specific builders will care most?",
+    "header": "PMM Context: Target Audience"
+  },
+  {
+    "question": "What's the ONE thing that makes this different from what competitors have?",
+    "header": "PMM Context: Differentiation"
+  },
+  {
+    "question": "What did you learn from talking to the dev team that isn't in Slack? Any context, decisions, limitations, or stories?",
+    "header": "PMM Context: Dev Conversations"
+  },
+  {
+    "question": "Any numbers we can use? Beta users, performance metrics, cost savings, time savings?",
+    "header": "PMM Context: Proof Points"
+  }
+])
+```
+
+**Why this matters:** The PMM has context that no automated scan can capture:
+- Why the feature exists (business motivation, user request patterns)
+- How it actually works under the hood (capabilities and limitations)
+- What was considered but cut (scope decisions, Phase 2 plans)
+- Who the ideal first users are (beyond "builders")
+- Known edge cases or gotchas
+- Stories from user conversations, support tickets, or sales calls
+
+**The PMM's answers become the FOUNDATION of the Product Brief.** Automated data (Slack, feature-intel, data-insight) fills gaps and adds proof points, but never replaces what the PMM knows.
+
+### Step 1b: Pull Automated Data (to supplement PMM context)
 
 ### What to understand:
 
@@ -133,7 +176,7 @@ Save to `output/launch/{feature-slug}/phase-0-discovery-brief.md`:
 5. **What are the constraints?** (pricing, availability, known limitations)
 6. **What data/numbers do we have?** (beta users, performance metrics, comparisons)
 
-### Sources to read:
+### Sources to read (supplement PMM answers):
 
 ```
 Skill(skill="feature-intel")          # Scan dev channels for product context
@@ -142,18 +185,9 @@ slack_read_channel(channel_id=...)    # Product channels, beta feedback
 Read(file_path="output/launch/{slug}/phase-0-discovery-brief.md")  # If exists
 ```
 
-### PMM Interview Notes (Optional but Valuable)
+### Additional PMM Input (Optional)
 
-Slack channels capture dev discussions but often miss the product vision, design rationale, and nuanced use cases that only come from talking to the PM/dev directly. If the PMM has interview notes, meeting recordings, or personal context from conversations with the product team, they should be provided here.
-
-**How to include:** Drop a file into the working folder (any format: .md, .txt, pasted text) or paste notes directly into the conversation. The agent will incorporate them into the Product Brief alongside Slack data.
-
-**What PMM notes typically add that Slack doesn't:**
-- Why the feature exists (business motivation, user request patterns)
-- How it actually works under the hood (capabilities and limitations)
-- What was considered but cut (scope decisions, Phase 2 plans)
-- Who the ideal first users are (beyond "builders")
-- Known edge cases or gotchas
+If the PMM has written notes, meeting recordings, or docs beyond what they answered above, they can drop files into the working folder (any format: .md, .txt, pasted text) or paste directly. The agent incorporates everything into the Product Brief.
 
 ### Output: Product Brief
 
