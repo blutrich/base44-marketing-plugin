@@ -67,6 +67,21 @@ slack_read_channel(channel_id="C0A8DTGTHBK")
 
 Look for: release dates, feature descriptions, status updates, linked PRs, scope changes. This channel is the source of truth for what product is shipping and when.
 
+### Step 0b: Scan Figma for Design Assets (MANDATORY)
+
+Check Figma for any existing designs, mockups, or UI screenshots related to this feature:
+
+```
+mcp__claude_ai_Figma__get_metadata(fileKey="{brand-guidelines-file-key}")
+mcp__claude_ai_Figma__get_screenshot(fileKey="{file-key}", nodeId="{node-id}")
+```
+
+Look for: feature UI screenshots, product mockups, design explorations, component designs. These become source material for nano-banana creatives in Phase 5.
+
+Save any relevant screenshots to `output/launch/{slug}/figma-assets/` for use in creative generation.
+
+> **Why Figma matters:** Product designs are the most accurate visual representation of what we're launching. nano-banana composites built from real Figma screenshots are always more accurate than AI-generated mockups.
+
 ### What to gather:
 
 1. **Competitive Landscape**
@@ -194,9 +209,12 @@ Skill(skill="feature-intel")                    # Scan dev channels for product 
 Skill(skill="data-insight")                     # Pull usage data if available
 slack_read_channel(channel_id=...)              # Feature-specific channels, beta feedback
 Read(file_path="output/launch/{slug}/phase-0-discovery-brief.md")  # If exists
+mcp__claude_ai_Figma__get_design_context(...)   # Figma designs for this feature (screenshots, UI, mockups)
 ```
 
 > **#product-marketing-sync is mandatory.** It contains release announcements, launch timelines, and scope changes that the PMM may not have mentioned. Always read it.
+
+> **Figma is mandatory.** Pull product screenshots and UI designs for the feature. These feed into nano-banana creative generation in Phase 5. Save to `output/launch/{slug}/figma-assets/`.
 
 ### Additional PMM Input (Optional)
 
@@ -433,9 +451,29 @@ Save to `output/launch/{feature-slug}/phase-4-asset-plan.md` AND use template fr
 | Reddit | `copywriter` | (none) | Community-native, non-promotional |
 | Visual / Creative | `nano-banana` skill | (none) | Branded composite with logo, colors, STK Miso |
 
+### MANDATORY: All Visuals via nano-banana (Rule #46)
+
+**Every social creative, ad image, thumbnail, and visual asset MUST be generated through nano-banana** (Imagen 3 + `composite_social.py`). This applies to ALL channels:
+
+- LinkedIn post images → nano-banana
+- X card images → nano-banana
+- Ad creatives → nano-banana
+- Video thumbnails → nano-banana
+- Discord/community visuals → nano-banana
+- What's New screenshots → Figma screenshot or nano-banana
+
+**NEVER generate HTML/CSS as a substitute for visual creatives.** HTML is for landing pages only. Social creatives are PNG/JPG files produced by nano-banana with brand backgrounds (`bg_*`), STK Miso font, and the official logo.
+
+**Source material for nano-banana:**
+- Figma screenshots from `output/launch/{slug}/figma-assets/` (captured in Phase 0/1)
+- Brand backgrounds from `brand.json` (`bg_warm_grain`, `bg_amber_glow`, etc.)
+- Product screenshots (real UI, not mockups)
+
+**WRONG:** Generating an HTML card with CSS gradients and calling it a "social creative."
 **WRONG:** Having the copywriter write a LinkedIn post. The linkedin-specialist exists for a reason.
 **WRONG:** Having the linkedin-specialist write an email. The copywriter owns email.
 **RIGHT:** Each asset routed to its specialist, who loads their channel skill for platform-specific rules.
+**RIGHT:** Every visual goes through nano-banana with real Figma screenshots + brand composite.
 
 ### Execution:
 
