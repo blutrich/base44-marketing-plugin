@@ -57,6 +57,7 @@
 42. **No leading with the feature** - Never headline what the feature IS. Lead with what it DOES for the builder. "We just became the first AI app builder with native gift cards" = bad. "Send someone the ability to build their first app" = good. User value first, feature name buried. (Ofer, 2026-03-15)
 43. **No single-version content** - Never deliver just one version of a social post. Always produce 2-3 distinct variations with different angles (outcome, story, surprising fact). One version is never enough. (Ofer, 2026-03-15)
 44. **No off-brand visuals** - Social creatives MUST use Base44 brand colors (#FF631F, #FF983B, #FFBE8D, #E6FC88, #EBFAD5, #FAF3E9, #7CBFD5, #BFD7E0), STK Miso font, and official logo. Generic AI-generated graphics without brand treatment are rejected. Reference: Figma Brand Guidelines. (Ofer, 2026-03-15)
+45. **No black backgrounds** - Base44 never uses black or dark backgrounds for content, creatives, or social posts. Always use the brand gradient backgrounds (`bg_warm_grain`, `bg_amber_glow`, `bg_peach_lavender`, `bg_hot_orange`, `bg_pink_dream`, `bg_ocean_wave`) or light/warm brand colors. The only exception is the terminal/code block component (#1A1A1A). (Ofer, 2026-03-15)
 
 ## ALWAYS DO
 
@@ -88,4 +89,4 @@
 ---
 
 *Last updated: 2026-03-15*
-*Rules: 44 NEVER + 14 ALWAYS*
+*Rules: 45 NEVER + 14 ALWAYS*
