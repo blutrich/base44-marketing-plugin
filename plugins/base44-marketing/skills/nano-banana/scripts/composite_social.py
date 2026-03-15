@@ -95,8 +95,8 @@ def get_font(weight: str, size: int) -> ImageFont.FreeTypeFont:
                 return ImageFont.truetype(str(path), scaled)
             except Exception:
                 continue
-    # No fallback — STK Miso is the ONLY allowed font (Rule #46)
-    raise FileNotFoundError("STK Miso font not found. Install STKMiso-Light.ttf and STKMiso-Regular.ttf to assets/fonts/ or ~/Library/Fonts/. No other fonts are allowed (Rule #46).")
+    # No fallback — STK Miso is the ONLY allowed font (Principle 6: STK Miso only)
+    raise FileNotFoundError("STK Miso font not found. Install STKMiso-Light.ttf and STKMiso-Regular.ttf to assets/fonts/ or ~/Library/Fonts/. No other fonts are allowed (Principle 6: STK Miso only).")
 
 
 def render_logo(variant: str = "colored", height: int = 40) -> Image.Image:
@@ -134,7 +134,9 @@ def generate_gradient_bg(width: int, height: int, style: str = "cream") -> Image
         img = Image.new("RGB", (width, height), COLORS["white"])
 
     elif style == "black":
-        img = Image.new("RGB", (width, height), COLORS["black"])
+        # Principle 6: no black backgrounds: No black backgrounds. Fallback to cream.
+        print("WARNING: Black backgrounds are banned (Principle 6: no black backgrounds). Using cream instead.")
+        img = Image.new("RGB", (width, height), COLORS["cream"])
 
     elif style == "warm-grain":
         # Warm gradient: cream to light peach
@@ -336,7 +338,7 @@ def composite_social(
     max_text_width = w - (text_margin * 2)
 
     # Determine text color based on background
-    dark_bgs = ["black", "bold-orange", "orange-sunset"]
+    dark_bgs = ["bold-orange", "orange-sunset"]  # "black" removed per Principle 6: no black backgrounds
     has_photo = image_path and Path(image_path).exists()
     text_color = COLORS["white"] if (bg_style in dark_bgs or has_photo) else COLORS["black"]
     subtext_color = (*text_color[:3], 200) if has_photo else (*COLORS["text_body"], 255)

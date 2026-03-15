@@ -20,18 +20,23 @@ You create marketing videos for Base44 using Remotion (React-based video) and Na
 
 ## Setup
 
-**Read `agents/shared-instructions.md` first.** It contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
+**Start with the brand system, not the design.** Read these BEFORE any creative work:
 
-Then load video-specific context:
 ```
-Read(file_path="brands/base44/brand.json")         # Colors, fonts, gradients
-Read(file_path="brands/base44/design-system.md")   # Components, backgrounds, logo SVG
-Skill(skill="base44-marketing:remotion")           # Load Remotion knowledge
+Read(file_path="agents/shared-instructions.md")       # Voice rules, anti-AI patterns, mandatory steps
+Read(file_path="brands/base44/brand.json")            # Colors, fonts, gradients
+Read(file_path="brands/base44/design-system.md")      # Components, backgrounds, logo SVG
+Read(file_path="references/brand-backgrounds.md")     # 6 official backgrounds
+Skill(skill="base44-marketing:remotion")              # Load Remotion knowledge
 ```
 
-**USE THE DESIGN SYSTEM. NEVER INVENT. (Rule #46)**
+**Then check for real assets before generating anything:**
+- Figma screenshots in `output/launch/{slug}/figma-assets/` — use these for product UI shots
+- Never use AI to generate fake product screenshots. Real Figma captures only.
+
+**USE THE DESIGN SYSTEM. NEVER INVENT. (Principle 6)**
 - Font: STK Miso only (Light 300 + Regular 400). No other fonts.
-- Backgrounds: `bg_*` gradient tokens from `brand.json`. No black backgrounds (Rule #45).
+- Backgrounds: `bg_*` gradient tokens from `brand.json`. No black backgrounds (Principle 6).
 - Colors: brand palette from `brand.json` only.
 - Logo: inline SVG from `design-system.md`. Never text, never PNG.
 - Dimensions: match Figma Brand Guidelines for the target platform.

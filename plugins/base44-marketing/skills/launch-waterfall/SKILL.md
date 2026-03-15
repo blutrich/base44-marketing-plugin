@@ -471,7 +471,7 @@ Every channel asset that needs an image gets a planned creative brief here. nano
 | Reddit | `copywriter` | (none) | Community-native, non-promotional |
 | Visual / Creative | `nano-banana` skill | (none) | Branded composite with logo, colors, STK Miso |
 
-### MANDATORY: All Visuals via nano-banana (Rule #46)
+### MANDATORY: All Visuals via nano-banana (Principle 6)
 
 **Every social creative, ad image, thumbnail, and visual asset MUST be generated through nano-banana** (Imagen 3 + `composite_social.py`). This applies to ALL channels:
 
@@ -490,15 +490,95 @@ Every channel asset that needs an image gets a planned creative brief here. nano
 - Brand backgrounds from `brand.json` (`bg_warm_grain`, `bg_amber_glow`, etc.)
 - Product screenshots (real UI, not mockups)
 
-**nano-banana execution flow in Phase 5:**
+### Step 5.0: Generate All Visuals FIRST (before text content)
+
+**Visuals run before copy.** Specialists need to know what image accompanies their post. Generate all creatives first, then hand them to specialists alongside their copy brief.
+
+**Start with the brand system, not the design.** Every creative made before reading brand rules was wrong. Follow this order exactly.
+
+**Automated nano-banana execution:**
+
 ```
+STEP 0 — Load brand system (BEFORE anything else):
+  Read(file_path="brands/base44/brand.json")
+  Read(file_path="references/brand-backgrounds.md")
+  Read(file_path="brands/base44/design-system.md")
+  Do NOT sketch, prompt, or generate until all three are loaded.
+
+STEP 1 — Inventory real assets (NEVER generate what already exists):
+  ls output/launch/{slug}/figma-assets/
+  Real Figma screenshots > AI-generated mockups. Always.
+  If a creative needs product UI, use the real Figma screenshot.
+  Only use Imagen 3 for lifestyle photos where no real asset exists.
+
+STEP 2 — Load approved messaging:
+  Read(file_path="output/launch/{slug}/phase-3-messaging-framework.md")
+  All headlines and subtext come from here. No invented copy.
+  Positive framing only: lead with what the builder gets, not what others lack.
+
+SETUP:
+  mkdir -p output/launch/{slug}/assets/visuals
+  export GOOGLE_API_KEY="{from user or env}"
+
 FOR EACH row in Visual Creative Brief (Phase 4):
-  1. If prompt says "Figma screenshot" → use saved file from figma-assets/
-  2. Else → run generate_image.py with the planned Imagen 3 prompt
-  3. Run composite_social.py with the planned background, overlay text, and dimensions
-  4. Save to output/launch/{slug}/assets/visuals/V{n}-{channel}.png
-  5. Run through brand-guardian visual check
+
+  STEP A — Source the base image:
+    IF "Figma screenshot" → cp figma-assets/{file} to base-{n}.png (PREFERRED)
+    IF "Imagen 3 prompt" → run:
+      python3 scripts/generate_image.py "{Imagen prompt from brief}" \
+        --style {style} --size {size} -o output/launch/{slug}/assets/visuals/base-{n}.png
+    NEVER use AI to generate product UI mockups. Use real Figma screenshots.
+
+  STEP B — Composite into branded creative:
+    python3 scripts/composite_social.py {template} base-{n}.png \
+      --headline "{Headline from brief}" \
+      --subtext "{Subtext from brief}" \
+      --bg {background from brief} \
+      --logo {colored|white} --logo-position top-left \
+      --grain \
+      -o output/launch/{slug}/assets/visuals/V{n}-{channel}.png
+
+  STEP C — Brand compliance check (EVERY creative):
+    - [ ] Logo is visible and correctly positioned
+    - [ ] STK Miso font used (no system fonts)
+    - [ ] Colors from brand palette only
+    - [ ] Background is an official bg_* token (no black, no invented gradients)
+    - [ ] Text readable with sufficient contrast
+    - [ ] Correct dimensions for target platform
+    - [ ] No competitor names or logos
+    - [ ] Overlay text derived from Messaging Framework (not invented)
+    - [ ] Product screenshots are real Figma captures (not AI mockups)
+    - [ ] Messaging leads with builder value (positive framing)
+
+  STEP D — Name and log:
+    Save as V{n}-{channel}.png (e.g., V1-linkedin-brand.png, V2-x-card.png)
+    Log to output/launch/{slug}/assets/visuals/manifest.md:
+      | # | File | Template | Background | Headline | Channel |
 ```
+
+**Text overlay rules (from Messaging Framework only):**
+- Headline: Use H1 options or key messages from Phase 3. Never invent new messaging.
+- Subtext: Use supporting lines, proof points, or CTAs from Phase 3.
+- No competitor names (Rule #39). No "X doesn't have this." Focus on what Profiles IS.
+- Lead with builder value (Rule #42). "Your apps build your reputation" not "Introducing Profiles."
+- Keep chat overlay input text to 5-7 words for visual clarity.
+
+**Background selection guide:**
+| Content Type | Background | Why |
+|---|---|---|
+| Feature launch, general social | `warm-grain` | Default brand warmth |
+| Big numbers, stats | `orange-sunset` | High energy, warm |
+| Thought leadership, personal | `plan-mode` | Soft, reflective |
+| Teasers, warm-ups | `plan-mode` or `cream` | Understated |
+| Community, Discord | `pastel` or `warm-grain` | Approachable |
+| Professional, data | `blue-waves` | Cool, credible |
+| Bold announcements | `bold-orange` | High impact |
+| Ads with CTA | `cream` or `warm-grain` | Clean, conversion-focused |
+
+**After all visuals are generated:**
+1. Open each PNG and verify brand compliance (Step C checklist)
+2. Write `manifest.md` listing all creatives with their channel assignment
+3. Hand visuals to specialists: "Your LinkedIn post image is V1-linkedin-brand.png"
 
 **WRONG:** Generating an HTML card with CSS gradients and calling it a "social creative."
 **WRONG:** Having the copywriter write a LinkedIn post. The linkedin-specialist exists for a reason.
@@ -506,21 +586,24 @@ FOR EACH row in Visual Creative Brief (Phase 4):
 **RIGHT:** Each asset routed to its specialist, who loads their channel skill for platform-specific rules.
 **RIGHT:** Every visual goes through nano-banana with real Figma screenshots + brand composite.
 
-### Execution:
+### Step 5.1: Create Text Content (AFTER visuals are done)
 
 ```
 FOR EACH asset in Asset Plan:
   1. Check dependencies (is the asset it depends on done?)
-  2. Look up the CORRECT agent from the routing table above
-  3. Invoke that SPECIFIC agent with:
+  2. Assign the visual from Step 5.0: "Your image is V{n}-{channel}.png"
+  3. Look up the CORRECT agent from the routing table above
+  4. Invoke that SPECIFIC agent with:
      - Messaging Framework (MANDATORY context)
      - Asset Plan row (specific brief)
+     - Assigned visual creative filename
      - Brand context (RULES.md, tone-of-voice.md, shared-instructions.md)
      - Channel skill (agent's designated skill from the routing table)
-  4. Agent MUST produce 2-3 variations (RULES.md #43)
-  5. Agent MUST lead with user value, not the feature (RULES.md #42)
-  6. Run through brand-guardian (score >= 9/10)
-  7. Update Asset Plan status column
+  5. Agent MUST produce 2-3 variations (RULES.md #43)
+  6. Agent MUST lead with user value, not the feature (RULES.md #42)
+  7. Agent MUST NOT mention competitors by name (RULES.md #39)
+  8. Run through brand-guardian (score >= 9/10)
+  9. Update Asset Plan status column
 ```
 
 ### Key Rule: DERIVE, DON'T INVENT
@@ -554,10 +637,10 @@ Read(file_path="skills/{skill_name}/SKILL.md")
 2. Lead with user value, not the feature name (RULES.md #42)
 3. Produce 2-3 distinct variations with different angles (RULES.md #43)
 4. Load shared-instructions.md for voice rules
-5. If creating visuals, use nano-banana with brand composite (RULES.md #44)
+5. If creating visuals, use nano-banana with brand composite (Principle 6)
 ```
 
-**GATE:** All assets in the Asset Plan have status "approved" with brand-guardian score >= 9/10. Every LinkedIn asset was written by linkedin-specialist. Every X asset was written by x-specialist. Every email by copywriter. No channel was written by the wrong agent.
+**GATE:** All assets in the Asset Plan have status "approved" with brand-guardian score >= 9/10. Every LinkedIn asset was written by linkedin-specialist. Every X asset was written by x-specialist. Every email by copywriter. No channel was written by the wrong agent. All visuals were generated by nano-banana (Step 5.0) with brand compliance verified. `manifest.md` exists in `output/launch/{slug}/assets/visuals/` listing every creative with its channel assignment.
 
 ---
 

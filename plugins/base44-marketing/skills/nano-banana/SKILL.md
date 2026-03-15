@@ -39,7 +39,7 @@ python3 scripts/composite_social.py text-card \
   -o creative-stats.png
 ```
 
-## Brand Reference (MANDATORY — Rule #46)
+## Brand Reference (MANDATORY — Principle 6)
 
 **ALWAYS read before generating any creative:**
 - `references/brand-backgrounds.md` - 6 official background styles, full color palette, logo rules, typography
@@ -48,7 +48,7 @@ python3 scripts/composite_social.py text-card \
 
 **USE THE DESIGN SYSTEM. NEVER INVENT.**
 - Font: STK Miso only (Light 300 + Regular 400). No Arial, Inter, system fonts.
-- Backgrounds: `bg_*` gradient tokens only. No black backgrounds (Rule #45). No invented gradients.
+- Backgrounds: `bg_*` gradient tokens only. No black backgrounds (Principle 6). No invented gradients.
 - Colors: brand palette from `brand.json` only. No random hex values.
 - Logo: inline SVG from `design-system.md`. Never text, never PNG.
 - Dimensions: 1080x1080 (social square), 1200x627 (LinkedIn), 1600x900 (X), 1080x1920 (story).
@@ -223,18 +223,74 @@ python3 scripts/add_text_overlay.py chat photo.png \
   -o creative-chat.png
 ```
 
-> **Important:** The input box auto-sizes to fit the text. Long text is truncated with ellipsis. Keep input text short (5-7 words) for best visual results. Use Figma product screenshots or brand backgrounds as the base image — not generic stock photos (Rule #47).
+> **Important:** The input box auto-sizes to fit the text. Long text is truncated with ellipsis. Keep input text short (5-7 words) for best visual results. Use Figma product screenshots or brand backgrounds as the base image — not generic stock photos (Principle 6).
 
 ## Full Workflow (Agent-Driven)
 
-When a content agent (linkedin-specialist, x-specialist, ad-specialist) needs a visual:
+**Start with the brand system, not the design.** Every creative made before reading brand rules was wrong. Follow this order exactly.
 
-1. **Read brand context**: `references/brand-backgrounds.md` + `brands/base44/brand.json`
-2. **Choose template**: Based on platform and content type
-3. **Generate photo** (if needed): `generate_image.py` with lifestyle prompt
-4. **Composite**: `composite_social.py` with headline, subtext, brand elements
-5. **Review**: Check that logo is visible, text is readable, colors match brand
-6. **Output**: Save to working directory with descriptive filename
+### Step 1: Load Brand System (BEFORE anything else)
+
+```
+Read(file_path="brands/base44/brand.json")           # Colors, fonts, gradients, spacing
+Read(file_path="references/brand-backgrounds.md")     # 6 official backgrounds, logo rules
+Read(file_path="brands/base44/design-system.md")      # Components, logo SVG
+```
+
+Do not sketch, prompt, or generate until you've read all three. This is not optional.
+
+### Step 2: Gather Real Assets (NEVER generate what already exists)
+
+```
+# Check for real Figma product screenshots first
+ls output/launch/{slug}/figma-assets/
+
+# If a launch waterfall exists, use its Figma assets
+# If the user shares a Figma URL, use get_screenshot to capture real UI
+# If there's a live product page, screenshot it
+```
+
+**Real product screenshots > AI-generated mockups. Always.** AI-generated UI looks like AI-generated UI. If Figma assets exist, use them. If the feature is live, screenshot it. Only use Imagen 3 for lifestyle photos (person on phone, coffee shop scene) where no real asset exists.
+
+### Step 3: Choose Template + Background
+
+Based on platform and content type, pick from `composite_social.py` templates and `--bg` options. Use the Background Selection Guide (see below).
+
+### Step 4: Apply Approved Messaging
+
+If this is a launch waterfall, text MUST come from the Messaging Framework:
+```
+Read(file_path="output/launch/{slug}/phase-3-messaging-framework.md")
+```
+
+**Positive framing only.** Lead with what the builder gets, never with what competitors lack. "Your apps now build your reputation" not "No app builder has public profiles."
+
+### Step 5: Generate + Composite
+
+```bash
+# For lifestyle photos (where no real asset exists):
+python3 scripts/generate_image.py "{prompt}" --style photo -o base-photo.png
+
+# Composite into branded creative:
+python3 scripts/composite_social.py {template} {base-image}.png \
+  --headline "{from Messaging Framework}" \
+  --subtext "{from Messaging Framework}" \
+  --bg {brand background} \
+  --logo colored --logo-position top-left \
+  -o creative-{channel}.png
+```
+
+### Step 6: Review
+
+- [ ] Logo visible and correctly positioned
+- [ ] STK Miso font (no system fonts)
+- [ ] Colors from brand palette only
+- [ ] Background is official bg_* token
+- [ ] Text readable, sufficient contrast
+- [ ] Correct dimensions for platform
+- [ ] No competitor names
+- [ ] Messaging traces to framework (not invented)
+- [ ] Product screenshot is real (not AI mockup) if showing UI
 
 ### Naming Convention
 

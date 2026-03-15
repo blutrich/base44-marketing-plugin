@@ -12,9 +12,12 @@ Read(file_path="brands/base44/learning-log.md")     # Recent learnings
 
 ## Before Creating Visuals (MANDATORY for nano-banana, video-specialist, landing pages)
 
+**Start with the brand system, not the design.** Read these BEFORE sketching, prompting, or generating anything:
+
 ```
-Read(file_path="brands/base44/design-system.md")     # CSS components, backgrounds, logo SVG
 Read(file_path="brands/base44/brand.json")            # Tokens: colors, fonts, gradients, spacing
+Read(file_path="brands/base44/design-system.md")      # CSS components, backgrounds, logo SVG
+Read(file_path="references/brand-backgrounds.md")     # 6 official backgrounds, logo rules
 ```
 
 **USE THE DESIGN SYSTEM. NEVER INVENT.**
@@ -26,6 +29,13 @@ Read(file_path="brands/base44/brand.json")            # Tokens: colors, fonts, g
 - Dimensions: match Figma Brand Guidelines (social: 1080x1080, LinkedIn: 1200x627, X: 1600x900)
 
 If a visual element isn't defined in the design system, it doesn't exist. Don't create it.
+
+**NEVER GENERATE WHAT ALREADY EXISTS.**
+- If Figma product screenshots exist in `output/launch/{slug}/figma-assets/`, use them
+- If the user shares a Figma URL, use `get_screenshot` to capture real UI
+- If the feature is live, screenshot the actual product
+- Only use AI image generation (Imagen 3) for lifestyle photos where no real asset exists
+- AI-generated product mockups always look fake. Real screenshots don't.
 
 ## Messaging Framework Rule (LAUNCH workflows)
 
@@ -105,6 +115,17 @@ Maor only gets emotional for genuine milestones. One paragraph of feeling, then 
 | Maor personal (LinkedIn, X) | "I" | I, my, we (team) | "I just migrated a full workspace." |
 
 If you're writing for the brand account and you see "I" as the subject, rewrite to "we" or rephrase to focus on the builder ("Builders can now...").
+
+## Positive Framing (MANDATORY)
+
+Lead with what the builder gets, never with what others lack. This is a discipline, not a preference.
+
+- **Wrong:** "No app builder has public profiles"
+- **Right:** "Your apps now build your reputation"
+- **Wrong:** "Unlike other platforms, we let you..."
+- **Right:** "Builders can now..."
+
+Both framings carry the same information. The second sounds like a confident brand. The first sounds like an attack ad. If your draft leads with a competitor gap, rewrite to lead with the builder outcome.
 
 ## No Competitor Names in Published Content
 
