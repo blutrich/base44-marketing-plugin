@@ -57,6 +57,47 @@
     },
     "ticker_green": {
       "css": "linear-gradient(to left, #ebfad5 18%, #e6fc88 118%)"
+    },
+
+    "_content_bg_comment": "Abstract content backgrounds from Figma Brand Guidelines (node 668:437). Use for social creatives, ads, hero sections, and cards.",
+    "bg_warm_grain": {
+      "description": "Warm yellow/orange/mint grainy gradient with grain overlay. Use for hero backgrounds and feature visuals.",
+      "css": "linear-gradient(180deg, #e4e4e4 38%, #e4e4e4 49%, #f0c3ec 52%, #fbb439 59%, #aefb39 66%)",
+      "blend_mode": "soft-light",
+      "grain": true,
+      "palette": ["#f5c542", "#ff8a3d", "#a0e8b0", "#f0c3ec", "#faf5ef"]
+    },
+    "bg_amber_glow": {
+      "description": "Orange/amber grainy gradient with rounded corners. Warm, energetic. Use for cards and social post backgrounds.",
+      "css": "linear-gradient(180deg, #f6f6f6 11%, #dadee8 45%, #eea247 92%, #f0b953 108%)",
+      "base_color": "#ff5500",
+      "blend_mode": "screen",
+      "grain": true,
+      "border_radius": "46px",
+      "palette": ["#ff5500", "#f6a040", "#f0b953", "#faf0e0"]
+    },
+    "bg_peach_lavender": {
+      "description": "Soft peach/salmon to lavender gradient. Calm, editorial. Use for plan mode, settings, or overlay backgrounds.",
+      "css": "linear-gradient(0deg, #ff5500 12%, #ffc494 8%, #f5f5f4 66%)",
+      "palette": ["#ff5500", "#ffc494", "#d4a0c0", "#b8a8d0", "#f5f5f4"]
+    },
+    "bg_hot_orange": {
+      "description": "Intense orange/red blurred gradient. High energy. Use for CTAs, announcement banners, and accent sections.",
+      "css": "radial-gradient(ellipse at 30% 40%, #e04010 0%, transparent 60%), radial-gradient(ellipse at 70% 70%, #e04010 0%, transparent 50%), linear-gradient(180deg, #f08040 0%, #ffb060 50%, #ede8e4 100%)",
+      "blur": "200px",
+      "palette": ["#ff5500", "#ff8040", "#ffb060", "#ede8e4"]
+    },
+    "bg_pink_dream": {
+      "description": "Pink/lavender/amber soft gradient. Dreamy, feminine. Use for community content, event visuals, and lifestyle creatives.",
+      "css": "linear-gradient(-90deg, rgba(251,180,57,0.3) 47%, rgba(242,255,124,0.3) 86%)",
+      "blend_mode": "saturation",
+      "border_radius": "58px",
+      "palette": ["#e8a0d0", "#d0b0e0", "#f0c860", "#c8e0f0", "#fbb439"]
+    },
+    "bg_ocean_wave": {
+      "description": "Blue/teal/white wavy gradient. Cool, expansive. Use for data sections, analytics visuals, and contrast with warm brand palette.",
+      "css": "radial-gradient(ellipse at 20% 20%, #2020ff 0%, transparent 40%), radial-gradient(ellipse at 80% 60%, #40a0d0 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, #60c0d0 0%, transparent 40%), linear-gradient(135deg, #e0f0f0 0%, #c0e0f0 50%, #e8f4f0 100%)",
+      "palette": ["#2020ff", "#40a0d0", "#60c0d0", "#c0e0f0", "#e8f4f0"]
     }
   },
 

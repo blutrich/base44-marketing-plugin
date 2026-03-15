@@ -556,7 +556,7 @@ Assets without entity fields (email, reddit, blog, teasers) remain in the local 
 Skill(skill="push-to-activity")
 ```
 
-No user confirmation needed. Content was already approved in Phase 5 (brand-guardian gate).
+PMM reviews the push summary and confirms before sending. Content was approved in Phase 5, but the push itself needs explicit go-ahead.
 
 **GATE:** MarketingActivity record exists with all available channel content populated.
 

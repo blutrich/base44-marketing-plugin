@@ -39,6 +39,13 @@ API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-c
 https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity
 ```
 
+**Upload URL:**
+```
+https://product-sync.base44.app/api/integrations/Core/UploadFile
+```
+> Upload lives on `product-sync.base44.app` (NOT `app.base44.com`).
+> Requires `X-App-Id` header in addition to `api_key`.
+
 ---
 
 ## MarketingActivity Entity Schema
@@ -153,6 +160,61 @@ When reading asset files:
 
 ---
 
+## Step 2.5: Upload Media Files
+
+If media files exist for this launch, upload them before building the payload.
+
+### File Discovery
+
+Scan for media files in:
+```
+output/launch/{slug}/assets/*.{png,jpg,mp4}
+```
+Also check the current working directory for any image/video files referenced in the conversation.
+
+### Upload Endpoint
+
+```bash
+API_KEY=$(python3 -c "import json; print(json.load(open('.claude/marketing/api-config.json'))['api_key'])") && \
+curl -s -X POST "https://product-sync.base44.app/api/integrations/Core/UploadFile" \
+  -H "api_key: $API_KEY" \
+  -H "X-App-Id: 692b72212d45f3a5bc07e7ae" \
+  -F "file=@path/to/image.png"
+```
+
+**Response:**
+```json
+{"file_url": "https://base44.app/api/apps/.../hash_filename.jpg"}
+```
+
+### File-to-Channel Mapping
+
+Route uploaded files to the correct `*_media_urls` field by naming convention:
+
+| Filename Pattern | Target Field |
+|-----------------|-------------|
+| `*linkedin*` | `linkedin_base44_media_urls` or `linkedin_maor_media_urls` |
+| `*x-*` or `*twitter*` | `x_base44_media_urls` or `x_maor_media_urls` |
+| `*discord*` or `*community*` | `community_media_urls` |
+| `*whats-new*` or `*carousel*` | `whats_new_media_urls` |
+| `*video*` or `*.mp4` | `motion_video_media_urls` |
+
+If the filename contains `maor`, route to the Maor variant (e.g., `linkedin_maor_media_urls`). Otherwise, route to the brand variant.
+
+### Upload Loop
+
+```
+FOR EACH media file found:
+  1. Upload via POST to UploadFile endpoint
+  2. Parse file_url from response
+  3. Match filename to channel using the mapping table above
+  4. Group URLs by channel field
+```
+
+Store the grouped URLs for inclusion in the payload (Step 3).
+
+---
+
 ## Step 3: Build Payload
 
 ### For a new MarketingActivity record:
@@ -184,7 +246,13 @@ When reading asset files:
   "has_community": true,
   "community_content": "...",
   "has_demo_video": true,
-  "demo_video_content": "..."
+  "demo_video_content": "...",
+  "whats_new_media_urls": ["https://base44.app/api/apps/.../carousel_01.png"],
+  "linkedin_base44_media_urls": ["https://base44.app/api/apps/.../linkedin_brand_hero.png"],
+  "linkedin_maor_media_urls": ["https://base44.app/api/apps/.../linkedin_maor_screenshot.png"],
+  "x_base44_media_urls": ["https://base44.app/api/apps/.../x_brand_card.png"],
+  "community_media_urls": ["https://base44.app/api/apps/.../discord_preview.png"],
+  "motion_video_media_urls": ["https://base44.app/api/apps/.../launch_video.mp4"]
 }
 ```
 
@@ -216,6 +284,52 @@ Search the response for a record matching this feature (by title or feature_id).
 
 - **If found:** Use PUT to update the existing record. Preserve fields you're not updating.
 - **If not found:** Use POST to create a new record.
+
+---
+
+## Step 4.5: PMM Confirmation Gate
+
+Before pushing, show the PMM a summary and ask for confirmation.
+
+### Display Summary
+
+```
+Ready to push to MarketingActivity:
+
+  Title: {title}
+  Channels: {list of filled channels}
+  Media files: {count} files uploaded
+
+  Text preview:
+    LinkedIn (Brand): "{first 80 chars}..."
+    LinkedIn (Maor): "{first 80 chars}..."
+    X (Brand): "{first 80 chars}..."
+    X (Maor): "{first 80 chars}..."
+    Community: "{first 80 chars}..."
+    What's New: "{first 80 chars}..."
+    Demo Video: "{first 80 chars}..."
+```
+
+### Ask for Confirmation
+
+```
+AskUserQuestion(questions=[{
+  "question": "Ready to push to Product App?",
+  "header": "Push Review",
+  "options": [
+    {"label": "Push it", "description": "Send all content + media to MarketingActivity"},
+    {"label": "Let me review first", "description": "Show me the full payload before pushing"},
+    {"label": "Skip push", "description": "Keep everything local, don't push to Product App"}
+  ],
+  "multiSelect": false
+}])
+```
+
+### Handle Response
+
+- **"Push it":** Proceed to Step 5.
+- **"Let me review first":** Display the full payload JSON, then ask again with the same options.
+- **"Skip push":** Save the payload to `output/launch/{slug}/activity-payload.json` for later manual push. Report that the payload was saved locally.
 
 ---
 
@@ -256,13 +370,15 @@ Pushed to MarketingActivity:
   Approval: pending
 
   Channels filled:
-  ✅ What's New
-  ✅ LinkedIn (Brand)
-  ✅ LinkedIn (Maor)
-  ✅ X (Brand)
+  ✅ What's New (2 media files)
+  ✅ LinkedIn (Brand) (1 media file)
+  ✅ LinkedIn (Maor) (1 media file)
+  ✅ X (Brand) (1 media file)
   ✅ X (Maor)
-  ✅ Community (Discord)
+  ✅ Community (Discord) (1 media file)
   ✅ Demo Video
+
+  Media: {total count} files uploaded to Product App
 
   Not in entity (saved locally only):
   - Email (asset 08)
@@ -308,7 +424,7 @@ Phase 7: PUSH TO PRODUCT APP (auto)
     v  DONE: MarketingActivity record created/updated with all channel content
 ```
 
-The waterfall auto-invokes this skill after Phase 6 approval. No user confirmation needed for the push itself (content was already approved in Phase 5).
+The waterfall auto-invokes this skill after Phase 6 approval. PMM confirmation required before push (Step 4.5). Content was approved in Phase 5, but the push itself needs explicit go-ahead.
 
 ---
 

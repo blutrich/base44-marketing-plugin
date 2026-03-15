@@ -281,6 +281,129 @@ Subtle dot pattern with white-to-warm gradient and bottom fade.
 
 ---
 
+## Content Backgrounds
+
+> From Figma Brand Guidelines (New BGs section). Use for social creatives, ads, hero sections, card backgrounds, and video thumbnails. See `brand.json` gradients for token values.
+
+### Warm Grain (`bg_warm_grain`)
+Yellow/orange/mint with grain texture overlay. The primary brand background.
+
+```css
+.bg-warm-grain {
+  position: relative;
+  background: linear-gradient(180deg, #e4e4e4 38%, #e4e4e4 49%, #f0c3ec 52%, #fbb439 59%, #aefb39 66%);
+  overflow: hidden;
+}
+.bg-warm-grain::before {
+  content: ''; position: absolute; inset: 0;
+  background: inherit; transform: rotate(180deg);
+  mix-blend-mode: soft-light;
+}
+.bg-warm-grain::after {
+  content: ''; position: absolute; inset: 0;
+  background: url('data:image/svg+xml,...') repeat; /* grain noise texture */
+  mix-blend-mode: overlay; opacity: 0.5;
+  pointer-events: none;
+}
+```
+
+### Amber Glow (`bg_amber_glow`)
+Orange/amber grainy warmth with rounded corners. Cards and social posts.
+
+```css
+.bg-amber-glow {
+  position: relative;
+  background: #ff5500;
+  border-radius: 46px;
+  overflow: hidden;
+}
+.bg-amber-glow::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, #f6f6f6 11%, #dadee8 45%, #eea247 92%, #f0b953 108%);
+  mix-blend-mode: screen;
+  border-radius: 46px;
+}
+.bg-amber-glow::after {
+  content: ''; position: absolute; inset: 0;
+  mix-blend-mode: overlay; opacity: 0.7;
+  border-radius: 46px;
+  pointer-events: none;
+}
+```
+
+### Peach Lavender (`bg_peach_lavender`)
+Soft salmon-to-lavender gradient. Calm, editorial feel.
+
+```css
+.bg-peach-lavender {
+  background: linear-gradient(0deg, #ff5500 12%, #ffc494 8%, #f5f5f4 66%);
+}
+```
+
+### Hot Orange (`bg_hot_orange`)
+Intense blurred orange/red. High energy for CTAs and announcements.
+
+```css
+.bg-hot-orange {
+  position: relative;
+  background: #ede8e4;
+  overflow: hidden;
+}
+.bg-hot-orange::before {
+  content: ''; position: absolute;
+  inset: -200px; /* extra bleed for blur */
+  background:
+    radial-gradient(ellipse at 30% 40%, #e04010 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 70%, #e04010 0%, transparent 50%),
+    linear-gradient(180deg, #f08040 0%, #ffb060 50%, #ede8e4 100%);
+  filter: blur(200px);
+}
+```
+
+### Pink Dream (`bg_pink_dream`)
+Lavender/pink/amber dreamy gradient with rounded corners.
+
+```css
+.bg-pink-dream {
+  position: relative;
+  background: #ede8e4;
+  border-radius: 58px;
+  overflow: hidden;
+}
+.bg-pink-dream::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(-90deg, rgba(251,180,57,0.3) 47%, rgba(242,255,124,0.3) 86%);
+  mix-blend-mode: saturation;
+  border-radius: 58px;
+}
+```
+
+### Ocean Wave (`bg_ocean_wave`)
+Blue/teal/white wavy gradient. Cool contrast with the warm brand palette.
+
+```css
+.bg-ocean-wave {
+  background:
+    radial-gradient(ellipse at 20% 20%, #2020ff 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 60%, #40a0d0 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, #60c0d0 0%, transparent 40%),
+    linear-gradient(135deg, #e0f0f0 0%, #c0e0f0 50%, #e8f4f0 100%);
+}
+```
+
+### When to Use Each Background
+
+| Background | Best For | Mood |
+|-----------|----------|------|
+| `bg_warm_grain` | Hero sections, feature visuals, main creatives | Warm, vibrant, textured |
+| `bg_amber_glow` | Social cards, LinkedIn images, card backgrounds | Energetic, bold |
+| `bg_peach_lavender` | Settings pages, overlay panels, editorial layouts | Calm, soft, professional |
+| `bg_hot_orange` | CTA sections, announcement banners, urgency | High energy, attention |
+| `bg_pink_dream` | Community posts, event visuals, lifestyle content | Dreamy, approachable |
+| `bg_ocean_wave` | Data/analytics sections, contrast panels, tech content | Cool, expansive, modern |
+
+---
+
 ## Section Headers
 
 ### Centered Header (with eyebrow)

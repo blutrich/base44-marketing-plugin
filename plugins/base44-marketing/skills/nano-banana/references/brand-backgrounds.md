@@ -1,46 +1,67 @@
 # Base44 Brand Backgrounds
 
 > Source: Figma Brand Guidelines (node 668:437, "New BGs" section)
+> CSS implementations: `design-system.md` > Content Backgrounds section
+> Gradient tokens: `brand.json` > gradients > `bg_*` entries
 
 ## 6 Official Background Styles
 
-### 1. Warm Grain (default for social posts)
+### 1. Warm Grain — `bg_warm_grain` (default for social posts)
 - Warm orange/yellow/green gradient blobs with grain texture overlay
-- Colors: orange (#FF631F), golden yellow, soft green, hints of pink
-- Grain: `mix-blend-overlay` noise texture on top
+- Colors: orange (#FF631F), golden yellow (#FBB439), soft green (#AEFB39), pink (#F0C3EC)
+- CSS: `linear-gradient(180deg, #e4e4e4 38%, #e4e4e4 49%, #f0c3ec 52%, #fbb439 59%, #aefb39 66%)`
+- Grain: `mix-blend-overlay` noise texture on top, rotated 180deg base with `mix-blend-soft-light`
 - Mood: energetic, creative, warm
 - **Use for:** LinkedIn posts, X cards, general social content
 
-### 2. Orange Sunset (feature announcements)
-- Rich orange gradient with grain texture
-- Colors: deep orange (#FF5500), golden (#FBB439), cream white
-- Gradient overlay: `mix-blend-screen`, top-to-bottom light-to-warm
+### 2. Amber Glow — `bg_amber_glow` (feature announcements)
+- Rich orange/amber gradient with grain texture
+- Colors: deep orange (#FF5500), amber (#EEA247), golden (#F0B953), cream (#F6F6F6)
+- CSS base: `#ff5500` with overlay `linear-gradient(180deg, #f6f6f6 11%, #dadee8 45%, #eea247 92%, #f0b953 108%)`
+- Blend: `mix-blend-screen` gradient over solid orange
 - Rounded corners (46px at full scale)
 - **Use for:** Feature launches, product announcements, hero visuals
 
-### 3. Plan Mode (soft gradient)
+### 3. Peach Lavender — `bg_peach_lavender` (soft gradient)
 - Smooth gradient: warm peach top, lavender/purple middle, orange bottom
-- Base gradient: `linear-gradient(0deg, #FF5500 12%, #FFC494 8%, #F5F5F4 66%)`
+- Colors: orange (#FF5500), peach (#FFC494), off-white (#F5F5F4), lavender undertones
+- CSS: `linear-gradient(0deg, #FF5500 12%, #FFC494 8%, #F5F5F4 66%)`
 - Subtle blurred texture underneath
 - **Use for:** Strategic content, thought leadership, educational posts
 
-### 4. Blurred Orange Abstract (bold energy)
-- Heavily blurred abstract shapes in orange tones
-- Background: #EDE8E4 (warm gray)
-- Blur radius: 200px
-- **Use for:** Bold announcements, high-energy content, ad backgrounds
+### 4. Hot Orange — `bg_hot_orange` (bold energy)
+- Heavily blurred abstract shapes in orange/red tones
+- Background base: #EDE8E4 (warm gray)
+- CSS: layered radial gradients with `filter: blur(200px)`
+- Colors: red-orange (#E04010), orange (#F08040), amber (#FFB060)
+- **Use for:** Bold announcements, high-energy content, ad backgrounds, CTAs
 
-### 5. Pastel Abstract (creative/playful)
+### 5. Pink Dream — `bg_pink_dream` (creative/playful)
 - Soft pastel: purple, pink, yellow, light blue
-- Map-like abstract base with saturation blend
-- Gradient overlay: golden-to-green at 30% opacity
+- Background base: #EDE8E4 with abstract map-like base image
+- CSS overlay: `linear-gradient(-90deg, rgba(251,180,57,0.3) 47%, rgba(242,255,124,0.3) 86%)`
+- Blend: `mix-blend-saturation`
 - Rounded corners (58px at full scale)
-- **Use for:** Community content, creative showcases, casual posts
+- **Use for:** Community content, creative showcases, casual posts, events
 
-### 6. Blue Waves (calm/professional)
+### 6. Ocean Wave — `bg_ocean_wave` (calm/professional)
 - Cool blue and teal abstract waves
-- Colors: deep blue, sky blue (#7CBFD5), light blue (#BFD7E0), white
-- **Use for:** Professional content, data insights, trust-building posts
+- Colors: deep blue (#2020FF), sky blue (#40A0D0), teal (#60C0D0), light (#C0E0F0)
+- CSS: layered radial gradients creating wave-like motion
+- **Use for:** Data insights, analytics visuals, professional content, trust-building posts
+
+## Quick Selection Guide
+
+| Content Type | Background | Why |
+|-------------|-----------|-----|
+| Feature launch social post | `bg_amber_glow` | Bold, on-brand, eye-catching |
+| LinkedIn thought leadership | `bg_peach_lavender` | Professional, calm, editorial |
+| X announcement | `bg_warm_grain` | Textured, unique, brand default |
+| CTA / urgency | `bg_hot_orange` | High energy, grabs attention |
+| Community / Discord | `bg_pink_dream` | Approachable, fun, inviting |
+| Data / metrics visual | `bg_ocean_wave` | Cool contrast, readable |
+| Video thumbnail | `bg_warm_grain` or `bg_amber_glow` | Thumbnail-friendly, bold |
+| Ad creative | `bg_hot_orange` or `bg_amber_glow` | Conversion-optimized, bold |
 
 ## Brand Color Palette (for text overlays and frames)
 
