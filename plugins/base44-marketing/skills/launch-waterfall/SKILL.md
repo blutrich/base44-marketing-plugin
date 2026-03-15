@@ -57,6 +57,16 @@ Phase 7: PUSH TO PRODUCT APP (auto)
 **Who runs it:** Router auto-invokes when FEATURE_INTEL finds a significant new feature.
 **Time:** Runs during development phase, weeks before launch assignment.
 
+### Step 0a: Scan #product-marketing-sync (MANDATORY)
+
+Read `#product-marketing-sync` (`C0A8DTGTHBK`) for any announcements, release notes, or upcoming launches related to this feature:
+
+```
+slack_read_channel(channel_id="C0A8DTGTHBK")
+```
+
+Look for: release dates, feature descriptions, status updates, linked PRs, scope changes. This channel is the source of truth for what product is shipping and when.
+
 ### What to gather:
 
 1. **Competitive Landscape**
@@ -179,11 +189,14 @@ AskUserQuestion(questions=[
 ### Sources to read (supplement PMM answers):
 
 ```
-Skill(skill="feature-intel")          # Scan dev channels for product context
-Skill(skill="data-insight")           # Pull usage data if available
-slack_read_channel(channel_id=...)    # Product channels, beta feedback
+slack_read_channel(channel_id="C0A8DTGTHBK")  # #product-marketing-sync — release announcements, launch dates, scope
+Skill(skill="feature-intel")                    # Scan dev channels for product context
+Skill(skill="data-insight")                     # Pull usage data if available
+slack_read_channel(channel_id=...)              # Feature-specific channels, beta feedback
 Read(file_path="output/launch/{slug}/phase-0-discovery-brief.md")  # If exists
 ```
+
+> **#product-marketing-sync is mandatory.** It contains release announcements, launch timelines, and scope changes that the PMM may not have mentioned. Always read it.
 
 ### Additional PMM Input (Optional)
 
