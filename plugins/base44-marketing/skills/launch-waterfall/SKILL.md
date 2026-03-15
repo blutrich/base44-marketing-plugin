@@ -415,6 +415,26 @@ Save to `output/launch/{feature-slug}/phase-4-asset-plan.md` AND use template fr
 | D-1 | LinkedIn (Maor) | "Been working on something" | Warm up audience |
 | D-0 | All channels | Full launch | Maximum reach |
 
+## Visual Creative Brief (nano-banana prompts)
+
+Every channel asset that needs an image gets a planned creative brief here. nano-banana executes these in Phase 5 — it does NOT invent its own concepts.
+
+| # | Creative | Channel | Background | Imagen 3 Prompt | Overlay Text | Dimensions |
+|---|---------|---------|------------|----------------|-------------|------------|
+| V1 | Hero image | LinkedIn | `bg_amber_glow` | {describe the photo/scene to generate, or "Figma screenshot" if using real UI} | "{headline from Messaging Framework}" | 1200x627 |
+| V2 | Announcement card | X | `bg_warm_grain` | Figma screenshot: {node description} | "{hook from channel adaptations}" | 1600x900 |
+| V3 | Community visual | Discord | `bg_pink_dream` | {scene description} | "{community hook}" | 1080x1080 |
+| V4 | Ad creative (square) | Meta/LinkedIn Ads | `bg_hot_orange` | {product screenshot or lifestyle} | "{CTA from Messaging Framework}" | 1080x1080 |
+| V5 | Maor post image | LinkedIn (Maor) | `bg_peach_lavender` | Figma screenshot: {feature UI} | none (photo only) | 1200x627 |
+| V6 | Video thumbnail | YouTube/social | `bg_amber_glow` | {thumbnail scene} | "{H1 option}" | 1920x1080 |
+
+### Prompt Rules:
+- **Figma first:** If Phase 0/1 captured Figma screenshots in `output/launch/{slug}/figma-assets/`, use those as base images instead of AI-generated photos
+- **No stock photos:** Never prompt for generic "person at desk" or "team meeting" scenes. Prompt for specific, feature-relevant compositions
+- **Product UI visible:** At least 2 creatives must show the actual product interface (from Figma screenshots)
+- **Messaging-derived:** All overlay text must come from the Messaging Framework (Phase 3). No invented copy
+- **Background selection:** Pick from the 6 brand backgrounds based on the Quick Selection Guide in `brand-backgrounds.md`
+
 ## Dependencies Graph
 {Which assets block which (e.g., landing page must exist before any post can link to it)}
 
@@ -424,7 +444,7 @@ Save to `output/launch/{feature-slug}/phase-4-asset-plan.md` AND use template fr
 - [ ] CEO/Maor (personal posts)
 ```
 
-**GATE:** Asset Plan approved. All assets have owner agents, deadlines, and dependencies mapped. Community activation plan exists.
+**GATE:** Asset Plan approved. All assets have owner agents, deadlines, and dependencies mapped. Community activation plan exists. Visual Creative Brief has prompts for every channel that needs an image.
 
 ---
 
@@ -465,9 +485,20 @@ Save to `output/launch/{feature-slug}/phase-4-asset-plan.md` AND use template fr
 **NEVER generate HTML/CSS as a substitute for visual creatives.** HTML is for landing pages only. Social creatives are PNG/JPG files produced by nano-banana with brand backgrounds (`bg_*`), STK Miso font, and the official logo.
 
 **Source material for nano-banana:**
+- **Visual Creative Brief from Phase 4** — contains the exact prompts, backgrounds, overlay text, and dimensions for every creative. nano-banana executes these, it does NOT invent its own
 - Figma screenshots from `output/launch/{slug}/figma-assets/` (captured in Phase 0/1)
 - Brand backgrounds from `brand.json` (`bg_warm_grain`, `bg_amber_glow`, etc.)
 - Product screenshots (real UI, not mockups)
+
+**nano-banana execution flow in Phase 5:**
+```
+FOR EACH row in Visual Creative Brief (Phase 4):
+  1. If prompt says "Figma screenshot" → use saved file from figma-assets/
+  2. Else → run generate_image.py with the planned Imagen 3 prompt
+  3. Run composite_social.py with the planned background, overlay text, and dimensions
+  4. Save to output/launch/{slug}/assets/visuals/V{n}-{channel}.png
+  5. Run through brand-guardian visual check
+```
 
 **WRONG:** Generating an HTML card with CSS gradients and calling it a "social creative."
 **WRONG:** Having the copywriter write a LinkedIn post. The linkedin-specialist exists for a reason.
