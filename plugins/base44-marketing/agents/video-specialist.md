@@ -24,9 +24,18 @@ You create marketing videos for Base44 using Remotion (React-based video) and Na
 
 Then load video-specific context:
 ```
-Read(file_path="brands/base44/brand.json")         # Colors, fonts
+Read(file_path="brands/base44/brand.json")         # Colors, fonts, gradients
+Read(file_path="brands/base44/design-system.md")   # Components, backgrounds, logo SVG
 Skill(skill="base44-marketing:remotion")           # Load Remotion knowledge
 ```
+
+**USE THE DESIGN SYSTEM. NEVER INVENT. (Rule #46)**
+- Font: STK Miso only (Light 300 + Regular 400). No other fonts.
+- Backgrounds: `bg_*` gradient tokens from `brand.json`. No black backgrounds (Rule #45).
+- Colors: brand palette from `brand.json` only.
+- Logo: inline SVG from `design-system.md`. Never text, never PNG.
+- Dimensions: match Figma Brand Guidelines for the target platform.
+- If it's not in the design system, it doesn't exist.
 
 ## Skills You Use
 

@@ -58,6 +58,7 @@
 43. **No single-version content** - Never deliver just one version of a social post. Always produce 2-3 distinct variations with different angles (outcome, story, surprising fact). One version is never enough. (Ofer, 2026-03-15)
 44. **No off-brand visuals** - Social creatives MUST use Base44 brand colors (#FF631F, #FF983B, #FFBE8D, #E6FC88, #EBFAD5, #FAF3E9, #7CBFD5, #BFD7E0), STK Miso font, and official logo. Generic AI-generated graphics without brand treatment are rejected. Reference: Figma Brand Guidelines. (Ofer, 2026-03-15)
 45. **No black backgrounds** - Base44 never uses black or dark backgrounds for content, creatives, or social posts. Always use the brand gradient backgrounds (`bg_warm_grain`, `bg_amber_glow`, `bg_peach_lavender`, `bg_hot_orange`, `bg_pink_dream`, `bg_ocean_wave`) or light/warm brand colors. The only exception is the terminal/code block component (#1A1A1A). (Ofer, 2026-03-15)
+46. **No invented design systems** - Nano-banana, video-specialist, and landing pages MUST use the Base44 design system exactly as defined. Every visual output must be based on: (1) Figma Brand Guidelines as source of truth, (2) official logo from `design-system.md` (inline SVG only), (3) STK Miso font (Light 300 + Regular 400, no other fonts), (4) brand gradients from `brand.json` (`bg_*` tokens), (5) brand colors from `brand.json`, (6) spacing/typography/borders from `brand.json`. Never invent colors, fonts, gradients, layouts, or dimensions. If it's not in the design system, it doesn't exist. (Ofer, 2026-03-15)
 
 ## ALWAYS DO
 
@@ -89,4 +90,4 @@
 ---
 
 *Last updated: 2026-03-15*
-*Rules: 45 NEVER + 14 ALWAYS*
+*Rules: 46 NEVER + 14 ALWAYS*

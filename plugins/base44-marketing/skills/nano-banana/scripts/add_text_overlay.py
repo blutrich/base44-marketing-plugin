@@ -20,11 +20,12 @@ RENDER_SCALE = 2
 # Default output directory (current working directory)
 DEFAULT_OUTPUT_DIR = Path.cwd()
 
-# Font paths
+# Font paths — STK Miso ONLY (Rule #46: never use other fonts)
 FONTS = [
+    Path(__file__).parent.parent.parent.parent / "assets" / "fonts" / "STKMiso-Light.ttf",
+    Path(__file__).parent.parent.parent.parent / "assets" / "fonts" / "STKMiso-Regular.ttf",
     Path.home() / "Library/Fonts/STKMiso-Light.ttf",
     Path.home() / "Library/Fonts/STKMiso-Regular.ttf",
-    "/System/Library/Fonts/Helvetica.ttc",
 ]
 
 # Logo path
@@ -40,7 +41,7 @@ def get_font(size: int) -> ImageFont.FreeTypeFont:
                 return ImageFont.truetype(str(font_path), scaled_size)
             except:
                 continue
-    return ImageFont.load_default()
+    raise FileNotFoundError("STK Miso font not found. Install STKMiso-Light.ttf and STKMiso-Regular.ttf to assets/fonts/ or ~/Library/Fonts/. No other fonts are allowed (Rule #46).")
 
 
 def add_logo(overlay: Image.Image, position: str = "top-left", size: int = 120) -> Image.Image:

@@ -10,6 +10,23 @@ Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/learning-log.md")     # Recent learnings
 ```
 
+## Before Creating Visuals (MANDATORY for nano-banana, video-specialist, landing pages)
+
+```
+Read(file_path="brands/base44/design-system.md")     # CSS components, backgrounds, logo SVG
+Read(file_path="brands/base44/brand.json")            # Tokens: colors, fonts, gradients, spacing
+```
+
+**USE THE DESIGN SYSTEM. NEVER INVENT.**
+- Logo: inline SVG from `design-system.md` only (never text, never PNG)
+- Font: STK Miso Light (300) + Regular (400) only (never Arial, Inter, system fonts)
+- Backgrounds: `bg_*` gradient tokens from `brand.json` only (never black, never invented gradients)
+- Colors: brand palette from `brand.json` only (never random hex values)
+- Spacing/borders/shadows: values from `brand.json` only
+- Dimensions: match Figma Brand Guidelines (social: 1080x1080, LinkedIn: 1200x627, X: 1600x900)
+
+If a visual element isn't defined in the design system, it doesn't exist. Don't create it.
+
 ## Messaging Framework Rule (LAUNCH workflows)
 
 When creating content as part of a LAUNCH waterfall, your Messaging Framework is your source of truth:

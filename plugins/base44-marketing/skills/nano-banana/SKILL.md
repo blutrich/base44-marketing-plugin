@@ -39,12 +39,20 @@ python3 scripts/composite_social.py text-card \
   -o creative-stats.png
 ```
 
-## Brand Reference
+## Brand Reference (MANDATORY — Rule #46)
 
 **ALWAYS read before generating any creative:**
 - `references/brand-backgrounds.md` - 6 official background styles, full color palette, logo rules, typography
-- `brands/base44/brand.json` - Design tokens (colors, fonts, spacing)
-- `brands/base44/design-system.md` - Component library
+- `brands/base44/brand.json` - Design tokens (colors, fonts, spacing, gradients)
+- `brands/base44/design-system.md` - Component library, CSS implementations
+
+**USE THE DESIGN SYSTEM. NEVER INVENT.**
+- Font: STK Miso only (Light 300 + Regular 400). No Arial, Inter, system fonts.
+- Backgrounds: `bg_*` gradient tokens only. No black backgrounds (Rule #45). No invented gradients.
+- Colors: brand palette from `brand.json` only. No random hex values.
+- Logo: inline SVG from `design-system.md`. Never text, never PNG.
+- Dimensions: 1080x1080 (social square), 1200x627 (LinkedIn), 1600x900 (X), 1080x1920 (story).
+- If it's not in the design system, it doesn't exist. Don't create it.
 
 ### Brand Colors (from Figma Brand Guidelines)
 

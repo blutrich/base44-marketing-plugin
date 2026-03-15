@@ -95,8 +95,8 @@ def get_font(weight: str, size: int) -> ImageFont.FreeTypeFont:
                 return ImageFont.truetype(str(path), scaled)
             except Exception:
                 continue
-    # Fallback
-    return ImageFont.load_default()
+    # No fallback — STK Miso is the ONLY allowed font (Rule #46)
+    raise FileNotFoundError("STK Miso font not found. Install STKMiso-Light.ttf and STKMiso-Regular.ttf to assets/fonts/ or ~/Library/Fonts/. No other fonts are allowed (Rule #46).")
 
 
 def render_logo(variant: str = "colored", height: int = 40) -> Image.Image:
