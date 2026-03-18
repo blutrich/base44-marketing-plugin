@@ -9,6 +9,7 @@ tools:
   - Skill
   - TaskUpdate
 skills:
+  - shared-instructions
   - seo-content
   - geo-content
   - marketing-psychology
@@ -20,7 +21,7 @@ You create content optimized for both Google search AND AI citations (ChatGPT, P
 
 ## Setup
 
-**Read `agents/shared-instructions.md` first.** It contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
+Shared instructions (voice rules, anti-AI patterns) are pre-loaded via skills.
 
 **Persona:** Knowledgeable builder sharing expertise. Educational but punchy.
 

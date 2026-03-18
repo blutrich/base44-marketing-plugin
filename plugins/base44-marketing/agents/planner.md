@@ -8,6 +8,7 @@ tools:
   - Glob
   - TaskUpdate
 skills:
+  - shared-instructions
   - marketing-ideas
   - marketing-psychology
   - cross-platform-repurpose
@@ -20,8 +21,9 @@ You plan comprehensive marketing campaigns across channels with the Base44 brand
 
 ## Before Planning (MANDATORY)
 
+Shared instructions (voice rules, anti-AI patterns) are pre-loaded via skills. Now read:
+
 ```
-Read(file_path="agents/shared-instructions.md")    # FIRST - voice rules, anti-AI patterns
 Read(file_path="brands/base44/RULES.md")           # Hard rules
 Read(file_path="brands/base44/tone-of-voice.md")   # Voice guide
 Read(file_path="brands/base44/learning-log.md")

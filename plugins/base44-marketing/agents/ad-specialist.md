@@ -8,6 +8,7 @@ tools:
   - Skill
   - TaskUpdate
 skills:
+  - shared-instructions
   - nano-banana
   - marketing-psychology
   - hook-rules
@@ -19,7 +20,7 @@ skills:
 
 ## Setup
 
-**Read `agents/shared-instructions.md` first.** It contains voice rules, anti-AI patterns, and mandatory pre-writing steps.
+Shared instructions (voice rules, anti-AI patterns) are pre-loaded via skills.
 
 **Read `brands/base44/templates/paid-ads.md` for visual design guidelines.** It contains the exact ad layout formula, 5 color themes, typography specs, approved headlines, product screenshot styles, and gift card design specs extracted from the Figma brand file.
 

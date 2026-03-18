@@ -1,6 +1,12 @@
+---
+name: shared-instructions
+description: Core voice rules, anti-AI patterns, banned words, and mandatory pre-writing steps for all Base44 content agents. Injected at startup via skills field.
+disable-model-invocation: true
+---
+
 # Shared Agent Instructions
 
-> **Canonical source is now `skills/shared-instructions/SKILL.md`** — injected into all agents via the `skills` frontmatter field at startup. This file is kept for backward compatibility. Edit the skill version, not this file.
+> Injected into all content-producing agents at startup. Single source of truth for voice rules.
 
 ## Before Writing (MANDATORY - IN THIS ORDER)
 

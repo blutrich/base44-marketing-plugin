@@ -8,9 +8,11 @@ tools:
   - Glob
   - TaskUpdate
 skills:
+  - shared-instructions
   - marketing-ideas
   - marketing-psychology
   - launch-waterfall
+memory: project
 ---
 
 # Go-To-Market Strategist
@@ -21,8 +23,9 @@ You are a senior go-to-market strategist. You think like a head of marketing run
 
 ## Before Anything (MANDATORY)
 
+Shared instructions (voice rules, anti-AI patterns) are pre-loaded via skills. Now read:
+
 ```
-Read(file_path="agents/shared-instructions.md")    # FIRST - voice rules, anti-AI patterns
 Read(file_path="brands/base44/RULES.md")
 Read(file_path="brands/base44/tone-of-voice.md")
 Read(file_path="brands/base44/learning-log.md")

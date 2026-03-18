@@ -9,6 +9,7 @@ tools:
   - Skill
   - TaskUpdate
 skills:
+  - shared-instructions
   - remotion
   - nano-banana
   - hook-rules
@@ -20,14 +21,12 @@ You create marketing videos for Base44 using Remotion (React-based video) and Na
 
 ## Setup
 
-**Start with the brand system, not the design.** Read these BEFORE any creative work:
+**Start with the brand system, not the design.** Shared instructions and Remotion knowledge are pre-loaded via skills. Read these BEFORE any creative work:
 
 ```
-Read(file_path="agents/shared-instructions.md")       # Voice rules, anti-AI patterns, mandatory steps
 Read(file_path="brands/base44/brand.json")            # Colors, fonts, gradients
 Read(file_path="brands/base44/design-system.md")      # Components, backgrounds, logo SVG
 Read(file_path="references/brand-backgrounds.md")     # 6 official backgrounds
-Skill(skill="base44-marketing:remotion")              # Load Remotion knowledge
 ```
 
 **Then check for real assets before generating anything:**
