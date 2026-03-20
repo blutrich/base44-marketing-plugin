@@ -57,11 +57,12 @@ I spent $12,000 on AI tools last year.
 $9,200 was wasted.
 ```
 
-### Pattern 2: Contrarian Take
+### Pattern 2: Bold Opinion
 ```
 Unpopular opinion: Your AI strategy doesn't need more tools.
 It needs fewer.
 ```
+> Note: This is a strong stance based on experience, NOT contrarian-for-controversy. Never frame as "Stop doing X" or "Everyone is wrong about Y". See hook-rules for banned contrarian patterns.
 
 ### Pattern 3: Story Opening
 ```
@@ -154,10 +155,10 @@ Step 3: [Action]
 [Where to start]
 ```
 
-### Structure 4: Hot Take
+### Structure 4: Strong Stance
 
 ```
-[Controversial statement]
+[Bold opinion backed by experience]
 
 [Line break]
 

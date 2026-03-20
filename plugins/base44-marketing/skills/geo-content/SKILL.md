@@ -304,8 +304,7 @@ The skill is particularly valuable for:
 
 ---
 
-*Last updated: January 2025*
-*Author: Ofer Blutrich, AI Implementation Consultant*
+*Last updated: March 2026*
 ```
 
 ---
