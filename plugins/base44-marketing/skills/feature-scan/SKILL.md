@@ -225,11 +225,33 @@ curl -s -X POST "https://app.base44.com/api/apps/69809e95545ed2e086d167f9/entiti
 
 ### 4c. MarketingActivity (Product App)
 
-Also write to MarketingActivity in Product App, same as feature-brief Step 4a.
+Also write to MarketingActivity in Product App. Uses the same collision detection as feature-brief Step 4a.
 
+**Check for existing record first:**
 ```bash
 PRODUCT_API_KEY=$(python3 -c "import json; c=json.load(open('.claude/marketing/api-config.json')); print(c.get('product_app_api_key', c.get('api_key')))") && \
+curl -s "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity" \
+  -H "api_key: $PRODUCT_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+- **If NOT found:** POST new record. Assign `activity_number` (highest existing + 1).
+- **If found with empty channel slots:** PUT to fill only empty slots. No conflict.
+- **If found with channels that already have content we want to push:** In batch mode, **fill empty slots only**. Append to `approval_notes`: "Skipped {channels} (already had content). Run push-to-activity to override." Never silently overwrite in batch.
+
+**Payload must include provenance fields** (`created_by_user`, `created_by_tool`, `generation_method`, `pushed_at`, `content_maturity`, `last_edited_by`, `last_edited_at`, `edit_history`). Use `status: "new"` and `approval_status: "draft"`.
+
+**Create:**
+```bash
 curl -s -X POST "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity" \
+  -H "api_key: $PRODUCT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d @/tmp/marketing-activity-[name].json
+```
+
+**Update (empty slots only):**
+```bash
+curl -s -X PUT "https://app.base44.com/api/apps/692b72212d45f3a5bc07e7ae/entities/MarketingActivity/[RECORD_ID]" \
   -H "api_key: $PRODUCT_API_KEY" \
   -H "Content-Type: application/json" \
   -d @/tmp/marketing-activity-[name].json

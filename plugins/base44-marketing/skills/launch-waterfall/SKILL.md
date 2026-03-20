@@ -698,7 +698,7 @@ Use template from `brands/base44/templates/launch-checklist.md`.
 2. Picks the recommended variation from each asset
 3. Maps each asset to the corresponding MarketingActivity channel field
 4. Creates or updates a MarketingActivity record in the Product App
-5. Sets `approval_status: pending` and `submitted_at: now`
+5. Sets `approval_status: draft`, provenance fields, and `submitted_at: now`
 6. Reports which channels were filled and which are local-only
 
 ### Channel mapping:
