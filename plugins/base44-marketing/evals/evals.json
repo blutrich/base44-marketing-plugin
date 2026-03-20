@@ -1,0 +1,254 @@
+{
+  "skill_name": "base44-marketing",
+  "version": "1.18.0",
+  "evals": [
+    {
+      "id": 1,
+      "category": "routing",
+      "name": "linkedin-post-routes-to-linkedin-specialist",
+      "prompt": "Write a LinkedIn post about our new Profiles feature — builders can now have public profiles at base44.com/@username with an app showcase and reputation system",
+      "expected_output": "LinkedIn post in brand voice, 80-120 words, with 2-3 variations",
+      "assertions": [
+        {"text": "Routes to linkedin-specialist agent (not copywriter or seo-specialist)", "type": "routing"},
+        {"text": "Loads linkedin-viral skill", "type": "skill_activation"},
+        {"text": "Loads shared-instructions skill (injected via frontmatter)", "type": "skill_activation"},
+        {"text": "Output contains 2-3 variations with different angles", "type": "output_format"}
+      ]
+    },
+    {
+      "id": 2,
+      "category": "routing",
+      "name": "x-thread-routes-to-x-specialist",
+      "prompt": "Create a thread for X about hitting $100M ARR — we want to celebrate the milestone with our community",
+      "expected_output": "X thread with 5-12 tweets, each under 280 chars",
+      "assertions": [
+        {"text": "Routes to x-specialist agent (not linkedin-specialist)", "type": "routing"},
+        {"text": "Loads x-viral skill", "type": "skill_activation"},
+        {"text": "Each tweet is under 280 characters", "type": "output_constraint"},
+        {"text": "Thread uses 🧵 or 👇 signal", "type": "output_format"}
+      ]
+    },
+    {
+      "id": 3,
+      "category": "routing",
+      "name": "strategy-routes-to-gtm-not-content",
+      "prompt": "Help me think through our go-to-market for the new Agents feature — I want a holistic plan, not just content",
+      "expected_output": "Discovery questions first, then strategic plan. No content generation.",
+      "assertions": [
+        {"text": "Routes to gtm-strategist agent (not planner or copywriter)", "type": "routing"},
+        {"text": "Starts with discovery questions, not content", "type": "workflow"},
+        {"text": "Does NOT produce LinkedIn posts, tweets, or email copy", "type": "negative"},
+        {"text": "Asks at least 3 discovery questions before planning", "type": "workflow"}
+      ]
+    },
+    {
+      "id": 4,
+      "category": "routing",
+      "name": "paid-ad-routes-to-ad-specialist",
+      "prompt": "Create a Meta feed ad for our gift cards feature — $10 to $500, send someone the ability to build their first app",
+      "expected_output": "Ad package with headline (<40 chars), primary text (<130 chars), visual prompt",
+      "assertions": [
+        {"text": "Routes to ad-specialist agent", "type": "routing"},
+        {"text": "Headline is under 40 characters", "type": "output_constraint"},
+        {"text": "Primary text is under 130 characters", "type": "output_constraint"},
+        {"text": "Uses one of the 5 approved ad styles (sunrise, ocean, sky-mist, warm-sand, gift-card)", "type": "output_format"},
+        {"text": "Runs visual quality gate (10-item checklist)", "type": "workflow"}
+      ]
+    },
+    {
+      "id": 5,
+      "category": "brand_voice",
+      "name": "no-banned-words-in-linkedin-post",
+      "prompt": "Write a LinkedIn post announcing that Base44 now supports custom AI agents that builders can configure per workspace",
+      "expected_output": "LinkedIn post free of all 130+ banned words",
+      "assertions": [
+        {"text": "Does NOT contain 'leverage', 'utilize', 'delve', 'craft', 'streamline', 'harness', 'empower'", "type": "banned_words"},
+        {"text": "Does NOT contain 'groundbreaking', 'robust', 'seamless', 'transformative', 'unprecedented'", "type": "banned_words"},
+        {"text": "Does NOT contain 'However,', 'Moreover,', 'Furthermore,', 'Additionally,', 'Nevertheless,'", "type": "banned_words"},
+        {"text": "Uses 'builders' not 'users' or 'customers'", "type": "vocabulary"},
+        {"text": "Uses 'ship' or 'go live' not 'deploy' or 'launch'", "type": "vocabulary"}
+      ]
+    },
+    {
+      "id": 6,
+      "category": "anti_ai_patterns",
+      "name": "no-em-dashes-no-rule-of-three",
+      "prompt": "Write a LinkedIn post about Base44 reaching 50,000 active builders this month",
+      "expected_output": "Post with zero em dashes, no rule-of-three patterns, no stacked fragments",
+      "assertions": [
+        {"text": "Contains zero em dashes (— or --)", "type": "pattern_check"},
+        {"text": "No rule-of-three: no groups of exactly 3 parallel adjectives, bullets, or phrases", "type": "pattern_check"},
+        {"text": "No stacked declarative fragments (e.g., 'One platform. Unlimited builders. No friction.')", "type": "pattern_check"},
+        {"text": "No contrast framing (e.g., 'It's not X, it's Y')", "type": "pattern_check"},
+        {"text": "No stacked short sentences (3+ short sentences in a row for dramatic effect)", "type": "pattern_check"},
+        {"text": "No 'Let's dive in' or 'Let's break this down' openers", "type": "pattern_check"}
+      ]
+    },
+    {
+      "id": 7,
+      "category": "anti_ai_patterns",
+      "name": "maor-test-natural-voice",
+      "prompt": "Write a LinkedIn post from Maor's personal account about shipping app migration — builders can now move entire workspaces between accounts",
+      "expected_output": "Post in Maor's voice: casual, specific, story-driven. Uses 'I' not 'we'.",
+      "assertions": [
+        {"text": "Uses 'I' pronouns (Maor personal account), not 'we'", "type": "voice"},
+        {"text": "Reads like a real person talking, not copywriting", "type": "voice"},
+        {"text": "Leads with user value, not feature name", "type": "structure"},
+        {"text": "No self-narration ('Here's why this matters', 'The key takeaway is')", "type": "pattern_check"},
+        {"text": "No fake vulnerability ('Honestly wasn't sure', 'Not gonna lie')", "type": "pattern_check"}
+      ]
+    },
+    {
+      "id": 8,
+      "category": "brand_voice",
+      "name": "positive-framing-no-competitors",
+      "prompt": "Write a LinkedIn post about Base44's new public profiles — we're the first app builder to offer this",
+      "expected_output": "Post that leads with builder benefit, never mentions competitors by name",
+      "assertions": [
+        {"text": "Does NOT name any competitors (Lovable, Bolt, Bubble, FlutterFlow, Glide, Monday, Adalo)", "type": "negative"},
+        {"text": "Leads with what the builder gets, not what others lack", "type": "framing"},
+        {"text": "No 'Unlike other platforms' or 'No other tool' framing", "type": "framing"},
+        {"text": "Feature name is NOT the hook — builder outcome is", "type": "structure"}
+      ]
+    },
+    {
+      "id": 9,
+      "category": "enum_correctness",
+      "name": "push-to-activity-correct-enums",
+      "prompt": "Push the Profiles launch content to the marketing activity",
+      "expected_output": "MarketingActivity payload with correct enum values",
+      "assertions": [
+        {"text": "status field is 'new' (not 'draft', not 'pending')", "type": "enum_check"},
+        {"text": "approval_status field is 'draft' (not 'pending', not 'submitted')", "type": "enum_check"},
+        {"text": "activity_type is one of: social_media, email, event, content, pr, other", "type": "enum_check"},
+        {"text": "content_maturity is 'raw_draft'", "type": "enum_check"},
+        {"text": "generation_method is 'ai_generated'", "type": "enum_check"}
+      ]
+    },
+    {
+      "id": 10,
+      "category": "provenance",
+      "name": "push-includes-all-provenance-fields",
+      "prompt": "Push the current LinkedIn and X content to the marketing activity for Profiles launch",
+      "expected_output": "Payload includes all provenance fields",
+      "assertions": [
+        {"text": "Payload contains 'created_by_user' field (non-empty)", "type": "field_present"},
+        {"text": "Payload contains 'created_by_tool' field matching 'Marketing Plugin v1.18'", "type": "field_value"},
+        {"text": "Payload contains 'generation_method' field", "type": "field_present"},
+        {"text": "Payload contains 'pushed_at' field with ISO timestamp", "type": "field_present"},
+        {"text": "Payload contains 'content_maturity' field", "type": "field_present"},
+        {"text": "Payload contains 'last_edited_by' field", "type": "field_present"},
+        {"text": "Payload contains 'last_edited_at' field", "type": "field_present"},
+        {"text": "Payload contains 'edit_history' array with at least 1 entry", "type": "field_present"},
+        {"text": "edit_history[0] has: timestamp, user, action, tool, channels_affected, note", "type": "field_structure"}
+      ]
+    },
+    {
+      "id": 11,
+      "category": "provenance",
+      "name": "activity-number-auto-assigned",
+      "prompt": "Create a new marketing activity for the Debug Mode feature and push the content",
+      "expected_output": "New record with auto-assigned activity_number",
+      "assertions": [
+        {"text": "Payload contains 'activity_number' field", "type": "field_present"},
+        {"text": "activity_number is a positive integer (not 0, not null)", "type": "field_value"},
+        {"text": "Activity number is reported as MA-{number} in the success output", "type": "output_format"}
+      ]
+    },
+    {
+      "id": 12,
+      "category": "collision_detection",
+      "name": "collision-detected-on-existing-content",
+      "prompt": "Push new LinkedIn content to the Profiles launch marketing activity (which already has LinkedIn content from a previous push)",
+      "expected_output": "Collision detected, user prompted with Replace/Create v2/Cancel options",
+      "assertions": [
+        {"text": "Detects that linkedin_base44_content is non-empty on existing record", "type": "collision"},
+        {"text": "Shows collision warning with channel name and existing author", "type": "output_format"},
+        {"text": "Presents AskUserQuestion with 3 options: Replace, Create v2, Cancel", "type": "workflow"},
+        {"text": "Does NOT silently overwrite existing content", "type": "negative"}
+      ]
+    },
+    {
+      "id": 13,
+      "category": "collision_detection",
+      "name": "no-collision-on-empty-slots",
+      "prompt": "Push community Discord content to the Profiles launch marketing activity (which has LinkedIn and X but no community content yet)",
+      "expected_output": "No collision, content pushed to empty slot without prompting",
+      "assertions": [
+        {"text": "Detects that community_content is empty on existing record", "type": "collision"},
+        {"text": "Does NOT show collision warning", "type": "negative"},
+        {"text": "Fills community_content via PUT without user prompt", "type": "workflow"},
+        {"text": "Preserves existing linkedin and x content untouched", "type": "data_integrity"}
+      ]
+    },
+    {
+      "id": 14,
+      "category": "brand_voice",
+      "name": "brand-guardian-catches-violations",
+      "prompt": "Review this LinkedIn post for brand compliance: 'We're excited to announce our groundbreaking new feature — a seamless, robust platform that leverages AI to transform how users deploy applications. Here's why this matters:'",
+      "expected_output": "Brand guardian scores this low and identifies all violations",
+      "assertions": [
+        {"text": "Flags 'We're excited to announce' as banned opener", "type": "detection"},
+        {"text": "Flags 'groundbreaking', 'seamless', 'robust' as banned AI adjectives", "type": "detection"},
+        {"text": "Flags 'leverages' as banned AI verb", "type": "detection"},
+        {"text": "Flags 'users' (should be 'builders')", "type": "detection"},
+        {"text": "Flags 'deploy' (should be 'ship' or 'go live')", "type": "detection"},
+        {"text": "Flags em dash (—)", "type": "detection"},
+        {"text": "Flags 'Here's why this matters' as self-narration", "type": "detection"},
+        {"text": "Score is below 7/10", "type": "scoring"},
+        {"text": "Provides rewritten version fixing all issues", "type": "output_format"}
+      ]
+    },
+    {
+      "id": 15,
+      "category": "routing",
+      "name": "launch-waterfall-triggers-on-feature-launch",
+      "prompt": "We're shipping Profiles next week — I need a full launch plan with content for all channels",
+      "expected_output": "Launch waterfall Phase 0-1 kicks off, not just a single post",
+      "assertions": [
+        {"text": "Triggers launch-waterfall skill (not just linkedin-specialist or planner)", "type": "routing"},
+        {"text": "Starts with Phase 1: Product Understanding (not jumping to content)", "type": "workflow"},
+        {"text": "Does NOT immediately produce LinkedIn/X posts", "type": "negative"},
+        {"text": "Asks discovery questions about the feature before planning", "type": "workflow"}
+      ]
+    },
+    {
+      "id": 16,
+      "category": "routing",
+      "name": "repurpose-routes-correctly",
+      "prompt": "Take this LinkedIn post and turn it into an X thread and a Discord announcement",
+      "expected_output": "Content adapted for each platform with correct formatting",
+      "assertions": [
+        {"text": "Triggers cross-platform-repurpose skill", "type": "routing"},
+        {"text": "X thread: each tweet under 280 chars", "type": "output_constraint"},
+        {"text": "Discord: casual tone, no external links in main post", "type": "output_format"},
+        {"text": "Adapts voice and structure per platform (not just copy-paste)", "type": "quality"}
+      ]
+    },
+    {
+      "id": 17,
+      "category": "brand_voice",
+      "name": "user-value-first-not-feature-name",
+      "prompt": "Write a LinkedIn post about our new Builder Skills feature",
+      "expected_output": "Post leads with what builder can do, not the feature name",
+      "assertions": [
+        {"text": "Hook/first line is about builder outcome, NOT 'Introducing Builder Skills'", "type": "structure"},
+        {"text": "Feature name appears buried in body, not as the hook", "type": "structure"},
+        {"text": "No 'We just shipped Builder Skills' as the opening", "type": "negative"}
+      ]
+    },
+    {
+      "id": 18,
+      "category": "enum_correctness",
+      "name": "feature-brief-correct-enums",
+      "prompt": "Pull a feature brief for the Agents feature from the #feat-agents Slack channel",
+      "expected_output": "Feature brief with correct MarketingActivity enum values",
+      "assertions": [
+        {"text": "MarketingActivity status is 'new' (not 'draft' or 'pending')", "type": "enum_check"},
+        {"text": "approval_status is 'draft' (not 'pending')", "type": "enum_check"},
+        {"text": "activity_type is 'content' (not 'feature_launch')", "type": "enum_check"},
+        {"text": "Includes provenance fields (created_by_user, created_by_tool, etc.)", "type": "field_present"}
+      ]
+    }
+  ]
+}
