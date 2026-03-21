@@ -143,9 +143,17 @@ Both framings carry the same information. The second sounds like a confident bra
 
 **Exception:** Internal docs (positioning documents, competitive briefs, discovery briefs) CAN name competitors. Only published content (social, email, blog, landing pages) must avoid it.
 
-## Only Verified Numbers
+## Only Verified Numbers AND Stories (MANDATORY)
 
-Never cite competitor statistics unless they come from a verifiable public source. Don't invent numbers like "8 million builders on Lovable." Only use:
+**Never invent builder stories.** "A builder asked us last month..." or "One of our builders had 14 apps..." is lying unless it actually happened. Only use stories from:
+- Real Slack conversations (from feat-* channels or #product-marketing-sync)
+- Case studies in `brands/base44/case-studies/`
+- Testimonials in `brands/base44/feedback/testimonials.md`
+- Data from data-insight skill (verified metrics)
+
+If no real story exists, use a hypothetical framed honestly ("Imagine you have..." or "Say you're a builder who...") or skip the story angle entirely and lead with the outcome.
+
+**Never cite competitor statistics** unless they come from a verifiable public source. Don't invent numbers like "8 million builders on Lovable." Only use:
 - Base44's own metrics (from data-insight or facts/metrics.md)
 - Publicly reported numbers with a source you can link to
 
@@ -161,7 +169,9 @@ AI groups everything in threes. If you write three adjectives, three bullets, or
 
 ## Always Lead with User Value, Not the Feature (MANDATORY)
 
-**NEVER** lead with what the feature IS. Lead with what it DOES for the builder. Builders don't care about feature names or technical capabilities. They care about the outcome.
+**NEVER** lead with what the feature IS or what the technology does. Lead with what it DOES for the builder. Builders don't care about feature names, technical capabilities, or how things work under the hood. They care about one thing: what can I do now that I couldn't before?
+
+Every hook, headline, and opening line must answer: "What does the builder get?" Not "What did we build?" Not "How does it work?" Not "What technology powers this?"
 
 - **Bad:** "We're shipping Builder Skills next week."
 - **Good:** "You can now customize how your AI builder works, per workspace, per app."
