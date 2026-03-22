@@ -561,6 +561,8 @@ AskUserQuestion(questions=[{
 
 ## Step 5: Push via REST API
 
+> **CRITICAL: Single-call rule.** Build the COMPLETE payload with ALL fields (content + provenance + brief + status + media URLs) in one JSON object. Make exactly ONE API call — POST for new records, PUT for updates. Never make multiple sequential updates to the same record; each API call generates a separate activity log entry in the Product App, creating confusing duplicate entries for the team.
+
 Write the payload to a temp file, then push:
 
 ### Create new:
