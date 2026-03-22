@@ -145,7 +145,7 @@ Every push to the Product App now includes:
 ### Provenance Tracking
 Every content push records who created it, how, and when:
 - `created_by_user` — email or name
-- `created_by_tool` — "Marketing Plugin v1.18"
+- `created_by_tool` — "Marketing Plugin v1.18.1"
 - `generation_method` — `ai_generated` / `ai_assisted` / `human_written`
 - `pushed_at` — ISO timestamp
 - `content_maturity` — `raw_draft` → `reviewed_draft` → `pmm_approved` → `final`

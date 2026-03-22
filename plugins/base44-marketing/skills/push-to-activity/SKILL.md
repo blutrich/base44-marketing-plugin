@@ -74,7 +74,7 @@ https://product-sync.base44.app/api/integrations/Core/UploadFile
 | Field | Type | Description |
 |-------|------|-------------|
 | `created_by_user` | string | Name or email of user who pushed this content |
-| `created_by_tool` | string | Tool that generated it (e.g., "Marketing Plugin v1.18") |
+| `created_by_tool` | string | Tool that generated it (e.g., "Marketing Plugin v1.18.1") |
 | `generation_method` | string | `ai_generated` / `ai_assisted` / `human_written` |
 | `pushed_at` | datetime | When content was first pushed |
 | `content_maturity` | string | `raw_draft` / `reviewed_draft` / `pmm_approved` / `final` |
@@ -308,7 +308,7 @@ CURRENT_TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   "approval_status": "draft",
 
   "created_by_user": "{CURRENT_USER}",
-  "created_by_tool": "Marketing Plugin v1.18",
+  "created_by_tool": "Marketing Plugin v1.18.1",
   "generation_method": "ai_generated",
   "pushed_at": "{CURRENT_TIMESTAMP}",
   "content_maturity": "raw_draft",
@@ -318,7 +318,7 @@ CURRENT_TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     "timestamp": "{CURRENT_TIMESTAMP}",
     "user": "{CURRENT_USER}",
     "action": "pushed_content",
-    "tool": "Marketing Plugin v1.18",
+    "tool": "Marketing Plugin v1.18.1",
     "channels_affected": ["{CHANNELS_AFFECTED}"],
     "note": "AI-generated content from {SOURCE: waterfall/feature-brief/standalone}"
   }],
@@ -480,7 +480,7 @@ AskUserQuestion(questions=[{
     "timestamp": "{CURRENT_TIMESTAMP}",
     "user": "{CURRENT_USER}",
     "action": "content_overridden",
-    "tool": "Marketing Plugin v1.18",
+    "tool": "Marketing Plugin v1.18.1",
     "channels_affected": ["{colliding channels}"],
     "note": "Replaced content originally pushed by {existing.created_by_user} on {existing.pushed_at}"
   },
@@ -488,7 +488,7 @@ AskUserQuestion(questions=[{
     "timestamp": "{CURRENT_TIMESTAMP}",
     "user": "{CURRENT_USER}",
     "action": "pushed_content",
-    "tool": "Marketing Plugin v1.18",
+    "tool": "Marketing Plugin v1.18.1",
     "channels_affected": ["{all channels}"],
     "note": "AI-generated content from {SOURCE}"
   }
@@ -605,7 +605,7 @@ Pushed to MarketingActivity:
 
   Provenance:
     Created by: {created_by_user}
-    Tool: Marketing Plugin v1.18
+    Tool: Marketing Plugin v1.18.1
     Method: ai_generated
     Pushed at: {pushed_at}
     Content maturity: raw_draft
@@ -656,7 +656,7 @@ For standalone:
 
 For standalone pushes, set:
 - `generation_method`: "ai_generated" (if plugin generated) or "ai_assisted" (if user wrote with plugin help) or "human_written" (if user provided exact text)
-- `created_by_tool`: "Marketing Plugin v1.18" (even for standalone)
+- `created_by_tool`: "Marketing Plugin v1.18.1" (even for standalone)
 - Brief fields: skip if no waterfall data exists
 
 ---
